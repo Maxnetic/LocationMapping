@@ -1,8 +1,11 @@
 import java.util.*;
 
+
 class Filter {
   public int startHour; // Zeit
   public int endHour;
+  public int startDay; // Datum
+  public int endDay;
 
   //time | service | latitude | longitude
   public Filter() {

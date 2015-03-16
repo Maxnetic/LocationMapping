@@ -1,6 +1,8 @@
 /**
  * Test Visualisierung Handydaten
  * 
+ * 16.3. 13:14 @dominik/max: added resizable screen feature
+ * 16.3. 13:15 @dominik/max: working on day filter
  */
 
 import de.fhpotsdam.unfolding.*;
@@ -22,11 +24,15 @@ TrackpointList gefilterteTrackpoints;
 
 void setup() {
   size(1000, 600);
+  if(frame != null){
+    frame.setResizable(true);
+  }
   smooth();
 
   // map = new UnfoldingMap(this, "map"); // default based on OSM(?)
   map = new UnfoldingMap(this, new Microsoft.RoadProvider());
   // map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
+  map.setTweening(true); // richtiges smooth Movement
   
   map.zoomAndPanTo(new Location(52.5f, 13.4f), 14); // Ort und Zoomlevel Init
   MapUtils.createDefaultEventDispatcher(this, map); //für StandardInteraktion
@@ -37,7 +43,9 @@ void setup() {
   
   
   // filtern und reduzieren
-  trackpoints= this.filtereWohnort(trackpoints); // überschreibt trackpoints mit den gefilterten trackpoints
+  //trackpoints = this.filtereWohnort(trackpoints); // überschreibt trackpoints mit den gefilterten trackpoints für Wohnort
+  
+  //trackpoints = this.filtere
   
   // zeichneMarker
   addAllMarker(); //fügt alle marker hinzu (Standardmarker in gau)
@@ -63,7 +71,7 @@ void draw() {
   void addAllMarker() {
     // Create point markers for locations
     Location loc;
-    for (int i=0; i<1000; i++) {
+    for (int i=0; i<100; i++) {          // i < x, wobei x Anzahl der vorher angezeigten Markern in Grau entspricht
       loc=trackpoints.get(i).getLocation();
       SimplePointMarker tmp = new SimplePointMarker(loc);
        //tmp.setColor(color(255, 0, 0, 100));
@@ -85,7 +93,7 @@ void draw() {
     Filter meinFilter = new Filter();
     meinFilter.startHour=2;
     meinFilter.endHour=4;
-    // jetzt müsste noch witerer Filter kommen, der nur die häufigste Location rausfiltert.
+    // jetzt müsste noch weiterer Filter kommen, der nur die häufigste Location rausfiltert.
     // meinFilter.giveTop(10); // würde die 10 häufigsten Locations rausfiltern
     TrackpointList gefilterteTrackpoints =  meinFilter.filter(trackpoints); // filter wendet den Filter an.
     // Test des Filters
@@ -93,5 +101,10 @@ void draw() {
     System.out.println(gefilterteTrackpoints.size());
     return gefilterteTrackpoints;
   }
+  
+  //TrackpointList filtereDatum(TrackpointList trackpoints){
+    
+    
+ // }
   
   
