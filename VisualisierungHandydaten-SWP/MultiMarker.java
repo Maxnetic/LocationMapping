@@ -10,7 +10,8 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 
 /**
  * A MultiMarker enables handling of multiple, logically grouped markers. Properties and display states are the same for
- * all its markers.
+ * all its markers. 
+ * blub
  * 
  * A MultiMarker can consist of various sub-markers, even of different types. For instance, a MultiMarker could have
  * three polygon marker and one point marker.
