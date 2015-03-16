@@ -13,6 +13,8 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
  * all its markers. 
  * blub
  * 
+ * Haha
+ * 
  * A MultiMarker can consist of various sub-markers, even of different types. For instance, a MultiMarker could have
  * three polygon marker and one point marker.
  */
