@@ -2,7 +2,7 @@
  * Test Visualisierung Handydaten
  * 
  * 16.3. 13:14 @dominik/max: added resizable screen feature
- * 16.3. 13:15 @dominik/max: working on day filter in Filter.java
+ * 16.3. 13:15 @dominik/max: working on day filter in Filter.java.
  */
 
 import de.fhpotsdam.unfolding.*;
