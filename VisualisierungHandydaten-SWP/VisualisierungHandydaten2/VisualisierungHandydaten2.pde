@@ -42,10 +42,13 @@ void setup() {
   trackpoints = im.ladeStandardCSV("Daten_Malte_Spitz.csv");
   
   
-  // filtern und reduzieren
+  /*
+   * filtern und reduzieren, nicht benutzte Filter sind auskommentiert
+   */
+  
   //trackpoints = this.filtereWohnort(trackpoints); // überschreibt trackpoints mit den gefilterten trackpoints für Wohnort
   
-  //trackpoints = this.filtere
+  trackpoints = this.filtereDatum(trackpoints);
   
   // zeichneMarker
   addAllMarker(); //fügt alle marker hinzu (Standardmarker in gau)
@@ -71,7 +74,7 @@ void draw() {
   void addAllMarker() {
     // Create point markers for locations
     Location loc;
-    for (int i=0; i<100; i++) {          // i < x, wobei x Anzahl der vorher angezeigten Markern in Grau entspricht
+    for (int i=0; i<5000; i++) {          // i < x, wobei x Anzahl der vorher angezeigten Markern in Grau entspricht
       loc=trackpoints.get(i).getLocation();
       SimplePointMarker tmp = new SimplePointMarker(loc);
        //tmp.setColor(color(255, 0, 0, 100));
@@ -91,20 +94,29 @@ void draw() {
   TrackpointList filtereWohnort(TrackpointList trackpoints){
     // nur nächtliche trackpoint
     Filter meinFilter = new Filter();
-    meinFilter.startHour=2;
-    meinFilter.endHour=4;
+    meinFilter.startHour = 2;
+    meinFilter.endHour = 4;
     // jetzt müsste noch weiterer Filter kommen, der nur die häufigste Location rausfiltert.
     // meinFilter.giveTop(10); // würde die 10 häufigsten Locations rausfiltern
-    TrackpointList gefilterteTrackpoints =  meinFilter.filter(trackpoints); // filter wendet den Filter an.
+    TrackpointList gefilterteTrackpoints =  meinFilter.filterUhrzeit(trackpoints); // filter wendet den Filter an.
     // Test des Filters
     System.out.println(trackpoints.size());
     System.out.println(gefilterteTrackpoints.size());
+
     return gefilterteTrackpoints;
   }
   
-  //TrackpointList filtereDatum(TrackpointList trackpoints){
-    
-    
- // }
+  TrackpointList filtereDatum(TrackpointList trackpoints){
+      // nur trackpoints zwischen zwei bestimmten Tagen
+      Filter meinDatum = new Filter();
+      meinDatum.startDay = 10;
+      meinDatum.startMonth = 9;
+      meinDatum.startYear = 2009;
+      TrackpointList gefilterteTrackpoints =  meinDatum.filterDatum(trackpoints); // filter wendet den Filter an.
+      System.out.println(trackpoints.size());
+      System.out.println(gefilterteTrackpoints.size());
+      return gefilterteTrackpoints;
+
+  }
   
   
