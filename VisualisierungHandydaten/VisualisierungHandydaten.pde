@@ -21,14 +21,14 @@ void setup() {
 
 	// map = new UnfoldingMap(this, "map"); // default based on OSM(?)
 	// map = new UnfoldingMap(this, new Microsoft.RoadProvider());
-	// map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
-	String mbTilesString = sketchPath("data/blank-1-3.mbtiles");
-	map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesString));
-	MapUtils.createDefaultEventDispatcher(this, map);
-	map.setZoomRange(1, 3);
+	map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
+//	String mbTilesString = sketchPath("data/blank-1-3.mbtiles");
+//	map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesString));
+//	MapUtils.createDefaultEventDispatcher(this, map);
+//	map.setZoomRange(1, 3);
 
-	// map.setTweening(true);
-	// map.zoomAndPanTo(new Location(52.5f, 13.4f), 8); // Ort und Zoomlevel Init
+	map.setTweening(true);
+	map.zoomAndPanTo(new Location(52.5f, 13.4f), 8); // Ort und Zoomlevel Init
 	MapUtils.createDefaultEventDispatcher(this, map); //für StandardInteraktion
 
 	// lade Daten von MalteSpitz
