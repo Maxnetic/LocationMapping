@@ -19,17 +19,28 @@ class Trackpoint {
     * Label, welcher von User festgesetzt werden kann, leer bei default
     */
     private String label = "";
+    /**
+    * Service Information
+    */
+    private String service = "";
+
+
 
     /**
+    * Konstruktor für
     *
+    * @param int id (optional, default = 0): Identifikationsnummer für Datensatz
+    * @param Timestamp timestamp: Timestamp Objekt mit
+    * @param Location location:
+    * @param String service (optional, default = ""):
+    * @return Objekt vom Typ Trackpoint
     */
-    public Trackpoint(int id, Timestamp timestamp, Location location){
-        this.timestamp = timestamp;
+    public Trackpoint(int id, Timestamp timestamp, Location location, String service;){
         this.id = id;
+        this.timestamp = timestamp;
         this.location = new Location(location);
+        this.service = service;
     }
-
-    // Konstruktor ohne id
     public Trackpoint(Timestamp timestamp, Location location){
         this.timestamp = timestamp;
         this.location = new Location(location);
