@@ -63,6 +63,15 @@ void setup() {
     
     //tpl = f.filterTime(tpl, , );
     
+    /* Test für filterTime
+    Timestamp ts1 = new Timestamp(2009,10,2,22,20,40,0);
+    Timestamp ts2 = new Timestamp(2009,12,2,22,22,15,0); 
+    tpl = f.filterTime(tpl, ts1, ts2);
+    */
+    
+    /* Test für filterTimeOfDay
+    tpl = f.filterTimeOfDay(tpl, 0,3);
+    */
     
     for ( Trackpoint tp : tpl ){
         ColoredMarker marker = new ColoredMarker(tp.getLocation());
