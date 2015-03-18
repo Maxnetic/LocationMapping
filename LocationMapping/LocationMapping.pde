@@ -18,6 +18,7 @@ void setup() {
 
     map = new UnfoldingMap(this);
     MapUtils.createDefaultEventDispatcher(this, map);
+    map.setTweening(true);
     frame.setResizable(true);
     
     Filter f = new Filter();
@@ -48,7 +49,7 @@ void setup() {
     // sichtbar machen
     // berlinColoredMarker.updateHidden(false);
 
-
+    map.zoomAndPanTo(new Location(52.5f, 13.4f), 8);
 
     /*
      * Test für FormedMarker

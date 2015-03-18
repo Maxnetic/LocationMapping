@@ -133,6 +133,17 @@ class Trackpoint {
     }
 
 
+    /**
+    * Gibt Wochentag der Zeitvariable des Trackpoint aus
+    *
+    * @return [int]: Wochentag der Zeitvariable
+    */
+    public int getDay(){
+        Date dateTime = new Date(this.timestamp.getTime());
+        return dateTime.getDate();
+    }
+
+
 
     /**
     * Gibt Ort des Trackpoint aus
