@@ -30,6 +30,7 @@ class TrackpointList implements Iterable<Trackpoint> {
      */
     public TrackpointList() {
          trackpointList = new ArrayList<Trackpoint>();
+         locationFrequencies = new Hashtable<Location,Integer>();
      }
 
     /**
@@ -86,11 +87,11 @@ class TrackpointList implements Iterable<Trackpoint> {
         length++;
         // update Hashtable, wenn Wert vorhanden, Wert erhoehen (schoenere Variante?),
         // sonst neu anlegen
-//        if (locationFrequencies.contains(trackpointLocation)){
-//            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
-//        } else {
-//            locationFrequencies.put(trackpointLocation, 1);
-//        }
+        if (locationFrequencies.containsKey(trackpointLocation)){
+            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
+        } else {
+            locationFrequencies.put(trackpointLocation, 1);
+        }
     }
 
 
@@ -106,11 +107,11 @@ class TrackpointList implements Iterable<Trackpoint> {
         length--;
         // Falls Trackpoint nur noch mit Haeufigkeit 1 vorhanden, Trackpoint loeschen
         // sonst Wert um 1 verringern
-        if (locationFrequencies.get(trackpointLocation) == 1){
-            locationFrequencies.remove(trackpointLocation);
-        } else {
-            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)-1);
-        }
+      if (locationFrequencies.get(trackpointLocation) == 1){
+        locationFrequencies.remove(trackpointLocation);
+       } else {
+        locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)-1);
+       }
     }
 
     // finde Trackpoint nach Timestamp
@@ -118,7 +119,7 @@ class TrackpointList implements Iterable<Trackpoint> {
      * Findet Trackpoint in Trackpointliste nach Timestamp
      * 
      * @param timestamp [Timestamp] : Timestamp,zu dem entsprechender Trackpoint gefunden werden soll
-     * @return [Trackpoint] : Trackpoint, der zu übergebenem Timestamp in der Trackliste steht
+     * @return [Trackpoint] : Trackpoint, der zu ï¿½bergebenem Timestamp in der Trackliste steht
      */
     public Trackpoint find(Timestamp timestamp){
         for ( int i=0; i < this.length; i++ ){
@@ -134,7 +135,7 @@ class TrackpointList implements Iterable<Trackpoint> {
      * Findet Trackpoint in Trackpointliste nach Ortsangabe
      * 
      * @param location [Location] : Ort,zu dem entsprechender Trackpoint gefunden werden soll
-     * @return [Trackpoint] : Trackpoint, der zu übergebenem Ort in der Trackliste steht 
+     * @return [Trackpoint] : Trackpoint, der zu ï¿½bergebenem Ort in der Trackliste steht 
      */
     public Trackpoint find(Location location){
         for (int i=0; i < this.length; i++){
