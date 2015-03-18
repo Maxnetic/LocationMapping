@@ -13,7 +13,8 @@ import java.text.*;
 
 UnfoldingMap map;
 ColoredMarker berlinColoredMarker;
-FormedMarker berlinFormedMarker;
+FormedMarker randomFormedMarker;
+List markerList;
 
 // creating map and marker
 void setup() {
@@ -23,8 +24,9 @@ void setup() {
   MapUtils.createDefaultEventDispatcher(this, map);
  
   Location berlinLocation = new Location(52.5, 13.4);
+  Location randomLocation = new Location(60.7, 8.2);
   berlinColoredMarker = new ColoredMarker(berlinLocation);
-  berlinFormedMarker = new FormedMarker(berlinLocation);
+  randomFormedMarker = new FormedMarker(randomLocation);
  
   
   // ----- Nicht gewolltes auskommentieren:
@@ -33,6 +35,7 @@ void setup() {
    * Test für ColoredMarker / UpdateableMarker
    */
   map.addMarker(berlinColoredMarker);
+  map.addMarker(randomFormedMarker);
   
   berlinColoredMarker.updateColor(0,250,0);
  
@@ -47,6 +50,15 @@ void setup() {
   
   // sichtbar machen
   berlinColoredMarker.updateHidden(false);
+  
+  markerList = (map.getMarkers());
+  
+  //Iteration über alle erstellten Marker, um deren Größe zu verändern
+  for (int i=0;i <markerList.size();i++){
+    UpdateableMarker current;
+    current = (UpdateableMarker)markerList.get(i);
+    current.updateSize(500);
+  }
 
   /*
    * Test für FormedMarker
@@ -61,7 +73,7 @@ void setup() {
  */
 void draw() {
   map.draw();
-  ScreenPosition berlinPos = berlinColoredMarker.getScreenPosition(map);
+  //ScreenPosition berlinPos = berlinColoredMarker.getScreenPosition(map); //not necessary
   
   
   
