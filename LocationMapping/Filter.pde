@@ -25,9 +25,9 @@ class Filter{
   /* Dieser Filter filtert nach Tageszeiten, dh. man gibt ein Intervall in STart und Endstunde an,
   * zwischen denen alle Trackpoints aller Tage rausgefiltert werden.
   */
-  public TrackpointList timeOfDay(TrackpointList trackpointlist, int starttime, int endtime){
+  public TrackpointList filterTimeOfDay(TrackpointList trackpointlist, int starttime, int endtime){
    for(Trackpoint tp : trackpointlist){
-     if(tp.getHour() <= starttime && tp.getHour() >= endtime){
+     if(tp.getHour() >= starttime && tp.getHour() <= endtime){
       filteredtrackpointlist.add(tp); 
      } 
    }    
