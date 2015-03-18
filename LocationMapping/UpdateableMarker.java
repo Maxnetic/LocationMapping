@@ -5,7 +5,7 @@ import processing.core.*;
 
 public class UpdateableMarker extends SimplePointMarker {
 
-  int size = 20;
+  int size = 5;
   int currentsize = 20;
   int rot = 0;
   int gelb = 0;
