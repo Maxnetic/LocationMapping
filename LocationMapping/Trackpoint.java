@@ -76,31 +76,66 @@ class Trackpoint {
         return timestamp.toString();
     }
 
-    // Zeitdifferenz zweier Trackpoints in Sekunden.
-    public long compareTimeTo(Trackpoint trackpoint){
-        return Math.abs(this.timestamp.getTime() - trackpoint.getTimestamp().getTime());
-     }
+
 
     // Location Methoden
     public Location getLocation(){
         return location;
     }
+    public float getLatitude(){
+        return location.getLat();
+    }
+    public float getLongitude(){
+        return location.getLon();
+    }
 
-    // Test, ob 2 Trackpoints bis auf die angegebene Toleranzgrenze übereinstimmen
-    // public boolean equalLocation(double toleranceRange, Trackpoint trackpoint){
-    //     double distance = this.location.distanceTo(trackpoint.getLocation());
-    //     return (distance <= toleranceRange);
-    // }
+
 
     // Rückgabe des Trackpoints als String
-    // public String toString(){
-    //     return "id: " + this.id + " Location: " +  this.location.toString() + " Timestamp: " + this.timestamp.toString();
-    // }
+    public String toString(){
+        String out = "Trackpoint(id " + String.format("%03d",this.id) + " | Location " +  this.location.getLat() + " " + this.location.getLon() + " | Timestamp " + this.timestamp;
+        if ( !this.label.isEmpty() )
+            out += " | Label '" + this.label + "'";
+        return out + ")";
+    }
+
+    // Zeit Vergleich und Differenz
+
+    public long timeDistanceTo(Trackpoint trackpoint){
+        return this.timestamp.getTime() - trackpoint.getTimestamp().getTime();
+    }
+
+    public boolean equalTime(Trackpoint trackpoint){
+        return equalTime(trackpoint, 3000);
+    }
+    public boolean equalTime(Trackpoint trackpoint, long tolerance){
+        return this.timeDistanceTo(trackpoint) <= tolerance;
+    }
+
+    public int compareTimeTo(Trackpoint trackpoint){
+        return (int) this.timeDistanceTo(trackpoint);
+    }
+
+
+    // Test, ob 2 Trackpoints bis auf die angegebene Toleranzgrenze übereinstimmen
+    public double locationDistanceTo(Trackpoint trackpoint){
+        return this.location.getDistance(trackpoint.getLocation());
+    }
+
+    public boolean equalLocation(Trackpoint trackpoint){
+        return equalLocation(trackpoint, 0.00009);
+    }
+    public boolean equalLocation(Trackpoint trackpoint, double tolerance){
+        return (this.locationDistanceTo(trackpoint) <= tolerance);
+    }
+
+
 
    // toleranceRangeTime in Millisekunden, testet ob 2 Trackpoints in Zeit und Ort bis auf Toleranzgrenzen übereinstimmen
-   // public boolean equals(long toleranceRangeTime, double toleranceRangeLocation, Trackpoint trackpoint) {
-   //      double distanceLocation = this.location.distanceTo(trackpoint.getLocation());
-   //      long distanceTime = Math.abs(this.timestamp.getTime() - trackpoint.getTimestamp().getTime());
-   //      return (distanceLocation <= toleranceRangeLocation && distanceTime <= toleranceRangeTime);
-   //  }
+   public boolean equals(Trackpoint trackpoint) {
+        return this.equalLocation(trackpoint) && this.equalTime(trackpoint);
+    }
+    public boolean equals(Trackpoint trackpoint, long timeTolerance, double locationTolerance) {
+        return this.equalLocation(trackpoint, locationTolerance) && this.equalTime(trackpoint, timeTolerance);
+    }
 }
