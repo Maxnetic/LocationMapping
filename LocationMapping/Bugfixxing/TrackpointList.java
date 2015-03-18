@@ -1,3 +1,7 @@
+import java.lang.*;
+import java.util.*;
+import de.fhpotsdam.unfolding.geo.*;
+
 class TrackpointList implements Iterable<Trackpoint> {
 
     // Attribute
@@ -7,7 +11,7 @@ class TrackpointList implements Iterable<Trackpoint> {
 
     // Konstruktor erstellt leere liste
     TrackpointList() {
-         trackpointList = new ArrayList<Trackpoints>();
+         trackpointList = new ArrayList<Trackpoint>();
      }
 
     // Methoden
