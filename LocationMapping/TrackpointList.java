@@ -3,13 +3,13 @@ import java.sql.Timestamp;
 import java.util.*;
 
 /**
- * 
+ *
  */
 class TrackpointList implements Iterable<Trackpoint> {
-	// Attribute
-	/**
-	 * Trackpoint-Liste, die Trackpoints zu einer Person enthaelt
-	 */
+    // Attribute
+    /**
+     * Trackpoint-Liste, die Trackpoints zu einer Person enthaelt
+     */
     private ArrayList<Trackpoint> trackpointList;
     /**
      * Hastable, der Haeufigkeiten der einzelnen Trackpoints enthaelt
@@ -19,13 +19,13 @@ class TrackpointList implements Iterable<Trackpoint> {
      * Laenge der Trackpointliste
      */
     private int length = 0;
-    
+
     // Konstruktor
-    
+
     // Konstruktor erstellt leere liste
     /**
      * Konstruktor, erzeugt leere Trackpointliste
-     * 
+     *
      * @return [ArrayList<Trackpoint>] : leere Trackpointliste
      */
     public TrackpointList() {
@@ -34,7 +34,7 @@ class TrackpointList implements Iterable<Trackpoint> {
 
     /**
      * Gibt aus wie haeufig ein Ort als Trackpoint vorkommt
-     * 
+     *
      * @param location [Location] : Ortsinformation fuer Trackpoint
      * @return [int] : Haeufigkeit des Ortes
      */
@@ -46,7 +46,7 @@ class TrackpointList implements Iterable<Trackpoint> {
     // testet ob schon nach Zeit sortiert ist, "vorwaerts"-Sortierung
     /**
      * Testet, ob eine Liste bereits aufsteigend nach Datum sortiert ist
-     * 
+     *
      * @return [boolean]: Wahrheitswert der Sortierung der Liste
      */
     private boolean isSortedByTime(){
@@ -63,21 +63,21 @@ class TrackpointList implements Iterable<Trackpoint> {
      * Sortiert Liste nach Zeit
      */
     private void sortByTime(){
-    	for (int i=1; i<this.length; i++){
-    		Trackpoint key = this.trackpointList.get(i);
-    		int k = i-1;
-    		while ( k >= 0 && (this.trackpointList.get(k).getTimestamp().compareTo(key.getTimestamp()) > 0)){
-    			this.trackpointList.set(k+1,this.trackpointList.get(k));
-    			k = k-1;
-    		}
-    		this.trackpointList.set(k+1,key);
-    	}
+        for (int i=1; i<this.length; i++){
+            Trackpoint key = this.trackpointList.get(i);
+            int k = i-1;
+            while ( k >= 0 && (this.trackpointList.get(k).getTimestamp().compareTo(key.getTimestamp()) > 0)){
+                this.trackpointList.set(k+1,this.trackpointList.get(k));
+                k = k-1;
+            }
+            this.trackpointList.set(k+1,key);
+        }
     }
 
     // fuegt Trackpoint am Ende der Liste ein
     /**
     * Fuegt Trackpoint in entsprechende Liste ein
-    * 
+    *
     * @param tp [Trackpoint] : einzufuegender Trackpoint
     */
     public void add(Trackpoint tp){
@@ -86,18 +86,18 @@ class TrackpointList implements Iterable<Trackpoint> {
         length++;
         // update Hashtable, wenn Wert vorhanden, Wert erhoehen (schoenere Variante?),
         // sonst neu anlegen
-//        if (locationFrequencies.contains(trackpointLocation)){
-//            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
-//        } else {
-//            locationFrequencies.put(trackpointLocation, 1);
-//        }
+        if (locationFrequencies.contains(trackpointLocation)){
+            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
+        } else {
+            locationFrequencies.put(trackpointLocation, 1);
+        }
     }
 
 
     //loescht Trackpoint aus der Liste
     /**
      * Loescht Trackpoint aus entsprechende Liste ein
-     * 
+     *
      * @param tp [Trackpoint] : zu loeschender Trackpoint
      */
     public void deleteTrackpoint(Trackpoint tp){
@@ -116,9 +116,9 @@ class TrackpointList implements Iterable<Trackpoint> {
     // finde Trackpoint nach Timestamp
     /**
      * Findet Trackpoint in Trackpointliste nach Timestamp
-     * 
+     *
      * @param timestamp [Timestamp] : Timestamp,zu dem entsprechender Trackpoint gefunden werden soll
-     * @return [Trackpoint] : Trackpoint, der zu übergebenem Timestamp in der Trackliste steht
+     * @return [Trackpoint] : Trackpoint, der zu uebergebenem Timestamp in der Trackliste steht
      */
     public Trackpoint find(Timestamp timestamp){
         for ( int i=0; i < this.length; i++ ){
@@ -128,13 +128,13 @@ class TrackpointList implements Iterable<Trackpoint> {
         }
         return null;
     }
-    
+
     // finde Trackpoint nach Ort
     /**
      * Findet Trackpoint in Trackpointliste nach Ortsangabe
-     * 
+     *
      * @param location [Location] : Ort,zu dem entsprechender Trackpoint gefunden werden soll
-     * @return [Trackpoint] : Trackpoint, der zu übergebenem Ort in der Trackliste steht 
+     * @return [Trackpoint] : Trackpoint, der zu uebergebenem Ort in der Trackliste steht
      */
     public Trackpoint find(Location location){
         for (int i=0; i < this.length; i++){
@@ -148,8 +148,8 @@ class TrackpointList implements Iterable<Trackpoint> {
     // erstes Element der ArrayListe erhalten
     /**
      * Gibt ersten Trackpoint in der Liste zurueck
-     * 
-     * @return [Trackpoint] : erster Trackpoint der Trackpointliste 
+     *
+     * @return [Trackpoint] : erster Trackpoint der Trackpointliste
      */
     private Trackpoint getFirt(){
         return this.trackpointList.get(0);
@@ -158,7 +158,7 @@ class TrackpointList implements Iterable<Trackpoint> {
     // letztes Elemtent der Trackpointliste erhalten
     /**
      * Gibt letzten Trackpoint in der Liste zurueck
-     * 
+     *
      * @return [Trackpoint] : letzter Trackpoint der Trackpointliste
      */
     private Trackpoint getLast(){
@@ -168,7 +168,7 @@ class TrackpointList implements Iterable<Trackpoint> {
    // Iterator ueber TrackpointList ohne Startwert
     /**
      * Gibt Iterator ueber Trackpointliste zurueck
-     * 
+     *
      * @return [Iterator] : Iterator ueber Trackpointliste
      */
     public Iterator<Trackpoint> iterator(){
@@ -178,7 +178,7 @@ class TrackpointList implements Iterable<Trackpoint> {
     // gibt Hashtable zurueck
     /**
      * Gibt Hashtable mit Ortshaeufigkeiten zurueck
-     * 
+     *
      * @return [Hashtable] : Hastable mit Ortshaeufigkeiten der einzelnen Trackpoints
      */
     public Hashtable<Location, Integer> getLocationFrequencies(){
