@@ -30,6 +30,7 @@ class TrackpointList implements Iterable<Trackpoint> {
      */
     public TrackpointList() {
          trackpointList = new ArrayList<Trackpoint>();
+         locationFrequencies = new Hashtable<Location,Integer>();
      }
 
     /**
@@ -86,7 +87,7 @@ class TrackpointList implements Iterable<Trackpoint> {
         length++;
         // update Hashtable, wenn Wert vorhanden, Wert erhoehen (schoenere Variante?),
         // sonst neu anlegen
-        if (locationFrequencies.contains(trackpointLocation)){
+        if (locationFrequencies.containsKey(trackpointLocation)){
             locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
         } else {
             locationFrequencies.put(trackpointLocation, 1);
@@ -106,11 +107,11 @@ class TrackpointList implements Iterable<Trackpoint> {
         length--;
         // Falls Trackpoint nur noch mit Haeufigkeit 1 vorhanden, Trackpoint loeschen
         // sonst Wert um 1 verringern
-        if (locationFrequencies.get(trackpointLocation) == 1){
-            locationFrequencies.remove(trackpointLocation);
-        } else {
-            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)-1);
-        }
+      if (locationFrequencies.get(trackpointLocation) == 1){
+        locationFrequencies.remove(trackpointLocation);
+       } else {
+        locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)-1);
+       }
     }
 
     // finde Trackpoint nach Timestamp
