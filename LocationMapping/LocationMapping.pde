@@ -19,9 +19,11 @@ void setup() {
     map = new UnfoldingMap(this);
     MapUtils.createDefaultEventDispatcher(this, map);
     frame.setResizable(true);
+    
+    Filter f = new Filter();
 
 
-    // Location berlinLocation = new Location(52.5, 13.4);
+    Location berlinLocation = new Location(52.5, 13.4);
     // Location randomLocation = new Location(60.7, 8.2);
     // berlinColoredMarker = new ColoredMarker(berlinLocation);
     // randomFormedMarker = new FormedMarker(randomLocation);
@@ -52,8 +54,16 @@ void setup() {
      * Test für FormedMarker
      */
     //map.addMarker(berlinFormedMarker);
+    
     DatenImportMalte im = new DatenImportMalte();
     TrackpointList tpl = im.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
+    
+    // ---------- test für Filter
+    //tpl = f.filterRadius(tpl,berlinLocation, 50);
+    
+    //tpl = f.filterTime(tpl, , );
+    
+    
     for ( Trackpoint tp : tpl ){
         ColoredMarker marker = new ColoredMarker(tp.getLocation());
         map.addMarker(marker);
