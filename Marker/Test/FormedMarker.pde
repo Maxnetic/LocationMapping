@@ -3,12 +3,10 @@ import de.fhpotsdam.unfolding.geo.*;
 import processing.core.*;
 
 
-public class FormedMarker extends SimplePointMarker {
-
+public class FormedMarker extends UpdateableMarker {
   
   public FormedMarker(Location location) {
     super(location);
-    this.setColor(100);
   }
   
   /*
@@ -24,8 +22,9 @@ public class FormedMarker extends SimplePointMarker {
     pg.stroke(color(200,10,10));  // kein Rand
     pg.strokeWeight(4);
     pg.fill(255, 0, 0, 100);  // Farbe sowie sichtbarkeit 
-    pg.rect(x, y, 20, 20);  // Form 
+    pg.rect(x, y, size, size);  // Form 
     pg.popStyle();
   }
+  
 }
 

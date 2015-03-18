@@ -3,12 +3,10 @@ import de.fhpotsdam.unfolding.geo.*;
 import processing.core.*;
 
 
-public class ColoredMarker extends SimplePointMarker {
-
+public class ColoredMarker extends UpdateableMarker {
   
   public ColoredMarker(Location location) {
     super(location);
-    this.setColor(100);
   }
   
   /*
@@ -23,8 +21,10 @@ public class ColoredMarker extends SimplePointMarker {
     pg.pushStyle();
     pg.noStroke();  // kein Rand
     pg.fill(0, 250, 0, 200);  // Farbe sowie sichtbarkeit 
-    pg.ellipse(x, y, 20, 20);  // Form
+    pg.ellipse(x, y, size, size);  // Form
     pg.popStyle();
   }
+  
+
 }
 

@@ -27,14 +27,40 @@ void setup() {
   berlinFormedMarker = new FormedMarker(berlinLocation);
  
   // Do not add marker to the map
+  
+  System.out.println(map.getMarkerManagerList());
 }
  
+/*
+ * draw wird permanent ausgeführt
+ */
 void draw() {
   map.draw();
   ScreenPosition berlinPos = berlinColoredMarker.getScreenPosition(map);
   
   // Nicht gewolltes auskommentieren:
   
-  //map.addMarker(berlinColoredMarker);
-  map.addMarker(berlinFormedMarker);
+  /*
+   * Test für ColoredMarker / UpdateableMarker
+   */
+  map.addMarker(berlinColoredMarker);
+ 
+  // größe anpassen
+  berlinColoredMarker.updateSize(400);
+  
+  // verstecken
+  berlinColoredMarker.updateHidden(true);
+  
+  // größe wieder anpassen, obwohl versteckt wird sie angepasst
+  berlinColoredMarker.updateSize(40);
+  
+  // sichtbar machen
+  berlinColoredMarker.updateHidden(false);
+
+  /*
+   * Test für FormedMarker
+   */
+ //map.addMarker(berlinFormedMarker);
+  
+  
 }
