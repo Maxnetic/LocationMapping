@@ -4,39 +4,15 @@ import java.util.*;
 
 class TrackpointList implements Iterable<Trackpoint> {
 
-    // Attribute
-<<<<<<< HEAD
-	/**
-	 * ArrayList trackpointList enthaelt einzelne Trackpoints
-	 */
-    ArrayList<Trackpoint> trackpointList;
-    /**
-     * Hashtable locationFrequencies enthaelt Häufigkeiten der einzelnen Trackpoints
-     */
-    Hashtable<Location, Integer> locationFrequencies;
-    /**
-     * Länge der trackpointListe
-     */
-    int length = 0;
-    
-    /**
-     * Konstruktor fuer
-     * @return Objekt vom Typ ArrayList<Trackpoint>
-     */
-=======
     private ArrayList<Trackpoint> trackpointList;
     private Hashtable<Location, Integer> locationFrequencies;
     private int length = 0;
 
->>>>>>> 852c908006b5d19407c895e6f8651bcd67eedd3d
     // Konstruktor erstellt leere liste
     TrackpointList() {
          trackpointList = new ArrayList<Trackpoint>();
      }
 
-    // Methoden
-
-    //gibt Anzahl der Trackpoints in der Naehe dieser Location an
     /**
      * Gibt aus wie haufig ein Ort als Trackpoint vorkommt
      * @param Location location : Location Objekt
@@ -45,16 +21,16 @@ class TrackpointList implements Iterable<Trackpoint> {
     int getFrequency(Location location) {
         return locationFrequencies.get(location);
     }
-<<<<<<< HEAD
-    
+
+
     // testet ob schon nach Zeit sortiert ist, "vorwaerts"-Sortierung
     /**
      * Testet, ob eine Liste bereits aufsteigend nach Datum sortiert ist
      * @return Objekt vom Typ Boolean
      */
     boolean isSortedByTime(){
-        for (int i = 0; i < this.length-1, i++){
-            if (this.get(i).getTimestamp().after(this.get(i+1).getTimestamp())){
+        for (int i=0; i<this.length-1; i++){
+            if (this.trackpointList.get(i).getTimestamp().after(this.trackpointList.get(i+1).getTimestamp())){
                     return false;
             }
         }
@@ -66,52 +42,34 @@ class TrackpointList implements Iterable<Trackpoint> {
      * Sortiert Liste nach Zeit
      */
     void sortByTime(){
-    	for (int i = 1, i < this.length, i++){
-    		Trackpoint key = this.get(i);
+    	for (int i=1; i<this.length; i++){
+    		Trackpoint key = this.trackpointList.get(i);
     		int k = i-1;
-    		while ( k >= 0 && (this.get(k).getTimestamp().compareTo(key.getTimestamp()) > 0)){
-    			this.set(k+1,this.get(k));
+    		while ( k >= 0 && (this.trackpointList.get(k).getTimestamp().compareTo(key.getTimestamp()) > 0)){
+    			this.trackpointList.set(k+1,this.trackpointList.get(k));
     			k = k-1;
     		}
-    		this.set(k+1,key);
+    		this.trackpointList.set(k+1,key);
     	}
     }
 
-
-    
-
     // fuegt Trackpoint am Ende der Liste ein
     /**
-     * Testet, ob eine Liste bereits aufsteigend nach Datum sortiert ist
-     * @param Trackpoint tp : Trackpoint Objekt
-     */
-    addTrackpoint(Trackpoint tp){
-=======
-
+    * Testet, ob eine Liste bereits aufsteigend nach Datum sortiert ist
+    * @param Trackpoint tp : Trackpoint Objekt
+    */
     // fuegt Trackpoint am Ende der Liste ein
     void add(Trackpoint tp){
->>>>>>> 852c908006b5d19407c895e6f8651bcd67eedd3d
         Location trackpointLocation = tp.getLocation();
         trackpointList.add(tp);
         length++;
         // update Hashtable, wenn Wert vorhanden, Wert erhoehen (schoenere Variante?),
         // sonst neu anlegen
-<<<<<<< HEAD
-        if (locationFrequencies.contains(trackpointLocation)){
-            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
-        } else {
-            locationFrequencies.put(trackpointLocation, 1);
-        }
-        if(!(this.isSorted())){
-        	this.sortByTime();
-        }
-=======
 //        if (locationFrequencies.contains(trackpointLocation)){
 //            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
 //        } else {
 //            locationFrequencies.put(trackpointLocation, 1);
 //        }
->>>>>>> 852c908006b5d19407c895e6f8651bcd67eedd3d
     }
 
 
