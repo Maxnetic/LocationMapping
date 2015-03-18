@@ -10,7 +10,7 @@ import java.text.*;
 UnfoldingMap map;
 // ColoredMarker berlinColoredMarker;
 // FormedMarker randomFormedMarker;
-// List markerList;
+//List markerList;
 
 // creating map and marker
 void setup() {
@@ -46,15 +46,7 @@ void setup() {
     // sichtbar machen
     // berlinColoredMarker.updateHidden(false);
 
-    // markerList = (map.getMarkers());
 
-    //Iteration über alle erstellten Marker, um deren Größe zu verändern
-    // for (int i=0;i <markerList.size();i++){
-    //     UpdateableMarker current;
-    //     current = (UpdateableMarker)markerList.get(i);
-    //     current.updateSize(20);
-    //     current.updateColor(100,0,100);
-    // }
 
     /*
      * Test für FormedMarker
@@ -66,6 +58,16 @@ void setup() {
         ColoredMarker marker = new ColoredMarker(tp.getLocation());
         map.addMarker(marker);
     }
+    
+    //markerList = (map.getMarkers());
+
+    //Iteration über alle erstellten Marker, um deren Größe zu verändern
+    //for (int i=0;i <markerList.size();i++){
+    //     UpdateableMarker current;
+    //     current = (UpdateableMarker)markerList.get(i);
+    //     current.updateSize(4);
+    //     current.updateColor(100,0,100);
+    // }
 }
 
 /*
