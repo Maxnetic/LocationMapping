@@ -21,7 +21,7 @@ public class FormedMarker extends UpdateableMarker {
   
   public void draw(PGraphics pg, float x, float y) {
     pg.pushStyle();
-    pg.stroke(color(250,100,100));  // kein Rand
+    pg.stroke(color(rot, gelb, blau));  // kein Rand
     pg.strokeWeight(4);
     pg.fill(255, 0, 0, 100);  // Farbe sowie sichtbarkeit 
     pg.rect(x, y, size, size);  // Form 

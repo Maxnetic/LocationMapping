@@ -44,6 +44,8 @@ void draw() {
    * Test für ColoredMarker / UpdateableMarker
    */
   map.addMarker(berlinColoredMarker);
+  
+  berlinColoredMarker.updateColor(0,250,0);
  
   // größe anpassen
   berlinColoredMarker.updateSize(400);

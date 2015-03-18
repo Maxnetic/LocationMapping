@@ -7,6 +7,9 @@ public class UpdateableMarker extends SimplePointMarker {
 
   int size = 20;
   int currentsize = 20;
+  int rot = 0;
+  int gelb = 0;
+  int blau = 0;
   
   public UpdateableMarker(Location location) {
     super(location);
@@ -27,6 +30,12 @@ public class UpdateableMarker extends SimplePointMarker {
   
   public void updateHidden(boolean hidden){
     this.setHidden(hidden);
+  }
+  
+  public void updateColor(int rot, int gelb, int blau){
+    this.rot = rot;
+    this.gelb = gelb;
+    this.blau = blau;
   }
 }
 

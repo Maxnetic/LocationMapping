@@ -23,7 +23,7 @@ public class ColoredMarker extends UpdateableMarker {
     
     pg.pushStyle();
     pg.noStroke();  // kein Rand
-    pg.fill(0, 250, 0, 200);  // Farbe sowie sichtbarkeit 
+    pg.fill(rot, gelb, blau, 200);  // Farbe sowie sichtbarkeit 
     pg.ellipse(x, y, size, size);  // Form
     pg.popStyle();
   }
