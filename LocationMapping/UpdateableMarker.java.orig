@@ -9,13 +9,10 @@ public class UpdateableMarker extends SimplePointMarker {
   * Diese werden an unsere Unterklassen vererbt und in deren draw-Methoden
   */
   
-  int size = 5;
-   
   //Für das Ändern der Farben
   int rot = 0;
   int gelb = 0;
   int blau = 0;
- 
   
   public UpdateableMarker(Location location) {
     super(location);
