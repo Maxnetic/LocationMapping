@@ -52,7 +52,7 @@ void draw() {
   berlinColoredMarker.updateHidden(true);
   
   // größe wieder anpassen, obwohl versteckt wird sie angepasst
-  berlinColoredMarker.updateSize(40);
+  berlinColoredMarker.updateSize(60);
   
   // sichtbar machen
   berlinColoredMarker.updateHidden(false);

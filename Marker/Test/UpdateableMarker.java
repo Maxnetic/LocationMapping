@@ -8,9 +8,6 @@ public class UpdateableMarker extends SimplePointMarker {
   int size = 20;
   int currentsize = 20;
   
-  // Konstanten für Farben
-
-  
   public UpdateableMarker(Location location) {
     super(location);
   }
@@ -29,12 +26,7 @@ public class UpdateableMarker extends SimplePointMarker {
   }
   
   public void updateHidden(boolean hidden){
-    if (hidden == true){
-      this.currentsize = size;
-      this.size = 0;
-    }
-    else 
-      updateSize(currentsize);
+    this.setHidden(hidden);
   }
 }
 

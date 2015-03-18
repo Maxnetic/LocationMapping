@@ -18,6 +18,9 @@ public class ColoredMarker extends UpdateableMarker {
   
   
   public void draw(PGraphics pg, float x, float y) {
+    if(this.isHidden())
+      return;
+    
     pg.pushStyle();
     pg.noStroke();  // kein Rand
     pg.fill(0, 250, 0, 200);  // Farbe sowie sichtbarkeit 
