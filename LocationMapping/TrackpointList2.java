@@ -1,11 +1,6 @@
-import de.fhpotsdam.unfolding.geo.Location;
-import java.sql.Timestamp;
-import java.util.*;
-
 class TrackpointList implements Iterable<Trackpoint> {
 
     // Attribute
-<<<<<<< HEAD
 	/**
 	 * ArrayList trackpointList enthaelt einzelne Trackpoints
 	 */
@@ -23,15 +18,9 @@ class TrackpointList implements Iterable<Trackpoint> {
      * Konstruktor fuer
      * @return Objekt vom Typ ArrayList<Trackpoint>
      */
-=======
-    private ArrayList<Trackpoint> trackpointList;
-    private Hashtable<Location, Integer> locationFrequencies;
-    private int length = 0;
-
->>>>>>> 852c908006b5d19407c895e6f8651bcd67eedd3d
     // Konstruktor erstellt leere liste
     TrackpointList() {
-         trackpointList = new ArrayList<Trackpoint>();
+         trackpointList = new ArrayList<Trackpoints>();
      }
 
     // Methoden
@@ -45,7 +34,6 @@ class TrackpointList implements Iterable<Trackpoint> {
     int getFrequency(Location location) {
         return locationFrequencies.get(location);
     }
-<<<<<<< HEAD
     
     // testet ob schon nach Zeit sortiert ist, "vorwaerts"-Sortierung
     /**
@@ -86,17 +74,11 @@ class TrackpointList implements Iterable<Trackpoint> {
      * @param Trackpoint tp : Trackpoint Objekt
      */
     addTrackpoint(Trackpoint tp){
-=======
-
-    // fuegt Trackpoint am Ende der Liste ein
-    void add(Trackpoint tp){
->>>>>>> 852c908006b5d19407c895e6f8651bcd67eedd3d
         Location trackpointLocation = tp.getLocation();
         trackpointList.add(tp);
-        length++;
+        lenghth++;
         // update Hashtable, wenn Wert vorhanden, Wert erhoehen (schoenere Variante?),
         // sonst neu anlegen
-<<<<<<< HEAD
         if (locationFrequencies.contains(trackpointLocation)){
             locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
         } else {
@@ -105,18 +87,11 @@ class TrackpointList implements Iterable<Trackpoint> {
         if(!(this.isSorted())){
         	this.sortByTime();
         }
-=======
-//        if (locationFrequencies.contains(trackpointLocation)){
-//            locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
-//        } else {
-//            locationFrequencies.put(trackpointLocation, 1);
-//        }
->>>>>>> 852c908006b5d19407c895e6f8651bcd67eedd3d
     }
 
 
     //loescht Trackpoint aus der Liste
-    void deleteTrackpoint(Trackpoint tp){
+    deleteTrackpoint(Trackpoint tp){
         Location trackpointLocation = tp.getLocation();
         trackpointList.remove(tp);
         length--;
@@ -130,38 +105,43 @@ class TrackpointList implements Iterable<Trackpoint> {
     }
 
     // finde Trackpoint nach Timestamp
-    public Trackpoint find(Timestamp timestamp){
-        for ( int i=0; i < this.length; i++ ){
-            if ( this.trackpointList.get(i).getTimestamp() == timestamp ){
-                return this.trackpointList.get(i);
-            }
-        }
-        return null;
-    }
-    public Trackpoint find(Location location){
-        for (int i=0; i < this.length; i++){
-            if (this.trackpointList.get(i).getLocation() == location){
-                return this.trackpointList.get(i);
-            }
-        }
-        return null;
+    Trackpoint find(Timestamp timestamp){
+    	for (int i = 0, i < this.length, i++){
+    		if (this.get(i).getTimestamp() == timestamp){
+    			return this.get(i);
+    		}
+    	}
+    	return null;
     }
 
+    // finde Trackpoint nach Ort
+    Trackpoint find(Location location){
+    	for (int i = 0,i < this.length, i++){
+    		if (this.get(i).getLocation() == location){
+    			return this.get(i);
+    		}
+    	}
+    	return null;
+    }
+    
     // erstes Element der ArrayListe erhalten
     Trackpoint getFirt(){
-        return this.trackpointList.get(0);
+    	return this.get(0);
     }
-
+    
     // letztes Elemtent der Trackpointliste erhalten
     Trackpoint getLast(){
-        return this.trackpointList.get(this.length-1);
+    	return this.get(this.lenght-1);
     }
-
+    
    // Iterator ueber TrackpointList ohne Startwert
     public Iterator<Trackpoint> iterator(){
-        return this.trackpointList.iterator();
+        return new timeOrderedIterator(this.getFirst());
     }
 
+    // Iterator ueber TrackpointList mit Startwert
+    public Iterator<Trackpoint> iterator(Trackpoint start);
+    
     // gibt Hashtable zurueck
     Hashtable<Location, Integer> getLocationFrequencies(){
         return locationFrequencies;

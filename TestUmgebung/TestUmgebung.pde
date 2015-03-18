@@ -12,24 +12,51 @@ import de.fhpotsdam.unfolding.providers.*;
 //import de.fhpotsdam.unfolding.providers.Microsoft;
 import java.util.*;
 import java.text.*; 
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.util.Date;
+import java.sql.Timestamp;
 
 UnfoldingMap map; 
 TrackpointList trackpoints;
 int currentTrackpoint = 0;
 String[] trackdata;
+boolean pause = false;
+int zoomlevel = 7;
+
 TrackpointList gefilterteTrackpoints;
 
 void setup() {
   size(1000, 600);
   smooth();
 
+
   // map = new UnfoldingMap(this, "map"); // default based on OSM(?)
   map = new UnfoldingMap(this, new Microsoft.RoadProvider());
   // map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
   
-  map.zoomAndPanTo(new Location(52.5f, 13.4f), 14); // Ort und Zoomlevel Init
-  MapUtils.createDefaultEventDispatcher(this, map); //fÃ¼r StandardInteraktion
+  //sanfterer Kameraschwenk
+  map.setTweening(true);
+   
+  //füge Keylistener für Pausetaste hinzu
+  addKeyListener(new KeyAdapter(){
+    public void keyPressed(KeyEvent e) {
+      if (e.getKeyCode() == KeyEvent.VK_SPACE){
+        if (pause == false) {
+          pause = true;
+        } else {
+          pause = false;
+        }
+      }
+    }
+  });
+  
+  map.zoomAndPanTo(new Location(52.5f, 13.4f), zoomlevel);
+  // Ort und Zoomlevel Init
+  MapUtils.createDefaultEventDispatcher(this, map); //für StandardInteraktion
 
   // lade Daten von MalteSpitz
   DatenImport im= new DatenImport();
@@ -37,17 +64,18 @@ void setup() {
   
   
   // filtern und reduzieren
-  trackpoints= this.filtereWohnort(trackpoints); // Ã¼berschreibt trackpoints mit den gefilterten trackpoints
+  trackpoints= this.filtereWohnort(trackpoints); // überschreibt trackpoints mit den gefilterten trackpoints
   
   // zeichneMarker
-  addAllMarker(); //fÃ¼gt alle marker hinzu (Standardmarker in gau)
+  addAllMarker(); //fügt alle marker hinzu (Standardmarker in gau)
 
 }
 
 void draw() {
   map.draw();
   
-   if (frameCount % 10 == 0) {
+  
+   if (frameCount % 10 == 0 && pause == false) {
     Trackpoint curr =  trackpoints.get(currentTrackpoint);
     addMarker(curr); // zeichne aktuellen Marker in rot
     map.panTo(curr.getLocation());
@@ -81,15 +109,18 @@ void draw() {
   
   // filtere
   TrackpointList filtereWohnort(TrackpointList trackpoints){
-    // nur nÃ¤chtliche trackpoint
+    // nur nächtliche trackpoint
     Filter meinFilter = new Filter();
     meinFilter.startHour=2;
     meinFilter.endHour=4;
-    // jetzt mÃ¼sste noch witerer Filter kommen, der nur die hÃ¤ufigste Location rausfiltert.
-    // meinFilter.giveTop(10); // wÃ¼rde die 10 hÃ¤ufigsten Locations rausfiltern
+    // jetzt müsste noch witerer Filter kommen, der nur die häufigste Location rausfiltert.
+    // meinFilter.giveTop(10); // würde die 10 häufigsten Locations rausfiltern
     TrackpointList gefilterteTrackpoints =  meinFilter.filter(trackpoints); // filter wendet den Filter an.
     // Test des Filters
     System.out.println(trackpoints.size());
     System.out.println(gefilterteTrackpoints.size());
     return gefilterteTrackpoints;
   }
+  
+  
+  

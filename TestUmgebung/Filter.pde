@@ -15,7 +15,7 @@ class Filter {
     Calendar calendar = new GregorianCalendar();
     int currTime;
     for (int i=0; i<trackpoints.size(); i++) { // in Trackpoint schon zerlegen
-        calendar.setTime(trackpoints.get(i).time);
+        calendar.setTime(trackpoints.get(i).timestamp);
         currTime = calendar.get(Calendar.HOUR);
         if (currTime >= startHour && currTime <= endHour) {
            filteredTrackpoints.add(trackpoints.get(i));
