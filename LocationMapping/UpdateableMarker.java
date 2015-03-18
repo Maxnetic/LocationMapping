@@ -4,19 +4,24 @@ import processing.core.*;
 
 
 public class UpdateableMarker extends SimplePointMarker {
-  /*
-  * Wir erstellen hier die Variablen, die wir für das updaten brauchen
-  * Diese werden an unsere Unterklassen vererbt und in deren draw-Methoden
-  */
+  //Attribute
   
+  /*
+  * Beinhaltet die größe des Markers
+  */  
   int size = 5;
    
-  //Für das Ändern der Farben
+ /*
+ * int für die Farbkodierung des Markers, die Anwendung erfolgt in color(rot,gelb,blau)
+ */
   int rot = 0;
   int gelb = 0;
   int blau = 0;
  
-  
+  /*
+  *Konstruktor
+  *@param location [Location]: Ortsangabe des Markers
+  */
   public UpdateableMarker(Location location) {
     super(location);
   }
@@ -27,17 +32,27 @@ public class UpdateableMarker extends SimplePointMarker {
     super(trackpoint.getLocation());
   }*/
   
-  //update für die Größe des Markers
+  /*
+  * updated die Größe des Markers
+  * @param size [int]: die neue Größe des Markers
+  */
   public void updateSize(int size){
     this.size = size;
   }
   
-  //setzt die Sichtbarkeitseigenschaften
+  /* Die Funktion setzt die Sichtbarkeitseigenschaften des Markers
+  *@param hidden [boolean]: True oder False für die SIchtbarkeitseigenschaft
+  */
   public void updateHidden(boolean hidden){
     this.setHidden(hidden);
   }
   
-  //update für die Farbe, in der drawmethode wird damit teilweise nicht gefüllt
+  /*
+  *Die Funktion updated die Farbe des Markers
+  *@param rot [int]: Rotfarbanteil
+  *@param gelb [int]: Gelbfarbanteil
+  *@param blau [int]: Blaufarbanteil
+  */
   public void updateColor(int rot, int gelb, int blau){
     this.rot = rot;
     this.gelb = gelb;
