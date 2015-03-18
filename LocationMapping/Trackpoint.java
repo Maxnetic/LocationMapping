@@ -144,60 +144,81 @@ class Trackpoint {
     /**
     * Berechnet zeitlichen Abstand zwischen zwei Trackpoints
     *
-    * @param trackpoint [Trackpoint]: Trackpoint mit dem Zeit verglichen wird
+    * @param trackpoint/timestamp [Trackpoint/Timestamp]: Trackpoint/Timestamp mit dem Zeit verglichen wird
     * @return [long]: Zeitdifferenz in Sekunden
     */
     public long timeDistanceTo(Trackpoint trackpoint){
         return this.getSeconds() - trackpoint.getSeconds();
     }
+    public long timeDistanceTo(Timestamp timestamp){
+        return this.getSeconds() - (timestamp.getTime()/1000L);
+    }
 
     /**
     * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig sind
     *
-    * @param trackpoint [Trackpoint]: Trackpoint mit dem Zeit verglichen wird
+    * @param trackpoint/timestamp [Trackpoint/Timestamp]: Trackpoint/Timestamp mit dem Zeit verglichen wird
     * @param tolerance [long]: (default = 3s) Toleranzgrenze für Zeitgleichheit in Sekunden
     * @return [boolean]: Wahrheitswert der Gleichzeitigkeit der Trackpoints innerhalb der Toleranz
     */
     public boolean equalTime(Trackpoint trackpoint){
         return equalTime(trackpoint, 3);
     }
+    public boolean equalTime(Timestamp timestamp){
+        return equalTime(timestamp, 3);
+    }
     public boolean equalTime(Trackpoint trackpoint, long tolerance){
         return this.timeDistanceTo(trackpoint) <= tolerance;
+    }
+    public boolean equalTime(Timestamp timestamp, long tolerance){
+        return this.timeDistanceTo(timestamp) <= tolerance;
     }
 
     /**
     * Vergleicht Trackpoints bezüglich ihrer Zeitkoordinate
     *
-    * @param trackpoint [Trackpoint]: Trackpoint mit dem Zeit verglichen wird
+    * @param trackpoint/timestamp [Trackpoint/Timestamp]: Trackpoint/Timestamp mit dem Zeit verglichen wird
     * @return [int]: Zahl gleich 0 falls gleich, kleiner 0 falls anderer Trackpoint führe, größer 0 falls anderer Trackpoint später
     */
     public int compareTimeTo(Trackpoint trackpoint){
         return (int) this.timeDistanceTo(trackpoint);
+    }
+    public int compareTimeTo(Timestamp timestamp){
+        return (int) this.timeDistanceTo(timestamp);
     }
 
 
     /**
     * Berechnet örtlichen Abstand zwischen zwei Trackpoints
     *
-    * @param trackpoint [Trackpoint]: Trackpoint zu dem Abstand berechnet wird
+    * @param trackpoint/location [Trackpoint/Location]: Trackpoint/Location zu dem Abstand berechnet wird
     * @return [double]: Abstand zwischen den Trackpoints in Grad
     */
     public double locationDistanceTo(Trackpoint trackpoint){
         return this.location.getDistance(trackpoint.getLocation());
     }
+    public double locationDistanceTo(Location location){
+        return this.location.getDistance(location);
+    }
 
     /**
     * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
     *
-    * @param trackpoint [Trackpoint]: Trackpoint mit dem Ort vergliche wird
+    * @param trackpoint/location [Trackpoint/Location]: Trackpoint/Location mit dem Ort berechnet wird
     * @param tolerance [double]: (default = 0.00009˚) Toleranzgrenze für Ortsgleichheit in Grad
     * @return [boolean]: Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
     */
     public boolean equalLocation(Trackpoint trackpoint){
         return equalLocation(trackpoint, 0.00009);
     }
+    public boolean equalLocation(Location location){
+        return equalLocation(location, 0.00009);
+    }
     public boolean equalLocation(Trackpoint trackpoint, double tolerance){
         return (this.locationDistanceTo(trackpoint) <= tolerance);
+    }
+    public boolean equalLocation(Location location, double tolerance){
+        return (this.locationDistanceTo(location) <= tolerance);
     }
 
     /**
