@@ -1,5 +1,6 @@
 import de.fhpotsdam.unfolding.geo.Location;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
 *
@@ -109,6 +110,26 @@ class Trackpoint {
     */
     public String getDateTime(){
         return timestamp.toString();
+    }
+
+    /**
+    * Gibt Stunde der Zeitvariable des Trackpoint aus
+    *
+    * @return [int]: Stunde der Zeitvariable (24h Format)
+    */
+    public int getHour(){
+        Date dateTime = new Date(this.timestamp.getTime());
+        return dateTime.getHours();
+    }
+
+    /**
+    * Gibt Minute der Zeitvariable des Trackpoint aus
+    *
+    * @return [int]: Minute der Zeitvariable
+    */
+    public int getMinute(){
+        Date dateTime = new Date(this.timestamp.getTime());
+        return dateTime.getMinutes();
     }
 
 
