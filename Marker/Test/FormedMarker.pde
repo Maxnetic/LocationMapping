@@ -23,7 +23,7 @@ public class FormedMarker extends UpdateableMarker {
     pg.pushStyle();
     pg.stroke(color(rot, gelb, blau));  // kein Rand
     pg.strokeWeight(4);
-    pg.fill(255, 0, 0, 100);  // Farbe sowie sichtbarkeit 
+    pg.fill(color(rot, gelb, blau, 100));  // Farbe sowie sichtbarkeit 
     pg.rect(x, y, size, size);  // Form 
     pg.popStyle();
   }

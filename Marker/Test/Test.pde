@@ -57,7 +57,8 @@ void setup() {
   for (int i=0;i <markerList.size();i++){
     UpdateableMarker current;
     current = (UpdateableMarker)markerList.get(i);
-    current.updateSize(500);
+    current.updateSize(20);
+    current.updateColor(100,0,100);
   }
 
   /*

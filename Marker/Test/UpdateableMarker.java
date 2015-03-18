@@ -31,11 +31,15 @@ public class UpdateableMarker extends SimplePointMarker {
   public void updateHidden(boolean hidden){
     this.setHidden(hidden);
   }
-  
+  //updatet bisher nur äußeren Stroke
+  //update visibility?
+  //außen innen?
   public void updateColor(int rot, int gelb, int blau){
     this.rot = rot;
     this.gelb = gelb;
     this.blau = blau;
   }
+  
+  //updateShape
 }
 
