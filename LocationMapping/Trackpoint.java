@@ -63,7 +63,7 @@ class Trackpoint {
     *
     * @return [String] : Service des Trackpoints als String
     */
-    String getService(){
+    public String getService(){
       return service;
     }
 
@@ -72,7 +72,7 @@ class Trackpoint {
     *
     * @return [int]: Identifikationsnummer des Trackpoint
     */
-    int getId(){
+    public int getId(){
         return id;
     }
 

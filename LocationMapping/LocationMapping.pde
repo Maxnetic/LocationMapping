@@ -9,6 +9,9 @@ import java.text.*;
 
 UnfoldingMap map;
 
+String importPath = "Daten/Daten_Malte_Spitz.csv";
+// String importPath = "D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/cellloc_greece.tsv"
+
 void setup() {
     // Processing Window setup
     size(800, 1000);
@@ -17,7 +20,33 @@ void setup() {
     // Map Setup
     map = new UnfoldingMap(this);
     MapUtils.createDefaultEventDispatcher(this, map);
-    Location berlinLocation = new Location(52.5, 13.4);
+    
+    String fileEnding = "";
+    for (int i = 0; i < importPath.length(); i++){
+        if (importPath.charAt(i) == '.'){
+            for (int j = i; j < importPath.length(); j++){
+                fileEnding = fileEnding + importPath.charAt(j);
+            }
+            break;
+        }
+    }
+    
+    if (fileEnding.equals(".csv")){
+        //csv-Import über DatenImportMalte
+        DatenImportMalte im = new DatenImportMalte();
+         tpl = im.ladeStandardCSV(importPath);
+    }
+    if (fileEnding.equals(".json")){
+        jsonimport js = new jsonimport();
+        tpl = js.ladeJSON(importPath, 60000, 10000);
+    }
+    if (fileEnding.equals(".tsv")){
+          tsvimport ti = new tsvimport();
+          tpl = ti.import_fireflies_tsv(importPath);
+    }
+
+    iter = tpl.iterator();
+    
     map.zoomAndPanTo(berlinLocation, 11);
 
     // Import Data
