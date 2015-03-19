@@ -10,6 +10,10 @@ class FilterWeekday extends Filter{
  String wochentag;
  
  //Konstruktor
+ /**
+ * Konstruktor, ruft Konstruktor der Oberklasse auf
+ * @return neues Objekt vom Typ FilterWeekday
+ */
  public FilterWeekday(){
      super();
  }
@@ -24,7 +28,8 @@ class FilterWeekday extends Filter{
   
    /*
   * Die Funktion wendet den Filter mit den gesetzten Werten an und filtert nach einem Wochentag
-  * @return gibt eine gefilterte trackpointList zurück
+  * @param trackpointlist [TrackpointList] : zu filternde Trackpointliste
+  * @return [TrackpointList] gibt eine gefilterte trackpointList zurück
   */
   public TrackpointList apply(TrackpointList trackpointlist){
     for(Trackpoint tp : trackpointlist){

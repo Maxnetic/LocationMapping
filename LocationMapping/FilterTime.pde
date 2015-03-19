@@ -16,6 +16,10 @@ class FilterTime extends Filter{
  int endtime;
  
  // Konstruktor
+ /**
+ * Konstruktor,ruft Konstruktor der Oberklasse auf
+ * @return neues Objekt vom Typ FilterTime
+ */
  public FilterTime(){
      super();
  }
@@ -39,7 +43,7 @@ class FilterTime extends Filter{
  
    /* Wendet den gesetzten Filter an 
   * @param trackpointlist [TrackpointList]: Die zu filternde Trackpointlist
-  * @return gibt eine gefilterte trackpointList zurück
+  * @return [TrackpointList] gibt eine gefilterte trackpointList zurück
   */
   public TrackpointList apply(TrackpointList trackpointlist){
    for(Trackpoint tp : trackpointlist){
