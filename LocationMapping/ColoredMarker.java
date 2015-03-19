@@ -17,10 +17,9 @@ public class ColoredMarker extends UpdateableMarker {
   * @param trackpoint [Trackpoint]: Der Trackpoint, aus dem der Marker erstellt wird
   * @return Erstellt einen neuen ColoredMarker 
   */
-  /*sobald Trackpoints verfügbar sind:  
   public ColoredMarker(Trackpoint trackpoint) {
     super(trackpoint.getLocation());
-  }*/
+  }
   
   /*
   * Zeichenmethode
