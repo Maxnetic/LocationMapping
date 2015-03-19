@@ -5,18 +5,29 @@ import processing.core.*;
 
 public class ColoredMarker extends UpdateableMarker {
   
-  //Konstruktor
+  /* Konstruktor
+  * @param location [Location]: Ortsangabe des Markers
+  * @return Gibt einen neuen farblichen Marker zurück
+  */
   public ColoredMarker(Location location) {
     super(location);
   }
   
-  /*
-  //sobald Trackpoints verfügbar sind:  
+  /* Alternativ Konstruktor
+  * @param trackpoint [Trackpoint]: Der Trackpoint, aus dem der Marker erstellt wird
+  * @return Erstellt einen neuen ColoredMarker 
+  */
+  /*sobald Trackpoints verfügbar sind:  
   public ColoredMarker(Trackpoint trackpoint) {
     super(trackpoint.getLocation());
   }*/
   
-  
+  /*
+  * Zeichenmethode
+  * @param pg [PGraphics]: Ein PGraphic Object, das zum zeichnen benötigt wird
+  * @param x [float]: x Koordinate der location
+  * @param y [float]: y Koordinate der Location
+  */
   public void draw(PGraphics pg, float x, float y) {
     
     //überprüft ob der Marker sichtbar ist, wenn nicht wird er nicht gezeichnet
