@@ -18,20 +18,20 @@ void setup() {
     map = new UnfoldingMap(this);
     MapUtils.createDefaultEventDispatcher(this, map);
     Location berlinLocation = new Location(52.5, 13.4);
-    map.zoomAndPanTo(berlinLocation, 11);
+    map.zoomAndPanTo(berlinLocation, 6);
 
     // Import Data
     DatenImportMalte importer = new DatenImportMalte();
-    TrackpointList trackpointList = importer.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
+    TrackpointList tpl = importer.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
 
-    if (delayedMarker == false){
-       while (iter.hasNext()){
-          Trackpoint curr = (Trackpoint) iter.next();
-          SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
-          map.addMarker(tmp);
-          map.panTo(curr.getLocation());
-       }
-    }
+//    if (delayedMarker == false){
+//       while (iter.hasNext()){
+//          Trackpoint curr = (Trackpoint) iter.next();
+//          SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
+//          map.addMarker(tmp);
+//          map.panTo(curr.getLocation());
+//       }
+//    }
 
     /* Test für filterTime
     Timestamp ts1 = new Timestamp(2009,10,2,22,20,40,0);
@@ -44,7 +44,8 @@ void setup() {
     */
 
     FilterFrequency f = new FilterFrequency();
-    f.setMinFrequency(100);
+    f.setMinFrequency(250);
+    f.setAccuracy(0.05);
     tpl = f.apply(tpl);
 
 
@@ -54,9 +55,6 @@ void setup() {
       marker.updateColor(255,0,0);
       map.addMarker(marker);
     }
-
-    // Filter Data
-    FrequencyFilter filter = new FrequencyFilter();
 
 }
 

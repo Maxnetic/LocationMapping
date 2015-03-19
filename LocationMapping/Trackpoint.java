@@ -195,7 +195,7 @@ class Trackpoint {
     *
     * @return [float]: Längengrad des Trackpoint
     */
-    public float getLatitude(){
+    public float getLattitude(){
         return location.getLat();
     }
 
