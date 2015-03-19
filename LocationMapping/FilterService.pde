@@ -1,24 +1,29 @@
 
 
-
+// Die Klasse filtert nach genutztem Service
 class FilterService extends Filter{
   
+  /*Attribute
+  * service bezeichnet den Dienst, der genutzt wurde
+  */
   String service;
   
-  
+  // Konstruktor
   public FilterService(){
      super();
   }
   
-   
+  /* 
+  * Setzt die service Eigenschaft
+  * @param service [String]: Der gewählte service, nach dem sortiert werden soll
+  */ 
   public void setService(String service){
     this.service = service;
   } 
   
   
   /*
-  * Die Funktion filtert nach Service
-  * @param service [String]: Art von benutztem Service
+  * Die Funktion wendet den Filter an und filtert nach Service
   * @param trackpointlist [TrackpointList]: Die zu filternde TrackpointList
   * @return gibt eine gefilterte TrackpointList zurück
   */
