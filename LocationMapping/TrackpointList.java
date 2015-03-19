@@ -67,6 +67,7 @@ class TrackpointList implements Iterable<Trackpoint> {
         } else {
             locationFrequencies.put(trackpointLocation, 1);
         }
+        this.isSortedByTime = false;
     }
     public void add(TrackpointList trackpointList){
         for ( Trackpoint trackpoint : trackpointList )
@@ -117,10 +118,12 @@ class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Findet Trackpoint in Trackpointliste und gibt ihn zurück
      *
-     * @param timestamp/location/position [Timestamp/Location/int] : Zeit, Ort oder Position zu dem entsprechender Trackpoint gefunden werden soll
-     * @return [Trackpoint]: gesuchter Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
+     * @param trackpoint/timestamp/location [Trackpoint/Timestamp/Location] : Trackpoint, Zeit oder Ort der in Liste gesucht werden soll
+     * @return [boolean]: Wahrheitswert ob gesuchter Trackpoint, Ort oder Zeit enthalten ist
      */
+    public boolean contains(Trackpoint trackpoint){
+        return contains(trackpoint.getTimestamp());
+    }
     public boolean contains(Timestamp timestamp){
         try {
             int position = binarySearch(timestamp);
@@ -221,6 +224,19 @@ class TrackpointList implements Iterable<Trackpoint> {
     }
     public int getFrequency(Trackpoint trackpoint) {
         return locationFrequencies.get(trackpoint.getLocation());
+    }
+
+    /**
+     * Setzt die Häufigkeit eines Orts manuell fest
+     *
+     * @param trackpoint/location [Trackpoint/Location]: Ort/Trackpoint dessen Häufigkeit überprüft werden soll
+     * @param frequency [int]: Häufigkeit welche für den Ort gesetzt wird
+     */
+    public void setFrequency(Location location, int frequency) {
+        this.locationFrequencies.put(location, frequency);
+    }
+    public void setFrequency(Trackpoint trackpoint, int frequency) {
+        this.locationFrequencies.put(trackpoint.getLocation(), frequency);
     }
 
     /**
