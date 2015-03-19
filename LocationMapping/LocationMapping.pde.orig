@@ -8,15 +8,19 @@ import java.util.*;
 import java.text.*;
 
 UnfoldingMap map;
-TrackpointList tpl;
-Iterator iter;
-int speed = 5;
-boolean delayedMarker = true;
-boolean growingMarker = false;
 
+<<<<<<< HEAD
 String importPath = "Daten/Daten_Malte_Spitz.csv";
 // String importPath = "D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/cellloc_greece.tsv"
 
+
+// ColoredMarker berlinColoredMarker;
+// FormedMarker randomFormedMarker;
+//List markerList;
+
+// creating map and marker
+=======
+>>>>>>> e5029d757a4aa9dfa8a09b7d77753ee741136aa0
 void setup() {
     // Processing Window setup
     size(800, 1000);
@@ -25,6 +29,8 @@ void setup() {
     // Map Setup
     map = new UnfoldingMap(this);
     MapUtils.createDefaultEventDispatcher(this, map);
+<<<<<<< HEAD
+    frame.setResizable(true);
     
     String fileEnding = "";
     for (int i = 0; i < importPath.length(); i++){
@@ -51,6 +57,32 @@ void setup() {
     }
 
     iter = tpl.iterator();
+    
+    // Location randomLocation = new Location(60.7, 8.2);
+    // berlinColoredMarker = new ColoredMarker(berlinLocation);
+    // randomFormedMarker = new FormedMarker(randomLocation);
+
+    /*
+     * Test für ColoredMarker / UpdateableMarker
+     */
+    // map.addMarker(berlinColoredMarker);
+    // map.addMarker(randomFormedMarker);
+
+    // berlinColoredMarker.updateColor(0,250,0);
+
+    // größe anpassen
+    // berlinColoredMarker.updateSize(400);
+
+    // verstecken
+    // berlinColoredMarker.updateHidden(true);
+=======
+    Location berlinLocation = new Location(52.5, 13.4);
+    map.zoomAndPanTo(berlinLocation, 11);
+>>>>>>> e5029d757a4aa9dfa8a09b7d77753ee741136aa0
+
+    // Import Data
+    DatenImportMalte importer = new DatenImportMalte();
+    TrackpointList trackpointList = importer.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
 
     if (delayedMarker == false){
        while (iter.hasNext()){
@@ -60,7 +92,21 @@ void setup() {
           map.panTo(curr.getLocation());
        }
     }
+<<<<<<< HEAD
+    
+    /*
+     * Test für FormedMarker
+     */
+    //map.addMarker(berlinFormedMarker);
+    
+    // ---------- test für Filter
+    //tpl = f.filterRadius(tpl,berlinLocation, 50);
+    
+    //tpl = f.filterTime(tpl, , );
+    
+=======
 
+>>>>>>> e5029d757a4aa9dfa8a09b7d77753ee741136aa0
     /* Test für filterTime
     Timestamp ts1 = new Timestamp(2009,10,2,22,20,40,0);
     Timestamp ts2 = new Timestamp(2009,12,2,22,22,15,0);
@@ -75,30 +121,20 @@ void setup() {
     f.setMinFrequency(100);
     tpl = f.apply(tpl);
 
-    if (growingMarker == true){
-       for ( Trackpoint tp : tpl ){
-        ColoredMarker marker = new ColoredMarker(tp);
-        marker.updateSize((int)Math.sqrt(tpl.getFrequency(tp)));
-        marker.updateColor(255,0,0);
-        map.addMarker(marker);
-      }
+
+    for ( Trackpoint tp : tpl ){
+      ColoredMarker marker = new ColoredMarker(tp);
+      marker.updateSize((int)Math.sqrt(tpl.getFrequency(tp)));
+      marker.updateColor(255,0,0);
+      map.addMarker(marker);
     }
 
-
+    // Filter Data
     FrequencyFilter filter = new FrequencyFilter();
-    
 
 }
 
 void draw() {
     map.draw();
-    if (iter.hasNext() && delayedMarker == true){
-      if (frameCount % speed == 0){
-        Trackpoint curr = (Trackpoint) iter.next();
-        SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
-        map.addMarker(tmp);
-        map.panTo(curr.getLocation());
-      }
-    }
 }
 
