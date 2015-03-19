@@ -53,16 +53,16 @@ void setup() {
     tpl = f.filterTimeOfDay(tpl, 0,3);
     */
     
+    FilterFrequency f = new FilterFrequency();
+    f.setMinFrequency(100);
+    tpl = f.apply(tpl);
     
-    //markerList = (map.getMarkers());
-
-    //Iteration über alle erstellten Marker, um deren Größe zu verändern
-    //for (int i=0;i <markerList.size();i++){
-    //     UpdateableMarker current;
-    //     current = (UpdateableMarker)markerList.get(i);
-    //     current.updateSize(4);
-    //     current.updateColor(100,0,100);
-    // }
+    
+    for ( Trackpoint tp : tpl ){
+      ColoredMarker marker = new ColoredMarker(tp);
+      marker.updateSize((int)Math.sqrt(tpl.getFrequency(tp)));
+      map.addMarker(marker);
+    }
 }
 
 /*
@@ -71,14 +71,14 @@ void setup() {
 void draw() {
     map.draw();
     
-    if (iter.hasNext() && delayedMarker == true){
-      if (frameCount % speed == 0){
-        Trackpoint curr = (Trackpoint) iter.next();
-        SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
-        map.addMarker(tmp);
-        map.panTo(curr.getLocation());
-      }
-    }
+//    if (iter.hasNext() && delayedMarker == true){
+//      if (frameCount % speed == 0){
+//        Trackpoint curr = (Trackpoint) iter.next();
+//        SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
+//        map.addMarker(tmp);
+//        map.panTo(curr.getLocation());
+//      }
+//    }
    
     
     //ScreenPosition berlinPos = berlinColoredMarker.getScreenPosition(map); //not necessary
