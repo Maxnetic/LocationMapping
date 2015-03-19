@@ -55,8 +55,11 @@ void setup() {
      */
     //map.addMarker(berlinFormedMarker);
     
-    DatenImportMalte im = new DatenImportMalte();
-    TrackpointList tpl = im.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
+    //DatenImportMalte im = new DatenImportMalte();
+    //TrackpointList tpl = im.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
+    
+    jsonimport js = new jsonimport();
+    TrackpointList tpl = js.ladeJSON("/Daten/max_kurz.json");
     
     // ---------- test für Filter
     //tpl = f.filterRadius(tpl,berlinLocation, 50);
