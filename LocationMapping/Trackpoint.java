@@ -59,6 +59,15 @@ class Trackpoint {
     }
 
     /**
+    * Gibt Service des Trackpoints aus
+    *
+    * @return [String] : Service des Trackpoints als String
+    */
+    String getService(){
+      return service;
+    }
+
+    /**
     * Gibt Identifikationsnummer des Trackpoint aus
     *
     * @return [int]: Identifikationsnummer des Trackpoint
@@ -83,15 +92,6 @@ class Trackpoint {
     */
     public String getLabel(){
         return this.label;
-    }
-
-    /**
-    * Gibt den Service des Trackpoint aus
-    *
-    * @return [String]: Service des Trackpoint
-    */
-    public String getService(){
-        return this.service;
     }
 
     /**
