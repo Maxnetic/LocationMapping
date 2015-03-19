@@ -8,6 +8,12 @@ import java.util.*;
 import java.text.*;
 
 UnfoldingMap map;
+TrackpointList tpl;
+Iterator iter;
+int speed = 5;
+boolean delayedMarker = true;
+
+
 // ColoredMarker berlinColoredMarker;
 // FormedMarker randomFormedMarker;
 //List markerList;
@@ -18,11 +24,12 @@ void setup() {
 
     map = new UnfoldingMap(this);
     MapUtils.createDefaultEventDispatcher(this, map);
-    map.setTweening(true);
     frame.setResizable(true);
+    DatenImportMalte im = new DatenImportMalte();
+    tpl = im.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
+    iter = tpl.iterator();
     
     Filter f = new Filter();
-
 
     Location berlinLocation = new Location(52.5, 13.4);
     // Location randomLocation = new Location(60.7, 8.2);
@@ -50,14 +57,20 @@ void setup() {
     // berlinColoredMarker.updateHidden(false);
 
     map.zoomAndPanTo(new Location(52.5f, 13.4f), 8);
-
+    
+    if (delayedMarker == false){
+       while (iter.hasNext()){
+          Trackpoint curr = (Trackpoint) iter.next();
+          SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
+          map.addMarker(tmp);
+          map.panTo(curr.getLocation());
+       }
+    }
+    
     /*
      * Test für FormedMarker
      */
     //map.addMarker(berlinFormedMarker);
-    
-    //DatenImportMalte im = new DatenImportMalte();
-    //TrackpointList tpl = im.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
     
     //jsonimport js = new jsonimport();
     //TrackpointList tpl = js.ladeJSON("D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/max_riesig.json", 60000, 10000);
@@ -79,10 +92,6 @@ void setup() {
     tpl = f.filterTimeOfDay(tpl, 0,3);
     */
     
-    for ( Trackpoint tp : tpl ){
-        ColoredMarker marker = new ColoredMarker(tp.getLocation());
-        map.addMarker(marker);
-    }
     
     //markerList = (map.getMarkers());
 
@@ -100,5 +109,17 @@ void setup() {
  */
 void draw() {
     map.draw();
+    
+    if (iter.hasNext() && delayedMarker == true){
+      if (frameCount % speed == 0){
+        Trackpoint curr = (Trackpoint) iter.next();
+        SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
+        map.addMarker(tmp);
+        map.panTo(curr.getLocation());
+      }
+    }
+   
+    
     //ScreenPosition berlinPos = berlinColoredMarker.getScreenPosition(map); //not necessary
 }
+
