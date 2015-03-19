@@ -13,6 +13,9 @@ Iterator iter;
 int speed = 5;
 boolean delayedMarker = true;
 
+String importPath = "Daten/Daten_Malte_Spitz.csv";
+// String importPath = "D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/cellloc_greece.tsv"
+
 
 // ColoredMarker berlinColoredMarker;
 // FormedMarker randomFormedMarker;
@@ -25,13 +28,33 @@ void setup() {
     map = new UnfoldingMap(this);
     MapUtils.createDefaultEventDispatcher(this, map);
     frame.setResizable(true);
-    DatenImportMalte im = new DatenImportMalte();
-    tpl = im.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
+    
+    String fileEnding = "";
+    for (int i = 0; i < importPath.length(); i++){
+        if (importPath.charAt(i) == '.'){
+            for (int j = i; j < importPath.length(); j++){
+                fileEnding = fileEnding + importPath.charAt(j);
+            }
+            break;
+        }
+    }
+    
+    if (fileEnding.equals(".csv")){
+        //csv-Import über DatenImportMalte
+        DatenImportMalte im = new DatenImportMalte();
+         tpl = im.ladeStandardCSV(importPath);
+    }
+    if (fileEnding.equals(".json")){
+        jsonimport js = new jsonimport();
+        tpl = js.ladeJSON(importPath, 60000, 10000);
+    }
+    if (fileEnding.equals(".tsv")){
+          tsvimport ti = new tsvimport();
+          tpl = ti.import_fireflies_tsv(importPath);
+    }
+
     iter = tpl.iterator();
     
-    Filter f = new Filter();
-
-    Location berlinLocation = new Location(52.5, 13.4);
     // Location randomLocation = new Location(60.7, 8.2);
     // berlinColoredMarker = new ColoredMarker(berlinLocation);
     // randomFormedMarker = new FormedMarker(randomLocation);
@@ -72,11 +95,6 @@ void setup() {
      */
     //map.addMarker(berlinFormedMarker);
     
-    //jsonimport js = new jsonimport();
-    //TrackpointList tpl = js.ladeJSON("D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/max_riesig.json", 60000, 10000);
-    
-    tsvimport ti = new tsvimport();
-    TrackpointList tpl = ti.import_fireflies_tsv("D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/cellloc_greece.tsv");
     // ---------- test für Filter
     //tpl = f.filterRadius(tpl,berlinLocation, 50);
     
