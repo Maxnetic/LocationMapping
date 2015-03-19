@@ -9,7 +9,9 @@ class Filter{
   
   
   
-  // Filter für die Zeit in Stunden, die Funktion bekommt eine Start und Endzeit
+  /* Dies ist ein Filter, der zwischen einer start und einer Endzeit, gegeben als Timestamps,
+  * alle Trackpoints herrausfiltert und eine Trackpointlist ausgibt
+  */
   public TrackpointList filterTime(TrackpointList trackpointlist, Timestamp starttime, Timestamp endtime){
    for(Trackpoint tp : trackpointlist){
       if(tp.getTimestamp().compareTo(starttime) >= 0 && tp.getTimestamp().compareTo(endtime) <= 0){
@@ -17,6 +19,19 @@ class Filter{
       }
    }
    return filteredtrackpointlist;
+  }
+
+
+  /* Dieser Filter filtert nach Tageszeiten, dh. man gibt ein Intervall in STart und Endstunde an,
+  * zwischen denen alle Trackpoints aller Tage rausgefiltert werden.
+  */
+  public TrackpointList filterTimeOfDay(TrackpointList trackpointlist, int starttime, int endtime){
+   for(Trackpoint tp : trackpointlist){
+     if(tp.getHour() >= starttime && tp.getHour() <= endtime){
+      filteredtrackpointlist.add(tp); 
+     } 
+   }    
+    return(filteredtrackpointlist);
   }
 
   
