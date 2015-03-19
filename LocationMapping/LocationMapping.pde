@@ -72,6 +72,11 @@ void setup() {
      */
     //map.addMarker(berlinFormedMarker);
     
+    //jsonimport js = new jsonimport();
+    //TrackpointList tpl = js.ladeJSON("D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/max_riesig.json", 60000, 10000);
+    
+    tsvimport ti = new tsvimport();
+    TrackpointList tpl = ti.import_fireflies_tsv("D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/cellloc_greece.tsv");
     // ---------- test für Filter
     //tpl = f.filterRadius(tpl,berlinLocation, 50);
     
