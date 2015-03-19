@@ -82,7 +82,16 @@ class Trackpoint {
     * @return [String]: Label des Trackpoint
     */
     public String getLabel(){
-        return label;
+        return this.label;
+    }
+
+    /**
+    * Gibt den Service des Trackpoint aus
+    *
+    * @return [String]: Service des Trackpoint
+    */
+    public String getService(){
+        return this.service;
     }
 
     /**
@@ -142,7 +151,7 @@ class Trackpoint {
         Date dateTime = new Date(this.timestamp.getTime());
         return dateTime.getDate();
     }
-    
+
     /**
     * Gibt Wochentag der Zeitvariable des Trackpoint aus
     *
