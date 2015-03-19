@@ -57,10 +57,10 @@ class Trackpoint {
     void setId(int id){
         this.id = id;
     }
-    
+
     /**
     * Gibt Service des Trackpoints aus
-    * 
+    *
     * @return [String] : Service des Trackpoints als String
     */
     public String getService(){
@@ -93,8 +93,6 @@ class Trackpoint {
     public String getLabel(){
         return this.label;
     }
-
-    
 
     /**
     * Gibt Zeitstempel des Trackpoint aus
