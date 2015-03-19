@@ -29,7 +29,8 @@ void setup() {
 
     for ( Trackpoint trackpoint : filter.apply(trackpointList) ){
         ColoredMarker marker = new ColoredMarker(trackpoint);
-        marker.updateSize(trackpointList.getFrequency(trackpoint));
+        marker.updateSize(trackpointList.getFrequency(trackpoint)/100);
+//        marker.updateSize(200);
         marker.updateColor(255,0,0);
         map.addMarker(marker);
     }
