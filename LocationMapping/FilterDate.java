@@ -1,3 +1,4 @@
+import java.sql.Timestamp;
 
 class FilterDate extends Filter{
   

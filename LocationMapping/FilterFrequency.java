@@ -46,8 +46,6 @@ class FilterFrequency extends Filter{
     * @return [TrackpointList]: gefilterte Trackpointliste
     */
     public TrackpointList apply(TrackpointList trackpointList){
-        System.out.println(accuracy);
-        System.out.println(minFrequency);
         // Runde Location bei allen Trackpoints
         TrackpointList roundedList = new TrackpointList();
         for ( Trackpoint trackpoint : trackpointList ){
@@ -67,3 +65,17 @@ class FilterFrequency extends Filter{
 //        return roundedList;
     }
 }
+
+// public static final double EARTH_RADIUS_KM = 6371.01;
+//
+// public static double getDistance(double lat1, double lon1, double lat2, double lon2) {
+//     double lat1Rad = Math.toRadians(lat1);
+//     double lon1Rad = Math.toRadians(lon1);
+//     double lat2Rad = Math.toRadians(lat2);
+//     double lon2Rad = Math.toRadians(lon2);
+
+//     double r = EARTH_RADIUS_KM;
+//     return r
+//             * Math.acos(Math.sin(lat1Rad) * Math.sin(lat2Rad) + Math.cos(lat1Rad) * Math.cos(lat2Rad)
+//                     * Math.cos(lon2Rad - lon1Rad));
+// }

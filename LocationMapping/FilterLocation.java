@@ -1,3 +1,4 @@
+import de.fhpotsdam.unfolding.geo.*;
 
 class FilterLocation extends Filter{
   

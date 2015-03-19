@@ -63,7 +63,7 @@ class Trackpoint {
     *
     * @return [String] : Service des Trackpoints als String
     */
-    public String getService(){
+    String getService(){
       return service;
     }
 
@@ -72,7 +72,7 @@ class Trackpoint {
     *
     * @return [int]: Identifikationsnummer des Trackpoint
     */
-    public int getId(){
+    int getId(){
         return id;
     }
 
@@ -195,7 +195,7 @@ class Trackpoint {
     *
     * @return [float]: Längengrad des Trackpoint
     */
-    public float getLattitude(){
+    public float getLatitude(){
         return location.getLat();
     }
 
@@ -260,7 +260,7 @@ class Trackpoint {
     * Berechnet örtlichen Abstand zwischen zwei Trackpoints
     *
     * @param trackpoint/location [Trackpoint/Location]: Trackpoint/Location zu dem Abstand berechnet wird
-    * @return [double]: Abstand zwischen den Trackpoints in Kilometer
+    * @return [double]: Abstand zwischen den Trackpoints in Grad
     */
     public double locationDistanceTo(Trackpoint trackpoint){
         return this.location.getDistance(trackpoint.getLocation());
