@@ -9,6 +9,10 @@ class FilterService extends Filter{
   String service;
   
   // Konstruktor
+  /**
+  * Konstruktor, ruft Konstruktor der Oberklasse auf
+  * @return neues Objekt vom Typ FilterService
+  */
   public FilterService(){
      super();
   }
@@ -25,7 +29,7 @@ class FilterService extends Filter{
   /*
   * Die Funktion wendet den Filter an und filtert nach Service
   * @param trackpointlist [TrackpointList]: Die zu filternde TrackpointList
-  * @return gibt eine gefilterte TrackpointList zurück
+  * @return [TrackpointList] gibt eine gefilterte TrackpointList zurück
   */
   public TrackpointList apply(TrackpointList trackpointlist){
    for(Trackpoint tp : trackpointlist){
