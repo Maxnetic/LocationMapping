@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
  
 public class jsonimport {
 
-  public TrackpointList ladeJSON(String filename){
+  public TrackpointList ladeJSON(String filename, int delta_zeit, int max_datensaetze){
         JSONParser parser = new JSONParser();
         TrackpointList trackpointList = new TrackpointList();
         
@@ -25,16 +25,16 @@ public class jsonimport {
             Iterator<?> teststring = array.listIterator();
 
             int i = 0;
+            int datensaetze = 0;
             long erste = 0;
-            while (teststring.hasNext()) {
+            while (teststring.hasNext() && (datensaetze < max_datensaetze)) {
                 JSONObject obj2=(JSONObject)array.get(i);
                 String timestamp = obj2.get("timestampMs").toString();
                 long zweite = Long.valueOf(timestamp);
                 Timestamp time = new Timestamp(zweite);
                 //Filter, der Daten, dessen Zeitpunkte weniger als 60 Sekunden auseinanderliegen, herausfiltert.
-                if(Math.abs(erste - zweite) > 60000){
-                	System.out.println("Zeit: " + time); 
-                	// Umwandlung
+                if(Math.abs(erste - zweite) > delta_zeit){
+                      	// Umwandlung
                 	String laenge = obj2.get("longitudeE7").toString();
                 	laenge = laenge.substring(0, 2) + "." + laenge.substring(2, 6);
                 	float longitude = Float.valueOf(laenge);
@@ -46,12 +46,12 @@ public class jsonimport {
                 	float latitude = Float.valueOf(breite);
                 
                         Location loc = new Location (latitude, longitude);
+                        datensaetze ++;
                 
                         Trackpoint trackpoint = new Trackpoint(time, loc, 1, "GPS");
                         trackpointList.add(trackpoint);
                         erste = zweite;
                 }
-                
                 i++;                
                 teststring.next();
             } 
