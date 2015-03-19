@@ -43,6 +43,15 @@ class TrackpointList implements Iterable<Trackpoint> {
     }
 
     /**
+     * Gibt an, ob Liste leer ist
+     *
+     * @return [boolean]: Wahrheitswert ob Liste leer ist
+     */
+    public boolean isEmpty(){
+        return this.length == 0;
+    }
+
+    /**
     * Fuegt Trackpoint in entsprechende Liste ein
     *
     * @param trackpoint/trackpointList [Trackpoint/TrackpointList]: einzufuegender Trackpoint oder Liste von Trackpoints
@@ -60,17 +69,16 @@ class TrackpointList implements Iterable<Trackpoint> {
         }
     }
     public void add(TrackpointList trackpointList){
-        for ( Trackpoint trackpoint : trackpointList ){
-            this.trackpointList.add(trackpoint);
-        }
+        for ( Trackpoint trackpoint : trackpointList )
+            this.add(trackpoint);
     }
 
     /**
      * Loescht Trackpoint aus entsprechende Liste ein
      *
-     * @param trackpoint [Trackpoint] : zu loeschender Trackpoint
+     * @param trackpoint/trackpointList [Trackpoint/TrackpointList]: zu löschende Trackpoints oder Liste von Trackpoints
      */
-    public void delete(Trackpoint trackpoint){
+    public void remove(Trackpoint trackpoint){
         trackpointList.remove(trackpoint);
         length--;
         // Falls Trackpoint nur noch mit Haeufigkeit 1 vorhanden, Trackpoint loeschen
@@ -81,15 +89,12 @@ class TrackpointList implements Iterable<Trackpoint> {
         else
             locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)-1);
     }
+    public void remove(TrackpointList trackpointList){
+        for ( Trackpoint trackpoint : trackpointList )
+            this.remove(trackpoint);
+    }
 
-    /**
-     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
-     *
-     * @param timestamp/location/position [Timestamp/Location/int] : Zeit, Ort oder Position zu dem entsprechender Trackpoint gefunden werden soll
-     * @return [Trackpoint]: gesuchter Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
-     */
-    public Trackpoint get(Timestamp timestamp){
+    private int binarySearch(Timestamp timestamp) throws NoSuchElementException {
         this.sortByTime();
         // Binärsuche auf nach Zeit sortierter Liste
         int imin = 0;
@@ -103,10 +108,49 @@ class TrackpointList implements Iterable<Trackpoint> {
             if ( cmp < 0 )
                 imin = imid+1;
             else
-                return midTrackpoint;
+                return imid;
         }
         // Trackpoint mit timestamp nicht enthalten
-        throw new RuntimeException("No trackpoint with " + timestamp + " found");
+        throw new NoSuchElementException();
+    }
+
+    /**
+     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     *
+     * @param timestamp/location/position [Timestamp/Location/int] : Zeit, Ort oder Position zu dem entsprechender Trackpoint gefunden werden soll
+     * @return [Trackpoint]: gesuchter Trackpoint
+     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
+     */
+    public boolean contains(Timestamp timestamp){
+        try {
+            int position = binarySearch(timestamp);
+            return true;
+        } catch(NoSuchElementException e) {
+            return false;
+        }
+    }
+    public boolean contains(Location location){
+        for ( Trackpoint trackpoint : this.trackpointList ){
+            if ( trackpoint.equals(location) )
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     *
+     * @param timestamp/location/position [Timestamp/Location/int] : Zeit, Ort oder Position zu dem entsprechender Trackpoint gefunden werden soll
+     * @return [Trackpoint]: gesuchter Trackpoint
+     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
+     */
+    public Trackpoint get(Timestamp timestamp){
+        try {
+            int position = binarySearch(timestamp);
+            return this.get(position);
+        } catch(NoSuchElementException e) {
+            throw new RuntimeException("No trackpoint with " + timestamp + " found");
+        }
     }
     public Trackpoint get(Location location){
         for ( Trackpoint trackpoint : this.trackpointList ){
@@ -149,23 +193,12 @@ class TrackpointList implements Iterable<Trackpoint> {
      * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
      */
     public int getPosition(Timestamp timestamp){
-        this.sortByTime();
-        // Binärsuche auf nach Zeit sortierter Liste
-        int imin = 0;
-        int imax = this.length-1;
-        while ( imax >= imin ){
-            int imid = (imin + imax)/2;
-            Trackpoint midTrackpoint = this.get(imid);
-            int cmp = midTrackpoint.compareTimeTo(timestamp);
-            if ( cmp > 0 )
-                imax = imid-1;
-            if ( cmp < 0 )
-                imin = imid+1;
-            else
-                return imid;
+       try {
+            int position = binarySearch(timestamp);
+            return position;
+        } catch(NoSuchElementException e) {
+            throw new RuntimeException("No trackpoint with " + timestamp + " found");
         }
-        // Trackpoint mit timestamp nicht enthalten
-        throw new RuntimeException("No trackpoint with " + timestamp + " found");
     }
     public int getPosition(Location location){
         int position = 0;
