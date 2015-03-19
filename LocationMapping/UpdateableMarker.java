@@ -19,18 +19,23 @@ public class UpdateableMarker extends SimplePointMarker {
   int blau = 0;
  
   /*
-  *Konstruktor
-  *@param location [Location]: Ortsangabe des Markers
+  * Konstruktor fuer UpdatableMarker Objekte
+  * @param location [Location]: Ortsangabe des Markers
+  * @return neues Objekt vom Typ Marker
   */
   public UpdateableMarker(Location location) {
     super(location);
   }
   
+  
   /*
-  //sobald Trackpoints verfügbar sind:  
+   * Konstruktor der Trackpoint uebergeben bekommt
+   * @param trackpoint [Trackpoint] : Trackpoint aus dem Marker gezeichnet werden soll
+   * @return neues Objekt von Typ Marker
+   */
   public UpdateableMarker(Trackpoint trackpoint) {
     super(trackpoint.getLocation());
-  }*/
+  }
   
   /*
   * updated die Größe des Markers
@@ -41,8 +46,8 @@ public class UpdateableMarker extends SimplePointMarker {
   }
   
   /* Die Funktion setzt die Sichtbarkeitseigenschaften des Markers
-  *@param hidden [boolean]: True oder False für die SIchtbarkeitseigenschaft
-  */
+   * @param hidden [boolean]: True oder False für die SIchtbarkeitseigenschaft
+   */
   public void updateHidden(boolean hidden){
     this.setHidden(hidden);
   }

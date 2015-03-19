@@ -57,6 +57,15 @@ class Trackpoint {
     void setId(int id){
         this.id = id;
     }
+    
+    /**
+    * Gibt Service des Trackpoints aus
+    * 
+    * @return [String] : Service des Trackpoints als String
+    */
+    String getService(){
+      return service;
+    }
 
     /**
     * Gibt Identifikationsnummer des Trackpoint aus
