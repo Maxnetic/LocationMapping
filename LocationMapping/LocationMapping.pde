@@ -8,7 +8,6 @@ import java.util.*;
 import java.text.*;
 
 UnfoldingMap map;
-TrackpointList tpl;
 Iterator iter;
 int speed = 5;
 boolean delayedMarker = true;
@@ -21,42 +20,19 @@ boolean delayedMarker = true;
 // creating map and marker
 void setup() {
     size(800, 600);
+    frame.setResizable(true);
 
     map = new UnfoldingMap(this);
     MapUtils.createDefaultEventDispatcher(this, map);
-    frame.setResizable(true);
+    map.zoomAndPanTo(new Location(52.5f, 13.4f), 8);
+    
     DatenImportMalte im = new DatenImportMalte();
-    tpl = im.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
+    TrackpointList tpl = im.ladeStandardCSV("Daten/Daten_Malte_Spitz.csv");
     iter = tpl.iterator();
     
-    Filter f = new Filter();
+//    Filter f = new Filter();
 
     Location berlinLocation = new Location(52.5, 13.4);
-    // Location randomLocation = new Location(60.7, 8.2);
-    // berlinColoredMarker = new ColoredMarker(berlinLocation);
-    // randomFormedMarker = new FormedMarker(randomLocation);
-
-    /*
-     * Test für ColoredMarker / UpdateableMarker
-     */
-    // map.addMarker(berlinColoredMarker);
-    // map.addMarker(randomFormedMarker);
-
-    // berlinColoredMarker.updateColor(0,250,0);
-
-    // größe anpassen
-    // berlinColoredMarker.updateSize(400);
-
-    // verstecken
-    // berlinColoredMarker.updateHidden(true);
-
-    // größe wieder anpassen, obwohl versteckt wird sie angepasst
-    // berlinColoredMarker.updateSize(60);
-
-    // sichtbar machen
-    // berlinColoredMarker.updateHidden(false);
-
-    map.zoomAndPanTo(new Location(52.5f, 13.4f), 8);
     
     if (delayedMarker == false){
        while (iter.hasNext()){
@@ -66,21 +42,6 @@ void setup() {
           map.panTo(curr.getLocation());
        }
     }
-    
-    /*
-     * Test für FormedMarker
-     */
-    //map.addMarker(berlinFormedMarker);
-    
-    //jsonimport js = new jsonimport();
-    //TrackpointList tpl = js.ladeJSON("D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/max_riesig.json", 60000, 10000);
-    
-    tsvimport ti = new tsvimport();
-    TrackpointList tpl = ti.import_fireflies_tsv("D:/Files/SP/softwarepraktikum-ws2014_15-visualisierung-von-mobilfunkdaten/LocationMapping/Daten/cellloc_greece.tsv");
-    // ---------- test für Filter
-    //tpl = f.filterRadius(tpl,berlinLocation, 50);
-    
-    //tpl = f.filterTime(tpl, , );
     
     /* Test für filterTime
     Timestamp ts1 = new Timestamp(2009,10,2,22,20,40,0);
