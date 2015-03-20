@@ -220,10 +220,17 @@ class TrackpointList implements Iterable<Trackpoint> {
      * @return [int]: Haeufigkeit des Ortes
      */
     public int getFrequency(Location location) {
-        return locationFrequencies.get(location);
+        if ( locationFrequencies.containsKey(location) )
+            return locationFrequencies.get(location);
+        else
+            throw new RuntimeException("Location " + location + " not found");
     }
     public int getFrequency(Trackpoint trackpoint) {
-        return locationFrequencies.get(trackpoint.getLocation());
+        Location location = trackpoint.getLocation();
+        if ( locationFrequencies.containsKey(location) )
+            return locationFrequencies.get(trackpoint.getLocation());
+        else
+            throw new RuntimeException("Location " + location + " not found");
     }
 
     /**

@@ -195,7 +195,7 @@ class Trackpoint {
     *
     * @return [float]: Längengrad des Trackpoint
     */
-    public float getLatitude(){
+    public float getLattitude(){
         return location.getLat();
     }
 
@@ -260,7 +260,7 @@ class Trackpoint {
     * Berechnet örtlichen Abstand zwischen zwei Trackpoints
     *
     * @param trackpoint/location [Trackpoint/Location]: Trackpoint/Location zu dem Abstand berechnet wird
-    * @return [double]: Abstand zwischen den Trackpoints in Grad
+    * @return [double]: Abstand zwischen den Trackpoints in Kilometer
     */
     public double locationDistanceTo(Trackpoint trackpoint){
         return this.location.getDistance(trackpoint.getLocation());
