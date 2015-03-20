@@ -4,6 +4,9 @@
 
 class FilterService extends Filter{
   
+  /* Attribute
+  * service gibt den zu filternden Service an
+  */
   String service;
   
  /*
@@ -12,14 +15,17 @@ class FilterService extends Filter{
   public FilterService(){
      super();
   }
-     
+   
+  /*
+  * Setzt den Service
+  * @param service [String]: Der service, nach dem gefiltert werden soll
+  */
   public void setService(String service){
     this.service = service;
   } 
     
   /*
   * Die Funktion filtert nach Service
-  * @param service [String]: Art von benutztem Service
   * @param trackpointlist [TrackpointList]: Die zu filternde TrackpointList
   * @return gibt eine gefilterte TrackpointList zurück
   */

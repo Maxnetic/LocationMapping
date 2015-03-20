@@ -4,19 +4,33 @@
 
 class FilterFrequency extends Filter{
   
+  /**
+  * Mindesthaeufigkeit
+  */
 int minfrequency;
 
-/*
- * Konstruktor
+/**
+ * Konstruktor, ruft Konstruktor der Oberklasse auf
+ * @return neues Objekt vom Typ FilterFrequency
  */
 public FilterFrequency(){
   super();
 }
 
+/**
+* Setzt Mindesthaeufigkeit
+* @param minf [int] : Mindesthaeufigkeit
+*/
+
 public void setMinFrequency(int minf){
   minfrequency = minf;
 }
 
+/**
+* Filter zum Filtern der am haeufigsten besuchten Orten
+* @param trackpointlist [TrackpointList] : zu filternde Trackpointliste
+* @return [TrackpointList] : gefilterte Trackpointliste
+*/
 public TrackpointList apply(TrackpointList trackpointlist){
   for(Trackpoint tp : trackpointlist){
    if(trackpointlist.getFrequency(tp) >= minfrequency)
@@ -25,8 +39,6 @@ public TrackpointList apply(TrackpointList trackpointlist){
   return filteredtpl;
   
 }
-  
-  
-  
+
   
 }
