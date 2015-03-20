@@ -6,7 +6,6 @@ import java.util.Date;
 *
 */
 class Trackpoint {
-    // Attribute
     /**
     * Ortsinformation, enthält doubles für Längen und Breitengrad
     */
