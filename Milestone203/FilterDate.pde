@@ -4,23 +4,37 @@
 
 class FilterDate extends Filter{
   
+  /**
+  * Startdatum
+  * Beispiel Timestamp ts1 = new Timestamp(2009,10,2,22,20,40,0); entspricht 2.10.2009 22 Uhr 20 Minuten 40 sek
+  */
    Timestamp startdate;
    
-   //Beispiel Timestamp ts1 = new Timestamp(2009,10,2,22,20,40,0); entspricht 2.10.2009 22 Uhr 20 Minuten 40 sek
-   
- 
+   /**
+   * Enddatum
+   */
    Timestamp enddate;
 
-   
+   /**
+   * Konstruktor, ruft Konstruktor der Oberklasse auf
+   * @return neues Objekt vom Typ FilterDate
+   */
    public FilterDate(){
      super();
    }
    
-     
+   /**
+   * Setzt Startdatum
+   * @param startdate [Timestamp] : Startdatum
+   */
   public void setStartDate(Timestamp startdate){
     this.startdate =startdate;
   }
   
+  /**
+  * Setzt Enddatum
+  * @param enddate [Timestamp] : Enddatum
+  */
   public void setEndDate(Timestamp enddate){
     this.enddate = enddate;
   }

@@ -11,15 +11,17 @@ public abstract class Filter{
  * Die Rückgabeliste, die in den Filtern beschrieben wird
  */
 
- 
  TrackpointList filteredtpl;
  
- // Konstruktor
+ /**
+ * Konstruktor fuer Filter
+ * @return neues Objekt vom Typ Filter
+ */
  public Filter(){
    filteredtpl = new TrackpointList();
  }
  
-  
+
  abstract TrackpointList apply(TrackpointList trackpointlist);
      
   
