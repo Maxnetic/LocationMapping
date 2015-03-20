@@ -135,18 +135,28 @@ class DatenImporter {
                 break;
 
             // Zeitstempel der Zeile
-            Timestamp timestamp = parseDateTimeString(row.getString("DateTime"));
+            Timestamp timestamp = new Timestamp(0);
+            try {
+                timestamp = parseDateTimeString(row.getString("DateTime"));
+            } catch(IllegalArgumentException e){
+                timestamp = parseTimestampString(row.getString("Timestamp"));
+            }
 
             // ignoriere Zeile, falls Zeitunterschied kleiner als minTimeDistance
             if ( Math.abs(lastTimestamp.getTime() - timestamp.getTime()) > this.minTimeDistance*1000 ){
                 lastTimestamp = timestamp;
                 counter++;
 
-                //
+                // Breitengrad und Längengrad der Zeile
                 float latitude = row.getFloat("Latitude");
                 float longitude = row.getFloat("Longitude");
 
-                String service = row.getString("Service");
+                // Service der Zeile
+                String service = "";
+                try {
+                    service = row.getString("Service");
+                } catch(IllegalArgumentException e) {}
+
 
                 // erstelle Trackpoint und füge ihn zu Liste hinzu
                 //Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
@@ -168,6 +178,11 @@ class DatenImporter {
         int second = Integer.parseInt(dateTimeString.substring(17,19));
         System.out.println(year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second);
         return new Timestamp(year-1900, month, day, hour, minute, second, 0);
+    }
+
+    Timestamp parseTimestampString(String timestampString){
+        long timestamp = Long.parseLong(timestampString.substring(0, 1) + timestampString.substring(2, 13));
+        return new Timestamp(timestamp);
     }
 
 }
