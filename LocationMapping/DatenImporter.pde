@@ -50,6 +50,34 @@ class DatenImporter {
     }
 
     /**
+    * Importiert Daten, wählt Parser je nach Dateiendung aus.
+    *
+    * @param filename [String]: Name der zu importierenden Datei im data Ordner
+    * @param id [int]: (default = 1) Identifikationsnummer der Datensatzes
+    * @retrun [Trackpointlist]: Trackpointlist mit Datenpunkten
+    * @throw [RuntimeException]: Falls Dateiformat unbekannt
+    */
+    public TrackpointList load(String filename){
+        return load(filename, 1);
+    }
+    public TrackpointList load(String filename, int id){
+        // parse Dateiendung
+        String extension = "";
+        int i = filename.lastIndexOf('.');
+        if ( i > 0 )
+            extension = filename.substring(i+1);
+
+        if ( extension.equals("csv") || extension.equals("tsv") ){
+            return loadSpreadsheet(filename, id);
+        }
+        if ( extension.equals("json") ){
+            return loadGoogleJSON(filename, id);
+        }
+        throw new RuntimeException("Unknown File Format");
+    }
+
+
+    /**
     * Importiert von Google exportierte JSON Daten
     *
     * @param filename [String]: Name der zu importierenden Datei im data Ordner
@@ -98,17 +126,16 @@ class DatenImporter {
 
                 // erstelle Trackpoint und füge ihn zu Liste hinzu
                 Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
-                Timestamp times = new Timestamp(timestamp);
-                Trackpoint trackpoint  = new Trackpoint(times, location, id, "GPS");
+                Trackpoint trackpoint  = new Trackpoint(new Timestamp(timestamp), location, id, "GPS");
                 trackpointList.add(trackpoint);
-                System.out.println("added " + trackpoint);
+                // System.out.println(counter + ": " + trackpoint);
             }// end if
         }// end for
         return trackpointList;
     }
 
     /**
-    * Importiert
+    * Importiert CSV und TSV Daten von Tabellen mit Headern Timestamp/DateTime, Longitude, Latitude (evtl. Service)
     *
     * @param filename [String]: Name der zu importierenden Datei im data Ordner
     * @param id [int]: (default = 7) Identifikationsnummer der Datensatzes
@@ -135,25 +162,35 @@ class DatenImporter {
                 break;
 
             // Zeitstempel der Zeile
-            Timestamp timestamp = parseDateTimeString(row.getString("DateTime"));
+            Timestamp timestamp = new Timestamp(0);
+            try {
+                timestamp = parseDateTimeString(row.getString("DateTime"));
+            } catch(IllegalArgumentException e){
+                timestamp = parseTimestampString(row.getString("Timestamp"));
+            }
 
             // ignoriere Zeile, falls Zeitunterschied kleiner als minTimeDistance
             if ( Math.abs(lastTimestamp.getTime() - timestamp.getTime()) > this.minTimeDistance*1000 ){
                 lastTimestamp = timestamp;
                 counter++;
 
-                //
+                // Breitengrad und Längengrad der Zeile
                 float latitude = row.getFloat("Latitude");
                 float longitude = row.getFloat("Longitude");
 
-                String service = row.getString("Service");
+                // Service der Zeile
+                String service = "";
+                try {
+                    service = row.getString("Service");
+                } catch(IllegalArgumentException e) {}
+
 
                 // erstelle Trackpoint und füge ihn zu Liste hinzu
                 //Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
                 Location location = new Location(latitude, longitude);
                 Trackpoint trackpoint  = new Trackpoint(timestamp, location, id, service);
                 trackpointList.add(trackpoint);
-                System.out.println(counter + ": " + trackpoint);
+                // System.out.println(counter + ": " + trackpoint);
             }
         }
         return trackpointList;
@@ -166,8 +203,12 @@ class DatenImporter {
         int hour = Integer.parseInt(dateTimeString.substring(11,13));
         int minute = Integer.parseInt(dateTimeString.substring(14,16));
         int second = Integer.parseInt(dateTimeString.substring(17,19));
-        System.out.println(year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second);
         return new Timestamp(year-1900, month, day, hour, minute, second, 0);
+    }
+
+    Timestamp parseTimestampString(String timestampString){
+        long timestamp = Long.parseLong(timestampString.substring(0, 1) + timestampString.substring(2, 13));
+        return new Timestamp(timestamp);
     }
 
 }
