@@ -1,10 +1,13 @@
 /*
- * Filter Trackpoints nach bestimmten Wochentag
+ * Filter Trackpoints nach einem bestimmtem Wochentag
  */
 
 class FilterWeekday extends Filter{
-  
-  
+ 
+ /*Attribute
+ * wochentag nach dem zu filtern ist
+ */ 
+ 
  String wochentag;
  
  /*
@@ -14,6 +17,10 @@ class FilterWeekday extends Filter{
      super();
  }
   
+  /*
+  * Setzt den Wochentag, nachdem zu filtern ist
+  * @param wochentag [String]: der Wochentag, nach dem gefiltert wird.
+  */
   public void setWochentag( String wochentag){
     this.wochentag = wochentag;
   }
