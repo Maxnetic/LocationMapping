@@ -166,7 +166,7 @@ class TrackpointList implements Iterable<Trackpoint> {
      *
      * @return [Trackpoint] : erster Trackpoint der Trackpointliste
      */
-    private Trackpoint getFirt(){
+    private Trackpoint getFirst(){
         return this.trackpointList.get(0);
     }
 

@@ -177,6 +177,7 @@ void draw() {
         SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
         map.addMarker(tmp);
         map.panTo(curr.getLocation());
+        System.out.println(curr.getDateTime());
       }
     }
 

@@ -19,10 +19,9 @@ class DatenImportMalte {
             int hours = Integer.parseInt( String.valueOf(pieces[0].charAt(11)) + String.valueOf(pieces[0].charAt(12)) );
             int minutes =  Integer.parseInt( String.valueOf(pieces[0].charAt(14)) +String.valueOf( pieces[0].charAt(15)) );
             int seconds =  Integer.parseInt( String.valueOf(pieces[0].charAt(17)) + String.valueOf(pieces[0].charAt(18)) );
-            Timestamp timestamp = new Timestamp(year, month, day, hours, minutes, seconds, 0);
+            Timestamp timestamp = new Timestamp(year-1900, month-1, day, hours-1, minutes-1, seconds-1, 0);
 
             Trackpoint trackpoint = new Trackpoint(timestamp, loc, 1, pieces[2]);
-
             trackpointList.add(trackpoint);
         }
         return trackpointList;
