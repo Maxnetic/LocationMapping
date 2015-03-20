@@ -25,10 +25,15 @@ import java.util.*;
 import java.text.*; 
 
 // init variables
+String importPath = "Data/Daten_Malte_Spitz.csv";
 UnfoldingMap map; 
 TrackpointList tpl;
 int currentTrackpoint = 0;
 String[] trackdata;
+Iterator iter;
+int speed = 5;
+boolean delayedMarker = true;
+boolean growingMarker = false;
 TrackpointList highfrequency;
 TrackpointList date;
 TrackpointList weekday;
@@ -53,17 +58,39 @@ void setup() {
   map.zoomAndPanTo(new Location(52.5f, 13.4f), 5); // Ort und Zoomlevel Init
   MapUtils.createDefaultEventDispatcher(this, map); //für StandardInteraktion
 
-  // lade Daten von MalteSpitz
-  DatenImportMalte im= new DatenImportMalte();
-  tpl = im.ladeStandardCSV("Daten_Malte_Spitz.csv");
-  
+  String fileEnding = "";
+    for (int i = 0; i < importPath.length(); i++){
+        if (importPath.charAt(i) == '.'){
+            for (int j = i; j < importPath.length(); j++){
+                fileEnding = fileEnding + importPath.charAt(j);
+            }
+            break;
+        }
+    }
+    
+   if  (fileEnding.equals(".csv")){
+        //csv-Import über DatenImportMalte
+        DatenImportMalte im = new DatenImportMalte();
+         tpl = im.ladeStandardCSV(importPath);
+    }
+    if (fileEnding.equals(".json")){
+        jsonimport js = new jsonimport();
+        tpl = js.ladeJSON(importPath, 60000, 10000);
+    }
+    if (fileEnding.equals(".tsv")){
+          tsvimport ti = new tsvimport();
+          tpl = ti.import_fireflies_tsv(importPath);
+    }
+  iter = tpl.iterator();
   
   // alle Marker in default-Schwarz auf die Karte  
   // ------ auskommentieren falls Filter gesetzt werden START ------
   
-  for ( Trackpoint tp : tpl ){
+  if (delayedMarker == false){
+     for ( Trackpoint tp : tpl ){
         MarkerRound marker = new MarkerRound(tp.getLocation());
         map.addMarker(marker);
+     }
   }
   
   // ------ auskommentieren falls Filter gesetzt werden ENDE ------
@@ -144,7 +171,14 @@ void setup() {
 
 void draw() {
   map.draw();
-  
+  if (iter.hasNext() && delayedMarker == true){
+      if (frameCount % speed == 0){
+        Trackpoint curr = (Trackpoint) iter.next();
+        SimplePointMarker tmp = new SimplePointMarker(curr.getLocation());
+        map.addMarker(tmp);
+        map.panTo(curr.getLocation());
+      }
+    }
 
 }
 
