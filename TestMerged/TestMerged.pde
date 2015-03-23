@@ -6,20 +6,30 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 import java.util.*;
 import java.text.*; 
+import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 //Iterator iter;
 
 UnfoldingMap map; 
+int stageWidth = 1000;
+int stageHeight = 600;
 int speed = 1;
 int currentTrackpoint = 0;
 String[] trackdata;
 Iterator iter;
+PlayButton play = new PlayButton(stageWidth, stageHeight);
+ZoomButton zoomInto = new ZoomButton(175, 14, 15, 15, true);
+ZoomButton zoomFrom = new ZoomButton(0, 14, 15, 15, false);
+SliderButton slider;
+boolean pause = true;
 
 void setup() {
-  size(1000, 600);
+  size(stageWidth, stageHeight);
   if(frame != null){
-    frame.setResizable(true);
+    frame.setResizable(false);
   }
   smooth();
   
@@ -28,6 +38,7 @@ void setup() {
   map.setTweening(true); // richtiges smooth Movement
   map.zoomAndPanTo(new Location(52.5f, 13.4f), 5); // Ort und Zoomlevel Init
   MapUtils.createDefaultEventDispatcher(this, map); //für StandardInteraktion
+  slider = new SliderButton(150, 3, stageWidth, stageHeight);
 
   // lade Daten von MalteSpitz
   TrackpointList tpl;
@@ -40,13 +51,26 @@ void setup() {
   TrackpointList filtered = f.apply(tpl);
   iter = filtered.iterator();
   
+  addKeyListener(new KeyAdapter() {
+  public void keyPressed(KeyEvent e){
+     if (e.getKeyCode() == KeyEvent.VK_SPACE){
+       pause = !pause;
+     }
+  }
+} );
+  
 } 
   
   
 void draw() {
   map.draw();
+  slider.draw();
+  play.draw();
+  zoomInto.draw();
+  zoomFrom.draw();
+  
   if(iter.hasNext()){
-      if(frameCount % speed == 0){
+      if(frameCount % speed == 0 && pause == false){
         Trackpoint curr = (Trackpoint) iter.next();
         MyMarker tmp = new MyMarker(curr);
         System.out.println(curr.getDateTime());
@@ -60,3 +84,22 @@ void draw() {
   
 }
 
+void mouseClicked() {
+  if (play.mouseOver()) {
+    pause = !pause;
+  }
+  if (zoomInto.mouseOver()) {
+    map.zoomLevelIn();
+  }
+  if (zoomFrom.mouseOver()) {
+    map.zoomLevelOut();
+  }
+  if (slider.mouseOver()) {
+    if (mouseEvent.getX() < (width-830.0-(150.0/map.getZoom()))) {
+        map.zoomLevelOut();
+    } else {
+       map.zoomLevelIn();
+    };
+  }
+  
+}
