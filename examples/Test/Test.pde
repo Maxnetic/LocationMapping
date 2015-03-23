@@ -18,7 +18,7 @@ void setup() {
     map.zoomAndPanTo(new Location(52.5f, 13.4f), 12); // zoom map to Berlin
 
     // Import Data
-    DatenImporter importer = new DatenImporter(this);
+    DataImporter importer = new DataImporter(this);
     TrackpointList trackpointList = importer.load("malte_spitz.csv");
     
     for ( Trackpoint trackpoint : trackpointList ){

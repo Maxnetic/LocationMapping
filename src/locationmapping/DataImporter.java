@@ -1,4 +1,15 @@
-class DatenImporter {
+package locationmapping;
+
+import de.fhpotsdam.unfolding.geo.Location;
+import java.sql.Timestamp;
+import processing.core.PApplet;
+import processing.data.*;
+
+public class DataImporter {
+    /**
+    * laufende Processing Applet Instanz
+    */
+    PApplet app;
     /**
     * Mindestabstand zwischen zwei einzulesenden Zeitpunkten in Sekunden (default = "60")
     */
@@ -11,6 +22,15 @@ class DatenImporter {
     * Genauigkeit in der Ortskoordinaten eingelesen werden sollen in Grad (default = "0.0001")
     */
     private double accuracy = 0.0001;
+
+    /**
+    * Erzeugt neues DataImporter Objekt im Applet
+    *
+    * @param app [PApplet]: laufendes Processing Applet in das importiert werden soll
+    */
+    public DataImporter(PApplet app) {
+        this.app = app;
+    }
 
     /**
     * Setzt maximale Anzahl der einzulesenden Datenpunkte
@@ -91,7 +111,7 @@ class DatenImporter {
         TrackpointList trackpointList = new TrackpointList();
 
         // Extrahiere Array aus Daten
-        JSONObject wrapperObject = loadJSONObject(filename);
+        JSONObject wrapperObject = app.loadJSONObject(filename);
         JSONArray data = wrapperObject.getJSONArray("locations");
 
         // speichert letzten Zeitstempel für Überprüfung der minTimeDistance
@@ -148,7 +168,7 @@ class DatenImporter {
         TrackpointList trackpointList = new TrackpointList();
 
         // Extrahiere Array aus Daten
-        Table data = loadTable(filename, "header");
+        Table data = app.loadTable(filename, "header");
 
         // speichert letzten Zeitstempel für Überprüfung der minTimeDistance
         Timestamp lastTimestamp = new Timestamp(0);
