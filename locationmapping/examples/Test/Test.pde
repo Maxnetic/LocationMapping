@@ -1,19 +1,32 @@
-import template.library.*;
+import locationmapping.*;
+import de.fhpotsdam.unfolding.*;
+import de.fhpotsdam.unfolding.utils.*;
+import de.fhpotsdam.unfolding.geo.*;
+import java.sql.Timestamp;
 
-HelloLibrary hello;
+
+UnfoldingMap map;
 
 void setup() {
-  size(400,400);
-  smooth();
-  
-  hello = new HelloLibrary(this);
-  
-  PFont font = createFont("",40);
-  textFont(font);
+    // Processing Window setup
+    size(800, 1000);
+    frame.setResizable(true);
+
+    // Map Setup
+    map = new UnfoldingMap(this);
+    MapUtils.createDefaultEventDispatcher(this, map);
+    map.zoomAndPanTo(new Location(52.5f, 13.4f), 12); // zoom map to Berlin
+
+    // Import Data
+    DatenImporter importer = new DatenImporter(this);
+    TrackpointList trackpointList = importer.load("malte_spitz.csv");
+    
+    for ( Trackpoint trackpoint : trackpointList ){
+        StandardMarker marker = new StandardMarker(trackpoint);
+        map.addMarker(marker);
+    }
 }
 
 void draw() {
-  background(0);
-  fill(255);
-  text(hello.sayHello(), 40, 200);
+  map.draw();
 }
