@@ -6,7 +6,7 @@ import java.sql.Timestamp;
  */
 
 public class Filter{
- 
+
  /* Attribute
   * Die Rückgabeliste, die in den Filtern beschrieben wird
   */
@@ -22,7 +22,7 @@ public class Filter{
   int starttime; //Startzeit (Stunde am Tag)
   int endtime; //Endzeit (Stunde am Tag)
   String wochentag;
- 
+
   /*
    * set-Methode für Type
    * @param String: Möglichkeiten sind: Date, Frequency, Location, Service, Time, Weekday
@@ -30,7 +30,7 @@ public class Filter{
   public void setType(String type) {
     this.type = type;
   }
- 
+
   /*
    * get-Methode für Type
    * @return String: gewählte Filtermethode
@@ -38,15 +38,15 @@ public class Filter{
   public String getType() {
     return this.type;
   }
- 
+
   /*
    * Setzt Startdatum
    * @param startdate [Timestamp] : Startdatum
    */
   public void setStartDate(Timestamp startdate){
-    this.startdate =startdate;
+    this.startdate = startdate;
   }
-  
+
   /*
    * Setzt Enddatum
    * @param enddate [Timestamp] : Enddatum
@@ -54,7 +54,7 @@ public class Filter{
   public void setEndDate(Timestamp enddate){
     this.enddate = enddate;
    }
- 
+
   /*
    * Setzt Mindesthaeufigkeit
    * @param minf [int] : Mindesthaeufigkeit
@@ -63,21 +63,21 @@ public class Filter{
   public void setMinFrequency(int minf){
     minfrequency = minf;
   }
- 
+
   /* Setzt den Radius
    * @param radius [int]: setzt den Radius, um den gefiltert wird
    */
   public void setRadius(int radius){
     this.radius = radius;
   }
-  
+
   /* Setzt die Location
    * @param location [Location]: setzt den Ort, um den gefiltert wird
-   */ 
+   */
   public void setLocation(Location location){
     this.location = location;
   }
- 
+
   /* Setzt die Startzeit
    * @param starttime [int]: Die Startzeit, ab der gefiltert wird
    */
@@ -87,19 +87,19 @@ public class Filter{
 
   /* Setzt die Endzeit
    * @param endtime [int]: Die Startzeit, ab der gefiltert wird
-   */  
+   */
   public void setEndtime(int endtime){
     this.endtime = endtime;
   }
- 
+
   /*
    * Setzt den Service
    * @param service [String]: Der service, nach dem gefiltert werden soll
    */
   public void setService(String service){
     this.service = service;
-  } 
- 
+  }
+
   /*
    * Setzt den Wochentag, nachdem zu filtern ist
    * @param wochentag [String]: der Wochentag, nach dem gefiltert wird.
@@ -107,7 +107,7 @@ public class Filter{
   public void setWochentag( String wochentag){
     this.wochentag = wochentag;
   }
- 
+
   /*
    * Konstruktor fuer Filter
    * @return neues Objekt vom Typ Filter
@@ -115,7 +115,7 @@ public class Filter{
   public Filter(){
     filteredtpl = new TrackpointList();
   }
- 
+
 
   public TrackpointList apply(TrackpointList trackpointlist) {
       if ((this.type == "Date") && (this.startdate != null) && (this.enddate != null)) {  //hier eventuell Fehlermeldung werfen?
@@ -129,12 +129,12 @@ public class Filter{
       if (this.type == "Frequency") {
         for(Trackpoint tp : trackpointlist){
           if(trackpointlist.getFrequency(tp) >= minfrequency)
-            filteredtpl.add(tp); 
-        }  
+            filteredtpl.add(tp);
+        }
         return filteredtpl;
       }
       if (this.type == "Location") {
-        for( Trackpoint tp : trackpointlist ){       
+        for( Trackpoint tp : trackpointlist ){
           if (tp.locationDistanceTo(location) <= radius)
             filteredtpl.add(tp);
         }
@@ -151,19 +151,19 @@ public class Filter{
       if (this.type == "Time") {
         for(Trackpoint tp : trackpointlist){
           if(tp.getHour() >= starttime && tp.getHour() <= endtime){
-            filteredtpl.add(tp); 
-          } 
-        }    
+            filteredtpl.add(tp);
+          }
+        }
         return filteredtpl;
       }
       if (this.type == "Weekday") {
         for(Trackpoint tp : trackpointlist){
           if(tp.getDayOfTheWeek().equals(wochentag)){
-            filteredtpl.add(tp); 
+            filteredtpl.add(tp);
           }
         }
-        return filteredtpl; 
-      } 
+        return filteredtpl;
+      }
       return filteredtpl; //leere FilteredListe falss Parameter nicht richtig gesetzt? bessere Lösung?
   }
 }
