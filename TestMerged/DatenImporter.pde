@@ -197,7 +197,7 @@ class DatenImporter {
     }
 
     Timestamp parseDateTimeString(String dateTimeString){
-        int month =  Integer.parseInt(dateTimeString.substring(0,2));
+        int month =  Integer.parseInt(dateTimeString.substring(0,2))-1; //indexzählung? hier vorher Fehler, nun gefixt
         int day =  Integer.parseInt(dateTimeString.substring(3,5));
         int year =  Integer.parseInt(dateTimeString.substring(6,10));
         int hour = Integer.parseInt(dateTimeString.substring(11,13));
