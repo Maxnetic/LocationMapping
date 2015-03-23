@@ -34,11 +34,8 @@ void setup() {
   smooth();
   
   
-  map = new UnfoldingMap(this);
-  map.setTweening(true); // richtiges smooth Movement
-  map.zoomAndPanTo(new Location(52.5f, 13.4f), 5); // Ort und Zoomlevel Init
-  MapUtils.createDefaultEventDispatcher(this, map); //für StandardInteraktion
-  slider = new SliderButton(150, 3, stageWidth, stageHeight);
+  map = new MyMap(this);
+
 
   // lade Daten von MalteSpitz
   TrackpointList tpl;
@@ -46,18 +43,11 @@ void setup() {
   tpl = im.load("malte_spitz.csv");
   
   Filter f = new Filter();
-  f.setType("Frequency");
   f.setMinFrequency(1);
   TrackpointList filtered = f.apply(tpl);
   iter = filtered.iterator();
   
-  addKeyListener(new KeyAdapter() {
-  public void keyPressed(KeyEvent e){
-     if (e.getKeyCode() == KeyEvent.VK_SPACE){
-       pause = !pause;
-     }
-  }
-} );
+
   
 } 
   
