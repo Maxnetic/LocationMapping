@@ -1,16 +1,30 @@
 
 class Button {
-  
   float x, y, w, h;
   
   Button(float x, float y, float w, float h) {
+    /**
+     * Die X-Koordinate des Buttons
+     */
     this.x = x;
+    /**
+     * Die Y-Koordinate des Buttons
+     */
     this.y = y;
+    /**
+     * Die Breite des Buttons
+     */
     this.w = w;
+    /**
+     * Die Höhe des Buttons
+     */
     this.h = h;
   } 
   
   boolean mouseOver() {
+    /**
+     * mouseOver ist true, wenn die Maus darüber gehalten wird. Benötigt zum Erkennen von Klicks auf den Button
+     */
     return (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h);
   }
   
@@ -26,11 +40,17 @@ class Button {
 
 class SliderButton extends Button {
     SliderButton(float x, float y, int w, int h){
+     /**
+     * Zeichne Skala
+     */
         super(w-980, h-580, x, y);
     }
     
     void draw(){
        super.draw(); 
+       /**
+         * Zeichne den Schieberegler des Zooms
+         */
        rect(width-830.0-(150.0/map.getZoom()),height-581.0, 5.0, 5.0);
     }
 }
@@ -55,47 +75,11 @@ class ZoomButton extends Button {
   
 }
 
-class PanButton extends Button {
-  
-  int dir = UP;
-  
-  PanButton(float x, float y, float w, float h, int dir) {
-    super(x, y, w, h);
-    this.dir = dir;
-  }
-  
-  void draw() {
-    super.draw();
-    stroke(0);
-    switch(dir) {
-      case UP:
-        line(x+w/2,y+3,x+w/2,y+h-3);
-        line(x-3+w/2,y+6,x+w/2,y+3);
-        line(x+3+w/2,y+6,x+w/2,y+3);
-        break;
-      case DOWN:
-        line(x+w/2,y+3,x+w/2,y+h-3);
-        line(x-3+w/2,y+h-6,x+w/2,y+h-3);
-        line(x+3+w/2,y+h-6,x+w/2,y+h-3);
-        break;
-      case LEFT:
-        line(x+3,y+h/2,x+w-3,y+h/2);
-        line(x+3,y+h/2,x+6,y-3+h/2);
-        line(x+3,y+h/2,x+6,y+3+h/2);
-        break;
-      case RIGHT:
-        line(x+3,y+h/2,x+w-3,y+h/2);
-        line(x+w-3,y+h/2,x+w-6,y-3+h/2);
-        line(x+w-3,y+h/2,x+w-6,y+3+h/2);
-        break;
-    }
-  }
-  
-}
+
 
 class PlayButton extends Button {
   PlayButton(int w, int h) {
-    //drawing a rectangle from superclass
+    //zeichne Rechteck
     super(w/2-16 , h-56, 28, 28);
   }
   
@@ -103,7 +87,7 @@ class PlayButton extends Button {
   void draw() {
     super.draw();
     
-    //drawing an ellipse over the superclass rectangle
+    //zeichne einen Kreis über das Rechteck
     fill(mouseOver() ? 255 : 220);    
     stroke(150);
     ellipse(width/2-2, height-42, 40, 40);
@@ -111,6 +95,9 @@ class PlayButton extends Button {
     
     noStroke();
     fill(120);
+    /**
+     * Je nach Pausezustand wird Play- oder Stop-Symbol gezeichnet
+     */
     if(pause == false) {
        rect(width/2-9,height-49, 5, 15);
        rect(width/2+1, height-49, 5, 15);
