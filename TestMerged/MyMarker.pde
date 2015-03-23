@@ -14,7 +14,7 @@ import processing.core.*;
 
 public class MyMarker extends SimplePointMarker {
   //Initialisierung der Attribute und ihrer Defaulteinstellung
-  int size = 5;
+  int size = 30;
   int rot = 0;
   int gelb = 0;
   int blau = 0;
@@ -132,7 +132,7 @@ public class MyMarker extends SimplePointMarker {
       pg.popStyle();
       return;
     }
-    if (this.style == "SMS") {
+    if ((this.style.contains("SMS"))) {
       pg.pushStyle();
       pg.noStroke();
       pg.fill(rot, gelb, blau, 100);  // Farbe sowie sichtbarkeit 
@@ -157,7 +157,7 @@ public class MyMarker extends SimplePointMarker {
       pg.popStyle();
       return;
     }
-    if (this.style == "Anruf") {
+    if ((this.style.contains("Anruf")) || (this.style.contains("Telefonie"))) {
       pg.pushStyle();
       pg.noStroke();
       pg.fill(rot, gelb, blau, 100);  // Farbe sowie sichtbarkeit 
@@ -171,7 +171,7 @@ public class MyMarker extends SimplePointMarker {
       pg.popStyle();
       return;
     }
-    if (this.style == "Internet") {
+    if (this.style.contains("Internet")) {
       pg.pushStyle();
       pg.noStroke();
       pg.fill(rot, gelb, blau, 100);  // Farbe sowie sichtbarkeit 

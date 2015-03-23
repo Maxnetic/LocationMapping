@@ -31,8 +31,8 @@ void setup() {
 
   // lade Daten von MalteSpitz
   TrackpointList tpl;
-  DatenImportMalte im= new DatenImportMalte();
-  tpl = im.ladeStandardCSV("Daten_Malte_Spitz.csv");
+  DatenImporter im= new DatenImporter();
+  tpl = im.load("malte_spitz.csv");
   
   Filter f = new Filter();
   f.setType("Frequency");
@@ -49,7 +49,8 @@ void draw() {
       if(frameCount % speed == 0){
         Trackpoint curr = (Trackpoint) iter.next();
         MyMarker tmp = new MyMarker(curr);
-        tmp.setStyle("Rectangle");
+        System.out.println(curr.getDateTime());
+        tmp.setStyle(curr.getService());
         map.addMarker(tmp);
         //map.panTo(curr.getLocation());
         //System.out.println(curr.getDateTime());
