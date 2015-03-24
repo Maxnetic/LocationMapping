@@ -121,7 +121,7 @@ void mouseClicked() {
   }
   // wenn auf den Slider gedrückt, zoome hinaein oder hinaus
   if (slider.mouseOver()) {
-    if (mouseEvent.getX() < (width-830.0-(150.0/map.getZoom()))) {
+    if (mouseEvent.getX() < (20 + (150 * (map.getZoom() / 262144)))) {
         map.zoomLevelOut();
     } else {
        map.zoomLevelIn();

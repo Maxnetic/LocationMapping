@@ -51,7 +51,7 @@ class SliderButton extends Button {
        /**
          * Zeichne den Schieberegler des Zooms
          */
-       rect(width-830.0-(150.0/map.getZoom()),height-581.0, 5.0, 5.0);
+       rect(20 + (150 * (map.getZoom() / 262144) ),height-581.0, 5.0, 5.0);
     }
 }
 
