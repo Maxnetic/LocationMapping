@@ -162,19 +162,19 @@ class Trackpoint {
         int weekDay = dateTime.getDay();
         switch(weekDay){
           case 0:
-            return "Sonntag";
+            return "sonntag";
           case 1:
-            return "Montag";
+            return "montag";
           case 2:
-            return "Dienstag";
+            return "dienstag";
           case 3:
-            return "Mittwoch";
+            return "mittwoch";
           case 4:
-            return "Donnerstag";
+            return "donnerstag";
           case 5:
-            return "Freitag";
+            return "freitag";
           case 6:
-            return "Samstag";
+            return "samstag";
         }
         return "";
     }
