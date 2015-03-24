@@ -156,7 +156,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         length--;
         // Falls Trackpoint nur noch mit Haeufigkeit 1 vorhanden, Trackpoint loeschen
         // sonst Wert um 1 verringern
-        if (locationFrequencies.get(trackpointLocation) == 1)
+        if ( locationFrequencies.containsKey(trackpoint) && locationFrequencies.get(trackpointLocation) == 1 )
             locationFrequencies.remove(trackpointLocation);
         else
             locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)-1);
