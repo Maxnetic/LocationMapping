@@ -75,8 +75,8 @@ void setup() {
   MapUtils.createDefaultEventDispatcher(this, map); //für StandardInteraktion
 
   // lade Daten von MalteSpitz
-  DatenImportMalte im= new DatenImportMalte();
-  tpl = im.ladeStandardCSV("Daten_Malte_Spitz.csv");
+  DatenImporter im = new DatenImporter();
+  tpl = im.load("max_mittel.json");
   
   
   // alle Marker in default-Schwarz auf die Karte  -

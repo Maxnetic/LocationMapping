@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 public abstract class Filter{
  
- /* Attribute
+/* Attribute
  * Die Rückgabeliste, die in den Filtern beschrieben wird
  */
 
