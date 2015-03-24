@@ -9,63 +9,23 @@ import java.text.*;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import locationmapping.*;
 
 
-/**
- * Der Name der Weltkarte
- */
-UnfoldingMap map;
-/**
- * die Breite der Karte
- */
-int stageWidth = 1000;
-/**
- * Die Höhe der Karte
- */
-int stageHeight = 600;
-/**
- * Die Geschwindigkeit der Anzeige von Markern im verzögerten Modus
- */
-int speed = 1;
-/**
- * Der Iterator zum Durchgehen der Trackpointliste
- */
-Iterator iter;
-/**
- * Der Pauseknopf
- */
-PlayButton play = new PlayButton(stageWidth, stageHeight);
-/**
- * Der "+"-Knopf
- */
-ZoomButton zoomInto = new ZoomButton(175, 14, 15, 15, true);
-/**
- * Der "-"-Knopf
- */
-ZoomButton zoomFrom = new ZoomButton(0, 14, 15, 15, false);
-/**
- * Der Zoomslider
- */
-SliderButton slider;
-/**
- * Der Zustand des Pauseknopfs
- */
-boolean pause = true;
+LocationMap map = new LocationMap(this);
 
+    
 void setup() {
   size(stageWidth, stageHeight);
   if(frame != null){
     frame.setResizable(false);
   }
   smooth();
-  
-  
-  map = new MyMap(this);
 
 
   // lade Daten von MalteSpitz
   TrackpointList tpl;
-  DatenImporter im= new DatenImporter();
+  DataImporter im = new DataImporter(this);
   tpl = im.load("malte_spitz.csv");
   
   Filter f = new Filter();
