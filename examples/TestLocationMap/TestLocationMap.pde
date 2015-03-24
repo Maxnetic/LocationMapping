@@ -14,9 +14,13 @@ import locationmapping.*;
 
 LocationMap map = new LocationMap(this);
 
+Iterator iter;
+
+int speed = 1;
+
     
 void setup() {
-  size(stageWidth, stageHeight);
+  size(map.stageWidth, map.stageHeight);
   if(frame != null){
     frame.setResizable(false);
   }
@@ -28,6 +32,7 @@ void setup() {
   DataImporter im = new DataImporter(this);
   tpl = im.load("malte_spitz.csv");
   
+  // Filter wird angewendet
   Filter f = new Filter();
   f.setMinFrequency(1);
   TrackpointList filtered = f.apply(tpl);
@@ -41,14 +46,6 @@ void setup() {
 void draw() {
   //zeichne die Karte
   map.draw();
-  //zeichne den Slider
-  slider.draw();
-  //zeichne den Pauseknopf
-  play.draw();
-  //zeichne den Plusknopf
-  zoomInto.draw();
-  //zeichne den Minusknopf
-  zoomFrom.draw();
   
   //zeige Marker verzögert an
   if(iter.hasNext()){
