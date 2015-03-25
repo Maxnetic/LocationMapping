@@ -80,10 +80,10 @@ public class LocationMapper {
      * Methode des Processing Sketches aufgerufen werden
      */
     @SuppressWarnings("deprecation")
-	public void init(){
+    public void init(){
         // Fenstergröße Setzen und Anpassbar machen
         app.size(this.width, this.height);
-        //app.frame.setResizable(true); //funktioniert unter eclipse nicht
+        app.frame.setResizable(true); //funktioniert unter eclipse nicht
 
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
@@ -105,7 +105,7 @@ public class LocationMapper {
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         // Play Button erstellen
-        this.play = new PlayButton(this, 32);
+        this.play = new PlayButton(this, 41);
 
         // Listener Einsetzen
         this.app.registerMethod("mouseEvent", this);
