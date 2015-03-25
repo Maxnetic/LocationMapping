@@ -1,7 +1,7 @@
 package locationmapping;
 
 import de.fhpotsdam.unfolding.geo.Location;
-import java.sql.Timestamp;
+import org.joda.time.*;
 import java.util.*;
 
 /**
@@ -52,17 +52,24 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Findet Trackpoint in Trackpointliste und gibt ihn zurück
      *
-     * @param timestamp/location/position [Timestamp/Location/int] : Zeit, Ort oder Position zu dem entsprechender Trackpoint gefunden werden soll
-     * @return [Trackpoint]: gesuchter Trackpoint
+     * @param timestamp Zeit zu dem entsprechender Trackpoint gefunden werden soll
+     * @return gesuchter Trackpoint
      * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
      */
-    public Trackpoint get(Timestamp timestamp){
+    public Trackpoint get(ReadableInstant timestamp){
         for ( Trackpoint trackpoint : this.trackpointList ){
             if ( trackpoint.equals(timestamp) )
                 return trackpoint;
         }
         throw new RuntimeException("trackpoint with " + timestamp + " not found");
     }
+    /**
+     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     *
+     * @param location Ort zu dem entsprechender Trackpoint gefunden werden soll
+     * @return gesuchter Trackpoint
+     * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
+     */
     public Trackpoint get(Location location){
         for ( Trackpoint trackpoint : this.trackpointList ){
             if ( trackpoint.equals(location) )
@@ -70,6 +77,13 @@ public class TrackpointList implements Iterable<Trackpoint> {
         }
         throw new RuntimeException("trackpoint at " + location + " not found");
     }
+    /**
+     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     *
+     * @param position Position zu dem entsprechender Trackpoint gefunden werden soll
+     * @return gesuchter Trackpoint
+     * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
+     */
     public Trackpoint get(int position){
         if ( position <= this.length )
             return this.trackpointList.get(position);
@@ -79,11 +93,11 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurück
      *
-     * @param timestamp/location [Timestamp/Location]: Zeit oder Ort zu dem entsprechende Trackpoint Position gefunden werden soll
-     * @return [int]: Position des gesuchten Trackpoint
+     * @param timestamp Zeit zu der entsprechende Trackpoint Position gefunden werden soll
+     * @return Position des gesuchten Trackpoint
      * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
      */
-    public int getPosition(Timestamp timestamp){
+    public int getPosition(ReadableInstant timestamp){
         int position = 0;
         for ( Trackpoint trackpoint : this.trackpointList ){
             if ( trackpoint.equals(timestamp) )
@@ -92,6 +106,13 @@ public class TrackpointList implements Iterable<Trackpoint> {
         }
         throw new RuntimeException("trackpoint with " + timestamp + " not found");
     }
+    /**
+     * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurück
+     *
+     * @param location Ort zu dem entsprechende Trackpoint Position gefunden werden soll
+     * @return Position des gesuchten Trackpoint
+     * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
+     */
     public int getPosition(Location location){
         int position = 0;
         for ( Trackpoint trackpoint : this.trackpointList ){
@@ -119,12 +140,12 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Testet, ob eine Liste bereits aufsteigend nach Datum sortiert ist
      *
-     * @return [boolean]: Wahrheitswert der aufsteigenden Sortierung der Liste nach Zeitwerten
+     * @return Wahrheitswert über aufsteigende Sortierung der Liste nach Zeit
      */
     private boolean isSortedByTime(){
         for (int i=0; i<this.length-1; i++){
-            if (this.trackpointList.get(i).getTimestamp().after(this.trackpointList.get(i+1).getTimestamp())){
-                    return false;
+            if ( this.trackpointList.get(i).compareTimeTo(this.trackpointList.get(i+1)) > 1 ){
+                return false;
             }
         }
         return true;
@@ -137,7 +158,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         for ( int i=1; i<this.length; i++ ){
             Trackpoint key = this.trackpointList.get(i);
             int k = i-1;
-            while ( k >= 0 && (this.trackpointList.get(k).getTimestamp().compareTo(key.getTimestamp()) > 0)){
+            while ( k >= 0 && this.trackpointList.get(k).compareTimeTo(key) > 0 ){
                 this.trackpointList.set(k+1,this.trackpointList.get(k));
                 k--;
             }
