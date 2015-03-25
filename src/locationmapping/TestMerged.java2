@@ -5,7 +5,7 @@ import de.fhpotsdam.unfolding.data.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 import java.util.*;
-import java.text.*; 
+import java.text.*;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -58,8 +58,8 @@ void setup() {
     frame.setResizable(false);
   }
   smooth();
-  
-  
+
+
   map = new MyMap(this);
 
 
@@ -67,7 +67,7 @@ void setup() {
   TrackpointList tpl;
   DatenImporter im= new DatenImporter();
   tpl = im.load("malte_spitz.csv");
-  
+
   Filter f = new Filter();
   f.setStarttime("08:30");
   f.setEndtime("10:30");
@@ -80,12 +80,12 @@ void setup() {
   //f.setMinFrequency(5);
   f.apply(tpl);
   iter = tpl.iterator();
-  
 
-  
-} 
-  
-  
+
+
+}
+
+
 void draw() {
   //zeichne die Karte
   map.draw();
@@ -97,11 +97,11 @@ void draw() {
   zoomInto.draw();
   //zeichne den Minusknopf
   zoomFrom.draw();
-  
+
   //zeige Marker verzögert an
-  
-      
-      
+
+
+
     if(frameCount % speed == 0 && pause == false){
       while (iter.hasNext() ){
         Trackpoint curr = (Trackpoint) iter.next();
@@ -118,13 +118,13 @@ void draw() {
               //System.out.println(curr.getDateTime());
               break;
          }
-        
+
      }
-      
+
  }
-    
+
   // ------ Filter ENDE ------
-  
+
 }
 
 void mouseClicked() {
@@ -148,5 +148,5 @@ void mouseClicked() {
        map.zoomLevelIn();
     };
   }
-  
+
 }
