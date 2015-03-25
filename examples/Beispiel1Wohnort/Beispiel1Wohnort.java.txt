@@ -1,0 +1,49 @@
+package examples;
+import processing.core.*;
+import locationmapping.*;
+
+
+
+public class Beispiel1Wohnort extends PApplet{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] {"--present", "Beispiel1Wohnort"});
+	}
+	
+	LocationMapper mapper = new LocationMapper(this);
+	
+
+	public void setup() {
+		hint(ENABLE_RETINA_PIXELS);
+		mapper.setResizable(false); //not possible in eclipse
+		mapper.init();
+		
+		TrackpointList all = mapper.importData("malte_spitz.csv");
+		
+		Filter wohnortfilter = new Filter();
+		wohnortfilter.setStarttime("2");
+		wohnortfilter.setEndtime("5");
+		wohnortfilter.setMinFrequency(300);
+		TrackpointList moeglichewohnorte = wohnortfilter.apply(all);
+		
+		for ( Trackpoint tp : all ) {
+			StandardMarker wohnort = new StandardMarker(tp);
+			wohnort.setLabel("möglicher Wohnort");
+			wohnort.setStyle("Labeled");
+			mapper.addMarker(wohnort);
+		}
+		
+		
+	    
+	}
+
+	public void draw() {
+	    
+	}
+
+}
