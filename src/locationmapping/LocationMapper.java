@@ -61,13 +61,23 @@ public class LocationMapper {
      * Der Zoomslider
      */
     SliderButton slider;
+    /**
+    * Fenster groessenanpassbar
+    */
+    boolean resizable = true;
 
-
+    /**
+    * Setzt Groessenanpassbarkeit des Fensters
+    * @param resizable Gibt an ob Fenster groessenanpassbar sein soll oder nicht
+    */
+    public void setResizable(boolean resizable){
+        this.resizable = resizable;
+    }
 
     /**
      * Konstruktor für LocationMapper Objekte
      *
-     * @param app Processing Applet, in dem Mapper läuft
+     * @param app Processing Applet, in dem Mapper laeuft
      */
     public LocationMapper(PApplet app){
         this.app = app;
@@ -81,7 +91,7 @@ public class LocationMapper {
     public void init(){
         // Fenstergröße Setzen und Anpassbar machen
         this.app.size(this.width, this.height);
-        this.app.frame.setResizable(true); //funktioniert unter eclipse nicht
+        this.app.frame.setResizable(resizable);
 
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
@@ -89,13 +99,13 @@ public class LocationMapper {
         // Ermoeglicht Zoom und Pan auf Karte
         MapUtils.createDefaultEventDispatcher(this.app, this.map);
 
+        // Setze Startort uns Zoomlevel der Karte
+        this.map.setZoomRange(4, 16);
+        this.map.zoomAndPanTo(this.startLocation, this.startZoomLevel);
+
         // Smoothes Scrollen und Zoomen auf Karte
         this.app.smooth();
         this.map.setTweening(true);
-
-        // Setze Startort uns Zoomlevel der Karte
-        this.map.zoomAndPanTo(this.startLocation, this.startZoomLevel);
-        this.map.setZoomRange(4, 16);
 
         // Zoom Buttons und Slider erstellen
         this.slider = new SliderButton(this, 32, 22, 184, 4, 13, 4);
