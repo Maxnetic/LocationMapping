@@ -16,7 +16,7 @@ public class PlayButton extends Button {
         super.draw();
 
         //zeichne einen Kreis über das Rechteck
-        app.fill(mouseOver() ? 255 : 220);
+        app.fill(mouseOver(app.mouseX, app.mouseY) ? 255 : 220);
         app.stroke(150);
         app.ellipse(app.width/2-2, app.height-42, 40, 40);
 

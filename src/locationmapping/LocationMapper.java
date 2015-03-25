@@ -1,9 +1,13 @@
 package locationmapping;
 
 import processing.core.PApplet;
+import processing.event.MouseEvent;
+import processing.event.KeyEvent;
+
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
+import de.fhpotsdam.unfolding.providers.*;
 
 public class LocationMapper {
     /**
@@ -78,7 +82,7 @@ public class LocationMapper {
         app.frame.setResizable(true);
 
         // Karte erstellen
-        this.map = new UnfoldingMap(app);
+        this.map = new UnfoldingMap(app, new Google.GoogleTerrainProvider());
 
         // Ermoeglicht Zoom und Pan auf Karte
         MapUtils.createDefaultEventDispatcher(this.app, this.map);
@@ -93,16 +97,22 @@ public class LocationMapper {
         // Zoom Buttons und Slider erstellen
         this.slider = new SliderButton(this, 150, 3, this.width, this.height);
         this.zoomIn = new ZoomButton(this, 175, 14, 15, 15, true);
-        this.zoomOut = new ZoomButton(this, 0, 14, 15, 15, false);
+        this.zoomOut = new ZoomButton(this, 15, 14, 15, 15, false);
 
         // Play Button erstellen
         this.play = new PlayButton(this, width, height);
+
+        // Listener Einsetzen
+        this.app.registerMethod("mouseEvent", this);
+        this.app.registerMethod("keyEvent", this);
+        this.app.registerMethod("draw", this);
+
     }
 
     /**
      *
      */
-    public void update(){
+    public void draw(){
         // Zeichne Karte
         this.map.draw();
 
@@ -111,5 +121,47 @@ public class LocationMapper {
         this.zoomIn.draw();
         this.zoomOut.draw();
         this.play.draw();
+
+        // if(iter.hasNext()){
+        //     if(frameCount % speed == 0 && pause == false){
+        //         Trackpoint curr = (Trackpoint) iter.next();
+        //         MyMarker tmp = new MyMarker(curr);
+        //         System.out.println(curr.getDateTime());
+        //         tmp.setStyle(curr.getService());
+        //         map.addMarker(tmp);
+        //         map.panTo(curr.getLocation());
+        //         System.out.println(curr.getDateTime());
+        //     }
+        // }
     }
+
+    public void mouseEvent(MouseEvent e){
+        int x = e.getX();
+        int y = e.getY();
+
+        switch ( e.getAction() ){
+            case MouseEvent.CLICK:
+                if ( play.mouseOver(x, y) )
+                    paused = !paused;
+                if ( zoomIn.mouseOver(x, y) )
+                    map.zoomLevelIn();
+                if ( zoomOut.mouseOver(x, y) )
+                    map.zoomLevelOut();
+                // wenn auf den Slider gedrückt, zoome hinein oder hinaus
+                if ( slider.mouseOver(x, y) ) {
+                    if (x < (20 + (150 * (map.getZoom() / 262144))))
+                        map.zoomLevelOut();
+                    else
+                       map.zoomLevelIn();
+                }
+                break;
+        }
+    }
+    public void keyEvent(KeyEvent e){
+        if ( e.getKey() == ' ' ) {
+            paused = !paused;
+        }
+    }
+
+
 }
