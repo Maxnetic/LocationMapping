@@ -1,8 +1,7 @@
 package locationmapping;
 
-
-import java.util.*;
 import java.sql.Timestamp;
+
 import de.fhpotsdam.unfolding.geo.Location;
 
 
@@ -98,7 +97,8 @@ public class Filter{
    * Setzt das Enddatum
    * @param enddate [String] : Das Enddatum im Format: YYYY/MM/DD
    */
-  public void setEndDate(String enddate){
+  @SuppressWarnings("deprecation")
+public void setEndDate(String enddate){
   this.enddate = parseDate(enddate);
   this.enddate = new Timestamp(this.enddate.getYear(), this.enddate.getMonth(), this.enddate.getDate(), 23, 59, 59, 0);// Anpassung der Stunden und Minuten, damit der Endtag noch mit enthalten ist
    }
@@ -108,7 +108,8 @@ public class Filter{
   * @param str [String]: Datumsstring, der umgewandelt wird
   * @return gibt einen Timestamp zurück, der die eingegebene Zeit repräsentiert
   */
-  private Timestamp parseDate(String str){
+  @SuppressWarnings("deprecation")
+private Timestamp parseDate(String str){
     int year = Integer.parseInt(str.substring(0,4));
     int month = Integer.parseInt(str.substring(5,7));
     int day = Integer.parseInt(str.substring(8,10));
