@@ -1,31 +1,54 @@
 package locationmapping;
 
+
+import java.util.*;
 import java.sql.Timestamp;
-
-import de.fhpotsdam.unfolding.geo.*;
-
+import de.fhpotsdam.unfolding.geo.Location;
 
 
-/*
- * Filter Klasse, die alle Filter beinhaltet
+
+/**
+ * Eine Filter Klasse, die alle Filter beinhaltet, sowie eine apply Methode zur Verfügung stellt, die eine TrackpointList filtert.
  */
 
 public class Filter{
  
- /* Attribute
+ /** 
+  *Attribute
   * Die Rückgabeliste, die in den Filtern beschrieben wird
+  */ 
+  
+  /*
+  * Timestamps, die zum Datumsvergleich benutzt werden
   */
-
-    
-  TrackpointList filteredtpl;
   Timestamp startdate; //Startdatum Timestamp ts1 = new Timestamp(2009,10,2,22,20,40,0); entspricht 2.10.2009 22 Uhr 20 Minuten 40 sek
   Timestamp enddate; //Enddatum
-  int minfrequency = 0;  //Mindesthäufigkeit
-  int radius = 0;  //Suchradius für Locationfilter Genauigkeit
-  Location location; //Location
+  
+  /*
+  * Mindestfrequenz für den Frequenzfilter
+  */
+  int minfrequency = 0;
+  
+  /*
+  * radius und Location, die im Radiusfilter genutzt werden
+  */
+  int radius = 0;  
+  Location location; 
+  
+  /*
+  * Service, der im Servicefilter gefiltert wird
+  */
   String service; //zu filternder Service (SMS, Internet, GPRS)
+  
+  /*
+  *Zeittupel, das als innere Klasse zur Darstellung von Stunden und Minuten genutzt wird
+  */
   TimeTupel starttime; //Startzeit (Stunde am Tag) -1 heißt variable wurde nicht gesetzt
   TimeTupel endtime; //Endzeit (Stunde am Tag)
+  
+  /*
+  *Ein Array, in dem die Wochentage, die gefiltert werden sollen, gespeichert werden
+  */
   String[] weekday;
   
  
@@ -33,28 +56,36 @@ public class Filter{
   
   /*
    * Konstruktor fuer Filter
-   * @return neues Objekt vom Typ Filter
+   * 
    */
   public Filter(){
-    filteredtpl = new TrackpointList();
   }
   
   /* Innere Klasse
-  * Darstellung der Zeit als Tupel (wird für konvertierung aus String gebraucht) 
+  * Darstellung der Zeit als Tupel mit Stunde und Minute (wird für Konvertierung aus String gebraucht) 
   */
-  class TimeTupel{
+  private class TimeTupel{
+    /*
+    *Attribute
+    *hour entspricht Stunde
+    *minute entspricht Minute
+    */
     int hour;
     int minute;
     
-    //Konstruktor
-    private TimeTupel(int x, int y){
-      hour = x;
-      minute = y;
+    /*Konstruktor
+    *@param hour [int]: Die Stunde des TimeTupel Objektes
+    *@param minute [int]: Die Minute des TimeTuple Objektes
+    *@return erzeugt ein neues TimeTupel Objekt
+    */
+    private TimeTupel(int hour, int minute){
+      this.hour = hour;
+      this.minute = minute;
     }
   }
  
   /*
-   * Setzt Startdatum
+   * Setzt das Startdatum des Filters
    * @param startdate [String] : Das Startdatum im Format: YYYY/MM/DD
    */
   public void setStartDate(String startdate){
@@ -64,30 +95,30 @@ public class Filter{
   }
   
   /*
+   * Setzt das Enddatum
+   * @param enddate [String] : Das Enddatum im Format: YYYY/MM/DD
+   */
+  public void setEndDate(String enddate){
+  this.enddate = parseDate(enddate);
+  this.enddate = new Timestamp(this.enddate.getYear(), this.enddate.getMonth(), this.enddate.getDate(), 23, 59, 59, 0);// Anpassung der Stunden und Minuten, damit der Endtag noch mit enthalten ist
+   }
+   
+  /*
   * Hilfsfunktion, die einen String in einen Timestamp umwandelt
   * @param str [String]: Datumsstring, der umgewandelt wird
-  * @return gibt einen Timestamp zurück
+  * @return gibt einen Timestamp zurück, der die eingegebene Zeit repräsentiert
   */
-  @SuppressWarnings("deprecation")
-private Timestamp parseDate(String str){
+  private Timestamp parseDate(String str){
     int year = Integer.parseInt(str.substring(0,4));
     int month = Integer.parseInt(str.substring(5,7));
     int day = Integer.parseInt(str.substring(8,10));
     return (new Timestamp(year-1900,month-1,day,0,0,0,0));
   }
   
-  /*
-   * Setzt Enddatum
-   * @param enddate [String] : Das Enddatum im Format: YYYY/MM/DD-HH:MM
-   */
-  @SuppressWarnings("deprecation")
-public void setEndDate(String enddate){
-  this.enddate = parseDate(enddate);
-  this.enddate = new Timestamp(this.enddate.getYear(), this.enddate.getMonth(), this.enddate.getDate(), 23, 59, 59, 0);
-   }
+
  
   /*
-   * Setzt Mindesthaeufigkeit
+   * Setzt die Mindesthaeufigkeit
    * @param minf [int] : Mindesthaeufigkeit
    */
 
@@ -96,18 +127,19 @@ public void setEndDate(String enddate){
   }
  
   /* Setzt den Radius
-   * @param radius [int]: setzt den Radius, um den gefiltert wird
+   * @param radius [int]: der Radius, um den gefiltert wird
    */
   public void setRadius(int radius){
     this.radius = radius;
   }
   
   /* Setzt die Location
-   * @param location [Location]: setzt den Ort, um den gefiltert wird
+   * @param location [Location]: der Ort, um den gefiltert wird
    */ 
   public void setLocation(Location location){
     this.location = location;
   }
+
  
  /* Hilfsfunktion, die einen Timestring in ein Tupel umwandelt
  * String Format HH:MM
@@ -116,8 +148,7 @@ public void setEndDate(String enddate){
  private TimeTupel parseTime(String str){
    TimeTupel time = new TimeTupel(Integer.parseInt(str.substring(0,2)), Integer.parseInt(str.substring(3,5)));
    return time;
-   
-   
+      
  }
  
   /* Setzt die Startzeit
@@ -128,7 +159,7 @@ public void setEndDate(String enddate){
   }
 
   /* Setzt die Endzeit
-   * @param endtime [int]: Die Startzeit, ab der gefiltert wird
+   * @param endtime [int]: Die Endzeit, ab der gefiltert wird
    */  
   public void setEndtime(String endtime){
     this.endtime = parseTime(endtime);
@@ -136,54 +167,66 @@ public void setEndDate(String enddate){
  
   /*
    * Setzt den Service
-   * @param service [String]: Der service, nach dem gefiltert werden soll
+   * @param service [String]: Der Service, nach dem gefiltert werden soll
    */
   public void setService(String service){
     this.service = service;
   } 
  
  
+  /*
+  *Hilfsfunktion, die eine String-Eingabe an "-" trennt und in ein String-Array packt
+  * @param str [String]: Der Eingabestring, der umgewandelt wird
+  * @return gibt ein String-Array zurück, das alle gewünschten Tage einzeln enthält
+  */
   private String[] splitString(String str){
+    //Laufvariablen
     int i = 0;
     int j = 0;
+   
+    //Vergleichsarray
     String[] week = {"montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"};
+    
+    //Trennung an Bindestrich
     String[] weekday = str.split("-");
+    
+    //Verpacken des Strings
+    //bestimmt Zahlenwert für den ersten Tag
     for(i = 0; i < 7; i++){
       if(week[i].equals(weekday[0])){
         break;
        }
      }
+     //bestimmt Zahlenwert für den letzten Tag
     for(j = i; j <7; j++){
       if(week[j].equals(weekday[1])){
         break;
       }
     }
     int a = i;
-    System.out.println(i);
-    System.out.println(j);
     String[] weekday_helper = new String[j-i+1];
+    
+    //fügt alle Tage zwischen Start und Endtag in das Array ein
     for(i = a; i <= j; i++){
       weekday_helper[i-a] = week[i];
-    }
-    for(i = 0; i < weekday_helper.length; i++){
-      //System.out.println(weekday_helper[i]);
     }
     return weekday_helper;   
   }
  
   /*
    * Setzt den Wochentag, nach dem zu filtern ist
-   * @param wochentag [String]: der Wochentag, nach dem gefiltert wird.
+   * @param wochentag [String]: die Wochentage, nach denen gefiltert wird. Eingabe Trennung erfolgt mit "," oder "-"
    */
   public void setWeekday( String wochentag){
     String[] weekdaysplit;
     String[] returnweekday = new String[7];
     
-    //Foramtierung der Eingabe
+    //Formatierung der Eingabe: Umwandlung in Kleinbuchstaben und Entfernung von Leerzeichen
     wochentag = wochentag.toLowerCase();
     wochentag = wochentag.replace(" ","");
   
     weekday = new String[7];
+    //Trennt die Eingabe an allen Komma
     weekday = wochentag.split(",");
     for(int i = 0; i < weekday.length; i++){
       returnweekday[i] = weekday[i];
@@ -191,8 +234,11 @@ public void setEndDate(String enddate){
     
     for(int i = 0; i < weekday.length; i++){
       if(weekday[i].contains("-")){
+        //Benutzt splitString, das Eingaben mit Bindestrich in ein Array umwandelt
          weekdaysplit = splitString(weekday[i]);
+         //schreibt den ersten Tag in das Feld, in dem der Bindestrich war
          returnweekday[i] = weekdaysplit[0];
+         //schreibt die in splitString erzeugten Strings in das Rückgabe Array
          for(int j = 1; j < weekdaysplit.length; j++){
           returnweekday[weekday.length + j] = weekdaysplit[j]; 
          }
@@ -201,57 +247,24 @@ public void setEndDate(String enddate){
     weekday = returnweekday;
   }
  
-  
-   /*
-   * Setzt den Wochentag, nach dem zu filtern ist
-   * @param wochentag [String]: der Wochentag, nach dem gefiltert wird.
-   */
-  /*public void setWeekday( String wochentag){
-    String day;
-    int i = 0;
-    int j = 0;
-    int start = 0;
-    wochentag.toLowerCase();
-    wochentag = wochentag.replace(" ","");
-    String[] week = {"montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"};
-    weekday = new String[7];
-    if(wochentag.contains(",")){
-      weekday = wochentag.split(",");
-    } else if (wochentag.contains("-")){
-      weekday = wochentag.split("-");
-      for(i = 0; i < 7; i++){
-        if(week[i] == weekday[0]){
-         break;
-        }
-      }
-      for(j = i; j <7; j++){
-        if(week[j] == weekday[1]){
-          break;
-        }
-      }
-      int a = i;
-      System.out.println(i + j);
-      for(i = a; i < j; i++){
-        weekday[i-a] = week[i];
-      }
-    } else {
-      weekday[0] = wochentag;
-    }
-  }
+   
+  /*
+  * Filtert nach Datum
+  * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
   */
-  
-
- @SuppressWarnings("unused")
-private TrackpointList dateFilter(TrackpointList trackpointlist){
+ private void dateFilter(TrackpointList trackpointlist){
      
       for(Trackpoint tp : trackpointlist){
          if(tp.getTimestamp().compareTo(startdate) < 0 || tp.getTimestamp().compareTo(enddate) > 0){
              tp.setVisible(false);
          }
       }
-      return(trackpointlist);
     }
- 
+
+  /*
+  * Filtert nach Frequenz
+  * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+  */ 
  private void frequencyFilter(TrackpointList trackpointlist){
        for(Trackpoint tp : trackpointlist){
          if(trackpointlist.getFrequency(tp) < minfrequency)
@@ -259,6 +272,10 @@ private TrackpointList dateFilter(TrackpointList trackpointlist){
        } 
  } 
  
+ /*
+  * Filtert nach Location und Radius
+  * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+  */
  private void locationFilter(TrackpointList trackpointlist){
          for( Trackpoint tp : trackpointlist ){       
           if (tp.locationDistanceTo(location) > radius)
@@ -266,7 +283,10 @@ private TrackpointList dateFilter(TrackpointList trackpointlist){
         }
  }
  
- 
+ /*
+  * Filtert nach Service
+  * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+  */
  private void serviceFilter(TrackpointList trackpointlist){
           for(Trackpoint tp : trackpointlist){
           if(!(tp.getService().equals(service))){
@@ -275,36 +295,38 @@ private TrackpointList dateFilter(TrackpointList trackpointlist){
         }
  } 
  
+  /*
+  * Filtert nach Uhrzeit
+  * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+  */
  private void timeFilter(TrackpointList trackpointlist){
    for(Trackpoint tp : trackpointlist){
      
      
           if(starttime != null){ 
-            //System.out.println("Start: " + starttime.hour + "  " + starttime.minute);
-            if(endtime != null){
-              //System.out.println("Ende: " + endtime.hour + "   " + endtime.minute);
-              if((tp.getHour() < starttime.hour || (tp.getHour() == starttime.hour &&  tp.getMinute() <= starttime.minute)) ||( tp.getHour() > endtime.hour || (tp.getHour() == endtime.hour && tp.getMinute() >= endtime.minute))){ //Startzeit wurde gesetzt und endzeit wurde gesetzt
-                //System.out.println(tp.getHour() + " " + tp.getMinute() + " false gesetzt") ;
-                tp.setVisible(false);   
-                 
-              } else{
-             // System.out.println(tp.getHour() + " " + tp.getMinute() + " nicht gesetzt") ;
+            if(endtime != null){ // Start und Endzeit wurde gesetzt              
+              if((tp.getHour() < starttime.hour || (tp.getHour() == starttime.hour &&  tp.getMinute() <= starttime.minute)) ||( tp.getHour() > endtime.hour || (tp.getHour() == endtime.hour && tp.getMinute() >= endtime.minute))){ 
+                tp.setVisible(false);                  
               }
-            }else if ( tp.getHour() <= starttime.hour  && tp.getMinute() <= starttime.minute){ // Nur Strartzeit wurde gesetzt
+            //Nur Startzeit wurde gesetzt
+            }else if ( tp.getHour() <= starttime.hour  && tp.getMinute() <= starttime.minute){
                tp.setVisible(false); 
-               //System.out.println(tp.getHour() + " " + tp.getMinute());
             }
-              
-          } else if(tp.getHour() >= endtime.hour  && tp.getMinute() >= endtime.minute){ // Nur Endzeit wurde gesetzt
+          // Nur Endzeit wurde gesetzt    
+          } else if(tp.getHour() >= endtime.hour  && tp.getMinute() >= endtime.minute){ 
             tp.setVisible(false);
-           // System.out.println(tp.getHour() + " " + tp.getMinute());
           }
         }  
  }
  
+  /*
+  * Filtert nach Wochentag
+  * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+  */
  private void weekdayFilter(TrackpointList trackpointlist){
   Boolean delete = true;
         for(Trackpoint tp : trackpointlist){
+          // Überprüft, ob der Tag in dem Wochen-Array ist 
           for(String str : weekday){
             if(tp.getDayOfTheWeek().equals(str)){
               delete = false;
@@ -320,57 +342,44 @@ private TrackpointList dateFilter(TrackpointList trackpointlist){
  }
   
   /*
-  * apply umgeschrieben, so dass mehrere Filter hintereinander anwendet
-  * dazu haben wir die herangehensweise gedreht und löschen die TP aus der Liste, statt sie hinzuzufügen
+  * apply Methode, die je nachdem, wie die Attribute gesetzt wurden filtert
+  * Es wird überprüft, ob und welche Attribute gesetzt wurden, so dass bestimmte Filter aufgerufen werden
   * @param trackpointlist [TrackpointList]: Die TrackpointList, die gefiltert wird
-  * @return gibt eine gefilterte Trackpointlist zurück
+  * @return gibt eine TrackpointList zurück, in der die visible Eigenschaft verändert wurde
   */
   
   public TrackpointList apply(TrackpointList trackpointlist) { 
-    
-    // Filter einzeln debugged mit Ausnahme von Wochentagen 
-   
-   // Variablen anlegen 
-    @SuppressWarnings("unused")
-	TrackpointList deletetpl = new TrackpointList(); // Hier werden die später zu löschenden Trackpoints reingepackt
-    TrackpointList filteredtpl = new TrackpointList(); // aus der Liste werden die Trackpoints später gelöscht
-    //Trackpointliste wird komplett kopiert um java fehler zu vermeiden
-    for (Trackpoint tp : trackpointlist){
-      filteredtpl.add(tp);
-    }
 
-    // Datumsfilter 
-    // debugged 
-    if ((this.startdate != null) && (this.enddate != null)) {  //hier eventuell Fehlermeldung werfen?
-      for(Trackpoint tp : trackpointlist){
-         if(tp.getTimestamp().compareTo(startdate) < 0 || tp.getTimestamp().compareTo(enddate) > 0){
-           tp.setVisible(false);
-         }
-      }
+    // Datumsfilter
+     if ((this.startdate != null) && (this.enddate != null)) {  
+      dateFilter(trackpointlist);
     }
-
      
      // Frequenzfilter
-     if (minfrequency > 1) {
-        frequencyFilter(trackpointlist);
-     }  
+   if (minfrequency > 1) {
+      frequencyFilter(trackpointlist);
+   }  
       
       // Radiusfilter
-      if (radius != 0 && location != null) {
-          locationFilter(trackpointlist);
-      }
-  
-      if (service != null) {
-          serviceFilter(trackpointlist);
-      } 
-       if (starttime != null || endtime != null) { //checkt ob mindestens eins der beiden Argumente gesetzt wurde
+   if (radius != 0 && location != null) {
+       locationFilter(trackpointlist);
+   }
+      //Servicefilter
+   if (service != null) {
+        serviceFilter(trackpointlist);
+   } 
+   
+     //Zeitfilter
+   if (starttime != null || endtime != null) { 
        timeFilter(trackpointlist);
-      } 
-      if (weekday != null) {
-        weekdayFilter(trackpointlist);
-      } 
+   } 
+      
+     //Wochentagsfilter
+   if (weekday != null) {
+      weekdayFilter(trackpointlist);
+   } 
       
 
-      return trackpointlist;
+   return trackpointlist;
   }
 }

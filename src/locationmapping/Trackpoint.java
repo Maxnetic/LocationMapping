@@ -1,7 +1,6 @@
 package locationmapping;
 
 import de.fhpotsdam.unfolding.geo.Location;
-
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -117,13 +116,13 @@ public class Trackpoint {
     }
 
     @SuppressWarnings("deprecation")
-	public int getYear(){
+    public int getYear(){
       Date dateTime = new Date(this.timestamp.getTime());
       return dateTime.getYear();
     }
 
     @SuppressWarnings("deprecation")
-	public int getMonth(){
+    public int getMonth(){
       Date dateTime = new Date(this.timestamp.getTime());
       return dateTime.getMonth();
     }
@@ -154,7 +153,7 @@ public class Trackpoint {
     * @return [int]: Stunde der Zeitvariable (24h Format)
     */
     @SuppressWarnings("deprecation")
-	public int getHour(){
+    public int getHour(){
         Date dateTime = new Date(this.timestamp.getTime());
         return dateTime.getHours();
     }
@@ -165,7 +164,7 @@ public class Trackpoint {
     * @return [int]: Minute der Zeitvariable
     */
     @SuppressWarnings("deprecation")
-	public int getMinute(){
+    public int getMinute(){
         Date dateTime = new Date(this.timestamp.getTime());
         return dateTime.getMinutes();
     }
@@ -177,7 +176,7 @@ public class Trackpoint {
     * @return [int]: Tag im Monat der Zeitvariable
     */
     @SuppressWarnings("deprecation")
-	public int getDay(){
+    public int getDay(){
         Date dateTime = new Date(this.timestamp.getTime());
         return dateTime.getDate();
     }
@@ -190,7 +189,7 @@ public class Trackpoint {
     public String getDayOfTheWeek(){
         Date dateTime = new Date(this.timestamp.getTime());
         @SuppressWarnings("deprecation")
-		int weekDay = dateTime.getDay();
+        int weekDay = dateTime.getDay();
         switch(weekDay){
           case 0:
             return "sonntag";
