@@ -11,6 +11,9 @@ public class PlayButton extends Button {
         this.mapper = mapper;
     }
 
+    boolean mouseOver(int xM, int yM) {
+        return (xM > x && xM < x + w && yM > y && yM < y + h);
+    }
 
     void draw() {
         super.draw();

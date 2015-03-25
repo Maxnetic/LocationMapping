@@ -3,8 +3,13 @@ package locationmapping;
 import processing.core.PApplet;
 
 public class SliderButton extends Button {
-    public SliderButton(LocationMapper mapper, float x, float y, int w, int h){
-        super(mapper, w-980, h-580, x, y);
+    float zoomLevel;
+    int startZoomLevel;
+
+    public SliderButton(LocationMapper mapper, float x, float y, float w, float h, float zoomLevel, int startZoomLevel){
+        super(mapper, x, y, w, h);
+        this.zoomLevel = zoomLevel;
+        this.startZoomLevel = startZoomLevel;
     }
 
     /**
@@ -12,7 +17,16 @@ public class SliderButton extends Button {
      */
     void draw(){
          super.draw();
-         app.rect(20 + (150 * (map.getZoom() / 262144) ), app.height-581.0f, 5.0f, 5.0f);
+         app.rect(x + ((w-4) * ((map.getZoomLevel()-this.startZoomLevel) / this.zoomLevel) ), 16, 4, 16);
+    }
+
+    boolean mouseOver(int xM, int yM) {
+        return (xM > x && xM < x + w && yM > y-6 && yM < y+h+6);
+    }
+
+    void zoomHandler(int xM) {
+        int clickedZoom = (int) ( (xM-x)/(w-4f) * this.zoomLevel ) + this.startZoomLevel;
+        map.zoomToLevel( clickedZoom );
     }
 }
 

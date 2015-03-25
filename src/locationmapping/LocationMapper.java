@@ -29,6 +29,10 @@ public class LocationMapper {
      */
     public boolean paused = true;
     /**
+     * der Provider für die Karte
+     */
+    AbstractMapProvider mapProvider = new Google.GoogleTerrainProvider();
+    /**
      * die Start Breite des Fensters
      */
     private int width = 800;
@@ -82,7 +86,7 @@ public class LocationMapper {
         app.frame.setResizable(true);
 
         // Karte erstellen
-        this.map = new UnfoldingMap(app, new Google.GoogleTerrainProvider());
+        this.map = new UnfoldingMap(this.app, this.mapProvider);
 
         // Ermoeglicht Zoom und Pan auf Karte
         MapUtils.createDefaultEventDispatcher(this.app, this.map);
@@ -93,11 +97,12 @@ public class LocationMapper {
 
         // Setze Startort uns Zoomlevel der Karte
         map.zoomAndPanTo(this.startLocation, this.startZoomLevel);
+        map.setZoomRange(4, 16);
 
         // Zoom Buttons und Slider erstellen
-        this.slider = new SliderButton(this, 150, 3, this.width, this.height);
-        this.zoomIn = new ZoomButton(this, 175, 14, 15, 15, true);
-        this.zoomOut = new ZoomButton(this, 15, 14, 15, 15, false);
+        this.slider = new SliderButton(this, 32, 22, 184, 4, 13, 4);
+        this.zoomIn = new ZoomButton(this, 202, 16, 16, 16, true);
+        this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         // Play Button erstellen
         this.play = new PlayButton(this, width, height);
@@ -149,14 +154,12 @@ public class LocationMapper {
                     map.zoomLevelOut();
                 // wenn auf den Slider gedrückt, zoome hinein oder hinaus
                 if ( slider.mouseOver(x, y) ) {
-                    if (x < (20 + (150 * (map.getZoom() / 262144))))
-                        map.zoomLevelOut();
-                    else
-                       map.zoomLevelIn();
+                    slider.zoomHandler(x);
                 }
                 break;
         }
     }
+
     public void keyEvent(KeyEvent e){
         if ( e.getKey() == ' ' ) {
             paused = !paused;
