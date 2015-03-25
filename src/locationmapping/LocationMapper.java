@@ -67,9 +67,10 @@ public class LocationMapper {
     boolean resizable = true;
 
     /**
-    * Setzt Groessenanpassbarkeit des Fensters
-    * @param resizable Gibt an ob Fenster groessenanpassbar sein soll oder nicht
-    */
+     * Setzt Groessenanpassbarkeit des Fensters
+     *
+     * @param resizable Gibt an ob Fenster groessenanpassbar sein soll oder nicht
+     */
     public void setResizable(boolean resizable){
         this.resizable = resizable;
     }
@@ -91,7 +92,8 @@ public class LocationMapper {
     public void init(){
         // Fenstergröße Setzen und Anpassbar machen
         this.app.size(this.width, this.height);
-        this.app.frame.setResizable(resizable);
+        if ( resizable )
+            this.app.frame.setResizable(true);
 
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
