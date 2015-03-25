@@ -83,7 +83,7 @@ public class LocationMapper {
     public void init(){
         // Fenstergröße Setzen und Anpassbar machen
         app.size(this.width, this.height);
-        app.frame.setResizable(true);
+        //app.frame.setResizable(true); //funktioniert unter eclipse nicht
 
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);

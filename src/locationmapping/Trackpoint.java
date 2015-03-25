@@ -7,7 +7,7 @@ import java.util.Date;
 /**
 *
 */
-public class Trackpoint {
+class Trackpoint {
     // Attribute
     /**
     * Ortsinformation, enthält doubles für Längen und Breitengrad
@@ -29,6 +29,8 @@ public class Trackpoint {
     * Information über den benutzten Handy Service (default = "")
     */
     private String service = "";
+    
+    private boolean visible = true;
 
 
     /**
@@ -59,10 +61,10 @@ public class Trackpoint {
     void setId(int id){
         this.id = id;
     }
-
+    
     /**
     * Gibt Service des Trackpoints aus
-    *
+    * 
     * @return [String] : Service des Trackpoints als String
     */
     String getService(){
@@ -95,6 +97,14 @@ public class Trackpoint {
     public String getLabel(){
         return label;
     }
+    
+    public void setVisible(boolean visible){
+      this.visible = visible;
+    }
+    
+    public boolean getVisible(){
+      return this.visible;
+    }
 
     /**
     * Gibt Zeitstempel des Trackpoint aus
@@ -105,6 +115,17 @@ public class Trackpoint {
         return timestamp;
     }
 
+    public int getYear(){
+      Date dateTime = new Date(this.timestamp.getTime());
+      return dateTime.getYear();
+    }
+    
+    public int getMonth(){
+      Date dateTime = new Date(this.timestamp.getTime());
+      return dateTime.getMonth();
+    }
+    
+   
     /**
     * Gibt Zeitstempel des Trackpoint in Sekunden aus
     *
@@ -122,6 +143,7 @@ public class Trackpoint {
     public String getDateTime(){
         return timestamp.toString();
     }
+    
 
     /**
     * Gibt Stunde der Zeitvariable des Trackpoint aus
@@ -153,7 +175,7 @@ public class Trackpoint {
         Date dateTime = new Date(this.timestamp.getTime());
         return dateTime.getDate();
     }
-
+    
     /**
     * Gibt Wochentag der Zeitvariable des Trackpoint aus
     *
@@ -164,19 +186,19 @@ public class Trackpoint {
         int weekDay = dateTime.getDay();
         switch(weekDay){
           case 0:
-            return "Sonntag";
+            return "sonntag";
           case 1:
-            return "Montag";
+            return "montag";
           case 2:
-            return "Dienstag";
+            return "dienstag";
           case 3:
-            return "Mittwoch";
+            return "mittwoch";
           case 4:
-            return "Donnerstag";
+            return "donnerstag";
           case 5:
-            return "Freitag";
+            return "freitag";
           case 6:
-            return "Samstag";
+            return "samstag";
         }
         return "";
     }
