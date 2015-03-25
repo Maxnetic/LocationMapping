@@ -36,14 +36,14 @@ class Button {
     /**
      * mouseOver ist true, wenn die Maus darüber gehalten wird. Benötigt zum Erkennen von Klicks auf den Button
      */
-    boolean mouseOver() {
-        return (app.mouseX > x && app.mouseX < x + w && app.mouseY > y && app.mouseY < y + h);
+    boolean mouseOver(int xM, int yM) {
+        return (xM > x && xM < x + w && yM > y && yM < y + h);
     }
 
     void draw() {
         app.strokeWeight(1);
         app.stroke(80);
-        app.fill(mouseOver() ? 255 : 220);
+        app.fill(mouseOver(app.mouseX, app.mouseY) ? 255 : 220);
         app.rect(x,y,w,h);
         //ellipse(x,y,w,h);
     }
