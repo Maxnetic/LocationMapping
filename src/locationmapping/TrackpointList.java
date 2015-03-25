@@ -1,3 +1,5 @@
+package locationmapping;
+
 import de.fhpotsdam.unfolding.geo.Location;
 import java.sql.Timestamp;
 import java.util.*;
