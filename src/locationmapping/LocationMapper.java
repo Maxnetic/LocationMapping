@@ -3,7 +3,6 @@ package locationmapping;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 import processing.event.KeyEvent;
-
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
@@ -80,7 +79,8 @@ public class LocationMapper {
      * Initialisiert Fenster, Karte und Buttons, sollte als erstes in setup
      * Methode des Processing Sketches aufgerufen werden
      */
-    public void init(){
+    @SuppressWarnings("deprecation")
+	public void init(){
         // Fenstergröße Setzen und Anpassbar machen
         app.size(this.width, this.height);
         //app.frame.setResizable(true); //funktioniert unter eclipse nicht

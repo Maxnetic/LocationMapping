@@ -1,7 +1,9 @@
 package locationmapping;
 
 import de.fhpotsdam.unfolding.geo.Location;
+
 import java.sql.Timestamp;
+
 import processing.core.PApplet;
 import processing.data.*;
 
@@ -216,7 +218,8 @@ public class DataImporter {
         return trackpointList;
     }
 
-    Timestamp parseDateTimeString(String dateTimeString){
+    @SuppressWarnings("deprecation")
+	Timestamp parseDateTimeString(String dateTimeString){
         int month =  Integer.parseInt(dateTimeString.substring(0,2))-1; //indexzählung? hier vorher Fehler, nun gefixt
         int day =  Integer.parseInt(dateTimeString.substring(3,5));
         int year =  Integer.parseInt(dateTimeString.substring(6,10));

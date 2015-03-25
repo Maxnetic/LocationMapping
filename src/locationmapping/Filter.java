@@ -1,7 +1,7 @@
 package locationmapping;
 
-import java.util.*;
 import java.sql.Timestamp;
+
 import de.fhpotsdam.unfolding.geo.*;
 
 
@@ -68,7 +68,8 @@ public class Filter{
   * @param str [String]: Datumsstring, der umgewandelt wird
   * @return gibt einen Timestamp zurück
   */
-  private Timestamp parseDate(String str){
+  @SuppressWarnings("deprecation")
+private Timestamp parseDate(String str){
     int year = Integer.parseInt(str.substring(0,4));
     int month = Integer.parseInt(str.substring(5,7));
     int day = Integer.parseInt(str.substring(8,10));
@@ -79,7 +80,8 @@ public class Filter{
    * Setzt Enddatum
    * @param enddate [String] : Das Enddatum im Format: YYYY/MM/DD-HH:MM
    */
-  public void setEndDate(String enddate){
+  @SuppressWarnings("deprecation")
+public void setEndDate(String enddate){
   this.enddate = parseDate(enddate);
   this.enddate = new Timestamp(this.enddate.getYear(), this.enddate.getMonth(), this.enddate.getDate(), 23, 59, 59, 0);
    }
@@ -239,7 +241,8 @@ public class Filter{
   */
   
 
- private TrackpointList dateFilter(TrackpointList trackpointlist){
+ @SuppressWarnings("unused")
+private TrackpointList dateFilter(TrackpointList trackpointlist){
      
       for(Trackpoint tp : trackpointlist){
          if(tp.getTimestamp().compareTo(startdate) < 0 || tp.getTimestamp().compareTo(enddate) > 0){
@@ -328,7 +331,8 @@ public class Filter{
     // Filter einzeln debugged mit Ausnahme von Wochentagen 
    
    // Variablen anlegen 
-    TrackpointList deletetpl = new TrackpointList(); // Hier werden die später zu löschenden Trackpoints reingepackt
+    @SuppressWarnings("unused")
+	TrackpointList deletetpl = new TrackpointList(); // Hier werden die später zu löschenden Trackpoints reingepackt
     TrackpointList filteredtpl = new TrackpointList(); // aus der Liste werden die Trackpoints später gelöscht
     //Trackpointliste wird komplett kopiert um java fehler zu vermeiden
     for (Trackpoint tp : trackpointlist){
