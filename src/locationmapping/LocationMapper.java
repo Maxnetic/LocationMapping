@@ -105,7 +105,7 @@ public class LocationMapper {
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         // Play Button erstellen
-        this.play = new PlayButton(this, width, height);
+        this.play = new PlayButton(this, 32);
 
         // Listener Einsetzen
         this.app.registerMethod("mouseEvent", this);
