@@ -108,7 +108,7 @@ public class Trackpoint {
     *
     * @return DateTime Objekt des Trackpoint
     */
-    public DateTime getDateTime(){
+    public DateTime getTime(){
         return time;
     }
 
@@ -253,7 +253,7 @@ public class Trackpoint {
     * @param time Zeitpunkt mit dem Zeit des Trackpoint verglichen wird
     * @return Zeitdifferenz in Sekunden
     */
-    public long timeDistanceTo(ReadableInstant time){
+    public long timeDistanceTo(DateTime time){
         return Seconds.secondsBetween(this.time, time).getSeconds();
     }
 
@@ -272,7 +272,7 @@ public class Trackpoint {
     * @param time Zeitpunkt mit dem Zeit des Trackpoint verglichen wird
     * @return Wahrheitswert der Gleichzeitigkeit der Trackpoints innerhalb der Toleranz
     */
-    public boolean equalTime(ReadableInstant time){
+    public boolean equalTime(DateTime time){
         return equalTime(time, 3);
     }
     /**
@@ -292,7 +292,7 @@ public class Trackpoint {
     * @param tolerance Toleranzgrenze für Zeitgleichheit in Sekunden
     * @return Wahrheitswert der Gleichzeitigkeit der Trackpoints innerhalb der Toleranz
     */
-    public boolean equalTime(ReadableInstant time, long tolerance){
+    public boolean equalTime(DateTime time, long tolerance){
         return this.timeDistanceTo(time) <= tolerance;
     }
 
@@ -311,7 +311,7 @@ public class Trackpoint {
     * @param time Zeitpunkt mit dem Zeit des TrackpointList verglichen wird
     * @return Zahl gleich 0 falls gleich, kleiner 0 falls anderer Trackpoint führe, größer 0 falls anderer Trackpoint später
     */
-    public int compareTimeTo(ReadableInstant time){
+    public int compareTimeTo(DateTime time){
         return this.time.compareTo(time);
     }
 

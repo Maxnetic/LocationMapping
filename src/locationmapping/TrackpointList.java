@@ -58,7 +58,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      * @return gesuchter Trackpoint
      * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
      */
-    public Trackpoint get(ReadableInstant timestamp){
+    public Trackpoint get(DateTime timestamp){
         for ( Trackpoint trackpoint : this.trackpointList ){
             if ( trackpoint.equals(timestamp) )
                 return trackpoint;
@@ -99,7 +99,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      * @return Position des gesuchten Trackpoint
      * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
      */
-    public int getPosition(ReadableInstant timestamp){
+    public int getPosition(DateTime timestamp){
         int position = 0;
         for ( Trackpoint trackpoint : this.trackpointList ){
             if ( trackpoint.equals(timestamp) )
