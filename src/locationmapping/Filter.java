@@ -195,9 +195,6 @@ public class Filter{
       }          
     }
     weekday = returnweekday;
-    for(int i = 0; i < weekday.length; i++){
-      System.out.println(weekday[i]);
-    }
   }
  
   
@@ -275,24 +272,27 @@ public class Filter{
  
  private void timeFilter(TrackpointList trackpointlist){
    for(Trackpoint tp : trackpointlist){
+     
+     
           if(starttime != null){ 
-            
+            //System.out.println("Start: " + starttime.hour + "  " + starttime.minute);
             if(endtime != null){
-              if((tp.getHour() <= starttime.hour && tp.getMinute() <= starttime.minute) ||( tp.getHour() >= endtime.hour && tp.getMinute() >= endtime.minute)){ //Startzeit wurde gesetzt und endzeit wurde gesetzt
-                System.out.println(tp.getHour() + " " + tp.getMinute());
+              //System.out.println("Ende: " + endtime.hour + "   " + endtime.minute);
+              if((tp.getHour() < starttime.hour || (tp.getHour() == starttime.hour &&  tp.getMinute() <= starttime.minute)) ||( tp.getHour() > endtime.hour || (tp.getHour() == endtime.hour && tp.getMinute() >= endtime.minute))){ //Startzeit wurde gesetzt und endzeit wurde gesetzt
+                //System.out.println(tp.getHour() + " " + tp.getMinute() + " false gesetzt") ;
                 tp.setVisible(false);   
                  
-              } 
-              
+              } else{
+             // System.out.println(tp.getHour() + " " + tp.getMinute() + " nicht gesetzt") ;
+              }
             }else if ( tp.getHour() <= starttime.hour  && tp.getMinute() <= starttime.minute){ // Nur Strartzeit wurde gesetzt
                tp.setVisible(false); 
-               System.out.println(tp.getHour() + " " + tp.getMinute());
- 
-              }
+               //System.out.println(tp.getHour() + " " + tp.getMinute());
+            }
               
           } else if(tp.getHour() >= endtime.hour  && tp.getMinute() >= endtime.minute){ // Nur Endzeit wurde gesetzt
             tp.setVisible(false);
-            System.out.println(tp.getHour() + " " + tp.getMinute());
+           // System.out.println(tp.getHour() + " " + tp.getMinute());
           }
         }  
  }
@@ -338,8 +338,7 @@ public class Filter{
     if ((this.startdate != null) && (this.enddate != null)) {  //hier eventuell Fehlermeldung werfen?
       for(Trackpoint tp : trackpointlist){
          if(tp.getTimestamp().compareTo(startdate) < 0 || tp.getTimestamp().compareTo(enddate) > 0){
-             System.out.println("Horst");
-             tp.setVisible(false);
+           tp.setVisible(false);
          }
       }
     }

@@ -1,5 +1,3 @@
-package locationmapping;
-
 import de.fhpotsdam.unfolding.geo.Location;
 import java.sql.Timestamp;
 import java.util.*;
@@ -7,7 +5,7 @@ import java.util.*;
 /**
  *
  */
-public class TrackpointList implements Iterable<Trackpoint> {
+class TrackpointList implements Iterable<Trackpoint> {
     /**
     * Trackpoint-Liste, die Trackpoints zu einer Person enthaelt
     */
@@ -144,19 +142,27 @@ public class TrackpointList implements Iterable<Trackpoint> {
             this.trackpointList.set(k+1,key);
         }
     }
-
+    
+    public int getLength(){
+      return(length);
+    }
+    
+    
     /**
      * Loescht Trackpoint aus entsprechende Liste ein
      *
      * @param trackpoint [Trackpoint] : zu loeschender Trackpoint
      */
     public void deleteTrackpoint(Trackpoint trackpoint){
+        if(!(trackpointList.contains(trackpoint))){
+          return;
+        }
         Location trackpointLocation = trackpoint.getLocation();
         trackpointList.remove(trackpoint);
         length--;
         // Falls Trackpoint nur noch mit Haeufigkeit 1 vorhanden, Trackpoint loeschen
         // sonst Wert um 1 verringern
-        if ( locationFrequencies.containsKey(trackpoint) && locationFrequencies.get(trackpointLocation) == 1 )
+        if (locationFrequencies.containsKey(trackpoint) && locationFrequencies.get(trackpointLocation) == 1)
             locationFrequencies.remove(trackpointLocation);
         else
             locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)-1);
