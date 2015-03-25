@@ -1,44 +1,22 @@
-import de.fhpotsdam.unfolding.*;
-import de.fhpotsdam.unfolding.utils.*;
-import de.fhpotsdam.unfolding.marker.*;
-import de.fhpotsdam.unfolding.data.*;
-import de.fhpotsdam.unfolding.geo.*;
-import de.fhpotsdam.unfolding.providers.*;
-import java.util.*;
-import java.text.*; 
-import java.awt.event.KeyListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import locationmapping.*;
-
+import de.fhpotsdam.unfolding.*;
 
 LocationMap map = new LocationMap(this);
-
-Iterator iter;
-
-int speed = 1;
-
     
 void setup() {
-  size(map.stageWidth, map.stageHeight);
-  if(frame != null){
-    frame.setResizable(false);
-  }
-  smooth();
+  size(600, 800);
+  frame.setResizable(false);
+  map.initalize();
 
-
-  // lade Daten von MalteSpitz
-  TrackpointList tpl;
-  DataImporter im = new DataImporter(this);
-  tpl = im.load("malte_spitz.csv");
-  
-  // Filter wird angewendet
-  Filter f = new Filter();
-  f.setMinFrequency(1);
-  TrackpointList filtered = f.apply(tpl);
-  iter = filtered.iterator();
-  
-
+//  // lade Daten von MalteSpitz
+//  TrackpointList tpl;
+//  DataImporter im = new DataImporter(this);
+//  tpl = im.load("malte_spitz.csv");
+//  
+//  // Filter wird angewendet
+//  Filter f = new Filter();
+//  f.setMinFrequency(1);
+//  TrackpointList filtered = f.apply(tpl);
   
 } 
   
@@ -46,43 +24,4 @@ void setup() {
 void draw() {
   //zeichne die Karte
   map.draw();
-  
-  //zeige Marker verzögert an
-  if(iter.hasNext()){
-      if(frameCount % speed == 0 && pause == false){
-        Trackpoint curr = (Trackpoint) iter.next();
-        MyMarker tmp = new MyMarker(curr);
-        System.out.println(curr.getDateTime());
-        tmp.setStyle(curr.getService());
-        map.addMarker(tmp);
-        //map.panTo(curr.getLocation());
-        //System.out.println(curr.getDateTime());
-      }
-    }
-  // ------ Filter ENDE ------
-  
-}
-
-void mouseClicked() {
-  //wenn auf Playbutton gedrückt, kehre Pausenstatus um
-  if (play.mouseOver()) {
-    pause = !pause;
-  }
-  // wenn auf "+" gedrückt, zoome hinein
-  if (zoomInto.mouseOver()) {
-    map.zoomLevelIn();
-  }
-  // wenn auf "-" gedrückt, zoome hinaus
-  if (zoomFrom.mouseOver()) {
-    map.zoomLevelOut();
-  }
-  // wenn auf den Slider gedrückt, zoome hinaein oder hinaus
-  if (slider.mouseOver()) {
-    if (mouseEvent.getX() < (20 + (150 * (map.getZoom() / 262144)))) {
-        map.zoomLevelOut();
-    } else {
-       map.zoomLevelIn();
-    };
-  }
-  
 }

@@ -3,10 +3,12 @@ package locationmapping;
 import processing.core.PApplet;
 
 public class PlayButton extends Button {
+    LocationMapper mapper;
 
-    public PlayButton(LocationMap map, int w, int h) {
+    public PlayButton(LocationMapper mapper, int w, int h) {
         //zeichne Rechteck
-        super(map, w/2-16 , h-56, 28, 28);
+        super(mapper, w/2-16 , h-56, 28, 28);
+        this.mapper = mapper;
     }
 
 
@@ -24,7 +26,7 @@ public class PlayButton extends Button {
         /**
          * Je nach Pausezustand wird Play- oder Stop-Symbol gezeichnet
          */
-        if(map.paused == false) {
+        if(mapper.paused == false) {
             app.rect(app.width/2-9, app.height-49, 5, 15);
             app.rect(app.width/2+1, app.height-49, 5, 15);
         }

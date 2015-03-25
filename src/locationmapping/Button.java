@@ -1,10 +1,11 @@
 package locationmapping;
 
 import processing.core.PApplet;
+import de.fhpotsdam.unfolding.*;
 
 class Button {
     PApplet app;
-    LocationMap map;
+    UnfoldingMap map;
     /**
      * Die X-Koordinate des Buttons
      */
@@ -23,9 +24,9 @@ class Button {
     float h;
 
 
-    Button(LocationMap map, float x, float y, float w, float h) {
-        this.map = map;
-        this.app = map.app;
+    Button(LocationMapper mapper, float x, float y, float w, float h) {
+        this.map = mapper.map;
+        this.app = mapper.app;
         this.x = x;
         this.y = y;
         this.w = w;

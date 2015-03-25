@@ -3,8 +3,8 @@ package locationmapping;
 import processing.core.PApplet;
 
 public class SliderButton extends Button {
-    public SliderButton(LocationMap map, float x, float y, int w, int h){
-        super(map, w-980, h-580, x, y);
+    public SliderButton(LocationMapper mapper, float x, float y, int w, int h){
+        super(mapper, w-980, h-580, x, y);
     }
 
     /**
