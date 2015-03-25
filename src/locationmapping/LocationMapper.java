@@ -111,7 +111,21 @@ public class LocationMapper {
         this.app.registerMethod("mouseEvent", this);
         this.app.registerMethod("keyEvent", this);
         this.app.registerMethod("draw", this);
+    }
 
+    /**
+     * Importiert Daten aus angegbener Datei in eine Trackpointliste
+     *
+     * @param filename Name der zu importierenden Datei aus dem data Ordner
+     * @return TrackpointList mit Datenpunkten aus Datei
+     */
+    public TrackpointList importData(String filename) {
+        DataImporter importer = new DataImporter(this.app);
+        return importer.load(filename);
+    }
+
+    public void addMarker(StandardMarker marker) {
+        map.addMarker(marker);
     }
 
     /**
