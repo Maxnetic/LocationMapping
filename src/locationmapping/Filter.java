@@ -3,7 +3,7 @@ package locationmapping;
 
 import java.util.*;
 import java.sql.Timestamp;
-
+import de.fhpotsdam.unfolding.geo.Location;
 
 
 
