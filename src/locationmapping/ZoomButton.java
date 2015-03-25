@@ -1,7 +1,5 @@
 package locationmapping;
 
-import processing.core.PApplet;
-
 public class ZoomButton extends Button {
 
     boolean plusSymbol = false;

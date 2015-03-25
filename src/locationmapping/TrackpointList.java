@@ -1,6 +1,7 @@
 package locationmapping;
 
 import de.fhpotsdam.unfolding.geo.Location;
+
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -176,7 +177,8 @@ class TrackpointList implements Iterable<Trackpoint> {
      *
      * @return [Trackpoint] : erster Trackpoint der Trackpointliste
      */
-    private Trackpoint getFirt(){
+    @SuppressWarnings("unused")
+	private Trackpoint getFirt(){
         return this.trackpointList.get(0);
     }
 
@@ -186,7 +188,8 @@ class TrackpointList implements Iterable<Trackpoint> {
      *
      * @return [Trackpoint] : letzter Trackpoint der Trackpointliste
      */
-    private Trackpoint getLast(){
+    @SuppressWarnings("unused")
+	private Trackpoint getLast(){
         return this.trackpointList.get(this.length-1);
     }
 

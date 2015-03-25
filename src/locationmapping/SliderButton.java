@@ -1,6 +1,5 @@
 package locationmapping;
 
-import processing.core.PApplet;
 
 public class SliderButton extends Button {
     float zoomLevel;
