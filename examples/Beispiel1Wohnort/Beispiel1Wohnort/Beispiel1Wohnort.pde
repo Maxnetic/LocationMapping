@@ -6,12 +6,12 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
 
-LocationMapper mapper = new LocationMapper(this);
+DynamicMapper mapper = new DynamicMapper(this);
   
 
 void setup() {
   hint(ENABLE_RETINA_PIXELS);
-  mapper.setResizable(false); //not possible in eclipse
+  //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
   TrackpointList all;
@@ -20,14 +20,16 @@ void setup() {
   Filter wohnortfilter = new Filter();
   wohnortfilter.setStarttime("02:00");
   wohnortfilter.setEndtime("05:00");
-  wohnortfilter.setMinFrequency(3000);
+  wohnortfilter.setMinFrequency(300);
   TrackpointList moeglichewohnorte;
   moeglichewohnorte = wohnortfilter.apply(all);
+  
+  System.out.println( (moeglichewohnorte.getLength())== (all.getLength()) );
     
   for ( Trackpoint tp : moeglichewohnorte ) {
     StandardMarker wohnort = new StandardMarker(tp);
-    wohnort.setLabel("möglicher Wohnort");
-    wohnort.setStyle("Labeled");
+    //wohnort.setLabel("möglicher Wohnort");
+    //wohnort.setStyle("Labeled");
     mapper.addMarker(wohnort);
   }
     
