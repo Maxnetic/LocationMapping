@@ -1,7 +1,8 @@
 package locationmapping;
 
-import de.fhpotsdam.unfolding.geo.Location;
 import org.joda.time.*;
+
+import de.fhpotsdam.unfolding.geo.Location;
 
 /**
 *
@@ -28,8 +29,6 @@ public class Trackpoint {
     * Information über den benutzten Handy Service (default = "")
     */
     private String service = "";
-
-    private boolean visible = true;
 
 
     /**
@@ -104,20 +103,12 @@ public class Trackpoint {
         return label;
     }
 
-    public void setVisible(boolean visible){
-      this.visible = visible;
-    }
-
-    public boolean getVisible(){
-      return this.visible;
-    }
-
     /**
     * Gibt Zeitobjekt des Trackpoint aus
     *
     * @return DateTime Objekt des Trackpoint
     */
-    public DateTime getTime(){
+    public DateTime getDateTime(){
         return time;
     }
 

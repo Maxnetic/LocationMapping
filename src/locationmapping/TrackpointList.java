@@ -1,8 +1,10 @@
 package locationmapping;
 
-import de.fhpotsdam.unfolding.geo.Location;
-import org.joda.time.*;
 import java.util.*;
+
+import org.joda.time.*;
+
+import de.fhpotsdam.unfolding.geo.Location;
 
 /**
  *
@@ -197,8 +199,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @return [Trackpoint] : erster Trackpoint der Trackpointliste
      */
-    @SuppressWarnings("unused")
-    private Trackpoint getFirt(){
+    public Trackpoint getFirt(){
         return this.trackpointList.get(0);
     }
 
@@ -208,8 +209,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @return [Trackpoint] : letzter Trackpoint der Trackpointliste
      */
-    @SuppressWarnings("unused")
-    private Trackpoint getLast(){
+    public Trackpoint getLast(){
         return this.trackpointList.get(this.length-1);
     }
 
