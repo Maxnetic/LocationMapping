@@ -3,7 +3,9 @@ package locationmapping;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 import processing.event.KeyEvent;
+
 import de.fhpotsdam.unfolding.*;
+import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
@@ -26,7 +28,7 @@ public class LocationMapper {
     /**
      * Beschreibt ob Zeichnen pausiert ist oder nicht
      */
-    public boolean paused = true;
+    public boolean paused = false;
     /**
      * der Provider für die Karte
      */
@@ -47,10 +49,6 @@ public class LocationMapper {
      * Zoomlevel, mit der Karte initalisiert wird
      */
     private int startZoomLevel = 10;
-    /**
-     * Der Start/Pause-Knopf
-     */
-    PlayButton play;
     /**
      * Der ZoomIn-Knopf
      */
@@ -82,8 +80,8 @@ public class LocationMapper {
     @SuppressWarnings("deprecation")
     public void init(){
         // Fenstergröße Setzen und Anpassbar machen
-        app.size(this.width, this.height);
-        app.frame.setResizable(true); //funktioniert unter eclipse nicht
+        this.app.size(this.width, this.height);
+        this.app.frame.setResizable(true); //funktioniert unter eclipse nicht
 
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
@@ -92,20 +90,17 @@ public class LocationMapper {
         MapUtils.createDefaultEventDispatcher(this.app, this.map);
 
         // Smoothes Scrollen und Zoomen auf Karte
-        app.smooth();
-        map.setTweening(true);
+        this.app.smooth();
+        this.map.setTweening(true);
 
         // Setze Startort uns Zoomlevel der Karte
-        map.zoomAndPanTo(this.startLocation, this.startZoomLevel);
-        map.setZoomRange(4, 16);
+        this.map.zoomAndPanTo(this.startLocation, this.startZoomLevel);
+        this.map.setZoomRange(4, 16);
 
         // Zoom Buttons und Slider erstellen
         this.slider = new SliderButton(this, 32, 22, 184, 4, 13, 4);
         this.zoomIn = new ZoomButton(this, 202, 16, 16, 16, true);
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
-
-        // Play Button erstellen
-        this.play = new PlayButton(this, 41);
 
         // Listener Einsetzen
         this.app.registerMethod("mouseEvent", this);
@@ -124,7 +119,7 @@ public class LocationMapper {
         return importer.load(filename);
     }
 
-    public void addMarker(StandardMarker marker) {
+    public void addMarker(Marker marker) {
         map.addMarker(marker);
     }
 
@@ -139,19 +134,6 @@ public class LocationMapper {
         this.slider.draw();
         this.zoomIn.draw();
         this.zoomOut.draw();
-        this.play.draw();
-
-        // if(iter.hasNext()){
-        //     if(frameCount % speed == 0 && pause == false){
-        //         Trackpoint curr = (Trackpoint) iter.next();
-        //         MyMarker tmp = new MyMarker(curr);
-        //         System.out.println(curr.getDateTime());
-        //         tmp.setStyle(curr.getService());
-        //         map.addMarker(tmp);
-        //         map.panTo(curr.getLocation());
-        //         System.out.println(curr.getDateTime());
-        //     }
-        // }
     }
 
     public void mouseEvent(MouseEvent e){
@@ -160,24 +142,23 @@ public class LocationMapper {
 
         switch ( e.getAction() ){
             case MouseEvent.CLICK:
-                if ( play.mouseOver(x, y) )
-                    paused = !paused;
-                if ( zoomIn.mouseOver(x, y) )
-                    map.zoomLevelIn();
-                if ( zoomOut.mouseOver(x, y) )
-                    map.zoomLevelOut();
-                // wenn auf den Slider gedrückt, zoome hinein oder hinaus
-                if ( slider.mouseOver(x, y) ) {
-                    slider.zoomHandler(x);
-                }
+                this.clickEventHandler(x, y);
                 break;
         }
     }
 
-    public void keyEvent(KeyEvent e){
-        if ( e.getKey() == ' ' ) {
-            paused = !paused;
+    void clickEventHandler(int x, int y) {
+        if ( zoomIn.mouseOver(x, y) )
+            map.zoomLevelIn();
+        if ( zoomOut.mouseOver(x, y) )
+            map.zoomLevelOut();
+        if ( slider.mouseOver(x, y) ) {
+            slider.zoomHandler(x);
         }
+    }
+
+    public void keyEvent(KeyEvent e){
+
     }
 
 

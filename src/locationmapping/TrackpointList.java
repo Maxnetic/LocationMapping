@@ -8,7 +8,7 @@ import java.util.*;
 /**
  *
  */
-class TrackpointList implements Iterable<Trackpoint> {
+public class TrackpointList implements Iterable<Trackpoint> {
     /**
     * Trackpoint-Liste, die Trackpoints zu einer Person enthaelt
     */
@@ -145,12 +145,12 @@ class TrackpointList implements Iterable<Trackpoint> {
             this.trackpointList.set(k+1,key);
         }
     }
-    
+
     public int getLength(){
       return(length);
     }
-    
-    
+
+
     /**
      * Loescht Trackpoint aus entsprechende Liste ein
      *

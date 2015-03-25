@@ -8,7 +8,7 @@ import java.util.Date;
 /**
 *
 */
-class Trackpoint {
+public class Trackpoint {
     // Attribute
     /**
     * Ortsinformation, enthält doubles für Längen und Breitengrad
@@ -30,7 +30,7 @@ class Trackpoint {
     * Information über den benutzten Handy Service (default = "")
     */
     private String service = "";
-    
+
     private boolean visible = true;
 
 
@@ -62,10 +62,10 @@ class Trackpoint {
     void setId(int id){
         this.id = id;
     }
-    
+
     /**
     * Gibt Service des Trackpoints aus
-    * 
+    *
     * @return [String] : Service des Trackpoints als String
     */
     String getService(){
@@ -98,11 +98,11 @@ class Trackpoint {
     public String getLabel(){
         return label;
     }
-    
+
     public void setVisible(boolean visible){
       this.visible = visible;
     }
-    
+
     public boolean getVisible(){
       return this.visible;
     }
@@ -121,14 +121,14 @@ class Trackpoint {
       Date dateTime = new Date(this.timestamp.getTime());
       return dateTime.getYear();
     }
-    
+
     @SuppressWarnings("deprecation")
 	public int getMonth(){
       Date dateTime = new Date(this.timestamp.getTime());
       return dateTime.getMonth();
     }
-    
-   
+
+
     /**
     * Gibt Zeitstempel des Trackpoint in Sekunden aus
     *
@@ -146,7 +146,7 @@ class Trackpoint {
     public String getDateTime(){
         return timestamp.toString();
     }
-    
+
 
     /**
     * Gibt Stunde der Zeitvariable des Trackpoint aus
@@ -181,7 +181,7 @@ class Trackpoint {
         Date dateTime = new Date(this.timestamp.getTime());
         return dateTime.getDate();
     }
-    
+
     /**
     * Gibt Wochentag der Zeitvariable des Trackpoint aus
     *
