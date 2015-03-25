@@ -2,7 +2,7 @@ import de.fhpotsdam.unfolding.*;
 import locationmapping.*;
 
 void setup() {
-    LocationMapper mapper = new DynamicMapper(this);
+    LocationMapper mapper = new StaticMapper(this);
     mapper.init();
     
     TrackpointList data = mapper.importData("malte_spitz.csv");
