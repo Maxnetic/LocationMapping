@@ -9,8 +9,8 @@ import de.fhpotsdam.unfolding.providers.*;
 StaticMapper mapper = new StaticMapper(this);
 
 /**
-* In dem Beispiel werden zwei Filterobjekt erzeugt, die zum einen Aufethaltsorte am Wochenende filtern
-* und zum anderen Aufenthaltsorte Montag und Dienstag filtern
+* In dem Beispiel werden zwei Datensätze nach Aufenthalt von 10 bis 16 Uhr und Monatg bis Freitag gefiltert,
+* um den höchstwahrscheinlichen Arbeitsplatz zu bestimmen.
 *
 */
 
