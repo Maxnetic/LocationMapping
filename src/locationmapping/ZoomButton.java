@@ -4,7 +4,7 @@ public class ZoomButton extends Button {
 
     boolean plusSymbol = false;
 
-    public ZoomButton(LocationMapper mapper, float x, float y, float w, float h, boolean plusSymbol) {
+    public ZoomButton(Mapper mapper, float x, float y, float w, float h, boolean plusSymbol) {
         super(mapper, x, y, w, h);
         this.plusSymbol = plusSymbol;
     }

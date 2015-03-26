@@ -24,7 +24,7 @@ class Button {
     float h;
 
 
-    Button(LocationMapper mapper, float x, float y, float w, float h) {
+    Button(Mapper mapper, float x, float y, float w, float h) {
         this.map = mapper.map;
         this.app = mapper.app;
         this.x = x;
