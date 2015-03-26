@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 import java.util.*;
 
-StaticMapper mapper = new StaticMapper(this);
+StaticMapper mapper = new StaticMapper(this); //DynamicMapper funktioniert nicht
 Trackpoint start = null;  
 int i = 0;
 
