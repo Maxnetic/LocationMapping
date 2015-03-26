@@ -230,7 +230,7 @@ public class DataImporter {
     }
 
     DateTime parseTimestampString(String timestampString){
-        long timestamp = Long.parseLong(timestampString.substring(0, 1) + timestampString.substring(2, 13));
+        long timestamp = Long.parseLong(timestampString.substring(0, 1) + timestampString.substring(2, 10)) + 978285600;
         return new DateTime(timestamp);
     }
 
