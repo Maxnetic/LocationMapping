@@ -22,26 +22,34 @@ void setup() {
   iter =   all.iterator();
   
   TrackpointList bla = new TrackpointList();
-  int id = 1;
+  int id = 2;
+  int index = 0;
+  int[] colors = {0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250};
+  
+  
   while (iter.hasNext()){
     Trackpoint end = iter.next();
     
     if ((start != null) && (end != null)){
 
-      if ( Math.abs(start.timeDistanceTo(end) ) < 300  && Math.abs(start.locationDistanceTo(end)) > 5   ){
+      if ( Math.abs(start.timeDistanceTo(end) ) < 600  && Math.abs(start.locationDistanceTo(end)) > 0.1   ){
         start.setId(id);
         end.setId(id);
         SimpleLinesMarker track = new SimpleLinesMarker(start.getLocation(), end.getLocation());
-        track.setColor(id);
+        if (index == 11) {
+            index = 0;
+        }
+        track.setColor(colors[index]);
+        index++;
         mapper.addMarker(track);
       } else {
-        if (start.getId() != 0){
+        if (start.getId() != 1){
           id++;
         }
       }
     }
     start = end;
-    System.out.println(end.getId());
+    System.out.print(end.getId() + ", ");
   }
 }    
   
