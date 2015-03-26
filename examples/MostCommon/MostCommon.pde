@@ -4,17 +4,15 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
 import java.sql.Timestamp;
 
-LocationMapper mapper = new LocationMapper(this);
 
 void setup() {
+    Mapper mapper = new StaticMapper(this);
     mapper.init();
-
-
+    
     // Import Data
-    DataImporter importer = new DataImporter(this);
-    TrackpointList trackpointlist = importer.load("malte_spitz.csv");
+    TrackpointList trackpointlist = mapper.importData("malte_spitz.csv");
     Filter mostcommon = new Filter();
-    mostcommon.setMinFrequency(4000);
+    mostcommon.setMinFrequency(500);
     TrackpointList filteredtpl = mostcommon.apply(trackpointlist);
     
     
@@ -25,10 +23,8 @@ void setup() {
         marker.setStyle("Labeled");
         marker.setLabel("Wohnort");
         marker.setSize(10);
-        mapper.map.addMarker(marker);
+        mapper.addMarker(marker);
     }
 }
 
-void draw() {
-    mapper.update();
-}
+void draw() {}

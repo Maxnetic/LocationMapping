@@ -1,14 +1,14 @@
 package locationmapping;
 
 public class PlayButton extends Button {
-    LocationMapper mapper;
+    Mapper mapper;
     /**
      * Durchmesser des Buttons
      */
     float d;
 
 
-    public PlayButton(LocationMapper mapper, float d) {
+    public PlayButton(Mapper mapper, float d) {
         super(mapper, d, d, d, d);
         this.mapper = mapper;
         this.d = d;

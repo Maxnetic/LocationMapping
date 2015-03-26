@@ -2,7 +2,9 @@ package locationmapping;
 
 import processing.core.PApplet;
 
-public class StaticMapper extends LocationMapper {
+import de.fhpotsdam.unfolding.marker.*;
+
+public class StaticMapper extends Mapper {
     /**
      * Konstruktor für StaticMapper Objekte
      *
@@ -10,5 +12,9 @@ public class StaticMapper extends LocationMapper {
      */
     public StaticMapper(PApplet app){
         super(app);
+    }
+
+    public void addMarker(Marker marker) {
+        map.addMarker(marker);
     }
 }

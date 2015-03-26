@@ -394,8 +394,10 @@ public class Filter{
          TrackpointList filteredtpl = new TrackpointList();   
          for(Trackpoint tp : trackpointlist){
              if(tp.getVisible() == true){
-                 filteredtpl.add(tp);
-             } 
+                 filteredtpl.add(tp);				
+             }else{
+				 tp.setVisible(true);
+			}			 
          }
          return filteredtpl;
       }
