@@ -16,5 +16,5 @@ $ javadoc src/locationmapping/*.java -d reference/
 From `library` folder compile jar with:
 
 ```
-$ jar -cf library/locationmapping.jar library/locationmapping/
+$ jar -cf locationmapping.jar locationmapping/
 ```

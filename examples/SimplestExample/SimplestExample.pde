@@ -3,7 +3,7 @@ import org.joda.time.*;
 import locationmapping.*;
 
 void setup() {
-    LocationMapper mapper = new StaticMapper(this);
+    Mapper mapper = new StaticMapper(this);
     mapper.init();
     
     TrackpointList data = mapper.importData("malte_spitz.csv");

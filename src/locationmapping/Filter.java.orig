@@ -1,10 +1,15 @@
 package locationmapping;
 
 import java.util.*;
+<<<<<<< HEAD
 
 import org.joda.time.*;
 
 import de.fhpotsdam.unfolding.geo.Location;
+=======
+import java.sql.Timestamp;
+import de.fhpotsdam.unfolding.geo.*;
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
 
 
 
@@ -14,22 +19,36 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 
 public class Filter{
+<<<<<<< HEAD
 
      /**
       *Attribute
       * Die Rückgabeliste, die in den Filtern beschrieben wird
        */
 
+=======
+ 
+     /** 
+      *Attribute
+      * Die Rückgabeliste, die in den Filtern beschrieben wird
+       */ 
+  
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       * Timestamps, die zum Datumsvergleich benutzt werden
       */
       Timestamp startdate; //Startdatum Timestamp ts1 = new Timestamp(2009,10,2,22,20,40,0); entspricht 2.10.2009 22 Uhr 20 Minuten 40 sek
       Timestamp enddate; //Enddatum
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       * Mindestfrequenz für den Frequenzfilter
       */
       int minfrequency = 0;
+<<<<<<< HEAD
 
       /*
       * radius und Location, die im Radiusfilter genutzt werden
@@ -49,10 +68,31 @@ public class Filter{
       TimeTupel starttime; //Startzeit (Stunde am Tag) -1 heißt variable wurde nicht gesetzt
       TimeTupel endtime; //Endzeit (Stunde am Tag)
 
+=======
+  
+      /*
+      * radius und Location, die im Radiusfilter genutzt werden
+      */
+      int radius = 0;  
+      Location location; 
+  
+      /*
+      * Service, der im Servicefilter gefiltert wird
+      */
+      String service; //zu filternder Service (SMS, Internet, GPRS)
+  
+      /*
+      *Zeittupel, das als innere Klasse zur Darstellung von Stunden und Minuten genutzt wird
+      */
+      TimeTupel starttime; //Startzeit (Stunde am Tag) -1 heißt variable wurde nicht gesetzt
+      TimeTupel endtime; //Endzeit (Stunde am Tag)
+  
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       *Ein Array, in dem die Wochentage, die gefiltert werden sollen, gespeichert werden
       */
       String[] weekday;
+<<<<<<< HEAD
 
 
 
@@ -68,6 +108,23 @@ public class Filter{
       * Darstellung der Zeit als Tupel mit Stunde und Minute (wird für Konvertierung aus String gebraucht)
       */
 
+=======
+  
+ 
+  
+  
+      /*
+       * Konstruktor fuer Filter
+       * 
+       */
+      public Filter(){
+      }
+  
+      /* Innere Klasse
+      * Darstellung der Zeit als Tupel mit Stunde und Minute (wird für Konvertierung aus String gebraucht) 
+      */
+      
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       private class TimeTupel{
             /*
             *Attribute
@@ -76,7 +133,11 @@ public class Filter{
             */
             int hour;
             int minute;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
             /*Konstruktor
             *@param hour [int]: Die Stunde des TimeTupel Objektes
             *@param minute [int]: Die Minute des TimeTuple Objektes
@@ -87,15 +148,27 @@ public class Filter{
                 this.minute = minute;
             }
       }
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
        /*
        * Setzt das Startdatum des Filters
        * @param startdate [String] : Das Startdatum im Format: YYYY/MM/DD
        */
        public void setStartDate(String startdate){
+<<<<<<< HEAD
           this.startdate = parseDate(startdate);
        }
 
+=======
+
+          this.startdate = parseDate(startdate);
+    
+       }
+  
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
        * Setzt das Enddatum
        * @param enddate [String] : Das Enddatum im Format: YYYY/MM/DD
@@ -104,7 +177,11 @@ public class Filter{
           this.enddate = parseDate(enddate);
           this.enddate = new Timestamp(this.enddate.getYear(), this.enddate.getMonth(), this.enddate.getDate(), 23, 59, 59, 0);// Anpassung der Stunden und Minuten, damit der Endtag noch mit enthalten ist
       }
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       * Hilfsfunktion, die einen String in einen Timestamp umwandelt
       * @param str [String]: Datumsstring, der umgewandelt wird
@@ -116,9 +193,15 @@ public class Filter{
           int day = Integer.parseInt(str.substring(8,10));
           return (new Timestamp(year-1900,month-1,day,0,0,0,0));
       }
+<<<<<<< HEAD
 
 
 
+=======
+  
+
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
        * Setzt die Mindesthaeufigkeit
        * @param minf [int] : Mindesthaeufigkeit
@@ -127,21 +210,33 @@ public class Filter{
       public void setMinFrequency(int minf){
           minfrequency = minf;
       }
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /* Setzt den Radius
        * @param radius [int]: der Radius, um den gefiltert wird
        */
        public void setRadius(int radius){
            this.radius = radius;
        }
+<<<<<<< HEAD
 
       /* Setzt die Location
        * @param location [Location]: der Ort, um den gefiltert wird
        */
+=======
+  
+      /* Setzt die Location
+       * @param location [Location]: der Ort, um den gefiltert wird
+       */ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       public void setLocation(Location location){
           this.location = location;
       }
 
+<<<<<<< HEAD
 
        /* Hilfsfunktion, die einen Timestring in ein Tupel umwandelt
        * String Format HH:MM
@@ -152,6 +247,18 @@ public class Filter{
        return time;
        }
 
+=======
+ 
+       /* Hilfsfunktion, die einen Timestring in ein Tupel umwandelt
+       * String Format HH:MM
+       */
+ 
+       private TimeTupel parseTime(String str){
+           TimeTupel time = new TimeTupel(Integer.parseInt(str.substring(0,2)), Integer.parseInt(str.substring(3,5)));
+       return time;      
+       }
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /* Setzt die Startzeit
        * @param starttime [int]: Die Startzeit, ab der gefiltert wird
        */
@@ -161,20 +268,34 @@ public class Filter{
 
       /* Setzt die Endzeit
        * @param endtime [int]: Die Endzeit, ab der gefiltert wird
+<<<<<<< HEAD
        */
       public void setEndtime(String endtime){
           this.endtime = parseTime(endtime);
       }
 
+=======
+       */  
+      public void setEndtime(String endtime){
+          this.endtime = parseTime(endtime);
+      }
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
        * Setzt den Service
        * @param service [String]: Der Service, nach dem gefiltert werden soll
        */
       public void setService(String service){
           this.service = service;
+<<<<<<< HEAD
       }
 
 
+=======
+      } 
+ 
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       *Hilfsfunktion, die eine String-Eingabe an "-" trennt und in ein String-Array packt
       * @param str [String]: Der Eingabestring, der umgewandelt wird
@@ -184,6 +305,7 @@ public class Filter{
           //Laufvariablen
           int i = 0;
           int j = 0;
+<<<<<<< HEAD
 
       //Vergleichsarray
           String[] week = {"montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"};
@@ -191,6 +313,15 @@ public class Filter{
       //Trennung an Bindestrich
           String[] weekday = str.split("-");
 
+=======
+   
+      //Vergleichsarray
+          String[] week = {"montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"};
+    
+      //Trennung an Bindestrich
+          String[] weekday = str.split("-");
+    
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       //Verpacken des Strings
       //bestimmt Zahlenwert für den ersten Tag
           for(i = 0; i < 7; i++){
@@ -203,17 +334,30 @@ public class Filter{
               if(week[j].equals(weekday[1])){
               break;
               }
+<<<<<<< HEAD
           }
           int a = i;
           String[] weekday_helper = new String[j-i+1];
 
+=======
+          }  
+          int a = i;
+          String[] weekday_helper = new String[j-i+1];
+    
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
           //fügt alle Tage zwischen Start und Endtag in das Array ein
           for(i = a; i <= j; i++){
               weekday_helper[i-a] = week[i];
           }
+<<<<<<< HEAD
           return weekday_helper;
       }
 
+=======
+          return weekday_helper;   
+      }
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
        * Setzt den Wochentag, nach dem zu filtern ist
        * @param wochentag [String]: die Wochentage, nach denen gefiltert wird. Eingabe Trennung erfolgt mit "," oder "-"
@@ -221,18 +365,30 @@ public class Filter{
       public void setWeekday( String wochentag){
           String[] weekdaysplit;
           String[] returnweekday = new String[7];
+<<<<<<< HEAD
 
       //Formatierung der Eingabe: Umwandlung in Kleinbuchstaben und Entfernung von Leerzeichen
           wochentag = wochentag.toLowerCase();
           wochentag = wochentag.replace(" ","");
 
+=======
+    
+      //Formatierung der Eingabe: Umwandlung in Kleinbuchstaben und Entfernung von Leerzeichen
+          wochentag = wochentag.toLowerCase();
+          wochentag = wochentag.replace(" ","");
+  
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
           weekday = new String[7];
       //Trennt die Eingabe an allen Komma
           weekday = wochentag.split(",");
           for(int i = 0; i < weekday.length; i++){
               returnweekday[i] = weekday[i];
           }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
           for(int i = 0; i < weekday.length; i++){
               if(weekday[i].contains("-")){
               //Benutzt splitString, das Eingaben mit Bindestrich in ein Array umwandelt
@@ -241,6 +397,7 @@ public class Filter{
                   returnweekday[i] = weekdaysplit[0];
               //schreibt die in splitString erzeugten Strings in das Rückgabe Array
                   for(int j = 1; j < weekdaysplit.length; j++){
+<<<<<<< HEAD
                       returnweekday[weekday.length + j] = weekdaysplit[j];
                   }
                }
@@ -249,13 +406,28 @@ public class Filter{
         }
 
 
+=======
+                      returnweekday[weekday.length + j] = weekdaysplit[j]; 
+                  }
+               }          
+           }
+          weekday = returnweekday;
+        }
+ 
+   
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       * Filtert nach Datum
       * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
       */
       private void dateFilter(TrackpointList trackpointlist){
+<<<<<<< HEAD
 
           for(Trackpoint tp : trackpointlist){
+=======
+     
+          for(Trackpoint tp : trackpointlist){             
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
               if(startdate != null){
                   if(enddate != null){
                      if(tp.getTimestamp().compareTo(startdate) < 0 || tp.getTimestamp().compareTo(enddate) > 0){
@@ -272,11 +444,16 @@ public class Filter{
                   }
               }
           }
+<<<<<<< HEAD
      }
+=======
+     }    
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
 
       /*
       * Filtert nach Frequenz
       * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+<<<<<<< HEAD
       */
       private void frequencyFilter(TrackpointList trackpointlist){
            for(Trackpoint tp : trackpointlist){
@@ -285,17 +462,36 @@ public class Filter{
            }
       }
 
+=======
+      */ 
+      private void frequencyFilter(TrackpointList trackpointlist){
+           for(Trackpoint tp : trackpointlist){
+               if(trackpointlist.getFrequency(tp) < minfrequency)
+                   tp.setVisible(false); 
+           } 
+      } 
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
      /*
       * Filtert nach Location und Radius
       * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
       */
       private void locationFilter(TrackpointList trackpointlist){
+<<<<<<< HEAD
          for( Trackpoint tp : trackpointlist ){
             if (tp.locationDistanceTo(location) > radius)
                 tp.setVisible(false);
          }
       }
 
+=======
+         for( Trackpoint tp : trackpointlist ){       
+            if (tp.locationDistanceTo(location) > radius)
+                tp.setVisible(false); 
+         }
+      }
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
      /*
       * Filtert nach Service
       * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
@@ -303,17 +499,26 @@ public class Filter{
       private void serviceFilter(TrackpointList trackpointlist){
           for(Trackpoint tp : trackpointlist){
               if(!(tp.getService().equals(service))){
+<<<<<<< HEAD
                   tp.setVisible(false);
               }
           }
       }
 
+=======
+                  tp.setVisible(false);   
+              }
+          }
+      } 
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       * Filtert nach Uhrzeit
       * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
       */
       private void timeFilter(TrackpointList trackpointlist){
          for(Trackpoint tp : trackpointlist){
+<<<<<<< HEAD
 
 
             if(starttime != null){
@@ -332,6 +537,26 @@ public class Filter{
         }
      }
 
+=======
+     
+     
+            if(starttime != null){ 
+                if(endtime != null){ // Start und Endzeit wurde gesetzt              
+                    if((tp.getHour() < starttime.hour || (tp.getHour() == starttime.hour &&  tp.getMinute() <= starttime.minute)) ||( tp.getHour() > endtime.hour || (tp.getHour() == endtime.hour && tp.getMinute() >= endtime.minute))){ 
+                        tp.setVisible(false);                  
+                    }
+                    //Nur Startzeit wurde gesetzt
+                    }else if ( tp.getHour() <= starttime.hour  && tp.getMinute() <= starttime.minute){
+                       tp.setVisible(false); 
+                }
+                // Nur Endzeit wurde gesetzt    
+            } else if(tp.getHour() >= endtime.hour  && tp.getMinute() >= endtime.minute){ 
+                tp.setVisible(false);
+            }
+        }  
+     }
+ 
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       * Filtert nach Wochentag
       * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
@@ -339,25 +564,40 @@ public class Filter{
      private void weekdayFilter(TrackpointList trackpointlist){
         Boolean delete = true;
         for(Trackpoint tp : trackpointlist){
+<<<<<<< HEAD
             // Überprüft, ob der Tag in dem Wochen-Array ist
             for(String str : weekday){
                 if(tp.getDayOfTheWeek().equals(str)){
                     delete = false;
                 }
+=======
+            // Überprüft, ob der Tag in dem Wochen-Array ist 
+            for(String str : weekday){
+                if(tp.getDayOfTheWeek().equals(str)){
+                    delete = false;
+                }             
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
             }
             if(delete){
                 tp.setVisible(false);
             }
             delete = true;
+<<<<<<< HEAD
         }
      }
 
+=======
+        }    
+     }
+  
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
       /*
       * apply Methode, die je nachdem, wie die Attribute gesetzt wurden filtert
       * Es wird überprüft, ob und welche Attribute gesetzt wurden, so dass bestimmte Filter aufgerufen werden
       * @param trackpointlist [TrackpointList]: Die TrackpointList, die gefiltert wird
       * @return gibt eine TrackpointList zurück, in der die visible Eigenschaft verändert wurde
       */
+<<<<<<< HEAD
 
       public TrackpointList apply(TrackpointList trackpointlist) {
 
@@ -371,10 +611,26 @@ public class Filter{
             frequencyFilter(trackpointlist);
          }
 
+=======
+  
+      public TrackpointList apply(TrackpointList trackpointlist) { 
+    
+         // Datumsfilter
+         if ((this.startdate != null) || (this.enddate != null)) {  
+            dateFilter(trackpointlist);
+         }
+     
+         // Frequenzfilter
+         if (minfrequency > 1) {
+            frequencyFilter(trackpointlist);
+         }  
+      
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
          // Radiusfilter
          if (radius != 0 && location != null) {
             locationFilter(trackpointlist);
          }
+<<<<<<< HEAD
 
          //Servicefilter
          if (service != null) {
@@ -433,4 +689,31 @@ public class Filter{
          return newtpl;
   }
 
+=======
+         
+         //Servicefilter
+         if (service != null) {
+            serviceFilter(trackpointlist);
+         } 
+   
+         //Zeitfilter
+         if (starttime != null || endtime != null) { 
+             timeFilter(trackpointlist);
+         } 
+      
+         //Wochentagsfilter
+         if (weekday != null) {
+            weekdayFilter(trackpointlist);
+         } 
+         
+         //überschreiben der Rauszufilternden Punkte
+         TrackpointList filteredtpl = new TrackpointList();   
+         for(Trackpoint tp : trackpointlist){
+             if(tp.getVisible() == true){
+                 filteredtpl.add(tp);
+             } 
+         }
+         return filteredtpl;
+      }
+>>>>>>> c7582b3644163cf41808bbfb2e1de6624d3a1f66
 }
