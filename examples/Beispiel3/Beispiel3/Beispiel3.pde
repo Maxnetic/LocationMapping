@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
 
-StaticMapper mapper = new StaticMapper(this);
+DynamicMapper mapper = new DynamicMapper(this);
 
 /**
 * In dem Beispiel werden zwei Datensätze nach Aufenthalt von 10 bis 16 Uhr und Monatg bis Freitag gefiltert,
