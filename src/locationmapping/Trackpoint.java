@@ -29,6 +29,10 @@ public class Trackpoint {
     * Information über den benutzten Handy Service (default = "")
     */
     private String service = "";
+    /**
+    * Information über den benutzten Handy Service (default = "")
+    */
+    private boolean visible = true;
 
 
     /**
@@ -68,21 +72,21 @@ public class Trackpoint {
     }
 
     /**
-    * Gibt Service des Trackpoints aus
-    *
-    * @return [String] : Service des Trackpoints als String
-    */
-    String getService(){
-      return service;
-    }
-
-    /**
     * Gibt Identifikationsnummer des Trackpoint aus
     *
     * @return [int]: Identifikationsnummer des Trackpoint
     */
     int getId(){
         return id;
+    }
+
+    /**
+    * Gibt Service des Trackpoints aus
+    *
+    * @return [String] : Service des Trackpoints als String
+    */
+    String getService(){
+      return service;
     }
 
     /**
@@ -101,6 +105,36 @@ public class Trackpoint {
     */
     public String getLabel(){
         return label;
+    }
+
+    /**
+    * Setzt Sichtbarkeit des Trackpoint
+    *
+    * @param visibility Wahrheitswert über Sichtbarkeit des Trackpoint
+    */
+    void setVisible(boolean visibility){
+        this.visible = visibility;
+    }
+    /**
+    * Setzt Trackpoint sichtbar
+    */
+    void setVisible(){
+        this.visible = true;
+    }
+    /**
+     * Setzt Trackpoint unsichtbar
+     */
+    void setInVisible(){
+        this.visible = false;
+    }
+
+    /**
+    * Gibt Sichtbarkeit des Trackpoint aus
+    *
+    * @return Wahrheitswert über Sichtbarkeit
+    */
+    boolean getVisible(){
+        return this.visible;
     }
 
     /**
@@ -173,32 +207,6 @@ public class Trackpoint {
     */
     public String getDateTime(){
         return this.time.toString();
-    }
-
-    /**
-    * Gibt Wochentag der Zeitvariable des Trackpoint aus
-    *
-    * @return Wochentag der Zeitvariable als String
-    */
-    public String getDayOfTheWeek(){
-        int weekDay = this.time.getDayOfWeek();
-        switch(weekDay){
-          case 0:
-            return "sonntag";
-          case 1:
-            return "montag";
-          case 2:
-            return "dienstag";
-          case 3:
-            return "mittwoch";
-          case 4:
-            return "donnerstag";
-          case 5:
-            return "freitag";
-          case 6:
-            return "samstag";
-        }
-        return "";
     }
 
     /**
