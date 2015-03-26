@@ -58,7 +58,7 @@ public class Trackpoint {
     *
     * @param id [int]: neue Identifikationsnummer (3 stellige Zahl)
     */
-    void setId(int id){
+    public void setId(int id){
         this.id = id;
     }
 
@@ -67,7 +67,7 @@ public class Trackpoint {
     *
     * @return [String] : Service des Trackpoints als String
     */
-    String getService(){
+    public String getService(){
       return service;
     }
 
@@ -76,7 +76,7 @@ public class Trackpoint {
     *
     * @return [int]: Identifikationsnummer des Trackpoint
     */
-    int getId(){
+    public int getId(){
         return id;
     }
 
@@ -85,7 +85,7 @@ public class Trackpoint {
     *
     * @param label [String]: neues Label für den Trackpoint
     */
-    void setLabel(String label){
+    public void setLabel(String label){
         this.label = label;
     }
 
