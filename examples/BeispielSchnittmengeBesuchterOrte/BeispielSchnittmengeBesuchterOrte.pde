@@ -29,7 +29,7 @@ void setup() {
   
   
   vorgefiltert = schnittmengenFilter.apply(list1);
-  vorgefiltert = schnittmengenFilter.compareLocation(list1, list2, 1);
+  vorgefiltert = schnittmengenFilter.compareLocation(vorgefiltert, list2, 1);
   
   
     
