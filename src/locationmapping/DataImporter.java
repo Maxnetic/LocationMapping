@@ -17,9 +17,9 @@ public class DataImporter {
     */
     private int minTimeDistance = 60;
     /**
-    * Maximale Anzahl einzulesender Datenpunkte
+    * Maximale Anzahl einzulesender Datenpunkte, -1 = alle
     */
-    private int maxImportSize = 50000;
+    private int maxImportSize = -1;
     /**
     * Genauigkeit in der Ortskoordinaten eingelesen werden sollen in Grad (default = "0.0001")
     */
@@ -125,7 +125,7 @@ public class DataImporter {
             JSONObject row = data.getJSONObject(i);
 
             // Brich Import ab, falls maxImportSize überschritten
-            if ( counter > this.maxImportSize )
+            if ( counter > this.maxImportSize && this.maxImportSize > 0 )
                 break;
 
             // Zeitstempel der Zeile
@@ -185,6 +185,7 @@ public class DataImporter {
 
             // Zeitstempel der Zeile
             DateTime timestamp = new DateTime(0);
+
             try {
                 timestamp = parseDateTimeString(row.getString("DateTime"));
             } catch(IllegalArgumentException e){
@@ -192,7 +193,7 @@ public class DataImporter {
             }
 
             // ignoriere Zeile, falls Zeitunterschied kleiner als minTimeDistance
-            if ( Seconds.secondsBetween(lastTimestamp, timestamp).getSeconds() > this.minTimeDistance*1000 ){
+            if ( Seconds.secondsBetween(lastTimestamp, timestamp).getSeconds() > this.minTimeDistance ){
                 lastTimestamp = timestamp;
                 counter++;
 
@@ -208,8 +209,7 @@ public class DataImporter {
 
 
                 // erstelle Trackpoint und füge ihn zu Liste hinzu
-                //Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
-                Location location = new Location(latitude, longitude);
+                Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
                 Trackpoint trackpoint  = new Trackpoint(timestamp, location, id, service);
                 trackpointList.add(trackpoint);
                 // System.out.println(counter + ": " + trackpoint);
