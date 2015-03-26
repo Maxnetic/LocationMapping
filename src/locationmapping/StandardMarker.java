@@ -15,7 +15,10 @@ import processing.core.PGraphics;
 public class StandardMarker extends SimplePointMarker {
   //Initialisierung der Attribute und ihrer Defaulteinstellung
   int size = 30;
-  int color = 0;
+  int hsb_h = 0;
+  int hsb_s = 0;
+  int hsb_b = 0;
+  int transparency = 100;
   String label = null;
   String style = "Default";
   int textsize = 12;
@@ -50,9 +53,49 @@ public class StandardMarker extends SimplePointMarker {
   *Die Funktion updated die Farbe des Markers
   *@param color [int]: Farbwert
   */
-  public void setColor(int color){
-    this.color = color;
+  public void setColor(int hsb_h, int hsb_s, int hsb_b){
+    this.hsb_h =hsb_h;
+	this.hsb_s = hsb_s;
+	this.hsb_b = hsb_b;
   }
+  
+  public void setTransparency(int trans){
+	transparency = trans;
+  }
+  
+  
+  public void setColor(String colorstr){
+    colorstr.toLowerCase();
+	if (colorstr.equals("rot")){
+		hsb_h = 0;
+		hsb_s = 99;
+		hsb_b = 99;	
+	}
+	if (colorstr.equals("blau")){
+		hsb_h = 240;
+		hsb_s = 99;
+		hsb_b = 99;
+	}
+	if (colorstr.equals("grün")){
+		hsb_h = 100;
+		hsb_s = 99;
+		hsb_b = 99;
+	}	
+	if (colorstr.equals("gelb")){
+		hsb_h = 60;
+		hsb_s = 99;
+		hsb_b = 99;
+	}
+	if (colorstr.equals("grau")){
+		hsb_h = 0;
+		hsb_s = 1;
+		hsb_b = 60;
+	}
+
+		
+  }
+  
+  
 
   /*
    * Label auslesen
@@ -111,9 +154,9 @@ public class StandardMarker extends SimplePointMarker {
 
     if (this.style == "Rectangle") {
       pg.pushStyle();
-      pg.stroke(color);  // kein Rand
+      pg.stroke(hsb_h, hsb_s, hsb_b, transparency);  // kein Rand
       pg.strokeWeight(2);
-      pg.fill(color);  // Farbe sowie sichtbarkeit
+      pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
       pg.rect(x, y, size, size);  // Form: Rechteck
       pg.popStyle();
       return;
@@ -121,7 +164,7 @@ public class StandardMarker extends SimplePointMarker {
     if (this.style == "Round") {
       pg.pushStyle();
       pg.noStroke();  // kein Rand
-      pg.fill(color);  // Farbe sowie sichtbarkeit
+      pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
       pg.ellipse(x, y, size, size);  // Form
       pg.popStyle();
       return;
@@ -129,7 +172,7 @@ public class StandardMarker extends SimplePointMarker {
     if ((this.style.contains("SMS"))) {
       pg.pushStyle();
       pg.noStroke();
-      pg.fill(color);  // Farbe sowie sichtbarkeit
+      pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
       pg.ellipse(x, y, size, size);  // Form
       pg.stroke(0, 0, 0, 200);  //Zeichnung des Symbols für die obere Ecke
       pg.rect(x + size/2 , y - size ,  size, size / 2);  //Umschlag
@@ -142,11 +185,11 @@ public class StandardMarker extends SimplePointMarker {
     }
     if (this.style == "Labeled") {
       pg.pushStyle();
-      pg.stroke(color);  // kein Rand
+      pg.stroke(hsb_h,hsb_s,hsb_b);  // kein Rand
       pg.strokeWeight(2);
-      pg.fill(color);  // Farbe sowie sichtbarkeit
+      pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
       pg.rect(x, y, size, size);  // Form: Rechteck
-      pg.text(label, x +15 , y +9);
+      pg.text(label, x + size + 5 , y + size/2);
       pg.textSize(textsize);
       pg.popStyle();
       return;
@@ -154,7 +197,7 @@ public class StandardMarker extends SimplePointMarker {
     if ((this.style.contains("Anruf")) || (this.style.contains("Telefonie"))) {
       pg.pushStyle();
       pg.noStroke();
-      pg.fill(color);  // Farbe sowie sichtbarkeit
+      pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
       pg.ellipse(x, y, size, size);  // Zeichnet einen Kreis
 
       //Zeichnung des Symbols für die obere Ecke
@@ -168,7 +211,7 @@ public class StandardMarker extends SimplePointMarker {
     if (this.style.contains("Internet")) {
       pg.pushStyle();
       pg.noStroke();
-      pg.fill(color);  // Farbe sowie sichtbarkeit
+      pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
       pg.ellipse(x, y, size, size);  // Form
 
       //Zeichnung des Symbols für die obere Ecke
