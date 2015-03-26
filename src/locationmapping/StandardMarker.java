@@ -189,7 +189,7 @@ public class StandardMarker extends SimplePointMarker {
       pg.strokeWeight(2);
       pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
       pg.rect(x, y, size, size);  // Form: Rechteck
-      pg.text(label, x + size + 5 , y + 9);
+      pg.text(label, x + size + 5 , y + size/2);
       pg.textSize(textsize);
       pg.popStyle();
       return;
