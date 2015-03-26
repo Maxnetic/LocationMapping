@@ -4,12 +4,11 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
 import java.sql.Timestamp;
 
-LocationMapper mapper = new LocationMapper(this);
 
 void setup() {
+    Mapper mapper = new StaticMapper(this);
     mapper.init();
-
-
+    
     // Import Data
     DataImporter importer = new DataImporter(this);
     TrackpointList trackpointlist = importer.load("malte_spitz.csv");
@@ -25,10 +24,8 @@ void setup() {
         marker.setStyle("Labeled");
         marker.setLabel("Wohnort");
         marker.setSize(10);
-        mapper.map.addMarker(marker);
+        mapper.addMarker(marker);
     }
 }
 
-void draw() {
-    mapper.update();
-}
+void draw() {}
