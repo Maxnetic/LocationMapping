@@ -399,4 +399,35 @@ public class Filter{
          }
          return filteredtpl;
       }
+	  
+	  // zeichne Trackpoint nur, wenn beide innerhalb des Radius waren
+      public TrackpointList compareLocation(TrackpointList eingabetpl1, TrackpointList eingabetpl2, int radius){
+      TrackpointList newtpl = new TrackpointList();
+       
+       for (Trackpoint tp1 : eingabetpl1){
+           for (Trackpoint tp2 : eingabetpl2){
+                 if (tp1.locationDistanceTo(tp2.getLocation()) <= radius){
+                     newtpl.add(tp1);
+                     break;
+               }
+             }
+       }
+       return newtpl;
+    }
+  
+	//zeichne Trackpoint nur, wenn Ort und Zeit übereinstimmen
+    public TrackpointList compareLocationAndTime(TrackpointList eingabetpl1, TrackpointList eingabetpl2, int radius, int minutes){
+         TrackpointList newtpl = new TrackpointList();
+         
+         for (Trackpoint tp1 : eingabetpl1){
+             for (Trackpoint tp2 : eingabetpl2){
+                 if (  (tp1.locationDistanceTo(tp2.getLocation()) <= radius) && (tp1.locationDistanceTo(tp2) < minutes * 60) ){
+                     newtpl.add(tp1);
+                     break;
+                 }
+             }
+         }
+         return newtpl;
+  }	  
+	  
 }
