@@ -171,39 +171,28 @@ public class DayFilter extends Filter {
         throw new RuntimeException("'" + weekDayString + "' doesn't represent a weekday");
     }
 
-    private void filterByDate(TrackpointList trackpointlist){
-        for(Trackpoint tp : trackpointlist){
-              if(startdate != null){
-                  if(enddate != null){
-                     if(tp.getTimestamp().compareTo(startdate) < 0 || tp.getTimestamp().compareTo(enddate) > 0){
-                          tp.setVisible(false);
-                     }
-                  }else{
-                      if(tp.getTimestamp().compareTo(startdate) < 0){
-                          tp.setVisible(false);
-                      }
-                  }
-            }else{
-                if(tp.getTimestamp().compareTo(enddate) > 0){
-                    tp.setVisible(false);
-                }
+    private void filterByDate(TrackpointList list){
+        Iterator<Trackpoint> iter;
+        if ( this.startDate != null ){
+            DateTime startDateTime = new DateTime(startDate);
+            iter = list.iterator(startDateTime);
+        } else
+            iter = list.iterator();
+        while ( iter.hasNext() ) {
+            Trackpoint trackpoint = iter.next();
+            if ( this.endDate != null ){
+                DateTime endDateTime = new DateTime(endDate);
+                if ( trackpoint.compareTimeTo(endDateTime) > 0 )
+                    break;
             }
+            filteredList.add(trackpoint);
         }
     }
 
-     private void filterByWeekday(TrackpointList trackpointlist){
-        Boolean delete = true;
-        for(Trackpoint tp : trackpointlist){
-            // Überprüft, ob der Tag in dem Wochen-Array ist
-            for(String str : weekday){
-                if(tp.getDayOfTheWeek().equals(str)){
-                    delete = false;
-                }
-            }
-            if(delete){
-                tp.setVisible(false);
-            }
-            delete = true;
+    private void filterByWeekday(TrackpointList list){
+        for ( Trackpoint trackpoint : list ){
+            if ( weekDays[trackpoint.getDayOfWeek()] )
+                filteredList.add(trackpoint);
         }
      }
 
