@@ -1,6 +1,6 @@
 package locationmapping;
 
-public class Filter {
+public abstract class Filter {
     /**
      * gefilterte TrackpointListe
      */

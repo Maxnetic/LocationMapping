@@ -72,6 +72,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         } else {
             locationFrequencies.put(trackpointLocation, 1);
         }
+        this.isSortedByTime = false;
     }
     /**
     * Fuegt Trackpoints in entsprechende Liste ein
@@ -125,15 +126,16 @@ public class TrackpointList implements Iterable<Trackpoint> {
             int imid = (imin + imax)/2;
             Trackpoint midTrackpoint = this.get(imid);
             int cmp = midTrackpoint.compareTimeTo(timestamp);
-            if ( cmp > 0 )
+            if ( cmp > 0 ){
                 imax = imid-1;
-            if ( cmp < 0 )
+            } else if ( cmp < 0 ){
                 imin = imid+1;
-            else
+            } else {
                 return imid;
+            }
         }
         // Trackpoint mit timestamp nicht enthalten
-        throw new NoSuchElementException();
+        throw new NoSuchElementException(""+imax);
     }
 
     /**
@@ -214,7 +216,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @return [Trackpoint]: erster Trackpoint der Trackpointliste
      */
-    private Trackpoint getFirst(){
+    public Trackpoint getFirst(){
         return this.get(0);
     }
 
@@ -224,7 +226,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @return [Trackpoint]: letzter Trackpoint der Trackpointliste
      */
-    private Trackpoint getLast(){
+    public Trackpoint getLast(){
         return this.get(this.length-1);
     }
 
@@ -330,22 +332,26 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Gibt Iterator ueber Trackpointliste zurueck, stellt sortierung nach Zeit sicher
      *
-     * @param trackpoint Trackpoint, an dessen Position der Iterator gestartet werden soll
+     * @param timestamp Zeitvariable, an deren Position bzw nach deren Position der Iterator gestartet werden soll
      * @return Iterator ueber Trackpointliste
      */
-    public ListIterator<Trackpoint> iterator(Trackpoint trackpoint){
-        int position = this.getPosition(trackpoint);
-        return this.trackpointList.listIterator(position);
+    public ListIterator<Trackpoint> iterator(DateTime timestamp){
+        int position;
+        try {
+            position = this.binarySearch(timestamp);
+        } catch(NoSuchElementException e){
+            position = Integer.parseInt(e.getMessage());
+        }
+        return this.iterator(position);
     }
     /**
      * Gibt Iterator ueber Trackpointliste zurueck, stellt sortierung nach Zeit sicher
      *
-     * @param timestamp Zeitvariable, an deren Position der Iterator gestartet werden soll
+     * @param trackpoint Trackpoint, an dessen Position der Iterator gestartet werden soll
      * @return Iterator ueber Trackpointliste
      */
-    public ListIterator<Trackpoint> iterator(DateTime timestamp){
-        int position = this.getPosition(timestamp);
-        return this.trackpointList.listIterator(position);
+    public ListIterator<Trackpoint> iterator(Trackpoint trackpoint){
+        return this.iterator(trackpoint.getTime());
     }
 
 
@@ -356,5 +362,17 @@ public class TrackpointList implements Iterable<Trackpoint> {
      */
     public Hashtable<Location, Integer> getLocationFrequencies(){
         return locationFrequencies;
+    }
+
+    /**
+     * Gibt Stringrepraesentation der Trackpointliste aus
+     *
+     * @return Stringrepraesentation der Trackpointliste
+     */
+    public String toString(){
+        String out = "[";
+        for ( Trackpoint trackpoint : this )
+            out += trackpoint;
+        return out + "]";
     }
 }

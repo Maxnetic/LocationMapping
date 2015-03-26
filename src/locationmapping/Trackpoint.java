@@ -67,7 +67,7 @@ public class Trackpoint {
     *
     * @param id [int]: neue Identifikationsnummer (3 stellige Zahl)
     */
-    void setId(int id){
+    public void setId(int id){
         this.id = id;
     }
 
@@ -76,7 +76,7 @@ public class Trackpoint {
     *
     * @return [int]: Identifikationsnummer des Trackpoint
     */
-    int getId(){
+    public int getId(){
         return id;
     }
 
@@ -85,7 +85,7 @@ public class Trackpoint {
     *
     * @return [String] : Service des Trackpoints als String
     */
-    String getService(){
+    public String getService(){
       return service;
     }
 
@@ -94,7 +94,7 @@ public class Trackpoint {
     *
     * @param label [String]: neues Label für den Trackpoint
     */
-    void setLabel(String label){
+    public void setLabel(String label){
         this.label = label;
     }
 
@@ -112,19 +112,19 @@ public class Trackpoint {
     *
     * @param visibility Wahrheitswert über Sichtbarkeit des Trackpoint
     */
-    void setVisible(boolean visibility){
+    public void setVisible(boolean visibility){
         this.visible = visibility;
     }
     /**
     * Setzt Trackpoint sichtbar
     */
-    void setVisible(){
+    public void setVisible(){
         this.visible = true;
     }
     /**
      * Setzt Trackpoint unsichtbar
      */
-    void setInVisible(){
+    public void setInVisible(){
         this.visible = false;
     }
 
@@ -133,7 +133,7 @@ public class Trackpoint {
     *
     * @return Wahrheitswert über Sichtbarkeit
     */
-    boolean getVisible(){
+    public boolean getVisible(){
         return this.visible;
     }
 

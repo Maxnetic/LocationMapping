@@ -58,18 +58,18 @@ public class StandardMarker extends SimplePointMarker {
 	this.hsb_s = hsb_s;
 	this.hsb_b = hsb_b;
   }
-  
+
   public void setTransparency(int trans){
 	transparency = trans;
   }
-  
-  
+
+
   public void setColor(String colorstr){
     colorstr.toLowerCase();
 	if (colorstr.equals("rot")){
 		hsb_h = 0;
 		hsb_s = 99;
-		hsb_b = 99;	
+		hsb_b = 99;
 	}
 	if (colorstr.equals("blau")){
 		hsb_h = 240;
@@ -80,7 +80,7 @@ public class StandardMarker extends SimplePointMarker {
 		hsb_h = 200;
 		hsb_s = 99;
 		hsb_b = 99;
-	}	
+	}
 	if (colorstr.equals("gelb")){
 		hsb_h = 60;
 		hsb_s = 99;
@@ -92,10 +92,10 @@ public class StandardMarker extends SimplePointMarker {
 		hsb_b = 60;
 	}
 
-		
+
   }
-  
-  
+
+
 
   /*
    * Label auslesen

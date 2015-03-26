@@ -180,7 +180,7 @@ public class DataImporter {
         for ( TableRow row : data.rows() ) {
 
             // Brich Import ab, falls maxImportSize überschritten
-            if ( counter > this.maxImportSize )
+            if ( counter < this.maxImportSize )
                 break;
 
             // Zeitstempel der Zeile
@@ -212,7 +212,7 @@ public class DataImporter {
                 Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
                 Trackpoint trackpoint  = new Trackpoint(timestamp, location, id, service);
                 trackpointList.add(trackpoint);
-                System.out.println(counter + ": " + trackpoint);
+                // System.out.println(counter + ": " + trackpoint);
             }
         }
         return trackpointList;
