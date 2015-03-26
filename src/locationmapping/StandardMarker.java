@@ -77,7 +77,7 @@ public class StandardMarker extends SimplePointMarker {
 		hsb_b = 99;
 	}
 	if (colorstr.equals("grün")){
-		hsb_h = 200;
+		hsb_h = 100;
 		hsb_s = 99;
 		hsb_b = 99;
 	}	
