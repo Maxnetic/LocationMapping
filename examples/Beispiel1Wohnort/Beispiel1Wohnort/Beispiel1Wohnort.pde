@@ -20,7 +20,7 @@ void setup() {
   Filter wohnortfilter = new Filter();
   wohnortfilter.setStarttime("02:00");
   wohnortfilter.setEndtime("05:00");
-  wohnortfilter.setMinFrequency(300);
+  wohnortfilter.setMinFrequency(500);
   TrackpointList moeglichewohnorte;
   moeglichewohnorte = wohnortfilter.apply(all);
   
