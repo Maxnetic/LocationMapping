@@ -8,7 +8,7 @@ import processing.event.KeyEvent;
 
 import de.fhpotsdam.unfolding.marker.*;
 
-public class DynamicMapper extends LocationMapper {
+public class DynamicMapper extends Mapper {
     ArrayList<Marker> markerList = new ArrayList<Marker>();
     Iterator<Marker> iter;
 

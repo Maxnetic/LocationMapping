@@ -10,7 +10,7 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
-public class LocationMapper {
+public abstract class Mapper {
     /**
      * Einige Locations
      */
@@ -80,7 +80,7 @@ public class LocationMapper {
      *
      * @param app Processing Applet, in dem Mapper laeuft
      */
-    public LocationMapper(PApplet app){
+    public Mapper(PApplet app){
         this.app = app;
     }
 
@@ -131,9 +131,7 @@ public class LocationMapper {
         return importer.load(filename);
     }
 
-    public void addMarker(Marker marker) {
-        map.addMarker(marker);
-    }
+    public abstract void addMarker(Marker marker);
 
     /**
      *

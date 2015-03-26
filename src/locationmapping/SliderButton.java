@@ -5,7 +5,7 @@ public class SliderButton extends Button {
     float zoomLevel;
     int startZoomLevel;
 
-    public SliderButton(LocationMapper mapper, float x, float y, float w, float h, float zoomLevel, int startZoomLevel){
+    public SliderButton(Mapper mapper, float x, float y, float w, float h, float zoomLevel, int startZoomLevel){
         super(mapper, x, y, w, h);
         this.zoomLevel = zoomLevel;
         this.startZoomLevel = startZoomLevel;
