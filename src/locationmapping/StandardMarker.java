@@ -5,15 +5,18 @@ import de.fhpotsdam.unfolding.geo.*;
 import processing.core.PGraphics;
 
 
-/*
+public class StandardMarker extends SimplePointMarker {
+  //Initialisierung der Attribute und ihrer Defaulteinstellung
+ /*
  * @param size Größe des Markers
  * @param label Text für die Beschriftung
  * @param style Auswahl des Designs
  * @param textsize Textgröße der Beschriftung
+ * @param hsb_h Farbwert der HSB Farbe
+ * @param hsb_s Sättigungswert der HSB Farbe
+ * @param hsb_b Helligkeitswert der HSB Farbe
+ * @param transparency Transparenz der Farbe des Markers
  */
-
-public class StandardMarker extends SimplePointMarker {
-  //Initialisierung der Attribute und ihrer Defaulteinstellung
   int size = 30;
   int hsb_h = 0;
   int hsb_s = 0;
@@ -49,6 +52,15 @@ public class StandardMarker extends SimplePointMarker {
     this.size = size;
   }
 
+  
+  /*
+  * Die Funktion updated die Transparenz des Markers
+  * @param trans [int]: Transparenzwert
+  */
+  public void setTransparency(int trans){
+	transparency = trans;
+  }
+  
   /*
   *Die Funktion updated die Farbe des Markers
   *@param color [int]: Farbwert
@@ -59,10 +71,10 @@ public class StandardMarker extends SimplePointMarker {
 	this.hsb_b = hsb_b;
   }
   
-  public void setTransparency(int trans){
-	transparency = trans;
-  }
-  
+  /*
+  * setColor Funktion mit konstanten Strings
+  * @param colorstr [String]: Die Farbe des Strings
+  */
   
   public void setColor(String colorstr){
     colorstr.toLowerCase();
@@ -70,28 +82,25 @@ public class StandardMarker extends SimplePointMarker {
 		hsb_h = 0;
 		hsb_s = 99;
 		hsb_b = 99;	
-	}
-	if (colorstr.equals("blau")){
+	} else	if (colorstr.equals("blau")){
 		hsb_h = 240;
 		hsb_s = 99;
 		hsb_b = 99;
-	}
-	if (colorstr.equals("grün")){
+	} else if (colorstr.equals("grün")){
 		hsb_h = 100;
 		hsb_s = 99;
 		hsb_b = 99;
-	}	
-	if (colorstr.equals("gelb")){
+	} else if (colorstr.equals("gelb")){
 		hsb_h = 60;
 		hsb_s = 99;
 		hsb_b = 99;
-	}
-	if (colorstr.equals("grau")){
+	} else if (colorstr.equals("grau")){
 		hsb_h = 0;
 		hsb_s = 1;
 		hsb_b = 60;
+	}else{
+	System.out.println("Die Farbe ist nicht in der Liste! Farbe mit HSB Codierung möglich!");
 	}
-
 		
   }
   
