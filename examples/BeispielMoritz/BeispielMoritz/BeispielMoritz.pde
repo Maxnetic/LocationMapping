@@ -13,7 +13,6 @@ int i = 0;
 
 void setup() {
   hint(ENABLE_RETINA_PIXELS);
-  //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
   TrackpointList all;
@@ -23,24 +22,23 @@ void setup() {
   iter =   all.iterator();
   
   while (iter.hasNext()){
+    
     Trackpoint end = iter.next();
-    //System.out.println("1");
-    if (start != null) {
-      i++;
-      System.out.println(i);
-      TrackMarker track = new TrackMarker(start, end);
-      //wohnort.setLabel("möglicher Wohnort");
-      //wohnort.setStyle("Labeled");
+    if ((start != null) && (end != null)){
+      SimpleLinesMarker track = new SimpleLinesMarker(start.getLocation(), end.getLocation());
+      track.setColor(0);
       mapper.addMarker(track);
     }
     start = end;
-    }
+    
   }
-    
-    
-
+}    
+  
+//Screenshot-Funktion?
+//GPX Import?
+//Extend SimpleLinesMarker to get more functions
 
 void draw() {
-      
+  
 }
 
