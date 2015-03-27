@@ -34,9 +34,14 @@ void setup(){
   LocationFilter frequencyfilter = new LocationFilter();
   frequencyfilter.setMinFrequency(200);
   
+  DateTimeFilter arbeitsfilter2 = new DateTimeFilter();
+  arbeitsfilter2.setStartTime("10:00");
+  arbeitsfilter2.setEndTime("16:00");
+  arbeitsfilter2.setWeekDays("montag-freitag");
+  
   //Anwenden des Arbeitsfilters
   maltetpl = arbeitsfilter.apply(maltetpl);
-  maxtpl = arbeitsfilter.apply(maxtpl);
+  maxtpl = arbeitsfilter2.apply(maxtpl);
   
   for(Trackpoint tp: maltetpl){
       MarkerRectangle marker = new MarkerRectangle(tp);
