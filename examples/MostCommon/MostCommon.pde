@@ -17,10 +17,9 @@ void setup() {
     
     
     for ( Trackpoint trackpoint : filteredtpl ){
-        StandardMarker marker = new StandardMarker(trackpoint);
+        MarkerLabeled marker = new MarkerLabeled(trackpoint);
         
-        marker.setColor(10);  // funktioniert nicht, nur grau
-        marker.setStyle("Labeled");
+        marker.setColor(100,200,0);  // funktioniert nicht, nur grau
         marker.setLabel("Wohnort");
         marker.setSize(10);
         mapper.addMarker(marker);

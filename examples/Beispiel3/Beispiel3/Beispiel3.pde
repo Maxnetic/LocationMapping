@@ -37,9 +37,8 @@ void setup(){
   maxtpl = arbeitsfilter.apply(maxtpl);
   
   for(Trackpoint tp: maltetpl){
-      StandardMarker marker = new StandardMarker(tp);
+      MarkerRectangle marker = new MarkerRectangle(tp);
       marker.setSize(10);
-      marker.setStyle("Rectangle");
       mapper.addMarker(marker);
   }
   

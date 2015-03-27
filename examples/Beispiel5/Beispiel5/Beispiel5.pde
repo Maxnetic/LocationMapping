@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
 
-DynamicMapper mapper = new DynamicMapper(this);
+StaticMapper mapper = new StaticMapper(this); //Karte bleibt schwarz
 
 /**
 * In dem Beispiel werden zwei Datensätze nach Aufenthalt von 10 bis 16 Uhr und Monatg bis Freitag gefiltert,
@@ -24,17 +24,17 @@ void setup(){
   maltetpl = mapper.importData("malte_spitz.csv");
   
   Filter serviceFilterSMS = new Filter();
-  arbeitsfilter.setService("SMS");
+  serviceFilterSMS.setService("SMS");
   TrackpointList serviceSMS;
   serviceSMS = serviceFilterSMS.apply(maltetpl);
   
   Filter serviceFilterTelefonie = new Filter();
-  arbeitsfilter.setService("Telefonie");
+  serviceFilterTelefonie.setService("Telefonie");
   TrackpointList serviceTelefonie;
   serviceTelefonie = serviceFilterTelefonie.apply(maltetpl);
   
   Filter serviceFilterInternet = new Filter();
-  arbeitsfilter.setService("Internet");
+  serviceFilterInternet.setService("Internet");
   TrackpointList serviceInternet;
   serviceInternet = serviceFilterInternet.apply(maltetpl);
   
@@ -48,30 +48,26 @@ void setup(){
   
   
   for ( Trackpoint tp : serviceSMS) {
-      StandardMarker marker = new StandardMarker(tp);
+      MarkerSMS marker = new MarkerSMS(tp);
       marker.setSize(10);
-      marker.setStyle("SMS");
       mapper.addMarker(marker);
   } 
   
   for ( Trackpoint tp : serviceTelefonie) {
-      StandardMarker marker = new StandardMarker(tp);
+      MarkerAnruf marker = new MarkerAnruf(tp);
       marker.setSize(10);
-      marker.setStyle("Telefonie");
       mapper.addMarker(marker);
   } 
   
   for ( Trackpoint tp : serviceInternet) {
-      StandardMarker marker = new StandardMarker(tp);
+      MarkerInternet marker = new MarkerInternet(tp);
       marker.setSize(10);
-      marker.setStyle("Internet");
       mapper.addMarker(marker);
   } 
   
   for ( Trackpoint tp : moeglichewohnorte ) {
-    StandardMarker wohnort = new StandardMarker(tp);
+    MarkerLabeled wohnort = new MarkerLabeled(tp);
     wohnort.setLabel("möglicher Wohnort");
-    wohnort.setStyle("Labeled");
     wohnort.setColor("rot");
     mapper.addMarker(wohnort);
   }
