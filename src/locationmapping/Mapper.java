@@ -222,7 +222,11 @@ public abstract class Mapper {
         this.zoomIn.draw();
         this.zoomOut.draw();
     }
-
+	/**
+	* Verwaltet Mausaktionen
+	*
+	* @param e Mausaktion
+	*/
     public void mouseEvent(MouseEvent e){
         int x = e.getX();
         int y = e.getY();
@@ -233,7 +237,12 @@ public abstract class Mapper {
                 break;
         }
     }
-
+	/**
+	* Verwaltet Mausklicks
+	*
+	* @param x X-Koordinate der Maus
+	* @param y Y-Koordinate der Maus
+	*/
     void clickEventHandler(int x, int y) {
         if ( zoomIn.mouseOver(x, y) )
             map.zoomLevelIn();
@@ -243,7 +252,11 @@ public abstract class Mapper {
             slider.zoomHandler(x);
         }
     }
-
+	/**
+	* Verwaltet Tastenaktionen
+	*
+	* @param e Tastenevent
+	*/
     public void keyEvent(KeyEvent e){
 
     }
