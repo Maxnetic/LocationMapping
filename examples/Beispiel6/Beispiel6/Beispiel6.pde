@@ -18,12 +18,14 @@ void setup(){
   all = mapper.importData("malte_spitz.csv");
   
   //Wohnortfilter
-  Filter wohnortfilter = new Filter();
-  wohnortfilter.setStarttime("02:00");
-  wohnortfilter.setEndtime("05:00");
-  wohnortfilter.setMinFrequency(2000);
+  DateTimeFilter wohnortfilter = new DateTimeFilter();
+  wohnortfilter.setStartTime("02:00");
+  wohnortfilter.setEndTime("05:00");
+  LocationFilter frequencyfilter = new LocationFilter();
+  frequencyfilter.setMinFrequency(2000);
   TrackpointList moeglichewohnorte;
   moeglichewohnorte = wohnortfilter.apply(all);
+  moeglichewohnorte = frequencyfilter.apply(moeglichewohnorte);
   
   for ( Trackpoint tp : moeglichewohnorte ) {
     MarkerLabeled wohnort = new MarkerLabeled(tp);
@@ -33,13 +35,14 @@ void setup(){
   }
     
   //Arbeitsplatzfilter
-  Filter arbeitsfilter = new Filter();
-  arbeitsfilter.setStarttime("10:00");
-  arbeitsfilter.setEndtime("16:00");
-  arbeitsfilter.setWeekday("Montag-Freitag");
-  arbeitsfilter.setMinFrequency(500);
+  DateTimeFilter arbeitsfilter = new DateTimeFilter();
+  arbeitsfilter.setStartTime("10:00");
+  arbeitsfilter.setEndTime("16:00");
+  arbeitsfilter.setWeekDays("montag-freitag");
+  frequencyfilter.setMinFrequency(500);
   TrackpointList moeglicherArbeitsplatz;
   moeglicherArbeitsplatz = arbeitsfilter.apply(all);
+  moeglicherArbeitsplatz = frequencyfilter.apply(moeglicherArbeitsplatz);
   
   for ( Trackpoint tp : moeglicherArbeitsplatz ) {
     MarkerLabeled arbeit = new MarkerLabeled(tp);
@@ -49,12 +52,12 @@ void setup(){
   }
   
   //Nachtsfilter
-  Filter nachtsfilter = new Filter();
-  nachtsfilter.setStarttime("00:00");
-  nachtsfilter.setEndtime("06:00");
-  nachtsfilter.setMinFrequency(500);
+  DateTimeFilter nachtsfilter = new DateTimeFilter();
+  nachtsfilter.setStartTime("00:00");
+  nachtsfilter.setEndTime("06:00");
   TrackpointList nachts;
   nachts = nachtsfilter.apply(all);
+  nachts = frequencyfilter.apply(nachts);
   
   for ( Trackpoint tp : moeglicherArbeitsplatz ) {
     MarkerRectangle marker = new MarkerRectangle(tp);
@@ -63,4 +66,8 @@ void setup(){
   }
 
 
+}
+
+void draw(){
+  
 }
