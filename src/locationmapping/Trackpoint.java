@@ -30,7 +30,7 @@ public class Trackpoint {
     */
     private String service = "";
     /**
-    * Information �ber die Sichtbarkeit des Trackpoints
+    * Information ueber die Sichtbarkeit des Trackpoints
     */
     private boolean visible = true;
 
@@ -342,10 +342,10 @@ public class Trackpoint {
     public double locationDistanceTo(Trackpoint trackpoint){
         return this.location.getDistance(trackpoint.getLocation());
     }
-    
+
     /**
-     * Berechnet �rtlichen Abstand zwischen zwei Trackpoints
-     * 
+     * Berechnet oertlichen Abstand zwischen zwei Trackpoints
+     *
      * @param location Location zu dem Abstand berechnet wird
      * @return Abstand zwischen dem Trackpoint und der Location in Grad
      */
@@ -362,7 +362,7 @@ public class Trackpoint {
     public boolean equalLocation(Trackpoint trackpoint){
         return equalLocation(trackpoint, 0.00009);
     }
-    
+
     /**
      * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
      *
@@ -372,7 +372,7 @@ public class Trackpoint {
     public boolean equalLocation(Location location){
         return equalLocation(location, 0.00009);
     }
-    
+
     /**
      * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
      *
@@ -383,7 +383,7 @@ public class Trackpoint {
     public boolean equalLocation(Trackpoint trackpoint, double tolerance){
         return (this.locationDistanceTo(trackpoint) <= tolerance);
     }
-    
+
     /**
      * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
      *
@@ -404,7 +404,7 @@ public class Trackpoint {
    public boolean equals(Trackpoint trackpoint) {
         return this.equalLocation(trackpoint) && this.equalTime(trackpoint);
     }
-   
+
    /**
     * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig und am gleichen Ort sind
     *
