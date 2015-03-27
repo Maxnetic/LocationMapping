@@ -42,7 +42,6 @@ public class Trackpoint {
     * @param location Ortsinformation fuer Trackpoint
     * @param id Identifikationsnummer fuer Datensatz des Trackpoints
     * @param service Handyserviceinformation
-    * @return neues Objekt vom Typ Trackpoint
     */
     public Trackpoint(DateTime time, Location location, int id, String service) {
         this.id = id;
@@ -55,7 +54,6 @@ public class Trackpoint {
     *
     * @param time Zeit- und Datumsinformation fuer Trackpoint
     * @param location Ortsinformation fuer Trackpoint
-    * @return neues Objekt vom Typ Trackpoint
     */
     public Trackpoint(DateTime time, Location location) {
         this.time = time;
@@ -418,8 +416,8 @@ public class Trackpoint {
     * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig und am gleichen Ort sind
     *
     * @param trackpoint Trackpoint mit dem vergliche wird
-    * @param tolerance Toleranzgrenze fuer Zeitgleichheit in Sekunden
-    * @param tolerance Toleranzgrenze fuer Ortsgleichheit in Grad
+    * @param timeTolerance Toleranzgrenze fuer Zeitgleichheit in Sekunden
+    * @param locationTolerance Toleranzgrenze fuer Ortsgleichheit in Kilometer
     * @return Wahrheitswert der Gleichzeitigkeit und Ortsgleichheit der Trackpoints innerhalb der Toleranzen
     */
     public boolean equals(Trackpoint trackpoint, long timeTolerance, double locationTolerance) {

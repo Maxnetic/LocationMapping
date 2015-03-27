@@ -45,7 +45,6 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
     *
     * @param start Startpunkt
     * @param end Endpunkt
-    * @return neues Objekt vom Typ ColoredLineMarker
     */
     public ColoredLinesMarker(Location start, Location end) {
         super(start, end);
@@ -56,7 +55,6 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
     * Konstruktor fuer ColoredLineMarker Objekte
     *
     * @param locations Liste aus der Line gezeichnet werden soll
-    * @return neues Objekt vom Typ ColoredLineMarker
     */
     public ColoredLinesMarker(List<Location> locations){
         super(locations);

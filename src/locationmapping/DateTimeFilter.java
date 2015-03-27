@@ -40,7 +40,6 @@ public class DateTimeFilter extends Filter {
     /**
      * Konstruktor fuer DateTimeFilter Objekte
      *
-     * @return neues DateTimeFilter Objekt
      */
     public DateTimeFilter(){
         super();
@@ -51,6 +50,7 @@ public class DateTimeFilter extends Filter {
      * Setzt Startzeit des Filters
      *
      * @param time Startzeit als Zeitobjekt
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setStartTime(LocalTime time){
         this.startTime = time;
@@ -60,6 +60,7 @@ public class DateTimeFilter extends Filter {
      * Setzt Startzeit des Filters
      *
      * @param time Startzeit als Datumsobjekt
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setStartTime(DateTime time){
         this.setStartTime(new LocalTime(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute()));
@@ -69,6 +70,7 @@ public class DateTimeFilter extends Filter {
      * Setzt Startzeit des Filters
      *
      * @param timeString Startzeit im Format: 8:30 oder 18
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setStartTime(String timeString){
         return this.setStartTime(parseTime(timeString));
@@ -77,6 +79,7 @@ public class DateTimeFilter extends Filter {
      * Setzt Startzeit des Filters
      *
      * @param timeString Startzeit im Format: 8:30 oder 18
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter fromTime(String timeString){
         return this.setStartTime(timeString);
@@ -87,6 +90,7 @@ public class DateTimeFilter extends Filter {
      * Setzt Endzeit des Filters
      *
      * @param time Endzeit als Zeitobjekt
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setEndTime(LocalTime time){
         this.endTime = time;
@@ -96,6 +100,7 @@ public class DateTimeFilter extends Filter {
      * Setzt Endzeit des Filters
      *
      * @param time Endzeit als Datumsobjekt
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setEndTime(DateTime time){
         this.setEndTime(new LocalTime(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute()));
@@ -105,6 +110,7 @@ public class DateTimeFilter extends Filter {
      * Setzt Endzeit des Filters
      *
      * @param timeString Endzeit im Format: 8:30 oder 18
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setEndTime(String timeString){
         return this.setEndTime(parseTime(timeString));
@@ -113,6 +119,7 @@ public class DateTimeFilter extends Filter {
      * Setzt Endzeit des Filters
      *
      * @param timeString Endzeit im Format: 8:30 oder 18
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter toTime(String timeString){
         return this.setEndTime(timeString);
@@ -124,6 +131,7 @@ public class DateTimeFilter extends Filter {
      * Fuegt zu filterndes Zeitinterval hinzu
      *
      * @param timeInterval hinzuzufuegendes Zeitinterval mit Startzeit in [0] und Endzeit in [1]
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter addTimeInterval(LocalTime[] timeInterval){
         try {
@@ -138,6 +146,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param startTime Startpunkt des hinzuzufuegenden Zeitinterval
      * @param endTime Endpunkt des hinzuzufuegenden Zeitinterval
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter addTimeInterval(LocalTime startTime, LocalTime endTime){
         this.timeIntervals.put(startTime, endTime);
@@ -148,6 +157,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param startTime Startpunkt des hinzuzufuegenden Zeitinterval
      * @param endTime Endpunkt des hinzuzufuegenden Zeitinterval
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter addTimeInterval(DateTime startTime, DateTime endTime){
         LocalTime localStartTime = new LocalTime(startTime.getHourOfDay(), startTime.getMinuteOfHour(), startTime.getSecondOfMinute());
@@ -158,6 +168,7 @@ public class DateTimeFilter extends Filter {
      * Fuegt zu filterndes Zeitinterval hinzu
      *
      * @param timeIntervalString Zeitintervalstring im Format: HH:MM - HH:MM oder ohne Minuten
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter addTimeInterval(String timeIntervalString){
         return this.addTimeInterval(parseTimeInterval(timeIntervalString));
@@ -166,6 +177,7 @@ public class DateTimeFilter extends Filter {
      * Fuegt zu filterndes Zeitinterval hinzu
      *
      * @param timeIntervalString Zeitintervalstring im Format: HH:MM - HH:MM oder ohne Minuten
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter betweenTimes(String timeIntervalString){
         return this.addTimeInterval(timeIntervalString);
@@ -179,6 +191,7 @@ public class DateTimeFilter extends Filter {
      * Setzt das Startdatum des Filters
      *
      * @param date das Startdatum als Datumsobjekt
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setStartDate(DateTime date){
         this.startDate = date;
@@ -188,6 +201,7 @@ public class DateTimeFilter extends Filter {
      * Setzt das Startdatum des Filters
      *
      * @param dateString Das Startdatum im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setStartDate(String dateString){
         LocalDate date = parseDate(dateString);
@@ -197,6 +211,7 @@ public class DateTimeFilter extends Filter {
      * Setzt das Startdatum des Filters
      *
      * @param dateString Das Startdatum im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter fromDate(String dateString){
         return this.setStartDate(dateString);
@@ -207,6 +222,7 @@ public class DateTimeFilter extends Filter {
      * Setzt das Enddatum
      *
      * @param date das Enddatum als Datumsobjekt
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setEndDate(DateTime date){
         this.endDate = date;
@@ -216,6 +232,7 @@ public class DateTimeFilter extends Filter {
      * Setzt das Enddatum
      *
      * @param dateString Das Enddatum im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setEndDate(String dateString){
         LocalDate date = parseDate(dateString);
@@ -225,6 +242,7 @@ public class DateTimeFilter extends Filter {
      * Setzt das Enddatum
      *
      * @param dateString Das Enddatum im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter toDate(String dateString){
         return this.setEndDate(dateString);
@@ -234,6 +252,7 @@ public class DateTimeFilter extends Filter {
      * Fuegt zu filterndes Zeitinterval hinzu
      *
      * @param dateInterval hinzuzufuegendes Zeitinterval
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter addDayInterval(Interval dateInterval){
         this.dateIntervals.add(dateInterval);
@@ -244,6 +263,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param startDate Startpunkt des hinzuzufuegenden Zeitinterval
      * @param endDate Endpunkt des hinzuzufuegenden Zeitinterval
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter addDayInterval(DateTime startDate, DateTime endDate){
         return this.addDayInterval(new Interval(startDate, endDate));
@@ -252,6 +272,7 @@ public class DateTimeFilter extends Filter {
      * Fuegt zu filterndes Zeitinterval hinzu
      *
      * @param dateIntervalString Datumsintervalstring im Format: YYYY/MM/DD-YYYY/MM/DD oder D.M.YY-D.M.YY
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter addDayInterval(String dateIntervalString){
         return this.addDayInterval(parseDateInterval(dateIntervalString));
@@ -260,6 +281,7 @@ public class DateTimeFilter extends Filter {
      * Fuegt zu filterndes Zeitinterval hinzu
      *
      * @param dateIntervalString Datumsintervalstring im Format: YYYY/MM/DD-YYYY/MM/DD oder D.M.YY-D.M.YY
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter betweenDates(String dateIntervalString){
         return this.addDayInterval(dateIntervalString);
@@ -268,7 +290,8 @@ public class DateTimeFilter extends Filter {
     /**
      * Fuegt Tag zu den zu filternden Zeitintervallen hinzu
      *
-     * @param dateInterval hinzuzufuegendes Zeitinterval
+     * @param day hinzuzufuegender Tag
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setDay(LocalDate day){
         DateTime start = new DateTime(day.getYear(), day.getMonthOfYear(), day.getDayOfMonth(), 0, 0);
@@ -280,6 +303,7 @@ public class DateTimeFilter extends Filter {
      * Fuegt Tag zu den zu filternden Zeitintervallen hinzu
      *
      * @param dayString Datumsstring des hinzuzufuegenden Tages im Format YYYY/MM/DD und D.M.YY
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setDay(String dayString){
         return this.setDay(parseDate(dayString));
@@ -288,6 +312,7 @@ public class DateTimeFilter extends Filter {
      * Fuegt Tag zu den zu filternden Zeitintervallen hinzu
      *
      * @param dayString Datumsstring des hinzuzufuegenden Tages im Format YYYY/MM/DD und D.M.YY
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter onDate(String dayString){
         return this.setDay(dayString);
@@ -297,7 +322,8 @@ public class DateTimeFilter extends Filter {
      * Fuegt Tage zu den zu filternden Zeitintervallen hinzu
      *
      * @param daysString Datumsstring als kommagetrennter Werte im Format YYYY/MM/DD und D.M.YY
-     * @throws RuntimeException, falls String nicht geparsed werden kann
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
+     * @throws RuntimeException falls String nicht geparsed werden kann
      */
     public DateTimeFilter setDays(String daysString){
         String[] aux = daysString.split(",");
@@ -314,7 +340,8 @@ public class DateTimeFilter extends Filter {
      * Fuegt Tage zu den zu filternden Zeitintervallen hinzu
      *
      * @param daysString Datumsstring als kommagetrennter Werte im Format YYYY/MM/DD und D.M.YY
-     * @throws RuntimeException, falls String nicht geparsed werden kann
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
+     * @throws RuntimeException falls String nicht geparsed werden kann
      */
     public DateTimeFilter forDays(String daysString){
         return this.setDays(daysString);
@@ -329,8 +356,8 @@ public class DateTimeFilter extends Filter {
      * Hilfsfunktion, die einen String in ein Zeitobjekt umwandelt
      *
      * @param timeString Zeitstring im Format: HH:MM or HH
-     * @return gibt Zeitobjekt zurück, das eingegebene Zeit repräsentiert
-     * @throws RuntimeException, falls String nicht geparsed werden kann
+     * @return gibt Zeitobjekt zurueck, das eingegebene Zeit repraesentiert
+     * @throws RuntimeException falls String nicht geparsed werden kann
      */
     LocalTime parseTime(String timeString){
         timeString = timeString.trim();
@@ -359,7 +386,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param timeIntervalString Zeitintervalstring im Format: HH:MM - HH:MM oder ohne Minuten
      * @return gibt Zeitarray zurueck, welches eingegebenes Zeitinterval reprasesentiert, start in [0], ende in [1]
-     * @throws RuntimeException, falls String nicht geparsed werden kann
+     * @throws RuntimeException falls String nicht geparsed werden kann
      */
     LocalTime[] parseTimeInterval(String timeIntervalString){
         try {
@@ -379,8 +406,8 @@ public class DateTimeFilter extends Filter {
      * Hilfsfunktion, die einen String in ein Datumsobjekt umwandelt
      *
      * @param dateString Datumsstring im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
-     * @return gibt Datumsobjekt zurück, der die eingegebene Zeit repräsentiert
-     * @throws RuntimeException, falls String nicht geparsed werden kann
+     * @return gibt Datumsobjekt zurueck, der die eingegebene Zeit repraesentiert
+     * @throws RuntimeException falls String nicht geparsed werden kann
      */
     LocalDate parseDate(String dateString){
         dateString = dateString.trim();
@@ -413,7 +440,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param dateIntervalString Datumsintervalstring im Format: YYYY/MM/DD-YYYY/MM/DD oder D.M.YY-D.M.YY
      * @return gibt Zeitintervalobjekt zurueck, welches eingegebenes Zeitinterval reprasesentiert
-     * @throws RuntimeException, falls String nicht geparsed werden kann
+     * @throws RuntimeException falls String nicht geparsed werden kann
      */
     Interval parseDateInterval(String dateIntervalString){
         try {
@@ -434,6 +461,7 @@ public class DateTimeFilter extends Filter {
      * Setzt zu filternde Wochentage
      *
      * @param weekDayString Eingabestring mit Wochentagen, der Form "mo - dienstag, friday" (erkennt alles)
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter setWeekDays(String weekDayString){
         weekDayString.toLowerCase();
@@ -479,6 +507,7 @@ public class DateTimeFilter extends Filter {
      * Setzt zu filternde Wochentage
      *
      * @param weekDayString Eingabestring mit Wochentagen, der Form "mo - dienstag, friday" (erkennt alles)
+     * @return DateTimeFilter-Objekt fuer Method-Chaining
      */
     public DateTimeFilter forWeekdays(String weekDayString){
         return setWeekDays(weekDayString);
@@ -502,7 +531,7 @@ public class DateTimeFilter extends Filter {
     /**
      * Gibt Zahl des Wochentage aus
      *
-     * @param weekDayString Wochentagname der Zeitvariable in deutsch ("montag") oder englisch ("monday"), ausgeschrieben oder mit zwei Buchstaben Abkürzung ("mo")
+     * @param weekDayString Wochentagname der Zeitvariable in deutsch ("montag") oder englisch ("monday"), ausgeschrieben oder mit zwei Buchstaben Abkuerzung ("mo")
      * @return Wochentag als Zahl mo=1 bis so=7
      */
     public int parseWeekDay(String weekDayString){

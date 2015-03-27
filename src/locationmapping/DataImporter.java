@@ -22,7 +22,7 @@ public class DataImporter {
     */
     private int minTimeDistance = 60;
     /**
-    * Maximale Anzahl einzulesender Datenpunkte, -1 = alle
+    * Maximale Anzahl einzulesender Datenpunkte, -1 = alle (default = -1)
     */
     private int maxImportSize = -1;
     /**
@@ -80,9 +80,10 @@ public class DataImporter {
      * Importiert Daten
      *
      * @param filename Name der zu importierenden Datei im data Ordner
-     * @param id (default = 1) Identifikationsnummer der Datensatzes
+     * @param id Identifikationsnummer der Datensatzes
+     * @param timeFormat Zeitformat des Datensatzes, am besten durch Klassen-Konstanten auswählen
      * @return Trackpointliste mit Datenpunkten
-     * @throw RuntimeException, falls Dateiformat unbekannt
+     * @throws RuntimeException falls Dateiformat unbekannt
      */
     public TrackpointList load(String filename, int id, int timeFormat){
         // parse Dateiendung
@@ -105,7 +106,7 @@ public class DataImporter {
      * Importiert von Google exportierte JSON Daten
      *
      * @param filename Name der zu importierenden Datei im data Ordner
-     * @param id(default = 1) Identifikationsnummer der Datensatzes
+     * @param id Identifikationsnummer der Datensatzes
      * @return Trackpointliste mit Datenpunkten
      */
     public TrackpointList loadGoogleJSON(String filename, int id){
@@ -159,7 +160,8 @@ public class DataImporter {
      * Importiert CSV und TSV Daten von Tabellen mit Headern Timestamp/DateTime, Longitude, Latitude (evtl. Service)
      *
      * @param filename Name der zu importierenden Datei im data Ordner
-     * @param id (default = 7) Identifikationsnummer der Datensatzes
+     * @param id Identifikationsnummer der Datensatzes
+     * @param timeFormat Zeitformat des Datensatzes, am besten durch Klassen-Konstanten auswählen
      * @return Trackpointlist mit Datenpunkten
      */
     public TrackpointList loadSpreadsheet(String filename, int id, int timeFormat){

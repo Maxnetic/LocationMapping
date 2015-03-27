@@ -29,8 +29,6 @@ public class TrackpointList implements Iterable<Trackpoint> {
 
     /**
     * Konstruktor, erzeugt leere Trackpointliste
-    *
-    * @return neues leeres TrackpointList Objekt
     */
     public TrackpointList() {
         trackpointList = new ArrayList<Trackpoint>();
@@ -110,7 +108,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @param timestamp Zeitvariable des zu findenden Trackpoint
      * @return Position des Trackpoints in der Liste
-     * @throws NoSuchElementException, falls Element nicht in Liste existiert
+     * @throws NoSuchElementException falls Element nicht in Liste existiert
      */
     private int binarySearch(DateTime timestamp) throws NoSuchElementException {
         this.sortByTime();
@@ -166,7 +164,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @param timestamp Zeit zu dem entsprechender Trackpoint gefunden werden soll
      * @return gesuchter Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
+     * @throws RuntimeException falls Trackpoint nicht enthalten ist
      */
     public Trackpoint get(DateTime timestamp){
         try {
@@ -181,7 +179,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @param location Ort zu dem entsprechender Trackpoint gefunden werden soll
      * @return gesuchter Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
+     * @throws RuntimeException falls Trackpoint nicht enthalten ist
      */
     public Trackpoint get(Location location){
         for ( Trackpoint trackpoint : this.trackpointList ){
@@ -195,7 +193,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @param position Position zu dem entsprechender Trackpoint gefunden werden soll
      * @return gesuchter Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
+     * @throws RuntimeException falls Trackpoint nicht enthalten ist
      */
     public Trackpoint get(int position){
         if ( position <= this.length )
@@ -227,7 +225,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @param trackpoint Trackpoint, dessen Position gefunden werden soll
      * @return Position des gesuchten Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
+     * @throws RuntimeException falls Trackpoint nicht gefunden wurde
      */
     public int getPosition(Trackpoint trackpoint){
         return this.getPosition(trackpoint.getTime());
@@ -237,7 +235,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @param timestamp Zeit zu dem entsprechende Trackpoint Position gefunden werden soll
      * @return Position des gesuchten Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
+     * @throws RuntimeException falls Trackpoint nicht gefunden wurde
      */
     public int getPosition(DateTime timestamp){
        try {
@@ -252,7 +250,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @param location Ort zu dem entsprechende Trackpoint Position gefunden werden soll
      * @return Position des gesuchten Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht gefunden wurde
+     * @throws RuntimeException falls Trackpoint nicht gefunden wurde
      */
     public int getPosition(Location location){
         int position = 0;
