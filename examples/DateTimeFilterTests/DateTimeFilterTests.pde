@@ -27,11 +27,11 @@ void setup() {
 //  data = randomWeekdaysFilter.apply(data);
   
 //  data = earlybirdFilter.apply(data);
-//  data = nightFilter.apply(data);
+  data = nightFilter.apply(data);
   
   for ( Trackpoint tp : data ){
     StandardMarker marker = new StandardMarker(tp);
-    marker.setSize(data.getFrequency(tp)*100);
+    marker.setSize(data.getFrequency(tp)/10);
     mapper.addMarker(marker);
   }
 }

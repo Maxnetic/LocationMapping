@@ -102,11 +102,23 @@ public abstract class Mapper {
         return startLocation;
     }
 
-     /**
+    /**
      * legt den beim Start gezeigten Ort fest
      */
-    public void setStartLocation(double latitude, double longitude){
-        startLocation = new Location(latitude, longitude);
+    public Mapper setStartLocation(Location location){
+        this.startLocation = location;
+        return this;
+    }
+    /**
+     * legt den beim Start gezeigten Ort fest
+     */
+    public Mapper setStartLocation(double latitude, double longitude){
+        return this.setStartLocation(new Location(latitude, longitude));
+    }
+
+    public Mapper setStartZoomLevel(int zoomLevel){
+        this.startZoomLevel = zoomLevel;
+        return this;
     }
 
     public void setMapProvider(String provider){
