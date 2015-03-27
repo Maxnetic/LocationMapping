@@ -6,63 +6,75 @@ import processing.core.PGraphics;
 
 
 public class StandardMarker extends SimplePointMarker {
-  //Initialisierung der Attribute und ihrer Defaulteinstellung
- /*
- * @param size Größe des Markers
- * @param label Text für die Beschriftung
- * @param style Auswahl des Designs
- * @param textsize Textgröße der Beschriftung
- * @param hsb_h Farbwert der HSB Farbe
- * @param hsb_s Sättigungswert der HSB Farbe
- * @param hsb_b Helligkeitswert der HSB Farbe
- * @param transparency Transparenz der Farbe des Markers
+ /**
+ * Größe des Markers
  */
   int size = 30;
+  /**
+  * Farbwert der HSB Farbe
+  */
   int hsb_h = 0;
+  /**
+  * Sättigungswert der HSB Farbe
+  */
   int hsb_s = 0;
+  /**
+  * Helligkeitswert der HSB Farbe
+  */
   int hsb_b = 0;
+  /**
+  * Transparenz der Farbe des Markers
+  */
   int transparency = 100;
+  /**
+  * Text für die Beschriftung
+  */
   String label = null;
+  /**
+  * Textgröße der Beschriftung
+  */
   int textsize = 12;
 
-  /*
-  * Konstruktor fuer UpdatableMarker Objekte
-  * @param location [Location]: Ortsangabe des Markers
+  /**
+  * Konstruktor fuer StandardMarker Objekte
+  * @param location Ortsangabe des Markers
   * @return neues Objekt vom Typ Marker
   */
   public StandardMarker(Location location) {
     super(location);
   }
 
-  /*
-   * Konstruktor der Trackpoint uebergeben bekommt
-   * @param trackpoint [Trackpoint] : Trackpoint aus dem Marker gezeichnet werden soll
+  /**
+   * Konstruktor fuer StandardMarker Objekte
+   * @param trackpoint Trackpoint aus dem Marker gezeichnet werden soll
    * @return neues Objekt von Typ Marker
    */
   public StandardMarker(Trackpoint trackpoint) {
     super(trackpoint.getLocation());
   }
 
-  /*
-  * updated die Größe des Markers
-  * @param size [int]: die neue Größe des Markers
+  /**
+  * Setzt die Größe des Markers
+  * @param size neue Größe des Markers
   */
   public void setSize(int size){
     this.size = size;
   }
 
   
-  /*
-  * Die Funktion updated die Transparenz des Markers
-  * @param trans [int]: Transparenzwert
+  /**
+  * Setzt die Transparenz des Markers
+  * @param trans Transparenzwert
   */
   public void setTransparency(int trans){
 	transparency = trans;
   }
   
-  /*
-  *Die Funktion updated die Farbe des Markers
-  *@param color [int]: Farbwert
+  /**
+  * Setzt die Farbe des Markers
+  * @param hsb_h Farbwert
+  * @param hsb_s Sättigungswert
+  * @param hsb_b Helligkeitswert
   */
   public void setColor(int hsb_h, int hsb_s, int hsb_b){
     this.hsb_h =hsb_h;
@@ -70,11 +82,10 @@ public class StandardMarker extends SimplePointMarker {
 	this.hsb_b = hsb_b;
   }
   
-  /*
-  * setColor Funktion mit konstanten Strings
-  * @param colorstr [String]: Die Farbe des Strings
+  /**
+  * Setzt Farbe des Markers
+  * @param colorstr Farbe 
   */
-  
   public void setColor(String colorstr){
     colorstr.toLowerCase();
 	if (colorstr.equals("rot")){
@@ -105,40 +116,43 @@ public class StandardMarker extends SimplePointMarker {
   
   
 
-  /*
-   * Label auslesen
-   * @return String label
+  /**
+   * Gibt Label aus
+   * @return Label
    */
   public String getLabel() {
     return this.label;
   }
 
-  /*
-   * Label festlegen
-   * @param String label
+  /**
+   * Setzt Label
+   * @param label
    */
   public void setLabel(String label) {
     this.label = label;
   }
 
-  /*
-   * Textgroesse festlegen
-   * @param int size
+  /**
+   * Setzt Textgroesse
+   * @param size Größe
    */
   public void setTextSize(int size){
     this.textsize = size;
   }
 
-  /*
+  /**
    * Textgroesse auslesen
-   * @return int textsize
+   * @return Textgröße
    */
   public int getTextSize(){
     return this.textsize;
   }
 
-  /*
-  * Zeichenmethode, die je nach gewähltem Style andersaussehende Marker erzeugt
+  /**
+  * Zeichnet Marker
+  * @param pg Objekt das gezeichnet werden soll
+  * @param x X-Koordinate
+  * @param y Y-Koordinate
   */
   public void draw(PGraphics pg, float x, float y){
 		if (!this.isHidden()){
