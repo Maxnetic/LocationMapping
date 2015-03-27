@@ -16,7 +16,6 @@ public class TrackpointList implements Iterable<Trackpoint> {
     */
     private ArrayList<Trackpoint> trackpointList;
     /**
-    * Hastable, der Haeufigkeiten der einzelnen Trackpoints enthaelt
     */
     private LinkedHashMap<Location, Integer> locationFrequencies;
     /**
@@ -41,7 +40,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Gibt Anzahl der Elemente der Liste aus
      *
-     * @return [int]: Anzahl der Elemente der Liste
+     * @return Anzahl der Elemente der Liste
      */
     public int size(Location location) {
         return this.length;
@@ -50,7 +49,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Gibt an, ob Liste leer ist
      *
-     * @return [boolean]: Wahrheitswert ob Liste leer ist
+     * @return Wahrheitswert ob Liste leer ist
      */
     public boolean isEmpty(){
         return this.length == 0;
@@ -64,8 +63,6 @@ public class TrackpointList implements Iterable<Trackpoint> {
     public void add(Trackpoint trackpoint){
         trackpointList.add(trackpoint);
         length++;
-        // update Hashtable, wenn Wert vorhanden, Wert erhoehen (schoenere Variante?),
-        // sonst neu anlegen
         Location trackpointLocation = trackpoint.getLocation();
         if (locationFrequencies.containsKey(trackpointLocation)){
             locationFrequencies.put(trackpointLocation, locationFrequencies.get(trackpointLocation)+1);
@@ -92,8 +89,6 @@ public class TrackpointList implements Iterable<Trackpoint> {
     public void remove(Trackpoint trackpoint){
         trackpointList.remove(trackpoint);
         length--;
-        // Falls Trackpoint nur noch mit Haeufigkeit 1 vorhanden, Trackpoint loeschen
-        // sonst Wert um 1 verringern
         Location trackpointLocation = trackpoint.getLocation();
         if ( locationFrequencies.get(trackpointLocation) == 1 )
             locationFrequencies.remove(trackpointLocation);
@@ -139,11 +134,10 @@ public class TrackpointList implements Iterable<Trackpoint> {
     }
 
     /**
-     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     * Ueberprueft, ob Trackpoint in Trackpointliste vorhanden
      *
      * @param timestamp Zeit zu dem entsprechender Trackpoint gefunden werden soll
-     * @return gesuchter Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
+     * @return Wahrheitswert, ob Trackpoint in Trackpointliste vorhanden
      */
     public boolean contains(DateTime timestamp){
         try {
@@ -154,11 +148,10 @@ public class TrackpointList implements Iterable<Trackpoint> {
         }
     }
     /**
-     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     * Ueberprueft, ob Trackpoint in Trackpointliste vorhanden
      *
      * @param location Ort zu dem entsprechender Trackpoint gefunden werden soll
-     * @return gesuchter Trackpoint
-     * @throws RuntimeException, falls Trackpoint nicht enthalten ist
+     * @return Wahrheitswert, ob Trackpoint in Trackpointliste vorhanden
      */
     public boolean contains(Location location){
         for ( Trackpoint trackpoint : this.trackpointList ){
@@ -169,7 +162,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     }
 
     /**
-     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     * Findet Trackpoint in Trackpointliste und gibt ihn zurueck
      *
      * @param timestamp Zeit zu dem entsprechender Trackpoint gefunden werden soll
      * @return gesuchter Trackpoint
@@ -184,7 +177,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         }
     }
     /**
-     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     * Findet Trackpoint in Trackpointliste und gibt ihn zurueck
      *
      * @param location Ort zu dem entsprechender Trackpoint gefunden werden soll
      * @return gesuchter Trackpoint
@@ -198,7 +191,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         throw new RuntimeException("No trackpoint at " + location + " found");
     }
     /**
-     * Findet Trackpoint in Trackpointliste und gibt ihn zurück
+     * Findet Trackpoint in Trackpointliste und gibt ihn zurueck
      *
      * @param position Position zu dem entsprechender Trackpoint gefunden werden soll
      * @return gesuchter Trackpoint
@@ -210,28 +203,27 @@ public class TrackpointList implements Iterable<Trackpoint> {
         throw new RuntimeException("Position " + position + " out of bound");
     }
 
-    // erstes Element der ArrayListe erhalten
     /**
      * Gibt ersten Trackpoint in der Liste zurueck
      *
-     * @return [Trackpoint]: erster Trackpoint der Trackpointliste
+     * @return erster Trackpoint der Trackpointliste
      */
     public Trackpoint getFirst(){
         return this.get(0);
     }
 
-    // letztes Elemtent der Trackpointliste erhalten
+
     /**
      * Gibt letzten Trackpoint in der Liste zurueck
      *
-     * @return [Trackpoint]: letzter Trackpoint der Trackpointliste
+     * @return letzter Trackpoint der Trackpointliste
      */
     public Trackpoint getLast(){
         return this.get(this.length-1);
     }
 
     /**
-     * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurück
+     * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurueck
      *
      * @param trackpoint Trackpoint, dessen Position gefunden werden soll
      * @return Position des gesuchten Trackpoint
@@ -241,7 +233,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         return this.getPosition(trackpoint.getTime());
     }
     /**
-     * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurück
+     * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurueck
      *
      * @param timestamp Zeit zu dem entsprechende Trackpoint Position gefunden werden soll
      * @return Position des gesuchten Trackpoint
@@ -256,7 +248,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         }
     }
     /**
-     * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurück
+     * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurueck
      *
      * @param location Ort zu dem entsprechende Trackpoint Position gefunden werden soll
      * @return Position des gesuchten Trackpoint
@@ -275,7 +267,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Gibt aus wie haeufig ein Ort als Trackpoint vorkommt
      *
-     * @param location  Ort dessen Haeufigkeit überprüft werden soll
+     * @param location Ort dessen Haeufigkeit ueberprueft werden soll
      * @return Haeufigkeit des Ortes
      */
     public int getFrequency(Location location) {
@@ -284,7 +276,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Gibt aus wie haeufig ein Ort als Trackpoint vorkommt
      *
-     * @param trackpoint Trackpoint dessen Haeufigkeit überprüft werden soll
+     * @param trackpoint Trackpoint dessen Haeufigkeit ueberprueft werden soll
      * @return Haeufigkeit des Ortes
      */
     public int getFrequency(Trackpoint trackpoint) {
@@ -311,7 +303,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     }
 
     /**
-     * Gibt Iterator ueber Trackpointliste zurueck, stellt sortierung nach Zeit sicher
+     * Gibt Iterator ueber Trackpointliste zurueck, stellt Sortierung nach Zeit sicher
      *
      * @return Iterator ueber Trackpointliste
      */
@@ -320,7 +312,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         return this.trackpointList.iterator();
     }
     /**
-     * Gibt Iterator ueber Trackpointliste zurueck, stellt sortierung nach Zeit sicher
+     * Gibt Iterator ueber Trackpointliste zurueck, stellt Sortierung nach Zeit sicher
      *
      * @param position Position, an der Iterator gestartet werden soll
      * @return Iterator ueber Trackpointliste
@@ -330,7 +322,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         return this.trackpointList.listIterator(position);
     }
     /**
-     * Gibt Iterator ueber Trackpointliste zurueck, stellt sortierung nach Zeit sicher
+     * Gibt Iterator ueber Trackpointliste zurueck, stellt Sortierung nach Zeit sicher
      *
      * @param timestamp Zeitvariable, an deren Position bzw nach deren Position der Iterator gestartet werden soll
      * @return Iterator ueber Trackpointliste
@@ -345,7 +337,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
         return this.iterator(position);
     }
     /**
-     * Gibt Iterator ueber Trackpointliste zurueck, stellt sortierung nach Zeit sicher
+     * Gibt Iterator ueber Trackpointliste zurueck, stellt Sortierung nach Zeit sicher
      *
      * @param trackpoint Trackpoint, an dessen Position der Iterator gestartet werden soll
      * @return Iterator ueber Trackpointliste
