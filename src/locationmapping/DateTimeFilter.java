@@ -5,7 +5,7 @@ import java.util.*;
 
 import org.joda.time.*;
 
-public class DayFilter extends Filter {
+public class DateTimeFilter extends Filter {
     /**
      * Startdatum fuer Filter
      */
@@ -19,19 +19,160 @@ public class DayFilter extends Filter {
      */
     private ArrayList<Interval> dateIntervals = new ArrayList<Interval>();
     /**
+     * Startzeit fuer Filter
+     */
+    private LocalTime startTime;
+    /**
+     * Endzeit fuer Filter
+     */
+    private LocalTime endTime;
+    /**
+     * Map mit Zeitintervallen, die gefiltert werden sollen
+     */
+    private LinkedHashMap<LocalTime,LocalTime> timeIntervals = new LinkedHashMap<LocalTime,LocalTime>();
+    /**
      * Array mit Wahrheitswerten uber zu filternde Wochentage, default alle false
      */
     private boolean[] weekDays = new boolean[8];
 
 
+
     /**
-     * Konstruktor für DayFilter Objekte
+     * Konstruktor für DateTimeFilter Objekte
      *
-     * @return neues DayFilter Objekt
+     * @return neues DateTimeFilter Objekt
      */
-    public DayFilter(){
+    public DateTimeFilter(){
         super();
     }
+
+
+    /**
+     * Setzt Startzeit des Filters
+     *
+     * @param time Startzeit als Zeitobjekt
+     */
+    public DateTimeFilter setStartTime(LocalTime time){
+        this.startTime = time;
+        return this;
+    }
+    /**
+     * Setzt Startzeit des Filters
+     *
+     * @param time Startzeit als Datumsobjekt
+     */
+    public DateTimeFilter setStartTime(DateTime time){
+        this.setStartTime(new LocalTime(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute()));
+        return this;
+    }
+    /**
+     * Setzt Startzeit des Filters
+     *
+     * @param timeString Startzeit im Format: 8:30 oder 18
+     */
+    public DateTimeFilter setStartTime(String timeString){
+        return this.setStartTime(parseTime(timeString));
+    }
+    /**
+     * Setzt Startzeit des Filters
+     *
+     * @param timeString Startzeit im Format: 8:30 oder 18
+     */
+    public DateTimeFilter fromTime(String timeString){
+        return this.setStartTime(timeString);
+    }
+
+
+    /**
+     * Setzt Endtzeit des Filters
+     *
+     * @param time Endtzeit als Zeitobjekt
+     */
+    public DateTimeFilter setEndTime(LocalTime time){
+        this.endTime = time;
+        return this;
+    }
+    /**
+     * Setzt Endtzeit des Filters
+     *
+     * @param time Endtzeit als Datumsobjekt
+     */
+    public DateTimeFilter setEndTime(DateTime time){
+        this.setEndTime(new LocalTime(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute()));
+        return this;
+    }
+    /**
+     * Setzt Endtzeit des Filters
+     *
+     * @param timeString Endtzeit im Format: 8:30 oder 18
+     */
+    public DateTimeFilter setEndTime(String timeString){
+        return this.setEndTime(parseTime(timeString));
+    }
+    /**
+     * Setzt Endtzeit des Filters
+     *
+     * @param timeString Endtzeit im Format: 8:30 oder 18
+     */
+    public DateTimeFilter toTime(String timeString){
+        return this.setEndTime(timeString);
+    }
+
+
+
+    /**
+     * Fuegt zu filterndes Zeitinterval hinzu
+     *
+     * @param timeInterval hinzuzufuegendes Zeitinterval mit Startzeit in [0] und Endzeit in [1]
+     */
+    public DateTimeFilter addTimeInterval(LocalTime[] timeInterval){
+        try {
+            this.timeIntervals.put(timeInterval[0], timeInterval[1]);
+        } catch(Exception e){
+            throw new RuntimeException(Arrays.toString(timeInterval) + " doesn't represent time Interval [startTime, endTime]");
+        }
+        return this;
+    }
+    /**
+     * Fuegt zu filterndes Zeitinterval hinzu
+     *
+     * @param startTime Startpunkt des hinzuzufuegenden Zeitinterval
+     * @param endTime Endpunkt des hinzuzufuegenden Zeitinterval
+     */
+    public DateTimeFilter addTimeInterval(LocalTime startTime, LocalTime endTime){
+        this.timeIntervals.put(startTime, endTime);
+        return this;
+    }
+    /**
+     * Fuegt zu filterndes Zeitinterval hinzu
+     *
+     * @param startTime Startpunkt des hinzuzufuegenden Zeitinterval
+     * @param endTime Endpunkt des hinzuzufuegenden Zeitinterval
+     */
+    public DateTimeFilter addTimeInterval(DateTime startTime, DateTime endTime){
+        LocalTime localStartTime = new LocalTime(startTime.getHourOfDay(), startTime.getMinuteOfHour(), startTime.getSecondOfMinute());
+        LocalTime localEndTime = new LocalTime(endTime.getHourOfDay(), endTime.getMinuteOfHour(), endTime.getSecondOfMinute());
+        return this.addTimeInterval(localStartTime, localEndTime);
+    }
+    /**
+     * Fuegt zu filterndes Zeitinterval hinzu
+     *
+     * @param timeIntervalString Zeitintervalstring im Format: HH:MM - HH:MM oder ohne Minuten
+     */
+    public DateTimeFilter addTimeInterval(String timeIntervalString){
+        return this.addTimeInterval(parseTimeInterval(timeIntervalString));
+    }
+    /**
+     * Fuegt zu filterndes Zeitinterval hinzu
+     *
+     * @param timeIntervalString Zeitintervalstring im Format: HH:MM - HH:MM oder ohne Minuten
+     */
+    public DateTimeFilter betweenTimes(String timeIntervalString){
+        return this.addTimeInterval(timeIntervalString);
+    }
+
+
+
 
 
     /**
@@ -39,7 +180,7 @@ public class DayFilter extends Filter {
      *
      * @param date das  Startdatum als Datumsobjekt
      */
-    public DayFilter setStartDate(DateTime date){
+    public DateTimeFilter setStartDate(DateTime date){
         this.startDate = date;
         return this;
     }
@@ -48,7 +189,7 @@ public class DayFilter extends Filter {
      *
      * @param dateString Das Startdatum im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
      */
-    public DayFilter setStartDate(String dateString){
+    public DateTimeFilter setStartDate(String dateString){
         LocalDate date = parseDate(dateString);
         return setStartDate(new DateTime(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth(), 0, 0));
     }
@@ -57,7 +198,7 @@ public class DayFilter extends Filter {
      *
      * @param dateString Das Startdatum im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
      */
-    public DayFilter from(String dateString){
+    public DateTimeFilter fromDate(String dateString){
         return this.setStartDate(dateString);
     }
 
@@ -67,7 +208,7 @@ public class DayFilter extends Filter {
      *
      * @param date das Enddatum als Datumsobjekt
      */
-    public DayFilter setEndDate(DateTime date){
+    public DateTimeFilter setEndDate(DateTime date){
         this.endDate = date;
         return this;
     }
@@ -76,7 +217,7 @@ public class DayFilter extends Filter {
      *
      * @param dateString Das Enddatum im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
      */
-    public DayFilter setEndDate(String dateString){
+    public DateTimeFilter setEndDate(String dateString){
         LocalDate date = parseDate(dateString);
         return setEndDate(new DateTime(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth(), 23, 59, 59));
     }
@@ -85,7 +226,7 @@ public class DayFilter extends Filter {
      *
      * @param dateString Das Enddatum im Format: YYYY/MM/DD oder D.M.YY bzw DD.MM.YYYY
      */
-    public DayFilter to(String dateString){
+    public DateTimeFilter toDate(String dateString){
         return this.setEndDate(dateString);
     }
 
@@ -94,7 +235,7 @@ public class DayFilter extends Filter {
      *
      * @param dateInterval hinzuzufuegendes Zeitinterval
      */
-    public DayFilter addDayInterval(Interval dateInterval){
+    public DateTimeFilter addDayInterval(Interval dateInterval){
         this.dateIntervals.add(dateInterval);
         return this;
     }
@@ -104,7 +245,7 @@ public class DayFilter extends Filter {
      * @param startDate Startpunkt des hinzuzufuegenden Zeitinterval
      * @param endDate Endpunkt des hinzuzufuegenden Zeitinterval
      */
-    public DayFilter addDayInterval(DateTime startDate, DateTime endDate){
+    public DateTimeFilter addDayInterval(DateTime startDate, DateTime endDate){
         return this.addDayInterval(new Interval(startDate, endDate));
     }
     /**
@@ -112,7 +253,7 @@ public class DayFilter extends Filter {
      *
      * @param dateIntervalString Datumsintervalstring im Format: YYYY/MM/DD-YYYY/MM/DD oder D.M.YY-D.M.YY
      */
-    public DayFilter addDayInterval(String dateIntervalString){
+    public DateTimeFilter addDayInterval(String dateIntervalString){
         return this.addDayInterval(parseDateInterval(dateIntervalString));
     }
     /**
@@ -120,7 +261,7 @@ public class DayFilter extends Filter {
      *
      * @param dateIntervalString Datumsintervalstring im Format: YYYY/MM/DD-YYYY/MM/DD oder D.M.YY-D.M.YY
      */
-    public DayFilter between(String dateIntervalString){
+    public DateTimeFilter betweenDates(String dateIntervalString){
         return this.addDayInterval(dateIntervalString);
     }
 
@@ -129,7 +270,7 @@ public class DayFilter extends Filter {
      *
      * @param dateInterval hinzuzufuegendes Zeitinterval
      */
-    public DayFilter setDay(LocalDate day){
+    public DateTimeFilter setDay(LocalDate day){
         DateTime start = new DateTime(day.getYear(), day.getMonthOfYear(), day.getDayOfMonth(), 0, 0);
         DateTime end = new DateTime(day.getYear(), day.getMonthOfYear(), day.getDayOfMonth(), 23, 59, 59);
         this.dateIntervals.add(new Interval(start, end));
@@ -140,7 +281,7 @@ public class DayFilter extends Filter {
      *
      * @param dayString Datumsstring des hinzuzufuegenden Tages im Format YYYY/MM/DD und D.M.YY
      */
-    public DayFilter setDay(String dayString){
+    public DateTimeFilter setDay(String dayString){
         return this.setDay(parseDate(dayString));
     }
     /**
@@ -148,7 +289,7 @@ public class DayFilter extends Filter {
      *
      * @param dayString Datumsstring des hinzuzufuegenden Tages im Format YYYY/MM/DD und D.M.YY
      */
-    public DayFilter on(String dayString){
+    public DateTimeFilter onDate(String dayString){
         return this.setDay(dayString);
     }
 
@@ -158,7 +299,7 @@ public class DayFilter extends Filter {
      * @param daysString Datumsstring als kommagetrennter Werte im Format YYYY/MM/DD und D.M.YY
      * @throws RuntimeException, falls String nicht geparsed werden kann
      */
-    public DayFilter setDays(String daysString){
+    public DateTimeFilter setDays(String daysString){
         String[] aux = daysString.split(",");
         for ( String str : aux ) {
             try {
@@ -175,10 +316,64 @@ public class DayFilter extends Filter {
      * @param daysString Datumsstring als kommagetrennter Werte im Format YYYY/MM/DD und D.M.YY
      * @throws RuntimeException, falls String nicht geparsed werden kann
      */
-    public DayFilter forDays(String daysString){
+    public DateTimeFilter forDays(String daysString){
         return this.setDays(daysString);
     }
 
+
+
+
+
+
+    /**
+     * Hilfsfunktion, die einen String in ein Zeitobjekt umwandelt
+     *
+     * @param timeString Zeitstring im Format: HH:MM or HH
+     * @return gibt Zeitobjekt zurück, das eingegebene Zeit repräsentiert
+     * @throws RuntimeException, falls String nicht geparsed werden kann
+     */
+    LocalTime parseTime(String timeString){
+        timeString = timeString.trim();
+        try {
+            int hour;
+            int minute = 0;
+            if ( timeString.contains(":") || timeString.contains("\\.") ){
+                String[] aux;
+                if ( timeString.contains(":") )
+                    aux = timeString.split(":");
+                else
+                    aux = timeString.split("\\.");
+                hour = Integer.parseInt(aux[0].replaceAll("[\\D]", ""));
+                minute = Integer.parseInt(aux[1].replaceAll("[\\D]", ""));
+            } else {
+                hour = Integer.parseInt(timeString.replaceAll("[\\D]", ""));
+            }
+            return new LocalTime(hour, minute);
+        } catch (Exception e) {
+            throw new RuntimeException("'" + timeString + "' not in parsable format H:MM or HH");
+        }
+    }
+
+    /**
+     * Hilfsfunktion, die einen String in ein Datumsobjekt umwandelt
+     *
+     * @param timeIntervalString Zeitintervalstring im Format: HH:MM - HH:MM oder ohne Minuten
+     * @return gibt Zeitarray zurueck, welches eingegebenes Zeitinterval reprasesentiert, start in [0], ende in [1]
+     * @throws RuntimeException, falls String nicht geparsed werden kann
+     */
+    LocalTime[] parseTimeInterval(String timeIntervalString){
+        try {
+            LocalTime[] interval = new LocalTime[2];
+            // Eingabe an "-" splitten
+            String[] aux = timeIntervalString.split("-");
+            // Start und Enddatum parsen
+            interval[0] = parseTime(aux[0].trim());
+            interval[1] = parseTime(aux[1].trim());
+            return interval;
+        } catch(Exception e){
+            throw new RuntimeException("'" + timeIntervalString + "' not in parsable format HH:MM - HH");
+        }
+    }
 
     /**
      * Hilfsfunktion, die einen String in ein Datumsobjekt umwandelt
@@ -240,7 +435,7 @@ public class DayFilter extends Filter {
      *
      * @param weekDayString Eingabestring mit Wochentagen, der Form "mo - dienstag, friday" (erkennt alles)
      */
-    public DayFilter setWeekDays(String weekDayString){
+    public DateTimeFilter setWeekDays(String weekDayString){
         weekDayString.toLowerCase();
 
         // Loesche alle Leerzeichen um -
@@ -285,7 +480,7 @@ public class DayFilter extends Filter {
      *
      * @param weekDayString Eingabestring mit Wochentagen, der Form "mo - dienstag, friday" (erkennt alles)
      */
-    public DayFilter forWeekdays(String weekDayString){
+    public DateTimeFilter forWeekdays(String weekDayString){
         return setWeekDays(weekDayString);
     }
 
@@ -347,6 +542,47 @@ public class DayFilter extends Filter {
                 return 7;
         }
         throw new RuntimeException("'" + weekDayString + "' doesn't represent a weekday");
+    }
+
+
+
+
+
+    /**
+     * Filtert die Liste nach den angegebenen Zeitintervallen, falls welche angegben sind
+     */
+    private void filterByTime(){
+        for ( Iterator<Trackpoint> iter = filteredList.iterator(); iter.hasNext(); ){
+            Trackpoint trackpoint = iter.next();
+            if ( !containedInTimeIntervals(trackpoint) )
+                iter.remove();
+        }
+    }
+
+    /**
+     * Hilfsmethode um zu ueberpruefen, ob Trackpoint in einem der spezifizierten Zeitintervalle liegt
+     *
+     * @param trackpoint Trackpoint, der ueberprueft werden soll
+     * @return Wahrheitswert darueber, ob Trackpoint in einem der Filter Zeitintervalle liegt, falls keines spezifiziert ist immer whar
+     */
+    boolean containedInTimeIntervals(Trackpoint trackpoint){
+        boolean contained = false;
+        LocalTime tpTime = new LocalTime(trackpoint.getHour(), trackpoint.getMinute(), trackpoint.getSecond());
+        if ( !this.timeIntervals.isEmpty() ){
+            // Zeitintervalle gesetzte
+            for ( LocalTime start : this.timeIntervals.keySet() ){
+                LocalTime end = this.timeIntervals.get(start);
+                contained = tpTime.compareTo(start) > 0 && tpTime.compareTo(end) < 0;
+                if ( contained ) break;
+            }
+        } else if ( this.startTime != null && this.endTime != null ){
+            // Start- und Endzeit gesetzte
+            contained = tpTime.compareTo(this.startTime) > 0 && tpTime.compareTo(this.endTime) < 0;
+        } else {
+            // kein Zeitfilter gesetzt
+            contained = true;
+        }
+        return contained;
     }
 
     /**
@@ -423,7 +659,8 @@ public class DayFilter extends Filter {
         this.setFilteredList(list);
 
         this.filterByWeekday();
+        this.filterByTime();
+
         return this.filteredList;
     }
-
 }

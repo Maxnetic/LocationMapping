@@ -82,7 +82,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     }
 
     /**
-     * Löoescht Trackpoint aus entsprechender Liste
+     * Loescht Trackpoint aus entsprechender Liste
      *
      * @param trackpoint zu loeschender Trackpoint
      */
