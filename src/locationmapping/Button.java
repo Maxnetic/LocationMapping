@@ -4,7 +4,13 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.*;
 
 class Button {
+	/**
+	 * Applet, in dem gezeichnet wird
+	 */
     PApplet app;
+    /**
+     * Karte, auf der der Button gezeichnet werden soll
+     */
     UnfoldingMap map;
     /**
      * Die X-Koordinate des Buttons
@@ -19,11 +25,20 @@ class Button {
      */
     float w;
     /**
-     * Die Höhe des Buttons
+     * Die Hoehe des Buttons
      */
     float h;
 
-
+    /**
+     * Konstruktor fuer Button Objekte
+     * 
+     * @param mapper Mapperobjekt
+     * @param x X-Koordinate des Buttons
+     * @param y Y-Koordiante des Buttons
+     * @param w Breite des Buttons
+     * @param h Hoehe des Buttons
+     * @return neues Objekt vom Typ Button
+     */
     Button(Mapper mapper, float x, float y, float w, float h) {
         this.map = mapper.map;
         this.app = mapper.app;
@@ -34,17 +49,19 @@ class Button {
     }
 
     /**
-     * mouseOver ist true, wenn die Maus darüber gehalten wird.
-     * Benötigt zum Erkennen von Klicks auf den Button
+     * mouseOver ist true, wenn die Maus darueber gehalten wird.
+     * Benoetigt zum Erkennen von Klicks auf den Button
      *
      * @param xM x Position der Maus
      * @param yM y Position der Maus
-     * @return Wahrheitswert ob Maus über Button ist
+     * @return Wahrheitswert ob Maus ueber Button ist
      */
     boolean mouseOver(int xM, int yM) {
         return (xM > x && xM < x + w && yM > y && yM < y + h);
     }
-
+    /**
+     * Zeichnet Button
+     */
     void draw() {
         app.strokeWeight(1);
         app.stroke(80);

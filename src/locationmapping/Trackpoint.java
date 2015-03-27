@@ -18,7 +18,7 @@ public class Trackpoint {
     */
     private DateTime time;
     /**
-    * Identifikationsnummer füuer den Datensatz (default = 0)
+    * Identifikationsnummer fuer den Datensatz (default = 0)
     */
     private int id = 0;
     /**
