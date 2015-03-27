@@ -38,7 +38,7 @@ public class DateTimeFilter extends Filter {
 
 
     /**
-     * Konstruktor für DateTimeFilter Objekte
+     * Konstruktor fuer DateTimeFilter Objekte
      *
      * @return neues DateTimeFilter Objekt
      */
@@ -84,35 +84,35 @@ public class DateTimeFilter extends Filter {
 
 
     /**
-     * Setzt Endtzeit des Filters
+     * Setzt Endzeit des Filters
      *
-     * @param time Endtzeit als Zeitobjekt
+     * @param time Endzeit als Zeitobjekt
      */
     public DateTimeFilter setEndTime(LocalTime time){
         this.endTime = time;
         return this;
     }
     /**
-     * Setzt Endtzeit des Filters
+     * Setzt Endzeit des Filters
      *
-     * @param time Endtzeit als Datumsobjekt
+     * @param time Endzeit als Datumsobjekt
      */
     public DateTimeFilter setEndTime(DateTime time){
         this.setEndTime(new LocalTime(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute()));
         return this;
     }
     /**
-     * Setzt Endtzeit des Filters
+     * Setzt Endzeit des Filters
      *
-     * @param timeString Endtzeit im Format: 8:30 oder 18
+     * @param timeString Endzeit im Format: 8:30 oder 18
      */
     public DateTimeFilter setEndTime(String timeString){
         return this.setEndTime(parseTime(timeString));
     }
     /**
-     * Setzt Endtzeit des Filters
+     * Setzt Endzeit des Filters
      *
-     * @param timeString Endtzeit im Format: 8:30 oder 18
+     * @param timeString Endzeit im Format: 8:30 oder 18
      */
     public DateTimeFilter toTime(String timeString){
         return this.setEndTime(timeString);
