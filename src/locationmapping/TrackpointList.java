@@ -42,7 +42,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      *
      * @return Anzahl der Elemente der Liste
      */
-    public int size(Location location) {
+    public int getLength() {
         return this.length;
     }
 
