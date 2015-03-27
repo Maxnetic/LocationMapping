@@ -9,11 +9,7 @@ import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
 
-/**
- * Marker representing multiple locations as lines. Use directly to display as simple lines, or extend it for custom styles.
- * 
- * This can be a polyline consisting of multiple locations, or a single line consisting of two locations.
- */
+
 public class ColoredLinesMarker extends SimpleLinesMarker {
 	/**
 	* Groesse des Markers (default == 30)
@@ -24,7 +20,7 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 	*/
 	int hsb_h = 0;
 	/**
-	* Sättigungswert der HSB Farbe
+	* Saettigungswert der HSB Farbe
 	*/
 	int hsb_s = 0;
 	/**
@@ -88,8 +84,8 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 	  }
 	  
 	  /**
-	  * setColor Funktion mit konstanten Strings
-	  * @param colorstr [String]: Die Farbe des Strings
+	  * Setzt Farbe des Markers
+	  * @param colorstr Farbe
 	  */
 	  
 	  public void setColor(String colorstr){
@@ -121,7 +117,7 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 	  }
 	  
 	/**
-	 * 
+	 * Zeichenmethode
 	 */
 	public void draw(PGraphics pg, List<MapPosition> mapPositions){
 		if (!this.isHidden()){
