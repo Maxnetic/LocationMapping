@@ -5,7 +5,7 @@ import de.fhpotsdam.unfolding.*;
 
 class Button {
 	/**
-	 * Applet, in dem gezeichnet wird
+	 * laufende Processing Applet Instanz
 	 */
     PApplet app;
     /**
