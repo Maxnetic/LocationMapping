@@ -15,16 +15,22 @@ public abstract class Mapper {
      * Einige Locations
      */
     public final Location BERLIN = new Location(52.5f, 13.4f);
+    public final Location DEUTSCHLAND = new Location(51.16f, 10.45f);
+    public final Location HAMBURG = new Location(53.55f, 9.99f);
+    public final Location MUENCHEN = new Location(48.14f, 11.57f);
+    public final Location KOELN = new Location(50.94f, 6.95f);
+    public final Location FRANKFURT = new Location(50.12f, 8.68f);
+    public final Location STUTTGART = new Location(48.78f, 9.19f);
 
 
     /**
      * Das Processing Applet in dem der Mapper läuft
      */
-    PApplet app;
+    public PApplet app;
     /**
      * Die Unfolding Karte des Mappers
      */
-    UnfoldingMap map;
+    public UnfoldingMap map;
     /**
      * Beschreibt ob Zeichnen pausiert ist oder nicht
      */
@@ -32,7 +38,7 @@ public abstract class Mapper {
     /**
      * der Provider für die Karte
      */
-    AbstractMapProvider mapProvider = new Google.GoogleTerrainProvider();
+    private AbstractMapProvider mapProvider = new Google.GoogleTerrainProvider();
     /**
      * die Start Breite des Fensters
      */
@@ -52,23 +58,19 @@ public abstract class Mapper {
     /**
      * Der ZoomIn-Knopf
      */
-    ZoomButton zoomIn;
+    private ZoomButton zoomIn;
     /**
      * Der ZomOut-Knopf
      */
-    ZoomButton zoomOut;
+    private ZoomButton zoomOut;
     /**
      * Der Zoomslider
      */
-    SliderButton slider;
+    private SliderButton slider;
     /**
     * Fenster groessenanpassbar
     */
     boolean resizable = true;
-
-    public void setStartZoomLevel(int startZoomLevel){
-        this.startZoomLevel = startZoomLevel;
-    }
 
     /**
      * Setzt Groessenanpassbarkeit des Fensters
@@ -77,6 +79,52 @@ public abstract class Mapper {
      */
     public void setResizable(boolean resizable){
         this.resizable = resizable;
+    }
+
+    /**
+     * gibt Startzoomstufe zurück
+     */
+    public int getZoomLevel(){
+        return startZoomLevel;
+    }
+
+     /**
+     * legt die Zoomstufe zum Programmstart fest
+     */
+    public void setZoomLevel(int newZoom){
+        startZoomLevel = newZoom;
+    }
+
+     /**
+     * gibt den beim Start gezeigten Ort an
+     */
+    public Location getStartLocation(){
+        return startLocation;
+    }
+
+     /**
+     * legt den beim Start gezeigten Ort fest
+     */
+    public void setStartLocation(double latitude, double longitude){
+        startLocation = new Location(latitude, longitude);
+    }
+
+    public void setMapProvider(String provider){
+        if (provider == "Microsoft"){
+            mapProvider = new Microsoft.RoadProvider();
+        }
+        if (provider == "Yahoo"){
+            mapProvider = new Yahoo.RoadProvider();
+        }
+        if (provider == "Open Street Map"){
+            mapProvider = new OpenStreetMap.OpenStreetMapProvider();
+        }
+        if (provider == "Google"){
+            mapProvider = new Google.GoogleMapProvider();
+        }
+    }
+    public void setMapProvider(AbstractMapProvider provider){
+        mapProvider = provider;
     }
 
     /**
@@ -172,6 +220,8 @@ public abstract class Mapper {
     }
 
     public void keyEvent(KeyEvent e){
+
     }
+
 
 }
