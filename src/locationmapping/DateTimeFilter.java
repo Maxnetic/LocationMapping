@@ -178,7 +178,7 @@ public class DateTimeFilter extends Filter {
     /**
      * Setzt das Startdatum des Filters
      *
-     * @param date das  Startdatum als Datumsobjekt
+     * @param date das Startdatum als Datumsobjekt
      */
     public DateTimeFilter setStartDate(DateTime date){
         this.startDate = date;

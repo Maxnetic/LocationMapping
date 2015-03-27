@@ -27,7 +27,7 @@ public class LocationFilter extends Filter {
 
     /**
     * Setzt die Mindesthaeufigkeit
-    * @param minf [int] : Mindesthaeufigkeit
+    * @param minf Mindesthaeufigkeit
     */
     public void setMinFrequency(int minf){
         minfrequency = minf;
@@ -36,7 +36,7 @@ public class LocationFilter extends Filter {
     /**
     * Setzt den Radius
     *
-    * @param radius [int]: der Radius, um den gefiltert wird
+    * @param radius Radius, um den gefiltert wird
     */
     public void setRadius(int radius){
         this.radius = radius;
@@ -45,7 +45,7 @@ public class LocationFilter extends Filter {
     /**
     * Setzt die Location
     *
-    * @param location [Location]: der Ort, um den gefiltert wird
+    * @param location Ort, um den gefiltert wird
     */
     public void setLocation(Location location){
         this.location = location;
@@ -54,16 +54,16 @@ public class LocationFilter extends Filter {
     /**
     * Setzt den Service
     *
-    * @param service [String]: Der Service, nach dem gefiltert werden soll
+    * @param service Service, nach dem gefiltert werden soll
     */
     public void setService(String service){
         this.service = service;
     }
 
 
-    /*
+    /**
     * Filtert nach Frequenz
-    * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+    * @param trackpointlist Liste, die gefiltert werden soll
     */
     private void frequencyFilter(TrackpointList trackpointlist){
         for(Trackpoint tp : trackpointlist){
@@ -72,9 +72,9 @@ public class LocationFilter extends Filter {
         }
     }
 
-    /*
+    /**
     * Filtert nach Location und Radius
-    * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+    * @param trackpointlist Liste, die gefiltert werden soll
     */
     private void locationFilter(TrackpointList trackpointlist){
         for( Trackpoint tp : trackpointlist ){
@@ -83,9 +83,9 @@ public class LocationFilter extends Filter {
         }
     }
 
-    /*
+    /**
     * Filtert nach Service
-    * @param trackpointlist [TrackpointList]: Die Liste, die gefiltert werden soll
+    * @param trackpointlist Liste, die gefiltert werden soll
     */
     private void serviceFilter(TrackpointList trackpointlist){
         for(Trackpoint tp : trackpointlist){
@@ -98,10 +98,10 @@ public class LocationFilter extends Filter {
 
     /**
      * apply Methode, die je nachdem, wie die Attribute gesetzt wurden filtert
-     * Es wird überprüft, ob und welche Attribute gesetzt wurden, so dass bestimmte Filter aufgerufen werden
+     * Es wird ueberprueft, ob und welche Attribute gesetzt wurden, so dass bestimmte Filter aufgerufen werden
      *
-     * @param trackpointlist [TrackpointList]: Die TrackpointList, die gefiltert wird
-     * @return gibt eine TrackpointList zurück, in der die visible Eigenschaft verändert wurde
+     * @param trackpointlist Die TrackpointList, die gefiltert wird
+     * @return gibt eine TrackpointList zurueck, in der die visible Eigenschaft veraendert wurde
     */
     public TrackpointList apply(TrackpointList trackpointlist) {
 
