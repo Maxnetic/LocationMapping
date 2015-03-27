@@ -15,7 +15,7 @@ StaticMapper mapper = new StaticMapper(this);
 */
 
 void setup(){
-  colorMode(HSB, 360,100,100)
+  colorMode(HSB, 360,100,100);
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
