@@ -15,49 +15,71 @@ import de.fhpotsdam.unfolding.utils.MapPosition;
  * This can be a polyline consisting of multiple locations, or a single line consisting of two locations.
  */
 public class ColoredLinesMarker extends SimpleLinesMarker {
+	/**
+	* Groesse des Markers (default == 30)
+	*/
 	int size = 30;
+	/**
+	* Farbwert der HSB Farbe
+	*/
 	int hsb_h = 0;
+	/**
+	* Sättigungswert der HSB Farbe
+	*/
 	int hsb_s = 0;
+	/**
+	* Helligkeitswert der HSB Farbe
+	*/
 	int hsb_b = 0;
+	/**
+	* Transparenz der Farbe des Markers
+	*/
 	int transparency = 100;
 	
-	
+	/**
+	* Kosntruktor fuer ColoredLineMarker Objekte
+	*/
 	public ColoredLinesMarker() {
 		super();
 	}
 	
 	
 	/**
-	   * Creates a marker for a single line, with a connection from start to end location. This convenience method adds the given
-	   * start and end locations to the list.
-	   * 
-	   * @param startLocation
-	   *            The location of the start of this line.
-	   * @param endLocation
-	   *            The location of the end of this line.
-	   */
+	* Konstruktor fuer ColoredLineMarker Objekte
+	*
+	* @param start Startpunkt
+	* @param end Endpunkt
+	* @return neues Objekt vom Typ ColoredLineMarker
+	*/
 	public ColoredLinesMarker(Location start, Location end) {
 		super(start, end);
 	}
 	
 	
 	/**
-	   * Creates a polyline marker.
-	   * 
-	   * @param locations
-	   *            The locations to connect via lines.
-	   */
+	* Konstruktor fuer ColoredLineMarker Objekte
+	*
+	* @param locations Liste aus der Line gezeichnet werden soll
+	* @return neues Objekt vom Typ ColoredLineMarker
+	*/
 	public ColoredLinesMarker(List<Location> locations){
 		super(locations);
 	}
-	
+	/**
+	* Setzt Tansparenz 
+	*
+	* @param trans Transparenzwert
+	*/
 	public void setTransparency(int trans){
 		transparency = trans;
 	  }
 	  
 	  /**
-	  *Die Funktion updated die Farbe des Markers
-	  *@param color [int]: Farbwert
+	  * Setzt Farbe des Markers
+	  *
+	  * @param hsb_h Farbwert
+	  * @param hsb_s Saettigungswert
+	  * @param hsb_b Helligkeitswert
 	  */
 	  public void setColor(int hsb_h, int hsb_s, int hsb_b){
 	    this.hsb_h =hsb_h;
