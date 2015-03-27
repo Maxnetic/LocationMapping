@@ -115,12 +115,20 @@ public abstract class Mapper {
     public Mapper setStartLocation(double latitude, double longitude){
         return this.setStartLocation(new Location(latitude, longitude));
     }
-
+	/**
+	* Setzt Startzoomstufe 
+	*
+	* @param zoomLevel Startzoomstufe
+	*/
     public Mapper setStartZoomLevel(int zoomLevel){
         this.startZoomLevel = zoomLevel;
         return this;
     }
-
+	/**
+	* Setzt MapProvider
+	*
+	* @param provider MapProvider als String
+	*/
     public void setMapProvider(String provider){
         if (provider == "Microsoft"){
             mapProvider = new Microsoft.RoadProvider();
@@ -135,6 +143,11 @@ public abstract class Mapper {
             mapProvider = new Google.GoogleMapProvider();
         }
     }
+	/**
+	* Setzt MapProvider
+	*
+	* @param provider MapProvider 
+	*/
     public void setMapProvider(AbstractMapProvider provider){
         mapProvider = provider;
     }
@@ -194,11 +207,11 @@ public abstract class Mapper {
         DataImporter importer = new DataImporter(this.app);
         return importer.load(filename);
     }
-
+	
     public abstract void addMarker(Marker marker);
 
     /**
-     *
+     * Zeichenmethode 
      */
     public void draw(){
         // Zeichne Karte
