@@ -46,10 +46,9 @@ void setup(){
     
   //Die Marker werden der Karte hinzugefügt  
   for ( Trackpoint tp : wochenendetpl) {
-    StandardMarker marker = new StandardMarker(tp);
+    MarkerRectangle marker = new MarkerRectangle(tp);
     marker.setSize(10);
     marker.setColor("rot");
-    marker.setStyle("Rectangle");
     mapper.addMarker(marker);
   } 
   
@@ -59,7 +58,6 @@ void setup(){
 
     StandardMarker marker = new StandardMarker(tp);
     marker.setSize(10);
-    marker.setStyle("Round");
     marker.setColor("blau");
     mapper.addMarker(marker);
   } 

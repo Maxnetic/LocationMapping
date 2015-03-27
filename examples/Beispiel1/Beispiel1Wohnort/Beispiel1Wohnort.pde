@@ -27,9 +27,10 @@ void setup() {
   System.out.println( (moeglichewohnorte.getLength())== (all.getLength()) );
     
   for ( Trackpoint tp : moeglichewohnorte ) {
-    StandardMarker wohnort = new StandardMarker(tp);
-    //wohnort.setLabel("möglicher Wohnort");
-    //wohnort.setStyle("Labeled");
+    MarkerLabeled wohnort = new MarkerLabeled(tp);
+    wohnort.setLabel("   wohnort");
+    wohnort.setColor(200, 0, 200);
+    wohnort.setTransparency(50);
     mapper.addMarker(wohnort);
   }
     

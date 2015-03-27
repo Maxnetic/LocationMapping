@@ -24,9 +24,8 @@ void setup() {
 
     
   for ( Trackpoint tp : lieblingsorte ) {
-    StandardMarker lieblingsort = new StandardMarker(tp);
+    MarkerLabeled lieblingsort = new MarkerLabeled(tp);
     lieblingsort.setLabel("      "+lieblingsorte.getFrequency(tp.getLocation()));
-    lieblingsort.setStyle("Labeled");
     mapper.addMarker(lieblingsort);
   }
     

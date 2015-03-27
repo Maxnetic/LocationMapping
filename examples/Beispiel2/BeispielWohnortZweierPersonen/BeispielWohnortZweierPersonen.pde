@@ -22,7 +22,7 @@ void setup() {
   Filter wohnortfilter = new Filter();
   wohnortfilter.setStarttime("02:00");
   wohnortfilter.setEndtime("05:00");
-  wohnortfilter.setMinFrequency(300);
+  wohnortfilter.setMinFrequency(2000);
   TrackpointList moeglicheWohnorteMalte;
   
   
@@ -31,7 +31,7 @@ void setup() {
   Filter jsonwohnortfilter = new Filter();
   jsonwohnortfilter.setStarttime("02:00");
   jsonwohnortfilter.setEndtime("05:00");
-  jsonwohnortfilter.setMinFrequency(25);
+  jsonwohnortfilter.setMinFrequency(500); //eventuell hochsetzen
   TrackpointList moeglicheWohnorteMax;
   
   moeglicheWohnorteMax = jsonwohnortfilter.apply(list2);
@@ -39,15 +39,17 @@ void setup() {
   
     
   for ( Trackpoint tp : moeglicheWohnorteMalte ) {
-    StandardMarker wohnortMalte = new StandardMarker(tp);
-    wohnortMalte.setStyle("Labeled");
-    wohnortMalte.setLabel("möglicher Wohnort von Malte");
+    MarkerLabeled wohnortMalte = new MarkerLabeled(tp);
+    wohnortMalte.setLabel("  möglicher Wohnort von Malte");
+    wohnortMalte.setColor(200,0,200);
+    wohnortMalte.setTransparency(50);
     mapper.addMarker(wohnortMalte);
   }
   for (Trackpoint tp : moeglicheWohnorteMax){
-    StandardMarker wohnortMax = new StandardMarker(tp);
-    wohnortMax.setStyle("Labeled");
-    wohnortMax.setLabel("möglicher Wohnort von Max");
+    MarkerLabeled wohnortMax = new MarkerLabeled(tp);
+    wohnortMax.setColor(0,200,200);
+    wohnortMax.setTransparency(50);
+    wohnortMax.setLabel("  möglicher Wohnort von Max");
     mapper.addMarker(wohnortMax);
   }
     
