@@ -193,9 +193,9 @@ public class DayFilter extends Filter {
             int year, month, day;
             if ( dateString.contains(".") ){
                 String[] aux = dateString.split("\\.");
-                day = Integer.parseInt(aux[0]);
-                month = Integer.parseInt(aux[1]);
-                year = Integer.parseInt(aux[2]);
+                day = Integer.parseInt(aux[0].replaceAll("[\\D]", ""));
+                month = Integer.parseInt(aux[1].replaceAll("[\\D]", ""));
+                year = Integer.parseInt(aux[2].replaceAll("[\\D]", ""));
                 if ( year < 100 ){
                     if ( year < (new DateTime().getYear()-2000) )
                         year += 2000;
@@ -214,7 +214,7 @@ public class DayFilter extends Filter {
     }
 
     /**
-     * Hilfsfunktion, die einen String in ein Datumsobjekt umwandelt
+     * Hilfsfunktion, die einen String in ein Datumsintervalobjekt umwandelt
      *
      * @param dateIntervalString Datumsintervalstring im Format: YYYY/MM/DD-YYYY/MM/DD oder D.M.YY-D.M.YY
      * @return gibt Zeitintervalobjekt zurueck, welches eingegebenes Zeitinterval reprasesentiert

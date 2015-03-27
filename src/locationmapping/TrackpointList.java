@@ -18,7 +18,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
     * Hastable, der Haeufigkeiten der einzelnen Trackpoints enthaelt
     */
-    private Hashtable<Location, Integer> locationFrequencies;
+    private LinkedHashMap<Location, Integer> locationFrequencies;
     /**
     * Laenge der Trackpointliste
     */
@@ -35,7 +35,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     */
     public TrackpointList() {
         trackpointList = new ArrayList<Trackpoint>();
-        locationFrequencies = new Hashtable<Location,Integer>();
+        locationFrequencies = new LinkedHashMap<Location,Integer>();
     }
 
     /**
@@ -358,9 +358,9 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Gibt Hashtable mit Ortshaeufigkeiten zurueck
      *
-     * @return [Hashtable<Location, Integer>] : Hastable mit Ortshaeufigkeiten der einzelnen Trackpoints
+     * @return Hastable mit Ortshaeufigkeiten der einzelnen Trackpoints
      */
-    public Hashtable<Location, Integer> getLocationFrequencies(){
+    public LinkedHashMap<Location, Integer> getLocationFrequencies(){
         return locationFrequencies;
     }
 

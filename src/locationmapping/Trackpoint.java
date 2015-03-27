@@ -201,6 +201,15 @@ public class Trackpoint {
     }
 
     /**
+    * Gibt Sekunde der Minute des Trackpoint aus
+    *
+    * @return Sekunde der Minute der Zeitvariable
+    */
+    public int getSecond(){
+        return this.time.getSecondOfMinute();
+    }
+
+    /**
     * Gibt Datum und Uhrzeit des Trackpoint aus
     *
     * @return [String]: String mit Datum und Uhrzeit
