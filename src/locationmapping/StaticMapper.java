@@ -14,6 +14,10 @@ public class StaticMapper extends Mapper {
         super(app);
     }
 
+	/**
+	* Fuegt Marker hinzu
+	* @param marker Marker der hinzugefuegt werden soll
+	*/
     public void addMarker(Marker marker) {
         map.addMarker(marker);
     }
