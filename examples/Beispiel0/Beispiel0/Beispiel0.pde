@@ -16,6 +16,7 @@ StaticMapper mapper = new StaticMapper(this);
 
 void setup(){
  
+  colorMode(HSB, 360, 100, 100);
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
@@ -41,12 +42,13 @@ void setup(){
   
   //Anwenden des MontagDienstag Filters
   TrackpointList montagDienstagtpl;
-  montagDienstagtpl = wochenende.apply(all);
+  montagDienstagtpl = montagDienstag.apply(all);
     
   //Die Marker werden der Karte hinzugefügt  
   for ( Trackpoint tp : wochenendetpl) {
     StandardMarker marker = new StandardMarker(tp);
-    marker.setSize(2);
+    marker.setSize(10);
+    marker.setColor("rot");
     marker.setStyle("Rectangle");
     mapper.addMarker(marker);
   } 
@@ -54,7 +56,11 @@ void setup(){
     
   //Die Marker werden der Karte hinzugefügt 
   for ( Trackpoint tp : montagDienstagtpl) {
+
     StandardMarker marker = new StandardMarker(tp);
+    marker.setSize(10);
+    marker.setStyle("Round");
+    marker.setColor("blau");
     mapper.addMarker(marker);
   } 
 }
