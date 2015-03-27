@@ -49,7 +49,7 @@ public class DynamicMapper extends Mapper {
             if ( this.iter.hasNext() ){
                 Marker marker = this.iter.next();
                 this.map.addMarker(marker);
-                this.map.panTo(marker.getLocation());
+                // this.map.panTo(marker.getLocation());
             }
         }
     }

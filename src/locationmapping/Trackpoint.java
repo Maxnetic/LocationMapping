@@ -1,8 +1,8 @@
 package locationmapping;
 
+import org.joda.time.*;
+
 import de.fhpotsdam.unfolding.geo.Location;
-import java.sql.Timestamp;
-import java.util.Date;
 
 /**
 *
@@ -10,15 +10,15 @@ import java.util.Date;
 public class Trackpoint {
     // Attribute
     /**
-    * Ortsinformation, enthält doubles für Längen und Breitengrad
+    * Ortsinformation, enthaelt doubles fuer Laengen und Breitengrad
     */
     private Location location;
     /**
-    * Zeit- und Datumsinformation, enthält long mit UNIX timestamp in ms
+    * Zeit- und Datumsinformation, enthaelt long mit UNIX time in ms
     */
-    private Timestamp timestamp;
+    private DateTime time;
     /**
-    * Identifikationsnummer für den Datensatz (default = 0)
+    * Identifikationsnummer füuer den Datensatz (default = 0)
     */
     private int id = 0;
     /**
@@ -26,64 +26,73 @@ public class Trackpoint {
     */
     private String label = "";
     /**
-    * Information über den benutzten Handy Service (default = "")
+    * Information ueber den benutzten Handy Service (default = "")
     */
     private String service = "";
-
+    /**
+    * Information ueber die Sichtbarkeit des Trackpoints
+    */
     private boolean visible = true;
 
 
     /**
-    * Konstruktor für Trackpoint Objekte
+    * Konstruktor fuer Trackpoint Objekte
     *
-    * @param timestamp [Timestamp]: Zeit- und Datumsinformation für Trackpoint
-    * @param location [Location]: Ortsinformation für Trackpoint
-    * @param id [int]: (default = 0): Identifikationsnummer für Datensatz des Trackpoints
-    * @param service [String]: (default = ""): Handyserviceinformation
+    * @param time Zeit- und Datumsinformation fuer Trackpoint
+    * @param location Ortsinformation fuer Trackpoint
+    * @param id Identifikationsnummer fuer Datensatz des Trackpoints
+    * @param service Handyserviceinformation
     * @return neues Objekt vom Typ Trackpoint
     */
-    public Trackpoint(Timestamp timestamp, Location location, int id, String service) {
+    public Trackpoint(DateTime time, Location location, int id, String service) {
         this.id = id;
-        this.timestamp = timestamp;
+        this.time = time;
         this.location = new Location(location);
         this.service = service;
     }
-    public Trackpoint(Timestamp timestamp, Location location) {
-        this.timestamp = timestamp;
+    /**
+    * Konstruktor fuer Trackpoint Objekte, setzt id auf 0 und service auf ""
+    *
+    * @param time Zeit- und Datumsinformation fuer Trackpoint
+    * @param location Ortsinformation fuer Trackpoint
+    * @return neues Objekt vom Typ Trackpoint
+    */
+    public Trackpoint(DateTime time, Location location) {
+        this.time = time;
         this.location = new Location(location);
     }
 
     /**
     * Setzt die Identifikationsnummer des Trackpoint
     *
-    * @param id [int]: neue Identifikationsnummer (3 stellige Zahl)
+    * @param id neue Identifikationsnummer (3 stellige Zahl)
     */
     public void setId(int id){
         this.id = id;
     }
 
     /**
-    * Gibt Service des Trackpoints aus
-    *
-    * @return [String] : Service des Trackpoints als String
-    */
-    public String getService(){
-      return service;
-    }
-
-    /**
     * Gibt Identifikationsnummer des Trackpoint aus
     *
-    * @return [int]: Identifikationsnummer des Trackpoint
+    * @return Identifikationsnummer des Trackpoint
     */
     public int getId(){
         return id;
     }
 
     /**
-    * Setzt ein Label für den Trackpoint
+    * Gibt Service des Trackpoints aus
     *
-    * @param label [String]: neues Label für den Trackpoint
+    * @return Service des Trackpoints als String
+    */
+    public String getService(){
+      return service;
+    }
+
+    /**
+    * Setzt ein Label fuer den Trackpoint
+    *
+    * @param label neues Label fuer den Trackpoint
     */
     public void setLabel(String label){
         this.label = label;
@@ -92,138 +101,145 @@ public class Trackpoint {
     /**
     * Gibt das Label des Trackpoint aus
     *
-    * @return [String]: Label des Trackpoint
+    * @return Label des Trackpoint
     */
     public String getLabel(){
         return label;
     }
 
-    public void setVisible(boolean visible){
-      this.visible = visible;
+    /**
+    * Setzt Sichtbarkeit des Trackpoint
+    *
+    * @param visibility Wahrheitswert ueber Sichtbarkeit des Trackpoint
+    */
+    public void setVisible(boolean visibility){
+        this.visible = visibility;
     }
-
-    public boolean getVisible(){
-      return this.visible;
+    /**
+    * Setzt Trackpoint sichtbar
+    */
+    public void setVisible(){
+        this.visible = true;
+    }
+    /**
+     * Setzt Trackpoint unsichtbar
+     */
+    public void setInVisible(){
+        this.visible = false;
     }
 
     /**
-    * Gibt Zeitstempel des Trackpoint aus
+    * Gibt Sichtbarkeit des Trackpoint aus
     *
-    * @return [Timestamp]: Zeitstempel des Trackpoint
+    * @return Wahrheitswert ueber Sichtbarkeit
     */
-    public Timestamp getTimestamp(){
-        return timestamp;
+    public boolean getVisible(){
+        return this.visible;
     }
 
-    @SuppressWarnings("deprecation")
-    public int getYear(){
-      Date dateTime = new Date(this.timestamp.getTime());
-      return dateTime.getYear();
+    /**
+    * Gibt Zeitobjekt des Trackpoint aus
+    *
+    * @return DateTime Objekt des Trackpoint
+    */
+    public DateTime getTime(){
+        return time;
     }
-
-    @SuppressWarnings("deprecation")
-    public int getMonth(){
-      Date dateTime = new Date(this.timestamp.getTime());
-      return dateTime.getMonth();
-    }
-
 
     /**
     * Gibt Zeitstempel des Trackpoint in Sekunden aus
     *
-    * @return [long]: Zeitstempel des Trackpoint
+    * @return Zeitstempel des Trackpoint in Seconds
     */
     public long getSeconds(){
-        return timestamp.getTime()/1000L;
+        return this.time.getMillis()/1000L;
+    }
+
+    /**
+    * Gibt Jahr des Trackpoint aus
+    *
+    * @return Jahr der Zeitvariable
+    */
+    public int getYear(){
+        return this.time.getYear();
+    }
+
+    /**
+    * Gibt Monat im Jahr des Trackpoint aus
+    *
+    * @return Monat im Jahr der Zeitvariable
+    */
+    public int getMonth(){
+        return this.time.getMonthOfYear();
+    }
+
+    /**
+    * Gibt Tag im Monat der Zeitvariable des Trackpoint aus
+    *
+    * @return Tag im Monat der Zeitvariable
+    */
+    public int getDay(){
+        return this.time.getDayOfMonth();
+    }
+
+    /**
+    * Gibt Stunde am Tag des Trackpoint aus
+    *
+    * @return Stunde am Tag der Zeitvariable (24h Format)
+    */
+    public int getHour(){
+        return this.time.getHourOfDay();
+    }
+
+    /**
+    * Gibt Minute der Stunde des Trackpoint aus
+    *
+    * @return Minute der Stunde der Zeitvariable
+    */
+    public int getMinute(){
+        return this.time.getMinuteOfHour();
+    }
+
+    /**
+    * Gibt Sekunde der Minute des Trackpoint aus
+    *
+    * @return Sekunde der Minute der Zeitvariable
+    */
+    public int getSecond(){
+        return this.time.getSecondOfMinute();
     }
 
     /**
     * Gibt Datum und Uhrzeit des Trackpoint aus
     *
-    * @return [String]: String mit Datum und Uhrzeit
+    * @return String mit Datum und Uhrzeit
     */
     public String getDateTime(){
-        return timestamp.toString();
-    }
-
-
-    /**
-    * Gibt Stunde der Zeitvariable des Trackpoint aus
-    *
-    * @return [int]: Stunde der Zeitvariable (24h Format)
-    */
-    @SuppressWarnings("deprecation")
-    public int getHour(){
-        Date dateTime = new Date(this.timestamp.getTime());
-        return dateTime.getHours();
-    }
-
-    /**
-    * Gibt Minute der Zeitvariable des Trackpoint aus
-    *
-    * @return [int]: Minute der Zeitvariable
-    */
-    @SuppressWarnings("deprecation")
-    public int getMinute(){
-        Date dateTime = new Date(this.timestamp.getTime());
-        return dateTime.getMinutes();
-    }
-
-
-    /**
-    * Gibt Tag im Monat der Zeitvariable des Trackpoint aus
-    *
-    * @return [int]: Tag im Monat der Zeitvariable
-    */
-    @SuppressWarnings("deprecation")
-    public int getDay(){
-        Date dateTime = new Date(this.timestamp.getTime());
-        return dateTime.getDate();
+        return this.time.toString();
     }
 
     /**
     * Gibt Wochentag der Zeitvariable des Trackpoint aus
     *
-    * @return [String]: Wochentag der Zeitvariable
+    * @return Wochentag der Zeitvariable als Zahl (Su=0, ..., Sa=6)
     */
-    public String getDayOfTheWeek(){
-        Date dateTime = new Date(this.timestamp.getTime());
-        @SuppressWarnings("deprecation")
-        int weekDay = dateTime.getDay();
-        switch(weekDay){
-          case 0:
-            return "sonntag";
-          case 1:
-            return "montag";
-          case 2:
-            return "dienstag";
-          case 3:
-            return "mittwoch";
-          case 4:
-            return "donnerstag";
-          case 5:
-            return "freitag";
-          case 6:
-            return "samstag";
-        }
-        return "";
+    public int getDayOfWeek(){
+        return this.time.getDayOfWeek();
     }
-
-
 
     /**
     * Gibt Ort des Trackpoint aus
     *
-    * @return [Location]: Ortsdaten des Trackpoint
+    * @return Ortsdaten des Trackpoint
     */
     public Location getLocation(){
         return location;
     }
 
     /**
-    * Gibt Längengrad des Trackpoint aus
+    * Gibt Laengengrad des Trackpoint aus
     *
-    * @return [float]: Längengrad des Trackpoint
+    * @return Laengengrad des Trackpoint
     */
     public float getLatitude(){
         return location.getLat();
@@ -232,7 +248,7 @@ public class Trackpoint {
     /**
     * Gibt Breitengrad des Trackpoint aus
     *
-    * @return [float] Breitengrad des Trackpoint
+    * @return Breitengrad des Trackpoint
     */
     public float getLongitude(){
         return location.getLon();
@@ -242,106 +258,173 @@ public class Trackpoint {
     /**
     * Berechnet zeitlichen Abstand zwischen zwei Trackpoints
     *
-    * @param trackpoint/timestamp [Trackpoint/Timestamp]: Trackpoint/Timestamp mit dem Zeit verglichen wird
-    * @return [long]: Zeitdifferenz in Sekunden
+    * @param trackpoint Trackpoint mit dem Zeit verglichen wird
+    * @return Zeitdifferenz in Sekunden
     */
     public long timeDistanceTo(Trackpoint trackpoint){
         return this.getSeconds() - trackpoint.getSeconds();
     }
-    public long timeDistanceTo(Timestamp timestamp){
-        return this.getSeconds() - (timestamp.getTime()/1000L);
+    /**
+    * Berechnet zeitlichen Abstand zwischen zwei Trackpoints
+    *
+    * @param time Zeitpunkt mit dem Zeit des Trackpoint verglichen wird
+    * @return Zeitdifferenz in Sekunden
+    */
+    public long timeDistanceTo(DateTime time){
+        return Seconds.secondsBetween(this.time, time).getSeconds();
     }
 
     /**
-    * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig sind
+    * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig sind
     *
-    * @param trackpoint/timestamp [Trackpoint/Timestamp]: Trackpoint/Timestamp mit dem Zeit verglichen wird
-    * @param tolerance [long]: (default = 3s) Toleranzgrenze für Zeitgleichheit in Sekunden
-    * @return [boolean]: Wahrheitswert der Gleichzeitigkeit der Trackpoints innerhalb der Toleranz
+    * @param trackpoint Trackpoint mit dem Zeit verglichen wird
+    * @return Wahrheitswert der Gleichzeitigkeit der Trackpoints innerhalb der Toleranz
     */
     public boolean equalTime(Trackpoint trackpoint){
         return equalTime(trackpoint, 3);
     }
-    public boolean equalTime(Timestamp timestamp){
-        return equalTime(timestamp, 3);
+    /**
+    * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig sind
+    *
+    * @param time Zeitpunkt mit dem Zeit des Trackpoint verglichen wird
+    * @return Wahrheitswert der Gleichzeitigkeit der Trackpoints innerhalb der Toleranz
+    */
+    public boolean equalTime(DateTime time){
+        return equalTime(time, 3);
     }
+    /**
+    * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig sind
+    *
+    * @param trackpoint Trackpoint mit dem Zeit verglichen wird
+    * @param tolerance Toleranzgrenze fuer Zeitgleichheit in Sekunden
+    * @return Wahrheitswert der Gleichzeitigkeit der Trackpoints innerhalb der Toleranz
+    */
     public boolean equalTime(Trackpoint trackpoint, long tolerance){
         return this.timeDistanceTo(trackpoint) <= tolerance;
     }
-    public boolean equalTime(Timestamp timestamp, long tolerance){
-        return this.timeDistanceTo(timestamp) <= tolerance;
+    /**
+    * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig sind
+    *
+    * @param time Zeitpunkt mit dem Zeit des Trackpoint verglichen wird
+    * @param tolerance Toleranzgrenze fuer Zeitgleichheit in Sekunden
+    * @return Wahrheitswert der Gleichzeitigkeit der Trackpoints innerhalb der Toleranz
+    */
+    public boolean equalTime(DateTime time, long tolerance){
+        return this.timeDistanceTo(time) <= tolerance;
     }
 
     /**
-    * Vergleicht Trackpoints bezüglich ihrer Zeitkoordinate
+    * Vergleicht Trackpoints bezueglich ihrer Zeitkoordinate
     *
-    * @param trackpoint/timestamp [Trackpoint/Timestamp]: Trackpoint/Timestamp mit dem Zeit verglichen wird
-    * @return [int]: Zahl gleich 0 falls gleich, kleiner 0 falls anderer Trackpoint führe, größer 0 falls anderer Trackpoint später
+    * @param trackpoint Trackpoint mit dem Zeit verglichen wird
+    * @return Zahl gleich 0 falls gleich, kleiner 0 falls anderer Trackpoint frueher, groesser 0 falls anderer Trackpoint spaeter
     */
     public int compareTimeTo(Trackpoint trackpoint){
-        return (int) this.timeDistanceTo(trackpoint);
+        return compareTimeTo(trackpoint.getTime());
     }
-    public int compareTimeTo(Timestamp timestamp){
-        return (int) this.timeDistanceTo(timestamp);
+    /**
+    * Vergleicht Trackpoints bezueglich ihrer Zeitkoordinate
+    *
+    * @param time Zeitpunkt mit dem Zeit des TrackpointList verglichen wird
+    * @return Zahl gleich 0 falls gleich, kleiner 0 falls anderer Trackpoint frueher, groesser 0 falls anderer Trackpoint später
+    */
+    public int compareTimeTo(DateTime time){
+        return this.time.compareTo(time);
     }
 
 
     /**
-    * Berechnet örtlichen Abstand zwischen zwei Trackpoints
+    * Berechnet oertlichen Abstand zwischen zwei Trackpoints
     *
-    * @param trackpoint/location [Trackpoint/Location]: Trackpoint/Location zu dem Abstand berechnet wird
-    * @return [double]: Abstand zwischen den Trackpoints in Grad
+    * @param trackpoint Trackpoint zu dem Abstand berechnet wird
+    * @return Abstand zwischen den Trackpoints in Grad
     */
     public double locationDistanceTo(Trackpoint trackpoint){
         return this.location.getDistance(trackpoint.getLocation());
     }
+    
+    /**
+     * Berechnet oertlichen Abstand zwischen zwei Trackpoints
+     * 
+     * @param location Location zu dem Abstand berechnet wird
+     * @return Abstand zwischen dem Trackpoint und der Location in Grad
+     */
     public double locationDistanceTo(Location location){
         return this.location.getDistance(location);
     }
 
     /**
-    * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
+    * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
     *
-    * @param trackpoint/location [Trackpoint/Location]: Trackpoint/Location mit dem Ort berechnet wird
-    * @param tolerance [double]: (default = 0.00009˚) Toleranzgrenze für Ortsgleichheit in Grad
-    * @return [boolean]: Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
+    * @param trackpoint Trackpoint mit dem Ort berechnet wird, Toleranzgrenze default 0.0009
+    * @return Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
     */
     public boolean equalLocation(Trackpoint trackpoint){
         return equalLocation(trackpoint, 0.00009);
     }
+    
+    /**
+     * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
+     *
+     * @param location Location mit dem Ort berechnet wird, Toleranzgrenze default 0.0009
+     * @return Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
+     */
     public boolean equalLocation(Location location){
         return equalLocation(location, 0.00009);
     }
+    
+    /**
+     * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
+     *
+     * @param trackpoint Trackpoint mit dem Ort berechnet wird
+     * @param tolerance Toleranzgrenze fuer Ortsgleichheit in Grad
+     * @return Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
+     */
     public boolean equalLocation(Trackpoint trackpoint, double tolerance){
         return (this.locationDistanceTo(trackpoint) <= tolerance);
     }
+    
+    /**
+     * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
+     *
+     * @param location Location mit dem Ort berechnet wird
+     * @param tolerance Toleranzgrenze fuer Ortsgleichheit in Grad
+     * @return Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
+     */
     public boolean equalLocation(Location location, double tolerance){
         return (this.locationDistanceTo(location) <= tolerance);
     }
 
     /**
-    * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig und am gleichen Ort sind
+    * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig und am gleichen Ort sind
     *
-    * @param trackpoint [Trackpoint]: Trackpoint mit dem vergliche wird
-    * @param tolerance [long]: (default = 3s) Toleranzgrenze für Zeitgleichheit in Sekunden
-    * @param tolerance [double]: (default = 0.00009˚) Toleranzgrenze für Ortsgleichheit in Grad
-    * @return [boolean]: Wahrheitswert der Gleichzeitigkeit und Ortsgleichheit der Trackpoints innerhalb der Toleranzen
+    * @param trackpoint  Trackpoint mit dem vergliche wird, Toleranzgrenze Zeit: 3s, Toleranzgrenze Ort : 0.0009
+    * @return Wahrheitswert der Gleichzeitigkeit und Ortsgleichheit der Trackpoints innerhalb der Toleranzen
     */
    public boolean equals(Trackpoint trackpoint) {
         return this.equalLocation(trackpoint) && this.equalTime(trackpoint);
     }
+   
+   /**
+    * Ueberprueft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig und am gleichen Ort sind
+    *
+    * @param trackpoint Trackpoint mit dem vergliche wird
+    * @param tolerance Toleranzgrenze fuer Zeitgleichheit in Sekunden
+    * @param tolerance Toleranzgrenze fuer Ortsgleichheit in Grad
+    * @return Wahrheitswert der Gleichzeitigkeit und Ortsgleichheit der Trackpoints innerhalb der Toleranzen
+    */
     public boolean equals(Trackpoint trackpoint, long timeTolerance, double locationTolerance) {
         return this.equalLocation(trackpoint, locationTolerance) && this.equalTime(trackpoint, timeTolerance);
     }
 
 
     /**
-    * Gibt Stringrepräsentation des Trackpoint zurück
+    * Gibt Stringrepraesentation des Trackpoint zurueck
     *
-    * @return [String]: Stringrepräsentation des Trackpoint
+    * @return Stringrepraesentation des Trackpoint
     */
     public String toString(){
-        String out = "Trackpoint(id " + String.format("%03d",this.id) + " | Location " +  this.location.getLat() + " " + this.location.getLon() + " | Timestamp " + this.timestamp;
+        String out = "Trackpoint(id " + String.format("%03d",this.id) + " | Location " +  this.location.getLat() + " " + this.location.getLon() + " | Timestamp " + this.time;
         if ( !this.service.isEmpty() )
             out += " | Service " + this.service;
         if ( !this.label.isEmpty() )

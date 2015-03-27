@@ -1,11 +1,11 @@
 package locationmapping;
 
-import de.fhpotsdam.unfolding.geo.Location;
-
-import java.sql.Timestamp;
+import org.joda.time.*;
 
 import processing.core.PApplet;
 import processing.data.*;
+
+import de.fhpotsdam.unfolding.geo.Location;
 
 public class DataImporter {
     /**
@@ -15,11 +15,11 @@ public class DataImporter {
     /**
     * Mindestabstand zwischen zwei einzulesenden Zeitpunkten in Sekunden (default = "60")
     */
-    private long minTimeDistance = 60;
+    private int minTimeDistance = 60;
     /**
-    * Maximale Anzahl einzulesender Datenpunkte
+    * Maximale Anzahl einzulesender Datenpunkte, -1 = alle
     */
-    private int maxImportSize = 50000;
+    private int maxImportSize = -1;
     /**
     * Genauigkeit in der Ortskoordinaten eingelesen werden sollen in Grad (default = "0.0001")
     */
@@ -48,7 +48,7 @@ public class DataImporter {
     *
     * @param minTimeDistance [long]: mindestabstand zwischen zwei Zeitpunkten in Sekunden
     */
-    public void setMinTimeDistance(long minTimeDistance){
+    public void setMinTimeDistance(int minTimeDistance){
         this.minTimeDistance = minTimeDistance;
     }
 
@@ -125,7 +125,7 @@ public class DataImporter {
             JSONObject row = data.getJSONObject(i);
 
             // Brich Import ab, falls maxImportSize überschritten
-            if ( counter > this.maxImportSize )
+            if ( counter > this.maxImportSize && this.maxImportSize > 0 )
                 break;
 
             // Zeitstempel der Zeile
@@ -148,7 +148,7 @@ public class DataImporter {
 
                 // erstelle Trackpoint und füge ihn zu Liste hinzu
                 Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
-                Trackpoint trackpoint  = new Trackpoint(new Timestamp(timestamp), location, id, "GPS");
+                Trackpoint trackpoint  = new Trackpoint(new DateTime(timestamp), location, id, "GPS");
                 trackpointList.add(trackpoint);
                 // System.out.println(counter + ": " + trackpoint);
             }// end if
@@ -159,7 +159,7 @@ public class DataImporter {
     /**
     * Importiert CSV und TSV Daten von Tabellen mit Headern Timestamp/DateTime, Longitude, Latitude (evtl. Service)
     *
-    * @param filename [String]: Name der zu importierenden Datei im data Ordner
+    * @param filename Name der zu importierenden Datei im data Ordner
     * @param id [int]: (default = 7) Identifikationsnummer der Datensatzes
     * @retrun [Trackpointlist]: Trackpointlist mit Datenpunkten
     */
@@ -173,18 +173,19 @@ public class DataImporter {
         Table data = app.loadTable(filename, "header");
 
         // speichert letzten Zeitstempel für Überprüfung der minTimeDistance
-        Timestamp lastTimestamp = new Timestamp(0);
+        DateTime lastTimestamp = new DateTime(0);
 
         // Laufe über Array mit Daten
         int counter = 0;
         for ( TableRow row : data.rows() ) {
 
             // Brich Import ab, falls maxImportSize überschritten
-            if ( counter > this.maxImportSize )
+            if ( counter < this.maxImportSize )
                 break;
 
             // Zeitstempel der Zeile
-            Timestamp timestamp = new Timestamp(0);
+            DateTime timestamp = new DateTime(0);
+
             try {
                 timestamp = parseDateTimeString(row.getString("DateTime"));
             } catch(IllegalArgumentException e){
@@ -192,7 +193,7 @@ public class DataImporter {
             }
 
             // ignoriere Zeile, falls Zeitunterschied kleiner als minTimeDistance
-            if ( Math.abs(lastTimestamp.getTime() - timestamp.getTime()) > this.minTimeDistance*1000 ){
+            if ( Seconds.secondsBetween(lastTimestamp, timestamp).getSeconds() > this.minTimeDistance ){
                 lastTimestamp = timestamp;
                 counter++;
 
@@ -208,8 +209,7 @@ public class DataImporter {
 
 
                 // erstelle Trackpoint und füge ihn zu Liste hinzu
-                //Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
-                Location location = new Location(latitude, longitude);
+                Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
                 Trackpoint trackpoint  = new Trackpoint(timestamp, location, id, service);
                 trackpointList.add(trackpoint);
                 // System.out.println(counter + ": " + trackpoint);
@@ -218,20 +218,20 @@ public class DataImporter {
         return trackpointList;
     }
 
-    @SuppressWarnings("deprecation")
-    Timestamp parseDateTimeString(String dateTimeString){
-        int month =  Integer.parseInt(dateTimeString.substring(0,2))-1; //indexzählung? hier vorher Fehler, nun gefixt
+    DateTime parseDateTimeString(String dateTimeString){
+        int month =  Integer.parseInt(dateTimeString.substring(0,2));
         int day =  Integer.parseInt(dateTimeString.substring(3,5));
         int year =  Integer.parseInt(dateTimeString.substring(6,10));
         int hour = Integer.parseInt(dateTimeString.substring(11,13));
         int minute = Integer.parseInt(dateTimeString.substring(14,16));
         int second = Integer.parseInt(dateTimeString.substring(17,19));
-        return new Timestamp(year-1900, month, day, hour, minute, second, 0);
+        DateTimeZone zone = DateTimeZone.forID("Europe/Berlin");
+        return new DateTime(year, month, day, hour, minute, second, zone);
     }
 
-    Timestamp parseTimestampString(String timestampString){
-        long timestamp = Long.parseLong(timestampString.substring(0, 1) + timestampString.substring(2, 13));
-        return new Timestamp(timestamp);
+    DateTime parseTimestampString(String timestampString){
+        long timestamp = Long.parseLong(timestampString.substring(0, 1) + timestampString.substring(2, 10)) + 978285600;
+        return new DateTime(timestamp);
     }
 
 }

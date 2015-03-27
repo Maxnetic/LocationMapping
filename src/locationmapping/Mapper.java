@@ -66,6 +66,10 @@ public abstract class Mapper {
     */
     boolean resizable = true;
 
+    public void setStartZoomLevel(int startZoomLevel){
+        this.startZoomLevel = startZoomLevel;
+    }
+
     /**
      * Setzt Groessenanpassbarkeit des Fensters
      *
@@ -168,8 +172,6 @@ public abstract class Mapper {
     }
 
     public void keyEvent(KeyEvent e){
-
     }
-
 
 }
