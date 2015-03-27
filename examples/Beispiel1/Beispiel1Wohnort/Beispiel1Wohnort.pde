@@ -17,18 +17,20 @@ void setup() {
   TrackpointList all;
   all = mapper.importData("malte_spitz.csv");
     
-  Filter wohnortfilter = new Filter();
-  wohnortfilter.setStarttime("02:00");
-  wohnortfilter.setEndtime("05:00");
-  wohnortfilter.setMinFrequency(2000);
+  DateTimeFilter wohnortfilter = new DateTimeFilter();
+  LocationFilter frequencyfilter = new LocationFilter();
+  wohnortfilter.setStartTime("02:00");
+  wohnortfilter.setEndTime("05:00");
+  frequencyfilter.setMinFrequency(2000);
   TrackpointList moeglichewohnorte;
   moeglichewohnorte = wohnortfilter.apply(all);
+  moeglichewohnorte = frequencyfilter.apply(moeglichewohnorte);
   
-  System.out.println( (moeglichewohnorte.getLength())== (all.getLength()) );
+  
     
   for ( Trackpoint tp : moeglichewohnorte ) {
     MarkerLabeled wohnort = new MarkerLabeled(tp);
-    wohnort.setLabel("   wohnort");
+    wohnort.setLabel("wohnort");
     wohnort.setColor(200, 0, 200);
     wohnort.setTransparency(50);
     mapper.addMarker(wohnort);

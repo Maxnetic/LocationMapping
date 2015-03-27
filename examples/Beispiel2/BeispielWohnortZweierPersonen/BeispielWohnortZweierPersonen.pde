@@ -19,23 +19,24 @@ void setup() {
   TrackpointList list2;
   list2 = mapper.importData("max_mittel.json");
     
-  Filter wohnortfilter = new Filter();
-  wohnortfilter.setStarttime("02:00");
-  wohnortfilter.setEndtime("05:00");
-  wohnortfilter.setMinFrequency(2000);
+  DateTimeFilter wohnortfilter = new DateTimeFilter();
+  wohnortfilter.setStartTime("02:00");
+  wohnortfilter.setEndTime("05:00");
+  LocationFilter frequencyfilter = new LocationFilter();
+  frequencyfilter.setMinFrequency(2000);
   TrackpointList moeglicheWohnorteMalte;
   
   
   moeglicheWohnorteMalte = wohnortfilter.apply(list1);
+  moeglicheWohnorteMalte = frequencyfilter.apply(moeglicheWohnorteMalte);
   
-  Filter jsonwohnortfilter = new Filter();
-  jsonwohnortfilter.setStarttime("02:00");
-  jsonwohnortfilter.setEndtime("05:00");
-  jsonwohnortfilter.setMinFrequency(500); //eventuell hochsetzen
+  DateTimeFilter jsonwohnortfilter = new DateTimeFilter();
+  jsonwohnortfilter.setStartTime("02:00");
+  jsonwohnortfilter.setEndTime("05:00");
   TrackpointList moeglicheWohnorteMax;
   
   moeglicheWohnorteMax = jsonwohnortfilter.apply(list2);
-  
+  moeglicheWohnorteMax = frequencyfilter.apply(moeglicheWohnorteMax);
   
     
   for ( Trackpoint tp : moeglicheWohnorteMalte ) {

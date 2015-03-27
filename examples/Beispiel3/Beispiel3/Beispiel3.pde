@@ -26,11 +26,13 @@ void setup(){
   maxtpl = mapper.importData("max_mittel.json");
   
   //setzen des Arbeitsfilters
-  Filter arbeitsfilter = new Filter();
-  arbeitsfilter.setStarttime("10:00");
-  arbeitsfilter.setEndtime("16:00");
-  arbeitsfilter.setWeekday("Montag-Freitag");
-  arbeitsfilter.setMinFrequency(200);
+  DateTimeFilter arbeitsfilter = new DateTimeFilter();
+  arbeitsfilter.setStartTime("10:00");
+  arbeitsfilter.setEndTime("16:00");
+  arbeitsfilter.setWeekDays("montag-freitag");
+  
+  LocationFilter frequencyfilter = new LocationFilter();
+  frequencyfilter.setMinFrequency(200);
   
   //Anwenden des Arbeitsfilters
   maltetpl = arbeitsfilter.apply(maltetpl);
@@ -39,12 +41,14 @@ void setup(){
   for(Trackpoint tp: maltetpl){
       MarkerRectangle marker = new MarkerRectangle(tp);
       marker.setSize(10);
+      marker.setColor("rot");
       mapper.addMarker(marker);
   }
   
   for ( Trackpoint tp : maxtpl) {
       StandardMarker marker = new StandardMarker(tp);
       marker.setSize(10);
+      marker.setColor("gelb");
       mapper.addMarker(marker);
   } 
   

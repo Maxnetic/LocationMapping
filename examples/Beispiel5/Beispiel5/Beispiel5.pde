@@ -22,38 +22,42 @@ void setup(){
     
   TrackpointList maltetpl;
   maltetpl = mapper.importData("malte_spitz.csv");
-  
-  Filter serviceFilterSMS = new Filter();
+  LocationFilter serviceFilterSMS = new LocationFilter();
   serviceFilterSMS.setService("SMS");
   TrackpointList serviceSMS;
   serviceSMS = serviceFilterSMS.apply(maltetpl);
   
-  Filter serviceFilterTelefonie = new Filter();
+  maltetpl = mapper.importData("malte_spitz.csv");
+  LocationFilter serviceFilterTelefonie = new LocationFilter();
   serviceFilterTelefonie.setService("Telefonie");
   TrackpointList serviceTelefonie;
   serviceTelefonie = serviceFilterTelefonie.apply(maltetpl);
   
-  Filter serviceFilterInternet = new Filter();
+  LocationFilter serviceFilterInternet = new LocationFilter();
   serviceFilterInternet.setService("Internet");
   TrackpointList serviceInternet;
   serviceInternet = serviceFilterInternet.apply(maltetpl);
   
-  Filter wohnortfilter = new Filter();
-  wohnortfilter.setStarttime("02:00");
-  wohnortfilter.setEndtime("05:00");
-  wohnortfilter.setMinFrequency(2000);
+  DateTimeFilter wohnortfilter = new DateTimeFilter();
+  wohnortfilter.setStartTime("02:00");
+  wohnortfilter.setEndTime("05:00");
+  LocationFilter frequencyfilter = new LocationFilter();
+  frequencyfilter.setMinFrequency(100);
   TrackpointList moeglichewohnorte;
   moeglichewohnorte = wohnortfilter.apply(maltetpl);
+  moeglichewohnorte = frequencyfilter.apply(moeglichewohnorte);
   
   
   
   for ( Trackpoint tp : serviceSMS) {
       MarkerSMS marker = new MarkerSMS(tp);
       marker.setSize(10);
+      marker.setColor("rot");
       mapper.addMarker(marker);
   } 
   
   for ( Trackpoint tp : serviceTelefonie) {
+      System.out.println("Horst");
       MarkerAnruf marker = new MarkerAnruf(tp);
       marker.setSize(10);
       mapper.addMarker(marker);
@@ -68,8 +72,13 @@ void setup(){
   for ( Trackpoint tp : moeglichewohnorte ) {
     MarkerLabeled wohnort = new MarkerLabeled(tp);
     wohnort.setLabel("möglicher Wohnort");
-    wohnort.setColor("rot");
+    wohnort.setSize(30);
+    wohnort.setColor("grün");
     mapper.addMarker(wohnort);
   }
 
+}
+
+void draw(){
+  
 }

@@ -23,18 +23,18 @@ void setup(){
   TrackpointList all;
   all = mapper.importData("malte_spitz.csv");
     
-  Filter wochenende = new Filter();
-  Filter montagDienstag = new Filter();
+  DateTimeFilter wochenende = new DateTimeFilter();
+  DateTimeFilter montagDienstag = new DateTimeFilter();
   
   //Wochenendefilter wird gesetzt
-  wochenende.setWeekday("Samstag,Sonntag");
-  wochenende.setStarttime("20:00");
-  wochenende.setEndtime("21:00");
+  wochenende.setWeekDays("samstag,sonntag");
+  wochenende.setStartTime("20:00");
+  wochenende.setEndTime("21:00");
   
   //Filter für Montag und Dienstag wird gesetzt
-  montagDienstag.setWeekday("Montag,Dienstag");
-  montagDienstag.setStarttime("08:00");
-  montagDienstag.setEndtime("12:00");
+  montagDienstag.setWeekDays("montag,dienstag");
+  montagDienstag.setStartTime("08:00");
+  montagDienstag.setEndTime("12:00");
   
   //Anwenden des Wochenendfilters
   TrackpointList wochenendetpl;
