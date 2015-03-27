@@ -55,42 +55,42 @@ public class StandardMarker extends SimplePointMarker {
   */
   public void setColor(int hsb_h, int hsb_s, int hsb_b){
     this.hsb_h =hsb_h;
-	this.hsb_s = hsb_s;
-	this.hsb_b = hsb_b;
+  this.hsb_s = hsb_s;
+  this.hsb_b = hsb_b;
   }
 
   public void setTransparency(int trans){
-	transparency = trans;
+  transparency = trans;
   }
 
 
   public void setColor(String colorstr){
     colorstr.toLowerCase();
-	if (colorstr.equals("rot")){
-		hsb_h = 0;
-		hsb_s = 99;
-		hsb_b = 99;
-	}
-	if (colorstr.equals("blau")){
-		hsb_h = 240;
-		hsb_s = 99;
-		hsb_b = 99;
-	}
-	if (colorstr.equals("grün")){
-		hsb_h = 200;
-		hsb_s = 99;
-		hsb_b = 99;
-	}
-	if (colorstr.equals("gelb")){
-		hsb_h = 60;
-		hsb_s = 99;
-		hsb_b = 99;
-	}
-	if (colorstr.equals("grau")){
-		hsb_h = 0;
-		hsb_s = 1;
-		hsb_b = 60;
-	}
+  if (colorstr.equals("rot")){
+    hsb_h = 0;
+    hsb_s = 99;
+    hsb_b = 99;
+  }
+  if (colorstr.equals("blau")){
+    hsb_h = 240;
+    hsb_s = 99;
+    hsb_b = 99;
+  }
+  if (colorstr.equals("grün")){
+    hsb_h = 100;
+    hsb_s = 99;
+    hsb_b = 99;
+  }
+  if (colorstr.equals("gelb")){
+    hsb_h = 60;
+    hsb_s = 99;
+    hsb_b = 99;
+  }
+  if (colorstr.equals("grau")){
+    hsb_h = 0;
+    hsb_s = 1;
+    hsb_b = 60;
+  }
 
 
   }

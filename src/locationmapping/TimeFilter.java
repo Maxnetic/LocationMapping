@@ -17,7 +17,7 @@ public class TimeFilter extends Filter {
     /**
      * Map mit Zeitintervallen, die gefiltert werden sollen
      */
-    private Map<LocalTime,LocalTime> timeIntervals = new LinkedHashMap<LocalTime,LocalTime>();
+    private LinkedHashMap<LocalTime,LocalTime> timeIntervals = new LinkedHashMap<LocalTime,LocalTime>();
 
 
     /**
@@ -219,11 +219,11 @@ public class TimeFilter extends Filter {
     boolean containedInTimeIntervals(Trackpoint trackpoint){
         boolean contained = false;
         LocalTime tpTime = new LocalTime(trackpoint.getHour(), trackpoint.getMinute(), trackpoint.getSecond());
-        if ( timeIntervals.isEmpty() ){
+        if ( this.timeIntervals.isEmpty() ){
             contained = tpTime.compareTo(this.startTime) > 0 && tpTime.compareTo(this.endTime) < 0;
         } else {
-            for ( LocalTime start : timeIntervals.keySet() ){
-                LocalTime end = timeIntervals.get(start);
+            for ( LocalTime start : this.timeIntervals.keySet() ){
+                LocalTime end = this.timeIntervals.get(start);
                 contained = tpTime.compareTo(start) > 0 && tpTime.compareTo(end) < 0;
                 if ( contained ) break;
             }
@@ -239,6 +239,8 @@ public class TimeFilter extends Filter {
      * @return neue gefilterte Trackpointliste
      */
      public TrackpointList apply(TrackpointList list){
+        this.filteredList.add(list);
+
         this.filterByTime();
         return this.filteredList;
     }
