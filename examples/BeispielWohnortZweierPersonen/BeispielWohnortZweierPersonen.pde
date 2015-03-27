@@ -17,7 +17,7 @@ void setup() {
   TrackpointList list1;
   list1 = mapper.importData("malte_spitz.csv");
   TrackpointList list2;
-  list2 = mapper.importData("max_mittel.json");
+  list2 = mapper.importData("max_mittel.csv");
     
   DateTimeFilter wohnortfilter = new DateTimeFilter();
   wohnortfilter.setStartTime("02:00");
