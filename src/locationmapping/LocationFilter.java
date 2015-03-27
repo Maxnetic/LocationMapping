@@ -126,7 +126,8 @@ public class LocationFilter extends Filter {
          if(tp.getVisible() == true){
              filteredtpl.add(tp);
          }else{
-			 tp.setVisible(true);		 
+             tp.setVisible(true);
+         }
      }
      return filteredtpl;
     }

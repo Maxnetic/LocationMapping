@@ -31,15 +31,15 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 	* Transparenz der Farbe des Markers
 	*/
 	int transparency = 100;
-	
+
 	/**
 	* Kosntruktor fuer ColoredLineMarker Objekte
 	*/
 	public ColoredLinesMarker() {
 		super();
 	}
-	
-	
+
+
 	/**
 	* Konstruktor fuer ColoredLineMarker Objekte
 	*
@@ -50,8 +50,8 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 	public ColoredLinesMarker(Location start, Location end) {
 		super(start, end);
 	}
-	
-	
+
+
 	/**
 	* Konstruktor fuer ColoredLineMarker Objekte
 	*
@@ -62,14 +62,14 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 		super(locations);
 	}
 	/**
-	* Setzt Tansparenz 
+	* Setzt Tansparenz
 	*
 	* @param trans Transparenzwert
 	*/
 	public void setTransparency(int trans){
 		transparency = trans;
 	  }
-	  
+
 	  /**
 	  * Setzt Farbe des Markers
 	  *
@@ -82,18 +82,18 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 		this.hsb_s = hsb_s;
 		this.hsb_b = hsb_b;
 	  }
-	  
+
 	  /**
 	  * Setzt Farbe des Markers
 	  * @param colorstr Farbe
 	  */
-	  
+
 	  public void setColor(String colorstr){
 	    colorstr.toLowerCase();
 		if (colorstr.equals("rot")){
 			hsb_h = 0;
 			hsb_s = 99;
-			hsb_b = 99;	
+			hsb_b = 99;
 		} else	if (colorstr.equals("blau")){
 			hsb_h = 240;
 			hsb_s = 99;
@@ -113,9 +113,9 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 		}else{
 		System.out.println("Die Farbe ist nicht in der Liste! Farbe mit HSB Codierung möglich!");
 		}
-			
+
 	  }
-	  
+
 	/**
 	 * Zeichenmethode
 	 */
