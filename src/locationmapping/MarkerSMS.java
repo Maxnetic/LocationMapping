@@ -5,14 +5,32 @@ import de.fhpotsdam.unfolding.geo.Location;
 
 public class MarkerSMS extends StandardMarker {
 
+	/**
+	* Konstruktor für MarkerSMS Objekte
+	*
+	* @param location Ort fuer den Marker erstellt werden soll
+	* @return neues Objekt vom Typ MarkerSMS
+	*/
 	public MarkerSMS(Location location){
 		super(location);
 	}
 	
+	/**
+	* Konstruktor für MarkerSMS Objekte
+	*
+	* @param trackpoint Trackpoint fuer den Marker erstellt werden soll
+	* @return neues Objekt vom Typ MarkerSMS
+	*/
 	public MarkerSMS(Trackpoint trackpoint) {
 	    super(trackpoint.getLocation());
 	}
 		
+	/**
+	* Zeichnet Marker
+	* @param pg Objekt das gezeichnet werden soll
+	* @param x X-Koordinate
+	* @param y Y-Koordinate
+	*/
 	public void draw(PGraphics pg, float x, float y){
 		if (!this.isHidden()){
 			pg.pushStyle();

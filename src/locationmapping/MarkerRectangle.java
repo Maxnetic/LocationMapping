@@ -5,15 +5,30 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
 public class MarkerRectangle extends StandardMarker {
-
+	/**
+	* Konstruktor für MarkerRectangle Objekte
+	*
+	* @param location Ort fuer den Marker erstellt werden soll
+	* @return neues Objekt vom Typ MarkerRectangle
+	*/
 	public MarkerRectangle(Location location){
 		super(location);
 	}
-	
+	/**
+	* Konstruktor für MarkerRectangle Objekte
+	*
+	* @param trackpoint Trackpoint fuer den Marker erstellt werden soll
+	* @return neues Objekt vom Typ MarkerRectangle
+	*/
 	public MarkerRectangle(Trackpoint trackpoint) {
 	    super(trackpoint.getLocation());
 	  }
-	
+	/**
+	* Zeichnet Marker
+	* @param pg Objekt das gezeichnet werden soll
+	* @param x X-Koordinate
+	* @param y Y-Koordinate
+	*/
 	public void draw(PGraphics pg, float x, float y){
 		if (!this.isHidden()){
 			pg.pushStyle();
