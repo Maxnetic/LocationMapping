@@ -123,39 +123,43 @@ public abstract class Mapper {
     public Mapper setStartLocation(double latitude, double longitude){
         return this.setStartLocation(new Location(latitude, longitude));
     }
-	/**
-	* Setzt Startzoomstufe 
-	*
-	* @param zoomLevel Startzoomstufe
-	*/
+    /**
+    * Setzt Startzoomstufe
+    *
+    * @param zoomLevel Startzoomstufe
+    */
     public Mapper setStartZoomLevel(int zoomLevel){
         this.startZoomLevel = zoomLevel;
         return this;
     }
-	/**
-	* Setzt MapProvider
-	*
-	* @param provider MapProvider als String
-	*/
+    /**
+    * Setzt MapProvider
+    *
+    * @param provider MapProvider als String
+    */
     public void setMapProvider(String provider){
-        if (provider == "Microsoft"){
-            mapProvider = new Microsoft.RoadProvider();
-        }
-        if (provider == "Yahoo"){
-            mapProvider = new Yahoo.RoadProvider();
-        }
-        if (provider == "Open Street Map"){
-            mapProvider = new OpenStreetMap.OpenStreetMapProvider();
-        }
-        if (provider == "Google"){
-            mapProvider = new Google.GoogleMapProvider();
+        try {
+            if (provider == "Microsoft"){
+                mapProvider = new Microsoft.RoadProvider();
+            }
+            if (provider == "Yahoo"){
+                mapProvider = new Yahoo.RoadProvider();
+            }
+            if (provider == "Open Street Map"){
+                mapProvider = new OpenStreetMap.OpenStreetMapProvider();
+            }
+            if (provider == "Google"){
+                mapProvider = new Google.GoogleMapProvider();
+            }
+        } catch(Exception e){
+            throw new RuntimeException("Map Provider not found, allowed values: 'Google', 'Microsoft', 'Yahoo', 'Open Street Map'");
         }
     }
-	/**
-	* Setzt MapProvider
-	*
-	* @param provider MapProvider 
-	*/
+    /**
+    * Setzt MapProvider
+    *
+    * @param provider MapProvider
+    */
     public void setMapProvider(AbstractMapProvider provider){
         mapProvider = provider;
     }
@@ -173,12 +177,14 @@ public abstract class Mapper {
      * Initialisiert Fenster, Karte und Buttons, sollte als erstes in setup
      * Methode des Processing Sketches aufgerufen werden
      */
-    @SuppressWarnings("deprecation")
     public void init(){
         // Fenstergröße Setzen und Anpassbar machen
         this.app.size(this.width, this.height);
         if ( resizable )
             this.app.frame.setResizable(true);
+
+        // Setze Farbmodus auf HSB
+        this.app.colorMode(app.HSB, 360, 100, 100);
 
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
@@ -253,11 +259,11 @@ public abstract class Mapper {
         else
             throw new RuntimeException("export failed");
     }
-	
+
     public abstract void addMarker(Marker marker);
 
     /**
-     * Zeichenmethode 
+     * Zeichenmethode
      */
     public void draw(){
         // Zeichne Karte
@@ -268,11 +274,11 @@ public abstract class Mapper {
         this.zoomIn.draw();
         this.zoomOut.draw();
     }
-	/**
-	* Verwaltet Mausaktionen
-	*
-	* @param e Mausaktion
-	*/
+    /**
+    * Verwaltet Mausaktionen
+    *
+    * @param e Mausaktion
+    */
     public void mouseEvent(MouseEvent e){
         int x = e.getX();
         int y = e.getY();
@@ -283,12 +289,12 @@ public abstract class Mapper {
                 break;
         }
     }
-	/**
-	* Verwaltet Mausklicks
-	*
-	* @param x X-Koordinate der Maus
-	* @param y Y-Koordinate der Maus
-	*/
+    /**
+    * Verwaltet Mausklicks
+    *
+    * @param x X-Koordinate der Maus
+    * @param y Y-Koordinate der Maus
+    */
     void clickEventHandler(int x, int y) {
         if ( zoomIn.mouseOver(x, y) )
             map.zoomLevelIn();
@@ -298,11 +304,11 @@ public abstract class Mapper {
             slider.zoomHandler(x);
         }
     }
-	/**
-	* Verwaltet Tastenaktionen
-	*
-	* @param e Tastenevent
-	*/
+    /**
+    * Verwaltet Tastenaktionen
+    *
+    * @param e Tastenevent
+    */
     public void keyEvent(KeyEvent e){
 
     }

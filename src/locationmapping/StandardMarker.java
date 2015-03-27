@@ -61,15 +61,15 @@ public class StandardMarker extends SimplePointMarker {
     this.size = size;
   }
 
-  
+
   /**
   * Setzt die Transparenz des Markers
   * @param trans Transparenzwert
   */
   public void setTransparency(int trans){
-	transparency = trans;
+  transparency = trans;
   }
-  
+
   /**
   * Setzt die Farbe des Markers
   * @param hsb_h Farbwert
@@ -78,43 +78,43 @@ public class StandardMarker extends SimplePointMarker {
   */
   public void setColor(int hsb_h, int hsb_s, int hsb_b){
     this.hsb_h =hsb_h;
-	this.hsb_s = hsb_s;
-	this.hsb_b = hsb_b;
+    this.hsb_s = hsb_s;
+    this.hsb_b = hsb_b;
   }
-  
+
   /**
   * Setzt Farbe des Markers
-  * @param colorstr Farbe 
+  * @param colorstr Farbe
   */
   public void setColor(String colorstr){
     colorstr.toLowerCase();
-	if (colorstr.equals("rot")){
-		hsb_h = 0;
-		hsb_s = 99;
-		hsb_b = 99;	
-	} else	if (colorstr.equals("blau")){
-		hsb_h = 240;
-		hsb_s = 99;
-		hsb_b = 99;
-	} else if (colorstr.equals("grün")){
-		hsb_h = 100;
-		hsb_s = 99;
-		hsb_b = 99;
-	} else if (colorstr.equals("gelb")){
-		hsb_h = 60;
-		hsb_s = 99;
-		hsb_b = 99;
-	} else if (colorstr.equals("grau")){
-		hsb_h = 0;
-		hsb_s = 1;
-		hsb_b = 60;
-	}else{
-	System.out.println("Die Farbe ist nicht in der Liste! Farbe mit HSB Codierung möglich!");
-	}
-		
+  if (colorstr.equals("rot")){
+    hsb_h = 0;
+    hsb_s = 99;
+    hsb_b = 99;
+  } else  if (colorstr.equals("blau")){
+    hsb_h = 240;
+    hsb_s = 99;
+    hsb_b = 99;
+  } else if (colorstr.equals("grün")){
+    hsb_h = 100;
+    hsb_s = 99;
+    hsb_b = 99;
+  } else if (colorstr.equals("gelb")){
+    hsb_h = 60;
+    hsb_s = 99;
+    hsb_b = 99;
+  } else if (colorstr.equals("grau")){
+    hsb_h = 0;
+    hsb_s = 1;
+    hsb_b = 60;
+  }else{
+  System.out.println("Die Farbe ist nicht in der Liste! Farbe mit HSB Codierung möglich!");
   }
-  
-  
+
+  }
+
+
 
   /**
    * Gibt Label aus
@@ -155,14 +155,14 @@ public class StandardMarker extends SimplePointMarker {
   * @param y Y-Koordinate
   */
   public void draw(PGraphics pg, float x, float y){
-		if (!this.isHidden()){
-			pg.pushStyle();
-		    pg.noStroke();  // kein Rand
-		    pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
-		    pg.ellipse(x, y, size, size);  // Form
-		    pg.popStyle();
-		}
+    if (!this.isHidden()){
+      pg.pushStyle();
+        pg.noStroke();  // kein Rand
+        pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
+        pg.ellipse(x, y, size, size);  // Form
+        pg.popStyle();
+    }
   }
-  
+
 }
 
