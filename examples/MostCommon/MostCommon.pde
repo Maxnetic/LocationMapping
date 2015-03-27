@@ -11,7 +11,7 @@ void setup() {
     
     // Import Data
     TrackpointList trackpointlist = mapper.importData("malte_spitz.csv");
-    Filter mostcommon = new Filter();
+    LocationFilter mostcommon = new LocationFilter();
     mostcommon.setMinFrequency(500);
     TrackpointList filteredtpl = mostcommon.apply(trackpointlist);
     

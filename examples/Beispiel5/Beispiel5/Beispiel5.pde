@@ -57,7 +57,6 @@ void setup(){
   } 
   
   for ( Trackpoint tp : serviceTelefonie) {
-      System.out.println("Horst");
       MarkerAnruf marker = new MarkerAnruf(tp);
       marker.setSize(10);
       mapper.addMarker(marker);

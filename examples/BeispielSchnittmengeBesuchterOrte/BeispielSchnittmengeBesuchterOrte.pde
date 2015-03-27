@@ -19,12 +19,12 @@ void setup() {
   TrackpointList list2;
   list2 = mapper.importData("max_mittel.json");
     
-  Filter schnittmengenFilter = new Filter();
-  schnittmengenFilter.setStarttime("08:30");
-  schnittmengenFilter.setEndtime("10:30");
+  DateTimeFilter schnittmengenFilter = new DateTimeFilter();
+  schnittmengenFilter.setStartTime("08:30");
+  schnittmengenFilter.setEndTime("10:30");
   schnittmengenFilter.setStartDate("2009:09:01");
   schnittmengenFilter.setEndDate("2009:09:30");
-  schnittmengenFilter.setWeekday("Montag-Mittwoch,Freitag"); 
+  schnittmengenFilter.setWeekDays("Montag-Mittwoch,Freitag"); 
   TrackpointList vorgefiltert;
   
   
