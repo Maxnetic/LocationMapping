@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
 
-DynamicMapper mapper = new DynamicMapper(this);
+StaticMapper mapper = new StaticMapper(this);
 
 /**
 * In dem Beispiel werden zwei Datensätze nach Aufenthalt von 10 bis 16 Uhr und Monatg bis Freitag gefiltert,
@@ -15,7 +15,7 @@ DynamicMapper mapper = new DynamicMapper(this);
 */
 
 void setup(){
- 
+  colorMode(HSB, 360, 100 ,100);
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
@@ -30,7 +30,7 @@ void setup(){
   arbeitsfilter.setStarttime("10:00");
   arbeitsfilter.setEndtime("16:00");
   arbeitsfilter.setWeekday("Montag-Freitag");
-  arbeitsfilter.setMinFrequency(200);
+  arbeitsfilter.setMinFrequency(500);
   
   //Anwenden des Arbeitsfilters
   maltetpl = arbeitsfilter.apply(maltetpl);
@@ -38,14 +38,20 @@ void setup(){
   
   for(Trackpoint tp: maltetpl){
       StandardMarker marker = new StandardMarker(tp);
-      marker.setSize(10);
-      marker.setStyle("Rectangle");
+      marker.setSize(20);
+      marker.setColor("rot");
+      marker.setStyle("Labeled");
+      marker.setLabel("Möglicher Arbeitsplatz");
       mapper.addMarker(marker);
   }
   
   for ( Trackpoint tp : maxtpl) {
       StandardMarker marker = new StandardMarker(tp);
-      marker.setSize(10);
+      marker.setStyle("Round");
+      marker.setColor("gelb");
+      marker.setStyle("Labeled");
+      marker.setLabel("Möglicher Arbeitsplatz");
+      marker.setSize(20);
       mapper.addMarker(marker);
   } 
   
