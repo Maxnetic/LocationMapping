@@ -125,7 +125,9 @@ public class LocationFilter extends Filter {
      for(Trackpoint tp : trackpointlist){
          if(tp.getVisible() == true){
              filteredtpl.add(tp);
-         }
+         }else{
+			 tp.setVisible(true);
+		 
      }
      return filteredtpl;
     }
