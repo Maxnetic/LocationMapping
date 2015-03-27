@@ -8,6 +8,11 @@ import processing.data.*;
 import de.fhpotsdam.unfolding.geo.Location;
 
 public class DataImporter {
+    public static final int UNIX = 0;
+    public static final int ISO8601 = 1;
+    public static final int EXPONENT_APPLE = 2;
+    public static final int MDY_DATETIME = 3;
+
     /**
     * laufende Processing Applet Instanz
     */
@@ -72,16 +77,6 @@ public class DataImporter {
     }
 
     /**
-    * Importiert Daten
-    *
-    * @param filename Name der zu importierenden Datei im data Ordner
-    * @return Trackpointliste mit Datenpunkten
-    */
-    public TrackpointList load(String filename){
-        return load(filename, 1);
-    }
-    
-    /**
      * Importiert Daten
      *
      * @param filename Name der zu importierenden Datei im data Ordner
@@ -89,7 +84,7 @@ public class DataImporter {
      * @return Trackpointliste mit Datenpunkten
      * @throw RuntimeException, falls Dateiformat unbekannt
      */
-    public TrackpointList load(String filename, int id){
+    public TrackpointList load(String filename, int id, int timeFormat){
         // parse Dateiendung
         String extension = "";
         int i = filename.lastIndexOf('.');
@@ -97,7 +92,7 @@ public class DataImporter {
             extension = filename.substring(i+1);
 
         if ( extension.equals("csv") || extension.equals("tsv") ){
-            return loadSpreadsheet(filename, id);
+            return loadSpreadsheet(filename, id, timeFormat);
         }
         if ( extension.equals("json") ){
             return loadGoogleJSON(filename, id);
@@ -106,16 +101,6 @@ public class DataImporter {
     }
 
 
-    /**
-    * Importiert von Google exportierte JSON Daten
-    *
-    * @param filename Name der zu importierenden Datei im data Ordner
-    * @return Trackpointliste mit Datenpunkten
-    */
-    public TrackpointList loadGoogleJSON(String filename){
-        return loadGoogleJSON(filename, 1);
-    }
-    
     /**
      * Importiert von Google exportierte JSON Daten
      *
@@ -171,23 +156,13 @@ public class DataImporter {
     }
 
     /**
-    * Importiert CSV und TSV Daten von Tabellen mit Headern Timestamp/DateTime, Longitude, Latitude (evtl. Service)
-    *
-    * @param filename Name der zu importierenden Datei im data Ordner
-    * @return Trackpointlist mit Datenpunkten
-    */
-    public TrackpointList loadSpreadsheet(String filename){
-        return loadSpreadsheet(filename, 7);
-    }
-    
-    /**
      * Importiert CSV und TSV Daten von Tabellen mit Headern Timestamp/DateTime, Longitude, Latitude (evtl. Service)
      *
      * @param filename Name der zu importierenden Datei im data Ordner
      * @param id (default = 7) Identifikationsnummer der Datensatzes
      * @return Trackpointlist mit Datenpunkten
      */
-    public TrackpointList loadSpreadsheet(String filename, int id){
+    public TrackpointList loadSpreadsheet(String filename, int id, int timeFormat){
         TrackpointList trackpointList = new TrackpointList();
 
         // Extrahiere Array aus Daten
@@ -201,17 +176,23 @@ public class DataImporter {
         for ( TableRow row : data.rows() ) {
 
             // Brich Import ab, falls maxImportSize ueberschritten
-            if ( counter < this.maxImportSize )
+            if ( counter > this.maxImportSize && this.maxImportSize > 0 )
                 break;
 
             // Zeitstempel der Zeile
             DateTime timestamp = new DateTime(0);
 
-            try {
+            if ( timeFormat == MDY_DATETIME )
                 timestamp = parseDateTimeString(row.getString("DateTime"));
-            } catch(IllegalArgumentException e){
+            else if ( timeFormat == EXPONENT_APPLE )
                 timestamp = parseTimestampString(row.getString("Timestamp"));
-            }
+            else if ( timeFormat == UNIX )
+                timestamp = new DateTime(row.getLong("Timestamp"));
+            else if ( timeFormat == ISO8601 )
+                timestamp = new DateTime(row.getString("DateTime"));
+            else
+                throw new RuntimeException("incompatible DateTime Format");
+
 
             // ignoriere Zeile, falls Zeitunterschied kleiner als minTimeDistance
             if ( Seconds.secondsBetween(lastTimestamp, timestamp).getSeconds() > this.minTimeDistance ){
@@ -241,9 +222,9 @@ public class DataImporter {
 
     /**
      * Wandelt Datenstring in Zeitformat um
-     * 
+     *
      * @param dateTimeString String mit Datum und Zeit
-     * @return aus dem String erstelltes DateTime Objekt 
+     * @return aus dem String erstelltes DateTime Objekt
      */
     DateTime parseDateTimeString(String dateTimeString){
         int month =  Integer.parseInt(dateTimeString.substring(0,2));
@@ -258,7 +239,7 @@ public class DataImporter {
 
     /**
      * Wandelt Timestamp in Zeitformat um
-     * 
+     *
      * @param timestampString String mit Datum und Zeit
      * @return aus dem String erstelltes DateTime Objekt
      */

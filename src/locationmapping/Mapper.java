@@ -12,6 +12,14 @@ import de.fhpotsdam.unfolding.providers.*;
 
 public abstract class Mapper {
     /**
+     * Zeitformate fuer Importer
+     */
+    public static final int UNIX = 0;
+    public static final int ISO8601 = 1;
+    public static final int EXPONENT_APPLE = 2;
+    public static final int MDY_DATETIME = 3;
+
+    /**
      * Einige Locations
      */
     public final Location BERLIN = new Location(52.5f, 13.4f);
@@ -205,7 +213,45 @@ public abstract class Mapper {
      */
     public TrackpointList importData(String filename) {
         DataImporter importer = new DataImporter(this.app);
-        return importer.load(filename);
+        return importer.load(filename, 0, UNIX);
+    }
+    /**
+     * Importiert Daten aus angegbener Datei in eine Trackpointliste
+     *
+     * @param filename Name der zu importierenden Datei aus dem data Ordner
+     * @return TrackpointList mit Datenpunkten aus Datei
+     */
+    public TrackpointList importData(String filename, int timeFormat) {
+        DataImporter importer = new DataImporter(this.app);
+        return importer.load(filename, 0, timeFormat);
+    }
+
+    /**
+     * Importiert Daten aus angegbener Datei in eine Trackpointliste
+     *
+     * @param filename Name der zu importierenden Datei aus dem data Ordner
+     * @return TrackpointList mit Datenpunkten aus Datei
+     */
+    public void exportData(TrackpointList trackpointList, String filename, int maxExportSize) {
+        DataExporter exporter = new DataExporter(this.app);
+        exporter.setMaxExportSize(maxExportSize);
+        if ( exporter.write(trackpointList, filename) )
+            System.out.println("Written CSV to " + filename);
+        else
+            throw new RuntimeException("export failed");
+    }
+    /**
+     * Importiert Daten aus angegbener Datei in eine Trackpointliste
+     *
+     * @param filename Name der zu importierenden Datei aus dem data Ordner
+     * @return TrackpointList mit Datenpunkten aus Datei
+     */
+    public void exportData(TrackpointList trackpointList, String filename) {
+        DataExporter exporter = new DataExporter(this.app);
+        if ( exporter.write(trackpointList, filename) )
+            System.out.println("Written CSV to " + filename);
+        else
+            throw new RuntimeException("export failed");
     }
 	
     public abstract void addMarker(Marker marker);

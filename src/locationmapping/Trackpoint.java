@@ -147,6 +147,15 @@ public class Trackpoint {
     }
 
     /**
+    * Gibt Zeitobjekt des Trackpoint aus
+    *
+    * @return DateTime Objekt des Trackpoint
+    */
+    public long getTimestamp(){
+        return time.getMillis();
+    }
+
+    /**
     * Gibt Zeitstempel des Trackpoint in Sekunden aus
     *
     * @return Zeitstempel des Trackpoint in Seconds
