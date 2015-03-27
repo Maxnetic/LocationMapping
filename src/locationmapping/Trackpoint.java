@@ -30,7 +30,7 @@ public class Trackpoint {
     */
     private String service = "";
     /**
-    * Information über den benutzten Handy Service (default = "")
+    * Information �ber die Sichtbarkeit des Trackpoints
     */
     private boolean visible = true;
 
@@ -65,7 +65,7 @@ public class Trackpoint {
     /**
     * Setzt die Identifikationsnummer des Trackpoint
     *
-    * @param id [int]: neue Identifikationsnummer (3 stellige Zahl)
+    * @param id neue Identifikationsnummer (3 stellige Zahl)
     */
     public void setId(int id){
         this.id = id;
@@ -74,7 +74,7 @@ public class Trackpoint {
     /**
     * Gibt Identifikationsnummer des Trackpoint aus
     *
-    * @return [int]: Identifikationsnummer des Trackpoint
+    * @return Identifikationsnummer des Trackpoint
     */
     public int getId(){
         return id;
@@ -83,7 +83,7 @@ public class Trackpoint {
     /**
     * Gibt Service des Trackpoints aus
     *
-    * @return [String] : Service des Trackpoints als String
+    * @return Service des Trackpoints als String
     */
     public String getService(){
       return service;
@@ -92,7 +92,7 @@ public class Trackpoint {
     /**
     * Setzt ein Label für den Trackpoint
     *
-    * @param label [String]: neues Label für den Trackpoint
+    * @param label neues Label für den Trackpoint
     */
     public void setLabel(String label){
         this.label = label;
@@ -101,7 +101,7 @@ public class Trackpoint {
     /**
     * Gibt das Label des Trackpoint aus
     *
-    * @return [String]: Label des Trackpoint
+    * @return Label des Trackpoint
     */
     public String getLabel(){
         return label;
@@ -212,7 +212,7 @@ public class Trackpoint {
     /**
     * Gibt Datum und Uhrzeit des Trackpoint aus
     *
-    * @return [String]: String mit Datum und Uhrzeit
+    * @return String mit Datum und Uhrzeit
     */
     public String getDateTime(){
         return this.time.toString();
@@ -230,7 +230,7 @@ public class Trackpoint {
     /**
     * Gibt Ort des Trackpoint aus
     *
-    * @return [Location]: Ortsdaten des Trackpoint
+    * @return Ortsdaten des Trackpoint
     */
     public Location getLocation(){
         return location;
@@ -239,7 +239,7 @@ public class Trackpoint {
     /**
     * Gibt Längengrad des Trackpoint aus
     *
-    * @return [float]: Längengrad des Trackpoint
+    * @return Längengrad des Trackpoint
     */
     public float getLatitude(){
         return location.getLat();
@@ -248,7 +248,7 @@ public class Trackpoint {
     /**
     * Gibt Breitengrad des Trackpoint aus
     *
-    * @return [float] Breitengrad des Trackpoint
+    * @return Breitengrad des Trackpoint
     */
     public float getLongitude(){
         return location.getLon();
@@ -336,12 +336,19 @@ public class Trackpoint {
     /**
     * Berechnet örtlichen Abstand zwischen zwei Trackpoints
     *
-    * @param trackpoint/location [Trackpoint/Location]: Trackpoint/Location zu dem Abstand berechnet wird
-    * @return [double]: Abstand zwischen den Trackpoints in Grad
+    * @param trackpoint Trackpoint zu dem Abstand berechnet wird
+    * @return Abstand zwischen den Trackpoints in Grad
     */
     public double locationDistanceTo(Trackpoint trackpoint){
         return this.location.getDistance(trackpoint.getLocation());
     }
+    
+    /**
+     * Berechnet �rtlichen Abstand zwischen zwei Trackpoints
+     * 
+     * @param location Location zu dem Abstand berechnet wird
+     * @return Abstand zwischen dem Trackpoint und der Location in Grad
+     */
     public double locationDistanceTo(Location location){
         return this.location.getDistance(location);
     }
@@ -349,19 +356,41 @@ public class Trackpoint {
     /**
     * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
     *
-    * @param trackpoint/location [Trackpoint/Location]: Trackpoint/Location mit dem Ort berechnet wird
-    * @param tolerance [double]: (default = 0.00009˚) Toleranzgrenze für Ortsgleichheit in Grad
-    * @return [boolean]: Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
+    * @param trackpoint Trackpoint mit dem Ort berechnet wird, Toleranzgrenze default 0.0009
+    * @return Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
     */
     public boolean equalLocation(Trackpoint trackpoint){
         return equalLocation(trackpoint, 0.00009);
     }
+    
+    /**
+     * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
+     *
+     * @param location Location mit dem Ort berechnet wird, Toleranzgrenze default 0.0009
+     * @return Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
+     */
     public boolean equalLocation(Location location){
         return equalLocation(location, 0.00009);
     }
+    
+    /**
+     * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
+     *
+     * @param trackpoint Trackpoint mit dem Ort berechnet wird
+     * @param tolerance Toleranzgrenze für Ortsgleichheit in Grad
+     * @return Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
+     */
     public boolean equalLocation(Trackpoint trackpoint, double tolerance){
         return (this.locationDistanceTo(trackpoint) <= tolerance);
     }
+    
+    /**
+     * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze am gleichen Ort sind
+     *
+     * @param location Location mit dem Ort berechnet wird
+     * @param tolerance Toleranzgrenze für Ortsgleichheit in Grad
+     * @return Wahrheitswert der Ortsgleichheit der Trackpoints innerhalb der Toleranz
+     */
     public boolean equalLocation(Location location, double tolerance){
         return (this.locationDistanceTo(location) <= tolerance);
     }
@@ -369,14 +398,21 @@ public class Trackpoint {
     /**
     * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig und am gleichen Ort sind
     *
-    * @param trackpoint [Trackpoint]: Trackpoint mit dem vergliche wird
-    * @param tolerance [long]: (default = 3s) Toleranzgrenze für Zeitgleichheit in Sekunden
-    * @param tolerance [double]: (default = 0.00009˚) Toleranzgrenze für Ortsgleichheit in Grad
-    * @return [boolean]: Wahrheitswert der Gleichzeitigkeit und Ortsgleichheit der Trackpoints innerhalb der Toleranzen
+    * @param trackpoint  Trackpoint mit dem vergliche wird, Toleranzgrenze Zeit: 3s, Toleranzgrenze Ort : 0.0009
+    * @return Wahrheitswert der Gleichzeitigkeit und Ortsgleichheit der Trackpoints innerhalb der Toleranzen
     */
    public boolean equals(Trackpoint trackpoint) {
         return this.equalLocation(trackpoint) && this.equalTime(trackpoint);
     }
+   
+   /**
+    * Überprüft ob zwei Trackpoints innerhalb einer Toleranzgrenze gleichzeitig und am gleichen Ort sind
+    *
+    * @param trackpoint Trackpoint mit dem vergliche wird
+    * @param tolerance Toleranzgrenze für Zeitgleichheit in Sekunden
+    * @param tolerance Toleranzgrenze für Ortsgleichheit in Grad
+    * @return Wahrheitswert der Gleichzeitigkeit und Ortsgleichheit der Trackpoints innerhalb der Toleranzen
+    */
     public boolean equals(Trackpoint trackpoint, long timeTolerance, double locationTolerance) {
         return this.equalLocation(trackpoint, locationTolerance) && this.equalTime(trackpoint, timeTolerance);
     }
@@ -385,7 +421,7 @@ public class Trackpoint {
     /**
     * Gibt Stringrepräsentation des Trackpoint zurück
     *
-    * @return [String]: Stringrepräsentation des Trackpoint
+    * @return Stringrepräsentation des Trackpoint
     */
     public String toString(){
         String out = "Trackpoint(id " + String.format("%03d",this.id) + " | Location " +  this.location.getLat() + " " + this.location.getLon() + " | Timestamp " + this.time;
