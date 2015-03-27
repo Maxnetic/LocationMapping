@@ -1,23 +1,42 @@
 package locationmapping;
 
 public class PlayButton extends Button {
+	/**
+	 * Mapperobjekt zum Verwalten des Buttons
+	 */
     Mapper mapper;
     /**
      * Durchmesser des Buttons
      */
     float d;
 
-
+    /**
+     * Konstruktor fuer PlayButton Objekte
+     * 
+     * @param mapper Mapperobjekt
+     * @param d Durchmesser des Buttons
+     * @return neues Objekt vom Typ PlayButton
+     */
     public PlayButton(Mapper mapper, float d) {
         super(mapper, d, d, d, d);
         this.mapper = mapper;
         this.d = d;
     }
-
+    /**
+     * mouseOver ist true, wenn die Maus darueber gehalten wird.
+     * Benoetigt zum Erkennen von Klicks auf den Button
+     *
+     * @param xM x Position der Maus
+     * @param yM y Position der Maus
+     * @return Wahrheitswert ob Maus ueber Button ist
+     */
     boolean mouseOver(int xM, int yM) {
         return (xM > x-d/2 && xM < x+d/2 && yM > y-d/2 && yM < y+d/2 );
     }
-
+    
+    /**
+     * Zeichnet Button, Mapper verwaltet Pausetaste
+     */
     void draw() {
         this.x = app.width/2f;
         this.y = app.height - this.d/2f - 32;
