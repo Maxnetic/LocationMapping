@@ -2,6 +2,8 @@ package locationmapping;
 
 import java.util.*;
 
+import org.joda.time.DateTime;
+
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 import processing.event.KeyEvent;
@@ -14,12 +16,15 @@ public class DynamicMapper extends Mapper {
     /**
     * Geschwindigkeit mit der gezeichnet wird
     */
-    int speed = 3;
-
+    int speed = 1;
     /**
      * Der Start/Pause-Knopf
      */
     PlayButton play;
+    /**
+     * Der aktuelle Zeitpunkt, der gezeichnet wird
+     */
+    DateTime currentTime = new DateTime(0);
 
     /**
      * Konstruktor für DynamicMapper Objekte
@@ -56,12 +61,26 @@ public class DynamicMapper extends Mapper {
 
         this.play.draw();
 
-        if ( !this.paused && app.frameCount % this.speed == 0 ){
-            if ( this.iter.hasNext() ){
-                Marker marker = this.iter.next();
-                this.map.addMarker(marker);
-                // this.map.panTo(marker.getLocation());
-            }
+        // Zeichne weisses Rechteck
+        this.app.fill(this.backgroundColor);
+        this.app.noStroke();
+        this.app.rect(0, this.app.height-54, this.app.width, 54);
+        // Zeichne Linie ueber Rechteck
+        this.app.stroke(this.textColor);
+        this.app.strokeWeight(1.5f);
+        this.app.line(0, this.app.height-54, this.app.width, this.app.height-54);
+        // Schreibe Urzeit in Rechteck
+        this.app.fill(this.textColor);
+        this.app.textFont(font, 16);
+        // this.app.textSize(16);
+        this.app.text(this.currentTime.toString("E YYYY MMM dd HH:MM:SS") , 32, this.app.height-20);
+
+        if ( !this.paused && app.frameCount % this.speed == 0 && this.iter.hasNext()){
+            StandardMarker marker = (StandardMarker) this.iter.next();
+            this.map.addMarker(marker);
+            this.currentTime = marker.getTime();
+            if ( marker.getDistanceTo(this.map.getCenter()) > this.map.getZoomLevel()*5 )
+                this.map.panTo(marker.getLocation());
         }
     }
     /**

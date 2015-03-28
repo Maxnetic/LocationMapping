@@ -35,7 +35,7 @@ public class PlayButton extends Button {
     void draw() {
         mapper.app.strokeWeight(1.5f);
         this.x = mapper.app.width/2f;
-        this.y = mapper.app.height - this.d/2f - 64;
+        this.y = mapper.app.height - this.d/2f - 80;
 
         mapper.app.fill( mouseOver(mapper.app.mouseX, mapper.app.mouseY) ? mapper.highlightColor : mapper.backgroundColor);
         mapper.app.stroke(mapper.textColor);

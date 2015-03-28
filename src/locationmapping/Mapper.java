@@ -1,6 +1,7 @@
 package locationmapping;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.event.MouseEvent;
 import processing.event.KeyEvent;
 
@@ -68,6 +69,10 @@ public abstract class Mapper {
      * Die Farbe fuer Markierungen auf der Karte
      */
     int mapColor = POSITRON_RED;
+    /**
+     * Die Schriftart fuer Texte auf der Karte
+     */
+    PFont font;
     /**
      * die Start Breite des Fensters
      */
@@ -221,6 +226,7 @@ public abstract class Mapper {
      */
     public Mapper(PApplet app){
         this.app = app;
+        this.font = this.app.loadFont("../../data/Courier.vlw");
     }
 
     /**
