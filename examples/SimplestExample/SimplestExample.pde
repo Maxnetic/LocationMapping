@@ -6,8 +6,6 @@ import de.fhpotsdam.unfolding.providers.*;
 
 void setup() {
     Mapper mapper = new DynamicMapper(this);
-    mapper.setMapProvider(new MapProvider.Light());
-    
     mapper.init();
     
     TrackpointList data = mapper.importData("malte_spitz.csv");
