@@ -4,5 +4,5 @@ public abstract class Filter {
     /**
      * gefilterte TrackpointListe
      */
-    TrackpointList filteredList = new TrackpointList("as");
+    TrackpointList filteredList = new TrackpointList();
 }

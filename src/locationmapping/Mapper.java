@@ -46,7 +46,7 @@ public abstract class Mapper {
     /**
      * der Provider für die Karte
      */
-    private AbstractMapProvider mapProvider = new Google.GoogleTerrainProvider();
+    private AbstractMapProvider mapProvider = new Google.GoogleSimplifiedProvider();
     /**
      * die Start Breite des Fensters
      */
@@ -194,7 +194,7 @@ public abstract class Mapper {
 
         // Setze Startort uns Zoomlevel der Karte
         this.map.setZoomRange(4, 16);
-        this.map.zoomAndPanTo(this.startLocation, this.startZoomLevel);
+        this.map.zoomAndPanTo(this.startZoomLevel, this.startLocation);
 
         // Smoothes Scrollen und Zoomen auf Karte
         this.app.smooth();
