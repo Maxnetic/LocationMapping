@@ -11,9 +11,9 @@ import de.fhpotsdam.unfolding.marker.*;
 public class DynamicMapper extends Mapper {
     ArrayList<Marker> markerList = new ArrayList<Marker>();
     Iterator<Marker> iter;
-	/**
-	* Geschwindigkeit mit der gezeichnet wird
-	*/
+    /**
+    * Geschwindigkeit mit der gezeichnet wird
+    */
     int speed = 3;
 
     /**
@@ -29,28 +29,28 @@ public class DynamicMapper extends Mapper {
     public DynamicMapper(PApplet app){
         super(app);
     }
-	/**
-	* Initmethode
-	*/
+    /**
+    * Initmethode
+    */
     public void init(){
         super.init();
 
         // Play Button erstellen
         this.play = new PlayButton(this, 41);
     }
-	/**
-	* Fuegt Marker hinzu
-	*
-	* @param marker Marker der hinzugefuegt werden soll
-	*/
+    /**
+    * Fuegt Marker hinzu
+    *
+    * @param marker Marker der hinzugefuegt werden soll
+    */
     public void addMarker(Marker marker) {
         this.markerList.add(marker);
         this.iter = this.markerList.iterator();
     }
-	
-	/**
-	* Zeichenmethode
-	*/
+
+    /**
+    * Zeichenmethode
+    */
     public void draw(){
         super.draw();
 
@@ -64,22 +64,22 @@ public class DynamicMapper extends Mapper {
             }
         }
     }
-	/**
-	* Verwaltet Mausklicks
-	*
-	* @param x X-Koordinate der Maus
-	* @param y Y-Koordinate der Maus
-	*/
+    /**
+    * Verwaltet Mausklicks
+    *
+    * @param x X-Koordinate der Maus
+    * @param y Y-Koordinate der Maus
+    */
     void clickEventHandler(int x, int y){
         super.clickEventHandler(x, y);
         if ( play.mouseOver(x, y) )
             paused = !paused;
     }
-	/**
-	* Verwaltet Tastenaktionen
-	*
-	* @param e Tastenevent
-	*/
+    /**
+    * Verwaltet Tastenaktionen
+    *
+    * @param e Tastenevent
+    */
     public void keyEvent(KeyEvent e){
         super.keyEvent(e);
 

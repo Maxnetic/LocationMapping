@@ -13,19 +13,19 @@ public class StandardMarker extends SimplePointMarker {
   /**
   * Farbwert der HSB Farbe
   */
-  int hsb_h = 0;
+  int hsb_h = 359;
   /**
   * Sättigungswert der HSB Farbe
   */
-  int hsb_s = 0;
+  int hsb_s = 31;
   /**
   * Helligkeitswert der HSB Farbe
   */
-  int hsb_b = 0;
+  int hsb_b = 84;
   /**
   * Transparenz der Farbe des Markers
   */
-  int transparency = 100;
+  int transparency = 50;
   /**
   * Text für die Beschriftung
   */
@@ -67,7 +67,7 @@ public class StandardMarker extends SimplePointMarker {
   * @param trans Transparenzwert
   */
   public void setTransparency(int trans){
-  transparency = trans;
+    transparency = trans;
   }
 
   /**
@@ -155,9 +155,10 @@ public class StandardMarker extends SimplePointMarker {
   * @param y Y-Koordinate
   */
   public void draw(PGraphics pg, float x, float y){
+    pg.colorMode(pg.HSB, 360, 100, 100, 100);
     if (!this.isHidden()){
       pg.pushStyle();
-        pg.noStroke();  // kein Rand
+        pg.stroke(hsb_h, hsb_s, hsb_b);  // kein Rand
         pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
         pg.ellipse(x, y, size, size);  // Form
         pg.popStyle();

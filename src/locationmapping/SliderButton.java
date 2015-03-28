@@ -19,8 +19,8 @@ public class SliderButton extends Button {
      * @param y Y-Koordiante des Buttons
      * @param w Breite des Buttons
      * @param h Hoehe des Buttons
-     * @param zoomlevel Zoomlevel
-     * @param startZoomlevel Startwert fuer Zoomlevel
+     * @param zoomlevel Anzahl der Zoomlevel der Karte
+     * @param startZoomlevel kleinstes Zoomlevel der Karte
      */
     public SliderButton(Mapper mapper, float x, float y, float w, float h, float zoomLevel, int startZoomLevel){
         super(mapper, x, y, w, h);
@@ -32,8 +32,16 @@ public class SliderButton extends Button {
      * Zeichnet den Schieberegler des Zooms
      */
     void draw(){
-         super.draw();
-         mapper.app.rect(x + ((w-4) * ((mapper.map.getZoomLevel()-this.startZoomLevel) / this.zoomLevel) ), 16, 8, 16);
+        // Line
+        mapper.app.noStroke();
+        mapper.app.fill(mapper.textColor);
+        mapper.app.rect(x, y, w, h);
+
+        // Button
+        mapper.app.strokeWeight(1.5f);
+        mapper.app.stroke(mapper.textColor);
+        mapper.app.fill(mouseOver(mapper.app.mouseX, mapper.app.mouseY) ? mapper.highlightColor : mapper.backgroundColor);
+        mapper.app.rect(x + ((w+6f) * ((mapper.map.getZoomLevel()-this.startZoomLevel) / this.zoomLevel) ), 16, 8, 16);
     }
 
     /**
@@ -54,7 +62,7 @@ public class SliderButton extends Button {
      * @param xM X-Koordinate der Maus
      */
     void zoomHandler(int xM) {
-        int clickedZoom = (int) ( (xM-x)/(w-4f) * this.zoomLevel ) + this.startZoomLevel;
+        int clickedZoom = (int) ( (xM-x)/(w-8f) * this.zoomLevel ) + this.startZoomLevel;
         mapper.map.zoomToLevel( clickedZoom );
     }
 }

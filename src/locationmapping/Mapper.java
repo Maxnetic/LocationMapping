@@ -30,6 +30,13 @@ public abstract class Mapper {
     public final Location FRANKFURT = new Location(50.12f, 8.68f);
     public final Location STUTTGART = new Location(48.78f, 9.19f);
 
+
+    /**
+    * some special Map colors
+    */
+    public final int POSITRON_RED = -2714732;
+
+
     /**
     * Farben fuer Buttons und aehnliches
     */
@@ -46,41 +53,49 @@ public abstract class Mapper {
      */
     public UnfoldingMap map;
     /**
+     * Die Uebersichtskarte des Mappers
+     */
+    public OverviewMap overviewMap;
+    /**
      * Beschreibt ob Zeichnen pausiert ist oder nicht
      */
     public boolean paused = false;
     /**
      * der Provider für die Karte
      */
-    private AbstractMapProvider mapProvider = new MapProvider.Light();
+    AbstractMapProvider mapProvider = new MapProvider.Light();
+    /**
+     * Die Farbe fuer Markierungen auf der Karte
+     */
+    int mapColor = POSITRON_RED;
     /**
      * die Start Breite des Fensters
      */
-    private int width = 800;
+    int width = 1270;
     /**
      * Die Start Höhe des Fensters
      */
-    private int height = 600;
+    int height = 1380;
     /**
      * Mittelpunkt für Initialisierung der Karte
      */
-    private Location startLocation = BERLIN;
+    Location startLocation = BERLIN;
     /**
      * Zoomlevel, mit der Karte initalisiert wird
      */
-    private int startZoomLevel = 10;
+    int startZoomLevel = 10;
     /**
      * Der ZoomIn-Knopf
      */
-    private ZoomButton zoomIn;
+    ZoomButton zoomIn;
     /**
      * Der ZomOut-Knopf
      */
-    private ZoomButton zoomOut;
+    ZoomButton zoomOut;
     /**
      * Der Zoomslider
      */
-    private SliderButton slider;
+    SliderButton slider;
     /**
     * Fenster groessenanpassbar
     */
@@ -228,27 +243,45 @@ public abstract class Mapper {
 
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
+        this.overviewMap = new OverviewMap(this, 270, 180, this.mapProvider, this.mapColor);
 
         // Ermoeglicht Zoom und Pan auf Karte
         MapUtils.createDefaultEventDispatcher(this.app, this.map);
 
         // Setze Startort uns Zoomlevel der Karte
-        this.map.setZoomRange(4, 16);
+        this.map.setZoomRange(5, 16);
         this.map.zoomAndPanTo(this.startZoomLevel, this.startLocation);
+        this.overviewMap.zoomAndPanTo(this.startZoomLevel-5, this.startLocation);
 
         // Smoothes Scrollen und Zoomen auf Karte
         this.app.smooth();
         this.map.setTweening(true);
 
         // Zoom Buttons und Slider erstellen
-        this.slider = new SliderButton(this, 32, 24, 188, 1, 13, 4);
-        this.zoomIn = new ZoomButton(this, 216, 16, 16, 16, true);
+        this.slider = new SliderButton(this, 32, 23, 188, 3, 12, 5);
+        this.zoomIn = new ZoomButton(this, 217, 16, 16, 16, true);
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         // Listener Einsetzen
         this.app.registerMethod("mouseEvent", this);
         this.app.registerMethod("keyEvent", this);
         this.app.registerMethod("draw", this);
+    }
+
+    /**
+     * Zeichenmethode
+     */
+    public void draw(){
+        // Zeichne Karte
+        this.map.mapDisplay.resize(this.app.width, this.app.height);
+        this.map.draw();
+
+        this.overviewMap.draw();
+
+        // Zeichne Zoom Slider, ZoomIn-Knopf und ZoomOut-Knopf
+        this.slider.draw();
+        this.zoomIn.draw();
+        this.zoomOut.draw();
     }
 
     /**
@@ -303,18 +336,6 @@ public abstract class Mapper {
     public abstract void addMarker(Marker marker);
 
     /**
-     * Zeichenmethode
-     */
-    public void draw(){
-        // Zeichne Karte
-        this.map.draw();
-
-        // Zeichne Zoom Slider, ZoomIn-Knopf, ZoomOut-Knopf und Pause=Knopf
-        this.slider.draw();
-        this.zoomIn.draw();
-        this.zoomOut.draw();
-    }
-    /**
     * Verwaltet Mausaktionen
     *
     * @param e Mausaktion
@@ -336,13 +357,17 @@ public abstract class Mapper {
     * @param y Y-Koordinate der Maus
     */
     void clickEventHandler(int x, int y) {
-        if ( zoomIn.mouseOver(x, y) )
-            map.zoomLevelIn();
-        if ( zoomOut.mouseOver(x, y) )
-            map.zoomLevelOut();
-        if ( slider.mouseOver(x, y) ) {
-            slider.zoomHandler(x);
+        if ( this.zoomIn.mouseOver(x, y) )
+            this.map.zoomLevelIn();
+        else if ( this.zoomOut.mouseOver(x, y) )
+            this.map.zoomLevelOut();
+        else if ( this.slider.mouseOver(x, y) ) {
+            this.slider.zoomHandler(x);
         }
+        else if ( this.overviewMap.mouseOver(x, y) ) {
+            this.overviewMap.panToHandler(x, y);
+        }
+
     }
     /**
     * Verwaltet Tastenaktionen
@@ -352,6 +377,4 @@ public abstract class Mapper {
     public void keyEvent(KeyEvent e){
 
     }
-
-
 }
