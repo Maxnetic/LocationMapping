@@ -30,6 +30,12 @@ public abstract class Mapper {
     public final Location FRANKFURT = new Location(50.12f, 8.68f);
     public final Location STUTTGART = new Location(48.78f, 9.19f);
 
+    /**
+    * Farben fuer Buttons und aehnliches
+    */
+    public int textColor;
+    public int highlightColor;
+    public int backgroundColor;
 
     /**
      * Das Processing Applet in dem der Mapper läuft
@@ -132,29 +138,7 @@ public abstract class Mapper {
         this.startZoomLevel = zoomLevel;
         return this;
     }
-    /**
-    * Setzt MapProvider
-    *
-    * @param provider MapProvider als String
-    */
-    public void setMapProvider(String provider){
-        try {
-            if (provider == "Microsoft"){
-                mapProvider = new Microsoft.RoadProvider();
-            }
-            if (provider == "Yahoo"){
-                mapProvider = new Yahoo.RoadProvider();
-            }
-            if (provider == "Open Street Map"){
-                mapProvider = new OpenStreetMap.OpenStreetMapProvider();
-            }
-            if (provider == "Google"){
-                mapProvider = new Google.GoogleMapProvider();
-            }
-        } catch(Exception e){
-            throw new RuntimeException("Map Provider not found, allowed values: 'Google', 'Microsoft', 'Yahoo', 'Open Street Map'");
-        }
-    }
+
     /**
     * Setzt MapProvider
     *
@@ -162,6 +146,57 @@ public abstract class Mapper {
     */
     public void setMapProvider(AbstractMapProvider provider){
         mapProvider = provider;
+    }
+    /**
+    * Setzt MapProvider
+    *
+    * @param provider MapProvider als String
+    * @throws RuntimeException falls provider String nicht geparsed werden kann
+    */
+    public void setMapProvider(String provider){
+        provider = provider.toLowerCase().trim();
+        switch(provider){
+            case "satelite":
+                this.mapProvider = new MapProvider.Satelite();
+                break;
+            case "hybrid":
+                this.mapProvider = new MapProvider.Hybrid();
+                break;
+            case "google":
+                this.mapProvider = new MapProvider.GoogleMap();
+                break;
+            case "terrain":
+                this.mapProvider = new MapProvider.GoogleTerrain();
+                break;
+            case "light":
+            case "white":
+            case "day":
+                this.mapProvider = new MapProvider.Light();
+                break;
+            case "dark":
+            case "black":
+            case "night":
+                this.mapProvider = new MapProvider.Dark();
+                break;
+            case "gray":
+                this.mapProvider = new MapProvider.OSMGray();
+                break;
+            case "osm":
+            case "open street map":
+                this.mapProvider = new MapProvider.OSM();
+                break;
+            default:
+                throw new RuntimeException("Map Provider not found, allowed values: 'light', 'dark', 'satelite', 'hybrid', 'google', 'osm', 'open street map' ");
+        }
+    }
+    /**
+    * Setzt MapProvider
+    *
+    * @param provider Map Style als String
+    * @throws RuntimeException falls provider String nicht geparsed werden kann
+    */
+    public void setMapStyle(String provider){
+        this.setMapProvider(provider);
     }
 
     /**
@@ -179,12 +214,17 @@ public abstract class Mapper {
      */
     public void init(){
         // Fenstergröße Setzen und Anpassbar machen
-        this.app.size(this.width, this.height);
+        this.app.size(this.width, this.height, this.app.OPENGL);
         if ( resizable )
             this.app.frame.setResizable(true);
 
         // Setze Farbmodus auf HSB
-        this.app.colorMode(app.HSB, 360, 100, 100);
+        this.app.colorMode(app.HSB, 360, 100, 100, 100);
+
+        // Setze Farben fuer Interface
+        this.textColor       = this.app.color(0, 0, 50, 100);
+        this.highlightColor  = this.app.color(0, 0, 90, 100);
+        this.backgroundColor = this.app.color(0, 0, 95, 100);
 
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
@@ -201,8 +241,8 @@ public abstract class Mapper {
         this.map.setTweening(true);
 
         // Zoom Buttons und Slider erstellen
-        this.slider = new SliderButton(this, 32, 22, 184, 4, 13, 4);
-        this.zoomIn = new ZoomButton(this, 202, 16, 16, 16, true);
+        this.slider = new SliderButton(this, 32, 24, 188, 1, 13, 4);
+        this.zoomIn = new ZoomButton(this, 216, 16, 16, 16, true);
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         // Listener Einsetzen

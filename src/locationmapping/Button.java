@@ -4,14 +4,10 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.*;
 
 class Button {
-	/**
-	 * laufende Processing Applet Instanz
-	 */
-    PApplet app;
     /**
-     * Karte, auf der der Button gezeichnet werden soll
+     * Mapperobjekt zum Verwalten des Buttons
      */
-    UnfoldingMap map;
+    Mapper mapper;
     /**
      * Die X-Koordinate des Buttons
      */
@@ -31,17 +27,15 @@ class Button {
 
     /**
      * Konstruktor fuer Button Objekte
-     * 
+     *
      * @param mapper Mapperobjekt
      * @param x X-Koordinate des Buttons
      * @param y Y-Koordiante des Buttons
      * @param w Breite des Buttons
      * @param h Hoehe des Buttons
-     * @return neues Objekt vom Typ Button
      */
     Button(Mapper mapper, float x, float y, float w, float h) {
-        this.map = mapper.map;
-        this.app = mapper.app;
+        this.mapper = mapper;
         this.x = x;
         this.y = y;
         this.w = w;
@@ -59,14 +53,15 @@ class Button {
     boolean mouseOver(int xM, int yM) {
         return (xM > x && xM < x + w && yM > y && yM < y + h);
     }
+
     /**
      * Zeichnet Button
      */
     void draw() {
-        app.strokeWeight(1);
-        app.stroke(80);
-        app.fill(mouseOver(app.mouseX, app.mouseY) ? 255 : 220);
-        app.rect(x, y, w, h);
+        mapper.app.strokeWeight(1.5f);
+        mapper.app.stroke(mapper.textColor);
+        mapper.app.fill(mouseOver(mapper.app.mouseX, mapper.app.mouseY) ? mapper.highlightColor : mapper.backgroundColor);
+        mapper.app.rect(x, y, w, h);
     }
 
 }

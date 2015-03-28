@@ -95,6 +95,16 @@ public class MapProvider {
     }
 
     /**
+     * Standard Open Street Map Provider, nur Umbenennung des unfolding Providers
+     */
+    public static class OSM extends OpenStreetMap.OSMGrayProvider {}
+
+    /**
+     * Grauer Open Street Map Provider, nur Umbenennung des unfolding Providers
+     */
+    public static class OSMGray extends OpenStreetMap.OSMGrayProvider {}
+
+    /**
      * Standard Google Map Provider, nur Umbenennung des unfolding Providers
      */
     public static class GoogleMap extends Google.GoogleMapProvider {}

@@ -13,7 +13,7 @@ public class SliderButton extends Button {
 
     /**
      * Konstruktor fuer SliderButton Objekte
-     * 
+     *
      * @param mapper Mapperobjekt
      * @param x X-Koordinate des Buttons
      * @param y Y-Koordiante des Buttons
@@ -21,7 +21,6 @@ public class SliderButton extends Button {
      * @param h Hoehe des Buttons
      * @param zoomlevel Zoomlevel
      * @param startZoomlevel Startwert fuer Zoomlevel
-     * @return neues Objekt vom Typ Button
      */
     public SliderButton(Mapper mapper, float x, float y, float w, float h, float zoomLevel, int startZoomLevel){
         super(mapper, x, y, w, h);
@@ -34,7 +33,7 @@ public class SliderButton extends Button {
      */
     void draw(){
          super.draw();
-         app.rect(x + ((w-4) * ((map.getZoomLevel()-this.startZoomLevel) / this.zoomLevel) ), 16, 4, 16);
+         mapper.app.rect(x + ((w-4) * ((mapper.map.getZoomLevel()-this.startZoomLevel) / this.zoomLevel) ), 16, 8, 16);
     }
 
     /**
@@ -51,12 +50,12 @@ public class SliderButton extends Button {
 
     /**
      * Zoomt in Mausbereich
-     * 
-     * @param xM X-Koordinate von der Maus
+     *
+     * @param xM X-Koordinate der Maus
      */
     void zoomHandler(int xM) {
         int clickedZoom = (int) ( (xM-x)/(w-4f) * this.zoomLevel ) + this.startZoomLevel;
-        map.zoomToLevel( clickedZoom );
+        mapper.map.zoomToLevel( clickedZoom );
     }
 }
 
