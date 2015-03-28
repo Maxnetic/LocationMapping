@@ -6,9 +6,7 @@ import de.fhpotsdam.unfolding.providers.*;
 
 void setup() {
     Mapper mapper = new DynamicMapper(this);
-//    mapper.setMapProvider(new MapQuestProvider.OSM());
-//    mapper.setMapProvider(new OpenMapSurferProvider.Grayscale());
-    mapper.setMapProvider(new CartoDB.Positron());
+    mapper.setMapProvider(new MapProvider.Light());
     
     mapper.init();
     

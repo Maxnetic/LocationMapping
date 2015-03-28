@@ -46,7 +46,7 @@ public abstract class Mapper {
     /**
      * der Provider für die Karte
      */
-    private AbstractMapProvider mapProvider = new Google.GoogleSimplifiedProvider();
+    private AbstractMapProvider mapProvider = new MapProvider.Light();
     /**
      * die Start Breite des Fensters
      */
