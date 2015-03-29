@@ -235,7 +235,7 @@ public abstract class Mapper {
      */
     public void init(){
         // Fenstergröße Setzen und Anpassbar machen
-        this.app.size(this.width, this.height, this.app.OPENGL);
+        this.app.size(this.width, this.height);
         if ( resizable )
             this.app.frame.setResizable(true);
 
@@ -281,8 +281,7 @@ public abstract class Mapper {
         // Zeichne Karte
         this.map.mapDisplay.resize(this.app.width, this.app.height);
         this.map.draw();
-
-        this.overviewMap.draw();
+        // this.overviewMap.draw();
 
         // Zeichne Zoom Slider, ZoomIn-Knopf und ZoomOut-Knopf
         this.slider.draw();

@@ -24,7 +24,7 @@ public class DynamicMapper extends Mapper {
     /**
      * Der aktuelle Zeitpunkt, der gezeichnet wird
      */
-    DateTime currentTime = new DateTime(0);
+    DateTime time = new DateTime(0);
 
     /**
      * Konstruktor für DynamicMapper Objekte
@@ -60,7 +60,18 @@ public class DynamicMapper extends Mapper {
         super.draw();
 
         this.play.draw();
+        this.drawInfoBox(this.time.toString("EE, HH:mm:ss, MMM d, YYYY"));
 
+        if ( !this.paused && app.frameCount % this.speed == 0 && this.iter.hasNext()){
+            StandardMarker marker = (StandardMarker) this.iter.next();
+            this.map.addMarker(marker);
+            this.time = marker.getTime();
+            if ( marker.getDistanceTo(this.map.getCenter()) > this.map.getZoomLevel()*5 )
+                this.map.panTo(marker.getLocation());
+        }
+    }
+
+    void drawInfoBox(String text){
         // Zeichne weisses Rechteck
         this.app.fill(this.backgroundColor);
         this.app.noStroke();
@@ -73,16 +84,10 @@ public class DynamicMapper extends Mapper {
         this.app.fill(this.textColor);
         this.app.textFont(font, 16);
         // this.app.textSize(16);
-        this.app.text(this.currentTime.toString("E YYYY MMM dd HH:MM:SS") , 32, this.app.height-20);
-
-        if ( !this.paused && app.frameCount % this.speed == 0 && this.iter.hasNext()){
-            StandardMarker marker = (StandardMarker) this.iter.next();
-            this.map.addMarker(marker);
-            this.currentTime = marker.getTime();
-            if ( marker.getDistanceTo(this.map.getCenter()) > this.map.getZoomLevel()*5 )
-                this.map.panTo(marker.getLocation());
-        }
+        this.app.text(text , 32, this.app.height-20);
     }
+
+
     /**
     * Verwaltet Mausklicks
     *
