@@ -9,14 +9,13 @@ import processing.event.MouseEvent;
 import processing.event.KeyEvent;
 
 import de.fhpotsdam.unfolding.marker.*;
+import de.fhpotsdam.unfolding.geo.Location;
 
 public class LifeMapper extends Mapper {
-    ArrayList<Marker> markerList = new ArrayList<Marker>();
-    Iterator<Marker> iter;
     /**
     * Geschwindigkeit mit der gezeichnet wird
     */
-    int speed = 1;
+    int secondsPerFrame = 10;
     /**
      * Der Start/Pause-Knopf
      */
@@ -24,7 +23,29 @@ public class LifeMapper extends Mapper {
     /**
      * Der aktuelle Zeitpunkt, der gezeichnet wird
      */
-    DateTime currentTime = new DateTime(0);
+    DateTime time;
+    Location location;
+
+    SimplePointMarker marker;
+
+    Trackpoint currTrackpoint;
+    Trackpoint nextTrackpoint;
+
+    float[] currSpeeds = new float[2];
+
+    TrackpointList trackpointList;
+
+    Iterator<Trackpoint> iter;
+
+
+    /**
+    * Fuegt Marker hinzu
+    * @param marker Marker der hinzugefuegt werden soll
+    */
+    public void addMarker(Marker marker) {
+        map.addMarker(marker);
+    }
+
 
     /**
      * Konstruktor für DynamicMapper Objekte
@@ -34,23 +55,32 @@ public class LifeMapper extends Mapper {
     public LifeMapper(PApplet app){
         super(app);
     }
+
     /**
     * Initmethode
     */
-    public void init(){
-        super.init();
-
+    public void load(TrackpointList trackpointList){
         // Play Button erstellen
         this.play = new PlayButton(this, 41);
-    }
-    /**
-    * Fuegt Marker hinzu
-    *
-    * @param marker Marker der hinzugefuegt werden soll
-    */
-    public void addMarker(Marker marker) {
-        this.markerList.add(marker);
-        this.iter = this.markerList.iterator();
+
+        // Setze Trackpointliste und initialisiere Iterator
+        this.trackpointList = trackpointList;
+        this.iter = this.trackpointList.iterator();
+        this.currTrackpoint = this.iter.next();
+        this.nextTrackpoint = this.iter.next();
+
+        // Setze Zeit und Ort auf Werte des ersten Trackpoint, berechne Geschwindigkeiten
+        this.time = this.currTrackpoint.getTime();
+        this.location = this.currTrackpoint.getLocation();
+        this.updateSpeeds();
+
+        // Initialisiere Marker
+        this.marker = new SimplePointMarker(location);
+        // HashMap<String, Object> properties = new HashMap<String, Object>();
+        // properties.put("time", trackpoint.getTime());
+        // properties.put("service", trackpoint.getService());
+        // marker.setProperties(properties);
+        this.map.addMarker(marker);
     }
 
     /**
@@ -58,31 +88,38 @@ public class LifeMapper extends Mapper {
     */
     public void draw(){
         super.draw();
-
         this.play.draw();
+        this.drawInfoBox(this.time.toString("E YYYY MMM dd HH:MM:SS"));
 
-        // Zeichne weisses Rechteck
-        this.app.fill(this.backgroundColor);
-        this.app.noStroke();
-        this.app.rect(0, this.app.height-54, this.app.width, 54);
-        // Zeichne Linie ueber Rechteck
-        this.app.stroke(this.textColor);
-        this.app.strokeWeight(1.5f);
-        this.app.line(0, this.app.height-54, this.app.width, this.app.height-54);
-        // Schreibe Urzeit in Rechteck
-        this.app.fill(this.textColor);
-        this.app.textFont(font, 16);
-        // this.app.textSize(16);
-        this.app.text(this.currentTime.toString("E YYYY MMM dd HH:MM:SS") , 32, this.app.height-20);
+        if ( !this.paused && this.iter.hasNext() ){
+            this.time = this.time.plusSeconds(this.secondsPerFrame);
 
-        if ( !this.paused && app.frameCount % this.speed == 0 && this.iter.hasNext()){
-            StandardMarker marker = (StandardMarker) this.iter.next();
-            this.map.addMarker(marker);
-            this.currentTime = marker.getTime();
-            if ( marker.getDistanceTo(this.map.getCenter()) > this.map.getZoomLevel()*5 )
+            // Update Ortsvariable des Trackpoint
+            float newLon = this.location.getLon() +  this.secondsPerFrame * this.currSpeeds[0];
+            float newLat = this.location.getLat() +  this.secondsPerFrame * this.currSpeeds[1];
+            this.marker.setLocation(newLat, newLon);
+
+            if ( this.nextTrackpoint.compareTimeTo(this.time) >= 0 ){
+                this.currTrackpoint = this.nextTrackpoint;
+                this.nextTrackpoint = this.iter.next();
+                this.updateSpeeds();
+            }
+
+            if ( marker.getDistanceTo(this.map.getCenter()) > 4f/this.map.getZoomLevel()*10 )
                 this.map.panTo(marker.getLocation());
         }
     }
+
+    void updateSpeeds(){
+        float lonDist = this.currTrackpoint.getLongitude() - this.nextTrackpoint.getLongitude();
+        float latDist = this.currTrackpoint.getLatitude() - this.nextTrackpoint.getLatitude();
+        long timeDist =  this.currTrackpoint.getSeconds() - this.nextTrackpoint.getSeconds();
+
+        this.currSpeeds[0] = lonDist/timeDist;
+        this.currSpeeds[1] = latDist/timeDist;
+    }
+
+
     /**
     * Verwaltet Mausklicks
     *
@@ -105,5 +142,21 @@ public class LifeMapper extends Mapper {
         if ( e.getKey() == ' ' ) {
             paused = !paused;
         }
+    }
+
+    void drawInfoBox(String text){
+        // Zeichne weisses Rechteck
+        this.app.fill(this.backgroundColor);
+        this.app.noStroke();
+        this.app.rect(0, this.app.height-54, this.app.width, 54);
+        // Zeichne Linie ueber Rechteck
+        this.app.stroke(this.textColor);
+        this.app.strokeWeight(1.5f);
+        this.app.line(0, this.app.height-54, this.app.width, this.app.height-54);
+        // Schreibe Urzeit in Rechteck
+        this.app.fill(this.textColor);
+        this.app.textFont(font, 16);
+        // this.app.textSize(16);
+        this.app.text(text , 32, this.app.height-20);
     }
 }
