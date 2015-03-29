@@ -56,7 +56,7 @@ public class OverviewMap extends UnfoldingMap {
         this.w = w;
         this.h = h;
         this.color = color;
-        this.transparentColor = mapper.app.color(mapper.app.hue(color), mapper.app.saturation(color), mapper.app.brightness(color), 20);
+        this.transparentColor = mapper.app.color(mapper.app.hue(color), mapper.app.saturation(color), mapper.app.brightness(color), 30);
     }
 
     /**

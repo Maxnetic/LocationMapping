@@ -76,11 +76,11 @@ public abstract class Mapper {
     /**
      * die Start Breite des Fensters
      */
-    int width = 1270;
+    int width = 800;
     /**
      * Die Start Höhe des Fensters
      */
-    int height = 1380;
+    int height = 600;
     /**
      * Mittelpunkt für Initialisierung der Karte
      */

@@ -80,6 +80,10 @@ public class LifeMapper extends Mapper {
         // properties.put("time", trackpoint.getTime());
         // properties.put("service", trackpoint.getService());
         // marker.setProperties(properties);
+        this.marker.setColor(this.app.color(359, 31, 84, 30));
+        this.marker.setStrokeColor(this.app.color(359, 31, 84, 100));
+        this.marker.setStrokeWeight(3);
+        this.marker.setRadius(30);
         this.map.addMarker(marker);
     }
 
@@ -89,7 +93,7 @@ public class LifeMapper extends Mapper {
     public void draw(){
         super.draw();
         this.play.draw();
-        this.drawInfoBox(this.time.toString("E YYYY MMM dd HH:MM:SS"));
+        this.drawInfoBox(this.time.toString("EE, HH:mm:ss, MMM d, YYYY"));
 
         if ( !this.paused && this.iter.hasNext() ){
             this.time = this.time.plusSeconds(this.secondsPerFrame);
