@@ -5,9 +5,6 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
-
-StaticMapper mapper = new StaticMapper(this);
-
 /**
 * In dem Beispiel werden zwei Datensätze nach Aufenthalt von 10 bis 16 Uhr und Monatg bis Freitag gefiltert,
 * um den höchstwahrscheinlichen Arbeitsplatz zu bestimmen.
@@ -15,6 +12,7 @@ StaticMapper mapper = new StaticMapper(this);
 */
 
 void setup(){
+  StaticMapper mapper = new StaticMapper(this);
   colorMode(HSB, 360, 100 ,100);
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
