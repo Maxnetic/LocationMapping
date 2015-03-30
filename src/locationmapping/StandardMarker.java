@@ -91,7 +91,7 @@ public class StandardMarker extends SimplePointMarker {
     * @param hsb_b Helligkeitswert
     */
     public void setColor(int hsb_h, int hsb_s, int hsb_b){
-        this.hsb_h =hsb_h;
+        this.hsb_h = hsb_h;
         this.hsb_s = hsb_s;
         this.hsb_b = hsb_b;
     }
@@ -103,7 +103,7 @@ public class StandardMarker extends SimplePointMarker {
     public void setColor(String colorstr){
 		//Formatierung in Kleinbuchstaben
         colorstr.toLowerCase();
-		
+
 		// Fallabfrage
 		if (colorstr.equals("rot")){
 			hsb_h = 0;
@@ -125,30 +125,30 @@ public class StandardMarker extends SimplePointMarker {
 			hsb_h = 0;
 			hsb_s = 1;
 			hsb_b = 60;
-		} else if (colorstr.equals("schwarz"){
+		} else if (colorstr.equals("schwarz")){
 			hsb_h = 0;
 			hsb_s = 0;
 			hsb_b = 0;
-		}else if (colorstr.equals("orange"){	
+		}else if (colorstr.equals("orange")){
 			hsb_h = 30;
 			hsb_s = 99;
-			hsb_b = 99;		
-		}else if (colorstr.equals("rosa"){	
+			hsb_b = 99;
+		}else if (colorstr.equals("rosa")){
 			hsb_h = 300;
 			hsb_s = 99;
-			hsb_b = 99;		
-		}else if (colorstr.equals("türkis"){	
+			hsb_b = 99;
+		}else if (colorstr.equals("türkis")){
 			hsb_h = 170;
 			hsb_s = 99;
-			hsb_b = 99;		
-		}else if (colorstr.equals("lila"){	
+			hsb_b = 99;
+		}else if (colorstr.equals("lila")){
 			hsb_h = 285;
 			hsb_s = 99;
-			hsb_b = 99;	
-		}else if (colorstr.equals("weiß"){	
+			hsb_b = 99;
+		}else if (colorstr.equals("weiß")){
 			hsb_h = 0;
 			hsb_s = 0;
-			hsb_b = 99;		
+			hsb_b = 99;
 		}else{
 			System.out.println("Die Farbe ist nicht in der Liste! Farbe mit HSB Codierung möglich!");
 		}
