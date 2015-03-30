@@ -101,31 +101,57 @@ public class StandardMarker extends SimplePointMarker {
     * @param colorstr Farbe
     */
     public void setColor(String colorstr){
+		//Formatierung in Kleinbuchstaben
         colorstr.toLowerCase();
-    if (colorstr.equals("rot")){
-        hsb_h = 0;
-        hsb_s = 99;
-        hsb_b = 99;
-    } else  if (colorstr.equals("blau")){
-        hsb_h = 240;
-        hsb_s = 99;
-        hsb_b = 99;
-    } else if (colorstr.equals("grün")){
-        hsb_h = 100;
-        hsb_s = 99;
-        hsb_b = 99;
-    } else if (colorstr.equals("gelb")){
-        hsb_h = 60;
-        hsb_s = 99;
-        hsb_b = 99;
-    } else if (colorstr.equals("grau")){
-        hsb_h = 0;
-        hsb_s = 1;
-        hsb_b = 60;
-    }else{
-    System.out.println("Die Farbe ist nicht in der Liste! Farbe mit HSB Codierung möglich!");
-    }
-
+		
+		// Fallabfrage
+		if (colorstr.equals("rot")){
+			hsb_h = 0;
+			hsb_s = 99;
+			hsb_b = 99;
+		} else  if (colorstr.equals("blau")){
+			hsb_h = 240;
+			hsb_s = 99;
+			hsb_b = 99;
+		} else if (colorstr.equals("grün")){
+			hsb_h = 100;
+			hsb_s = 99;
+			hsb_b = 99;
+		} else if (colorstr.equals("gelb")){
+			hsb_h = 60;
+			hsb_s = 99;
+			hsb_b = 99;
+		} else if (colorstr.equals("grau")){
+			hsb_h = 0;
+			hsb_s = 1;
+			hsb_b = 60;
+		} else if (colorstr.equals("schwarz"){
+			hsb_h = 0;
+			hsb_s = 0;
+			hsb_b = 0;
+		}else if (colorstr.equals("orange"){	
+			hsb_h = 30;
+			hsb_s = 99;
+			hsb_b = 99;		
+		}else if (colorstr.equals("rosa"){	
+			hsb_h = 300;
+			hsb_s = 99;
+			hsb_b = 99;		
+		}else if (colorstr.equals("türkis"){	
+			hsb_h = 170;
+			hsb_s = 99;
+			hsb_b = 99;		
+		}else if (colorstr.equals("lila"){	
+			hsb_h = 285;
+			hsb_s = 99;
+			hsb_b = 99;	
+		}else if (colorstr.equals("weiß"){	
+			hsb_h = 0;
+			hsb_s = 0;
+			hsb_b = 99;		
+		}else{
+			System.out.println("Die Farbe ist nicht in der Liste! Farbe mit HSB Codierung möglich!");
+		}
     }
 
 
