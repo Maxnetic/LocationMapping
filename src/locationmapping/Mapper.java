@@ -76,6 +76,10 @@ public abstract class Mapper {
      */
     AbstractMapProvider mapProvider = new MapProvider.Light();
     /**
+     * Alternativer Karten Provider
+     */
+    AbstractMapProvider[] altMapProviders = {new MapProvider.Hybrid(), new MapProvider.Hybrid()};
+    /**
      * Die Farbe fuer Markierungen auf der Karte
      */
     int mapColor = POSITRON_RED;
@@ -111,6 +115,10 @@ public abstract class Mapper {
      * Der Zoomslider
      */
     SliderButton slider;
+    /**
+     * Map Switch Button
+     */
+    AltMapButton mapSwitchButton;
     /**
     * Fenster groessenanpassbar
     */
@@ -199,43 +207,86 @@ public abstract class Mapper {
     * Setzt MapProvider
     *
     * @param provider MapProvider als String
-    * @throws RuntimeException falls provider String nicht geparsed werden kann
     */
     public void setMapProvider(String provider){
+        mapProvider = getMapProvider(provider);
+    }
+
+    /**
+     * Setzt Alternative Karten Provider
+     *
+     * @param altProvider alternativer Provider für Karte
+     * @param altOverviewProvider alternativer Provider für Übersichtskarte
+     */
+    public void setAltMapProvider(AbstractMapProvider altProvider, AbstractMapProvider altOverviewProvider){
+        this.altMapProviders[0] = altProvider;
+        this.altMapProviders[1] = altOverviewProvider;
+    }
+    /**
+     * Setzt Alternative Karten Provider
+     *
+     * @param altProvider alternativer Provider für Karte als String
+     * @param altOverviewProvider alternativer Provider für Übersichtskarte als String
+     */
+    public void setAltMapProvider(String altProvider, String altOverviewProvider){
+        this.altMapProviders[0] = getMapProvider(altProvider);
+        this.altMapProviders[1] = getMapProvider(altOverviewProvider);
+    }
+    /**
+     * Setzt Alternative Karten Provider
+     *
+     * @param altProvider alternativer Provider für Karte als Stringals String
+     */
+    public void setAltMapProvider(String altProvider){
+        this.altMapProviders[0] = getMapProvider(altProvider);
+        this.altMapProviders[1] = getMapProvider(altProvider);
+    }
+
+    /**
+    * Findet MapProvider Objekt für Eingabestring
+    *
+    * @param provider MapProvider als String
+    * @return Map Provider Objekt
+    * @throws RuntimeException falls provider String nicht geparsed werden kann
+    */
+    public AbstractMapProvider getMapProvider(String provider){
+        AbstractMapProvider out = null;
         provider = provider.toLowerCase().trim();
         switch(provider){
             case "satelite":
-                this.mapProvider = new MapProvider.Satelite();
+                out = new MapProvider.Satelite();
                 break;
             case "hybrid":
-                this.mapProvider = new MapProvider.Hybrid();
+                out = new MapProvider.Hybrid();
                 break;
             case "google":
-                this.mapProvider = new MapProvider.GoogleMap();
+                out = new MapProvider.GoogleMap();
                 break;
             case "terrain":
-                this.mapProvider = new MapProvider.GoogleTerrain();
+                out = new MapProvider.GoogleTerrain();
                 break;
             case "light":
             case "white":
             case "day":
-                this.mapProvider = new MapProvider.Light();
+                out = new MapProvider.Light();
                 break;
             case "dark":
             case "black":
             case "night":
-                this.mapProvider = new MapProvider.Dark();
+                out = new MapProvider.Dark();
                 break;
             case "gray":
-                this.mapProvider = new MapProvider.OSMGray();
+                out = new MapProvider.OSMGray();
                 break;
             case "osm":
             case "open street map":
-                this.mapProvider = new MapProvider.OSM();
+                out = new MapProvider.OSM();
                 break;
-            default:
-                throw new RuntimeException("Map Provider not found, allowed values: 'light', 'dark', 'satelite', 'hybrid', 'google', 'osm', 'open street map' ");
         }
+        if ( out != null )
+            return out;
+        else
+            throw new RuntimeException("Map Provider not found, allowed values: 'light', 'dark', 'satelite', 'hybrid', 'google', 'osm', 'open street map' ");
     }
     /**
     * Setzt MapProvider
@@ -303,12 +354,15 @@ public abstract class Mapper {
 
         // Smoothes Scrollen und Zoomen auf Karte
         this.app.smooth();
-        // this.map.setTweening(true);
+        this.map.setTweening(true);
 
         // Zoom Buttons und Slider erstellen
         this.slider = new SliderButton(this, 32, 23, 188, 3, 12, 5);
         this.zoomIn = new ZoomButton(this, 217, 16, 16, 16, true);
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
+
+        //
+        this.mapSwitchButton = new AltMapButton(this, 16, 64, 92, 20, "SWITCH MAP");
 
         // Listener Einsetzen
         this.app.registerMethod("mouseEvent", this);
@@ -334,6 +388,7 @@ public abstract class Mapper {
         this.slider.draw();
         this.zoomIn.draw();
         this.zoomOut.draw();
+        this.mapSwitchButton.draw();
     }
 
     /**
@@ -419,6 +474,9 @@ public abstract class Mapper {
         else if ( this.overviewMap.mouseOver(x, y) ) {
             this.overviewMap.panToHandler(x, y);
         }
+        else if ( this.mapSwitchButton.mouseOver(x, y) ) {
+            this.mapSwitchButton.mapSwitchHandler();
+        }
 
     }
     /**
@@ -427,6 +485,8 @@ public abstract class Mapper {
     * @param e Tastenevent
     */
     public void keyEvent(KeyEvent e){
-
+        if ( e.getKey() == 's' ) {
+            this.mapSwitchButton.mapSwitchHandler();
+        }
     }
 }

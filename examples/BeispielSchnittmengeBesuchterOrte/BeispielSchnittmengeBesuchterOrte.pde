@@ -4,12 +4,19 @@ import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
+<<<<<<< HEAD
+  
+
+void setup() {
+  StaticMapper mapper = new StaticMapper(this);
+=======
 
 
 
 void setup() {
   StaticMapper mapper = new StaticMapper(this);
   hint(ENABLE_RETINA_PIXELS);
+>>>>>>> 4dbe4c4dc5e8695bc2148840fa2eab21c6867f02
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
@@ -23,7 +30,11 @@ void setup() {
   vorFilter.setEndTime("10:30");
   vorFilter.setStartDate("2009:09:01");
   vorFilter.setEndDate("2009:09:30");
+<<<<<<< HEAD
+  vorFilter.setWeekDays("mo-mi ,fr"); 
+=======
   vorFilter.setWeekDays("montag-mittwoch,freitag"); 
+>>>>>>> 4dbe4c4dc5e8695bc2148840fa2eab21c6867f02
   
   LocationFilter schnittmengenFilter = new LocationFilter();
   TrackpointList vorgefiltert;
