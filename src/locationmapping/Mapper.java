@@ -14,14 +14,14 @@ import de.fhpotsdam.unfolding.providers.*;
 
 /**
  * Mapper-Oberklasse
- * Beinhaltet verschiedene Methoden um die Funktionsfaehigkeit 
+ * Beinhaltet verschiedene Methoden um die Funktionsfaehigkeit
  * von unfolding maps zu erweitern.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
  */
 
-public abstract class Mapper {
+public abstract class Mapper implements Const {
     /**
      * Zeitformate fuer Importer
      */
@@ -34,7 +34,7 @@ public abstract class Mapper {
      * Einige Locations
      */
     public final Location BERLIN = new Location(52.5f, 13.4f);
-    public final Location DEUTSCHLAND = new Location(51.16f, 10.45f);
+    public final Location GERMANY = new Location(51.16f, 10.45f);
     public final Location HAMBURG = new Location(53.55f, 9.99f);
     public final Location MUENCHEN = new Location(48.14f, 11.57f);
     public final Location KOELN = new Location(50.94f, 6.95f);
@@ -348,7 +348,7 @@ public abstract class Mapper {
         MapUtils.createDefaultEventDispatcher(this.app, this.map);
 
         // Setze Startort uns Zoomlevel der Karte
-        this.map.setZoomRange(5, 16);
+        this.map.setZoomRange(5, 17);
         this.map.zoomAndPanTo(this.startZoomLevel, this.startLocation);
         this.overviewMap.zoomAndPanTo(this.startZoomLevel-5, this.startLocation);
 
@@ -357,8 +357,8 @@ public abstract class Mapper {
         this.map.setTweening(true);
 
         // Zoom Buttons und Slider erstellen
-        this.slider = new SliderButton(this, 32, 23, 188, 3, 12, 5);
-        this.zoomIn = new ZoomButton(this, 217, 16, 16, 16, true);
+        this.slider = new SliderButton(this, 32, 23, 188, 3, 13, 5);
+        this.zoomIn = new ZoomButton(this, 219, 16, 16, 16, true);
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         //

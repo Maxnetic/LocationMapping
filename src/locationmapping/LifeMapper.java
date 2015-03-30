@@ -33,31 +33,31 @@ public class LifeMapper extends Mapper {
      * Der aktuelle Zeitpunkt, der gezeichnet wird
      */
     DateTime time;
-	/**
+    /**
      * Der aktuelle Ort, der gezeichnet wird
      */
     Location location;
-	/**
-	 * Der Marker, der gezeichnet wird
-	 */
+    /**
+     * Der Marker, der gezeichnet wird
+     */
     SimplePointMarker marker;
-	/**
+    /**
      * Der aktuelle Trackpoint
      */
     Trackpoint currTrackpoint;
-	/**
+    /**
      * Der naechste Trackpoint
      */
     Trackpoint nextTrackpoint;
-	/**
-     * Speichert horizontale und vertikale Geschwindigkeit 
+    /**
+     * Speichert horizontale und vertikale Geschwindigkeit
      */
     float[] currSpeeds = new float[2];
-	/**
+    /**
      * TrackpointList fuer die Marker gezeichnet wird
      */
     TrackpointList trackpointList;
-	/**
+    /**
      * Iterator ueber die Liste
      */
     Iterator<Trackpoint> iter;
@@ -82,12 +82,24 @@ public class LifeMapper extends Mapper {
     }
 
     /**
-    * Initmethode
-	* @param trackpointList TrackpointList die initialisiert wird
-    */
-    public void load(TrackpointList trackpointList){
+     * Initialisiert Fenster, Karte und Buttons
+     * Methode muss in setup des Processing Sketches aufgerufen werden
+     */
+    public void init(){
+        this.setStartZoomLevel(5);
+        super.init();
+
         // Play Button erstellen
         this.play = new PlayButton(this, 41);
+    }
+
+    /**
+    * Lädt Liste ein und erstellt Marker
+    * Methode muss in setup des Processing Sketches aufgerufen werden
+    *
+    * @param trackpointList TrackpointList die dargestellt werden soll
+    */
+    public void load(TrackpointList trackpointList){
 
         // Setze Trackpointliste und initialisiere Iterator
         this.trackpointList = trackpointList;
@@ -142,8 +154,8 @@ public class LifeMapper extends Mapper {
                 // this.map.panTo(marker.getLocation());
         }
     }
-	
-	/**
+
+    /**
      * Aktualisiert die horizontale und vertikale Geschwindigkeit
      */
     void updateSpeeds(){
@@ -180,11 +192,11 @@ public class LifeMapper extends Mapper {
         }
     }
 
-	/**
-	 * Zeichnet ein Feld mit Informationen ueber Ort und Zeit
-	 * 
-	 * @param text zu setzender Informationstext
-	 */
+    /**
+     * Zeichnet ein Feld mit Informationen ueber Ort und Zeit
+     *
+     * @param text zu setzender Informationstext
+     */
     void drawInfoBox(String text){
         // Zeichne weisses Rechteck
         this.app.fill(this.backgroundColor);
