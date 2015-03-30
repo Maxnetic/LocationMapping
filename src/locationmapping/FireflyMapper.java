@@ -20,7 +20,7 @@ import de.fhpotsdam.unfolding.geo.Location;
  * @version 1.0
  */
 
-public class FireflyMapper extends Mapper implements Const{
+public class FireflyMapper extends Mapper{
     /**
     * Geschwindigkeit mit der gezeichnet wird
     */
@@ -33,6 +33,8 @@ public class FireflyMapper extends Mapper implements Const{
      * Der aktuelle Zeitpunkt, der gezeichnet wird
      */
     DateTime time;
+
+    Trackpoint nextTrackpoint;
     /**
      * TrackpointList fuer die Marker gezeichnet wird
      */
@@ -84,7 +86,8 @@ public class FireflyMapper extends Mapper implements Const{
         this.iter = this.trackpointList.iterator();
 
         // Setze Zeit und Ort auf Werte des ersten Trackpoint, berechne Geschwindigkeiten
-        this.time = this.trackpointList.getFirst().getTime();
+        this.nextTrackpoint = trackpointList.getFirst();
+        this.time = this.nextTrackpoint.getTime();
     }
 
     /**
@@ -92,22 +95,28 @@ public class FireflyMapper extends Mapper implements Const{
     */
     public void draw(){
         super.draw();
+
+        // Zeichne Playbutton und Zeitinfo Fußzeile
         this.play.draw();
         this.drawInfoBox(this.time.toString("EE, HH:mm:ss, MMM d, YYYY"));
 
+        // Timetolive aller Trackpoints auf der Karte updaten
+        for ( Iterator<Marker> iter = this.map.mapDisplay.getDefaultMarkerManager().getMarkers().iterator(); iter.hasNext(); ){
+            FireflyMarker marker = (FireflyMarker) iter.next();
+            marker.timeToLive--;
+            if ( marker.timeToLive <= 0 )
+                iter.remove();
+        }
+
+        // Zeichne alle Trackpoints, im aktuellen Zeitabschnitt
         if ( !this.paused ){
-            Trackpoint trackpoint = this.iter.next();
-            while ( trackpoint.compareTimeTo(this.time) < 0 ){
+            while ( this.nextTrackpoint.compareTimeTo(this.time) < 0 && this.iter.hasNext() ){
+                // Lade nächsten Trackpoint
+                this.nextTrackpoint = this.iter.next();
 
-                SimplePointMarker marker = new SimplePointMarker(trackpoint.getLocation());
-                marker.setColor(this.LIGHT_RED);
-                marker.setStrokeWeight(0);
-                marker.setRadius(4);
-                this.map.addMarker(marker);
-
-                trackpoint = this.iter.next();
+                // neuen Marker erstellen und zur Karte hinzufügen
+                this.map.addMarker(new FireflyMarker(nextTrackpoint, 10));
             }
-
             this.time = this.time.plusSeconds(this.secondsPerFrame);
         }
     }

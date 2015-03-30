@@ -23,32 +23,6 @@ import de.fhpotsdam.unfolding.providers.*;
 
 public abstract class Mapper implements Const {
     /**
-     * Zeitformate fuer Importer
-     */
-    public static final int UNIX = 0;
-    public static final int ISO8601 = 1;
-    public static final int EXPONENT_APPLE = 2;
-    public static final int MDY_DATETIME = 3;
-
-    /**
-     * Einige Locations
-     */
-    public final Location BERLIN = new Location(52.5f, 13.4f);
-    public final Location GERMANY = new Location(51.16f, 10.45f);
-    public final Location HAMBURG = new Location(53.55f, 9.99f);
-    public final Location MUENCHEN = new Location(48.14f, 11.57f);
-    public final Location KOELN = new Location(50.94f, 6.95f);
-    public final Location FRANKFURT = new Location(50.12f, 8.68f);
-    public final Location STUTTGART = new Location(48.78f, 9.19f);
-
-
-    /**
-    * Spezielle Kartenfarbe
-    */
-    public final int POSITRON_RED = -2714732;
-
-
-    /**
     * Farben fuer Buttons, Text und Hintergrund
     */
     public int textColor;
@@ -82,7 +56,7 @@ public abstract class Mapper implements Const {
     /**
      * Die Farbe fuer Markierungen auf der Karte
      */
-    int mapColor = POSITRON_RED;
+    int mapColor = Const.LIGHT_RED;
     /**
      * Die Schriftart fuer Texte auf der Karte
      */
