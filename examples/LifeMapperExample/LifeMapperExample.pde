@@ -4,11 +4,10 @@ import locationmapping.*;
 
 void setup() {
   LifeMapper mapper = new LifeMapper(this);
-  // Mapper mapper = new StaticMapper(this);
-  mapper.init();  
+//  mapper.setResizableAndDisableOverview(true);
+  mapper.init(825, 985);
   TrackpointList data = mapper.importData("../../data/malte_spitz.csv");
   mapper.load(data);
 }
 
-void draw() {
-}
+void draw() {}

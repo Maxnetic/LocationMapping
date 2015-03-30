@@ -15,7 +15,7 @@ public class LifeMapper extends Mapper {
     /**
     * Geschwindigkeit mit der gezeichnet wird
     */
-    int secondsPerFrame = 10;
+    int secondsPerFrame = 60;
     /**
      * Der Start/Pause-Knopf
      */
@@ -112,8 +112,8 @@ public class LifeMapper extends Mapper {
 
             this.marker.setLocation(location);
 
-            if ( marker.getDistanceTo(this.map.getCenter()) > 4f/(Math.pow(this.map.getZoomLevel(),2))*100 )
-                this.map.panTo(marker.getLocation());
+            // if ( marker.getDistanceTo(this.map.getCenter()) > 4f/(Math.pow(this.map.getZoomLevel(),2))*100 )
+                // this.map.panTo(marker.getLocation());
         }
     }
 
@@ -163,7 +163,6 @@ public class LifeMapper extends Mapper {
         // Schreibe Urzeit in Rechteck
         this.app.fill(this.textColor);
         this.app.textFont(font, 16);
-        // this.app.textSize(16);
         this.app.text(text , 32, this.app.height-20);
     }
 }
