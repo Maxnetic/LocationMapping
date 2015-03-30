@@ -32,7 +32,7 @@ public class DataImporter {
     /**
     * Maximale Anzahl einzulesender Datenpunkte, -1 = alle (default = -1)
     */
-    private int maxImportSize = -1;
+    private int maxImportSize = 100000;
     /**
     * Genauigkeit in der Ortskoordinaten eingelesen werden sollen in Grad (default = "0.0001")
     */
@@ -204,7 +204,7 @@ public class DataImporter {
 
 
             // ignoriere Zeile, falls Zeitunterschied kleiner als minTimeDistance
-            if ( Seconds.secondsBetween(lastTimestamp, timestamp).getSeconds() >= this.minTimeDistance ){
+            if ( Math.abs((lastTimestamp.getMillis()-timestamp.getMillis())/1000L) >= this.minTimeDistance ){
                 lastTimestamp = timestamp;
                 counter++;
 

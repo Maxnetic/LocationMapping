@@ -79,27 +79,6 @@ public class DynamicMapper extends Mapper {
         }
     }
 
-	/**
-	 * Zeichnet ein Feld mit Informationen ueber Ort und Zeit
-	 * 
-	 * @param text zu setzender Informationstext
-	 */
-    void drawInfoBox(String text){
-        // Zeichne weisses Rechteck
-        this.app.fill(this.backgroundColor);
-        this.app.noStroke();
-        this.app.rect(0, this.app.height-54, this.app.width, 54);
-        // Zeichne Linie ueber Rechteck
-        this.app.stroke(this.textColor);
-        this.app.strokeWeight(1.5f);
-        this.app.line(0, this.app.height-54, this.app.width, this.app.height-54);
-        // Schreibe Urzeit in Rechteck
-        this.app.fill(this.textColor);
-        this.app.textFont(font, 16);
-        // this.app.textSize(16);
-        this.app.text(text , 32, this.app.height-20);
-    }
-
 
     /**
     * Verwaltet Mausklicks

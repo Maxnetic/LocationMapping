@@ -40,5 +40,4 @@ public class ZoomButton extends Button {
             mapper.app.line(x+w/2,y+4,x+w/2,y+h-4);
         }
     }
-
 }

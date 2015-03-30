@@ -199,6 +199,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      * @throws RuntimeException falls Trackpoint nicht enthalten ist
      */
     public Trackpoint get(int position){
+        this.sortByTime();
         if ( position <= this.length )
             return this.trackpointList.get(position);
         throw new RuntimeException("Position " + position + " out of bound");

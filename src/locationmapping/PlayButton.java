@@ -44,7 +44,7 @@ public class PlayButton extends Button {
         this.x = mapper.app.width/2f;
         this.y = mapper.app.height - this.d/2f - 80;
 
-        mapper.app.fill( mouseOver(mapper.app.mouseX, mapper.app.mouseY) ? mapper.highlightColor : mapper.backgroundColor);
+        mapper.app.fill( mouseOver(mapper.app.mouseX, mapper.app.mouseY) ? mapper.buttonColor2 : mapper.buttonColor1);
         mapper.app.stroke(mapper.textColor);
         mapper.app.ellipse(x, y, d, d);
 
