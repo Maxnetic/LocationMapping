@@ -105,8 +105,6 @@ public class LifeMapper extends Mapper {
                 int timeExtra = (int)(this.currTrackpoint.getSeconds() - this.time.getMillis()/1000L);
                 this.location.setLon(this.currTrackpoint.getLongitude() +  timeExtra * this.currSpeeds[0]);
                 this.location.setLat(this.currTrackpoint.getLatitude() +  timeExtra * this.currSpeeds[1]);
-                // this.location.setLon(this.currTrackpoint.getLongitude());
-                // this.location.setLat(this.currTrackpoint.getLatitude());
             } else {
                 this.location.setLon(this.location.getLon() +  this.secondsPerFrame * this.currSpeeds[0]);
                 this.location.setLat(this.location.getLat() +  this.secondsPerFrame * this.currSpeeds[1]);

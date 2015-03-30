@@ -2,3 +2,5 @@
 *.DS_Store
 data/CellLocation.tsv
 data/max_riesig.json
+.idea/*
+.merge_file_*

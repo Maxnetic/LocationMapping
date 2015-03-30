@@ -281,7 +281,7 @@ public abstract class Mapper {
         // Zeichne Karte
         this.map.mapDisplay.resize(this.app.width, this.app.height);
         this.map.draw();
-        // this.overviewMap.draw();
+        this.overviewMap.draw();
 
         // Zeichne Zoom Slider, ZoomIn-Knopf und ZoomOut-Knopf
         this.slider.draw();
