@@ -18,7 +18,7 @@ public class FireflyMarker extends SimplePointMarker implements Const {
     public FireflyMarker(Location location){
         super(location);
 
-        this.setColor(Const.LIGHT_RED);
+        this.setColor(Const.DARK_YELLOW);
         this.setStrokeWeight(0);
         this.setRadius(4);
     }

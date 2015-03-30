@@ -33,14 +33,6 @@ public class OverviewMap extends UnfoldingMap {
      * Höhe der Karte
      */
     int h;
-    /**
-     * Farbe des Ramens der Markierung auf der Karte
-     */
-    int color;
-    /**
-     * Farbe des Flächeninhalts des Ramens der Markierung auf der Karte
-     */
-    int transparentColor;
 
     /**
      * Konstruktor für neue Übersichtskarten-Objekte
@@ -50,13 +42,11 @@ public class OverviewMap extends UnfoldingMap {
      * @param mapProvider der Kartenprovider der Übersichtskarte
      * @param color die Farbe für die Markierung auf der Übersichtskarte
      */
-    public OverviewMap(Mapper mapper, int w, int h, AbstractMapProvider mapProvider, int color) {
+    public OverviewMap(Mapper mapper, int w, int h, AbstractMapProvider mapProvider) {
         super(mapper.app, mapper.width-w-16, 16, w, h, mapProvider);
         this.mapper = mapper;
         this.w = w;
         this.h = h;
-        this.color = color;
-        this.transparentColor = mapper.app.color(mapper.app.hue(color), mapper.app.saturation(color), mapper.app.brightness(color), 30);
     }
 
     /**
@@ -85,8 +75,8 @@ public class OverviewMap extends UnfoldingMap {
         ScreenPosition tl = this.getScreenPosition(this.mapper.map.getTopLeftBorder());
         ScreenPosition br = this.getScreenPosition(this.mapper.map.getBottomRightBorder());
         // Zeichne Box fuer momentanigen Bereich der Hauptkarte in Übersichtskarte
-        this.mapper.app.fill(this.transparentColor);
-        this.mapper.app.stroke(this.color);
+        this.mapper.app.fill(this.mapper.app.color(mapper.app.hue(this.mapper.highlightColor), mapper.app.saturation(this.mapper.highlightColor), mapper.app.brightness(this.mapper.highlightColor), 20));
+        this.mapper.app.stroke(this.mapper.app.color(mapper.app.hue(this.mapper.highlightColor), mapper.app.saturation(this.mapper.highlightColor), mapper.app.brightness(this.mapper.highlightColor), 100));
         this.mapper.app.strokeWeight(3);
         this.mapper.app.rect(tl.x, tl.y, br.x-tl.x, br.y-tl.y);
     }

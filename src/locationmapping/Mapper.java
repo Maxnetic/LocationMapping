@@ -26,8 +26,10 @@ public abstract class Mapper implements Const {
     * Farben fuer Buttons, Text und Hintergrund
     */
     public int textColor;
+    public int buttonColor1;
+    public int buttonColor2;
     public int highlightColor;
-    public int backgroundColor;
+    public int red;
 
     /**
      * Das Processing Applet in dem der Mapper laeuft
@@ -175,7 +177,9 @@ public abstract class Mapper implements Const {
     * @param provider MapProvider
     */
     public void setMapProvider(AbstractMapProvider provider){
-        mapProvider = provider;
+        this.mapProvider = provider;
+        this.map.mapDisplay.setProvider(this.mapProvider);
+        this.overviewMap.mapDisplay.setProvider(this.mapProvider);
     }
     /**
     * Setzt MapProvider
@@ -268,8 +272,32 @@ public abstract class Mapper implements Const {
     * @param provider Map Style als String
     * @throws RuntimeException falls provider String nicht geparsed werden kann
     */
-    public void setStyle(String provider){
-        this.setMapProvider(provider);
+    public void setStyle(String style){
+        switch(style){
+            case "light":
+                this.setMapProvider(new MapProvider.Light());
+                this.textColor = Const.LIGHT_TEXT_COLOR;
+                this.buttonColor1 = Const.LIGHT_BUTTON_COLOR1;
+                this.buttonColor2 = Const.LIGHT_BUTTON_COLOR2;
+                this.highlightColor = Const.LIGHT_RED;
+                this.red = Const.LIGHT_RED;
+                break;
+            case "dark":
+                this.setMapProvider(new MapProvider.Dark());
+                this.textColor = Const.DARK_TEXT_COLOR;
+                this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
+                this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
+                this.highlightColor = Const.DARK_YELLOW;
+                this.red = Const.DARK_RED;
+                break;
+            default:
+                this.setMapProvider(new MapProvider.GoogleTerrain());
+                this.textColor = Const.DARK_TEXT_COLOR;
+                this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
+                this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
+                this.red = Const.DARK_RED;
+                break;
+        }
     }
 
     /**
@@ -309,14 +337,12 @@ public abstract class Mapper implements Const {
         // Setze Farbmodus auf HSB
         this.app.colorMode(app.HSB, 360, 100, 100, 100);
 
-        // Setze Farben fuer Interface
-        this.textColor       = this.app.color(0, 0, 50, 100);
-        this.highlightColor  = this.app.color(0, 0, 90, 100);
-        this.backgroundColor = this.app.color(0, 0, 95, 100);
-
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
-        this.overviewMap = new OverviewMap(this, 270, 180, this.mapProvider, this.mapColor);
+        this.overviewMap = new OverviewMap(this, 270, 180, this.mapProvider);
+
+        // Setze Farben fuer Interface
+        this.setStyle("light");
 
         // Ermoeglicht Zoom und Pan auf Karte
         MapUtils.createDefaultEventDispatcher(this.app, this.map);
@@ -363,6 +389,26 @@ public abstract class Mapper implements Const {
         this.zoomIn.draw();
         this.zoomOut.draw();
         this.mapSwitchButton.draw();
+    }
+
+    /**
+     * Zeichnet ein Feld mit Informationen ueber Ort und Zeit
+     *
+     * @param text zu setzender Informationstext
+     */
+    void drawInfoBox(String text){
+        // Zeichne weisses Rechteck
+        this.app.fill(this.buttonColor1);
+        this.app.noStroke();
+        this.app.rect(0, this.app.height-54, this.app.width, 54);
+        // Zeichne Linie ueber Rechteck
+        this.app.stroke(this.textColor);
+        this.app.strokeWeight(1.5f);
+        this.app.line(0, this.app.height-54, this.app.width, this.app.height-54);
+        // Schreibe Urzeit in Rechteck
+        this.app.fill(this.textColor);
+        this.app.textFont(this.font, 16);
+        this.app.text(text , 32, this.app.height-20);
     }
 
     /**

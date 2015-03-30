@@ -24,7 +24,11 @@ public class FireflyMapper extends Mapper{
     /**
     * Geschwindigkeit mit der gezeichnet wird
     */
-    int secondsPerFrame = 60;
+    int secondsPerFrame = 10;
+    /**
+    * Zeit, für die Marker auf Karten bleiben
+    */
+    int fadeOutTime;
     /**
      * Der Start/Pause-Knopf
      */
@@ -72,6 +76,8 @@ public class FireflyMapper extends Mapper{
         this.setStartZoomLevel(6);
 
         super.init();
+        this.setStyle("dark");
+        this.fadeOutTime = 600/this.secondsPerFrame;
 
         // Play Button erstellen
         this.play = new PlayButton(this, 41);
@@ -103,6 +109,7 @@ public class FireflyMapper extends Mapper{
         // Timetolive aller Trackpoints auf der Karte updaten
         for ( Iterator<Marker> iter = this.map.mapDisplay.getDefaultMarkerManager().getMarkers().iterator(); iter.hasNext(); ){
             FireflyMarker marker = (FireflyMarker) iter.next();
+            marker.setColor(this.app.color(this.app.hue(Const.DARK_YELLOW), this.app.saturation(Const.DARK_YELLOW), this.app.brightness(Const.DARK_YELLOW), 100f/this.fadeOutTime * marker.timeToLive));
             marker.timeToLive--;
             if ( marker.timeToLive <= 0 )
                 iter.remove();
@@ -115,7 +122,7 @@ public class FireflyMapper extends Mapper{
                 this.nextTrackpoint = this.iter.next();
 
                 // neuen Marker erstellen und zur Karte hinzufügen
-                this.map.addMarker(new FireflyMarker(nextTrackpoint, 10));
+                this.map.addMarker(new FireflyMarker(nextTrackpoint, this.fadeOutTime));
             }
             this.time = this.time.plusSeconds(this.secondsPerFrame);
         }
@@ -144,25 +151,5 @@ public class FireflyMapper extends Mapper{
         if ( e.getKey() == ' ' ) {
             paused = !paused;
         }
-    }
-
-    /**
-     * Zeichnet ein Feld mit Informationen ueber Ort und Zeit
-     *
-     * @param text zu setzender Informationstext
-     */
-    void drawInfoBox(String text){
-        // Zeichne weisses Rechteck
-        this.app.fill(this.backgroundColor);
-        this.app.noStroke();
-        this.app.rect(0, this.app.height-54, this.app.width, 54);
-        // Zeichne Linie ueber Rechteck
-        this.app.stroke(this.textColor);
-        this.app.strokeWeight(1.5f);
-        this.app.line(0, this.app.height-54, this.app.width, this.app.height-54);
-        // Schreibe Urzeit in Rechteck
-        this.app.fill(this.textColor);
-        this.app.textFont(this.font, 16);
-        this.app.text(text , 32, this.app.height-20);
     }
 }
