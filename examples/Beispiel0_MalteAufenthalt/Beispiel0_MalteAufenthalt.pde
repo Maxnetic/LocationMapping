@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
 
-StaticMapper mapper = new StaticMapper(this);
+
 
 /**
 * In dem Beispiel werden zwei Filterobjekt erzeugt, die zum einen Aufethaltsorte am Wochenende filtern
@@ -15,7 +15,7 @@ StaticMapper mapper = new StaticMapper(this);
 */
 
 void setup(){
- 
+  StaticMapper mapper = new StaticMapper(this);
   colorMode(HSB, 360, 100, 100);
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
