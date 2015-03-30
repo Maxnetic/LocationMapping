@@ -3,12 +3,19 @@ package locationmapping;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * MarkerLabeled erweitert StandardMarker
+ * Konstruiert Marker mit Info-Text.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class MarkerLabeled extends StandardMarker {
 	/**
 	* Konstruktor für MarkerLabeled Objekte
 	*
 	* @param location Ort fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerLabeled
 	*/
 	public MarkerLabeled(Location location){
 		super(location);
@@ -17,7 +24,6 @@ public class MarkerLabeled extends StandardMarker {
 	* Konstruktor für MarkerLabeled Objekte
 	*
 	* @param trackpoint Trackpoint fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerLabeled
 	*/
 	public MarkerLabeled(Trackpoint trackpoint) {
 	    super(trackpoint.getLocation());

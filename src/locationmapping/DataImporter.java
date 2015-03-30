@@ -7,6 +7,14 @@ import processing.data.*;
 
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * DataImporter importiert Dateien des Typs: .csv, .tsv, .json
+ * und speichert diese in einer TrackpointList.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class DataImporter {
     public static final int UNIX = 0;
     public static final int ISO8601 = 1;
@@ -67,10 +75,11 @@ public class DataImporter {
     }
 
     /**
-    * Rundet Zahl auf ganzzahliges vielfaches eines Inkrements
+    * Rundet Zahl auf ganzzahliges Vielfaches eines Inkrements
     *
     * @param number zu rundende Zahl
     * @param increment Inkrement zu dessen Vielfachem gerundet werden soll
+	* @return ganzzahliges Vielfachtes des Inkrements
     */
     double round(double number, double increment){
         return ((double) Math.round(number/increment))*increment;

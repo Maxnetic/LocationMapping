@@ -3,12 +3,19 @@ package locationmapping;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * MarkerAnruf erweitert StandardMarker
+ * Kennzeichnet Marker, an denen telefoniert wurde
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class MarkerAnruf extends StandardMarker {
 	/**
 	* Konstruktor für MarkerAnruf Objekte
 	*
 	* @param location Ort fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerAnruf
 	*/
 	public MarkerAnruf(Location location){
 		super(location);
@@ -17,7 +24,6 @@ public class MarkerAnruf extends StandardMarker {
 	* Konstruktor für MarkerAnruf Objekte
 	*
 	* @param trackpoint Trackpoint fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerAnruf
 	*/
 	public MarkerAnruf(Trackpoint trackpoint) {
 	    super(trackpoint.getLocation());

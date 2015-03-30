@@ -1,5 +1,12 @@
 package locationmapping;
 
+/**
+ * SliderButton erweitert Button.
+ * Erstellt einen Balken zum Herein- und Herauszoomen aus der Karte.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
 
 public class SliderButton extends Button {
 	/**
@@ -19,8 +26,8 @@ public class SliderButton extends Button {
      * @param y Y-Koordiante des Buttons
      * @param w Breite des Buttons
      * @param h Hoehe des Buttons
-     * @param zoomlevel Anzahl der Zoomlevel der Karte
-     * @param startZoomlevel kleinstes Zoomlevel der Karte
+     * @param zoomLevel Anzahl der Zoomlevel der Karte
+     * @param startZoomLevel kleinstes Zoomlevel der Karte
      */
     public SliderButton(Mapper mapper, float x, float y, float w, float h, float zoomLevel, int startZoomLevel){
         super(mapper, x, y, w, h);

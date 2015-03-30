@@ -1,5 +1,13 @@
 package locationmapping;
 
+/**
+ * PlayButton erweitert Button.
+ * Erstellt einen Button zum Starten und Anhalten der Animation.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class PlayButton extends Button {
     /**
      * Durchmesser des Buttons
@@ -11,7 +19,6 @@ public class PlayButton extends Button {
      *
      * @param mapper Mapperobjekt
      * @param d Durchmesser des Buttons
-     * @return neues Objekt vom Typ PlayButton
      */
     public PlayButton(Mapper mapper, float d) {
         super(mapper, d, d, d, d);

@@ -3,13 +3,20 @@ package locationmapping;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * MarkerSMS erweitert StandardMarker
+ * Kennzeichnet Marker, an denen eine SMS geschickt oder empfangen wurde
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class MarkerSMS extends StandardMarker {
 
 	/**
 	* Konstruktor für MarkerSMS Objekte
 	*
 	* @param location Ort fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerSMS
 	*/
 	public MarkerSMS(Location location){
 		super(location);
@@ -19,7 +26,6 @@ public class MarkerSMS extends StandardMarker {
 	* Konstruktor für MarkerSMS Objekte
 	*
 	* @param trackpoint Trackpoint fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerSMS
 	*/
 	public MarkerSMS(Trackpoint trackpoint) {
 	    super(trackpoint.getLocation());

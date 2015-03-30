@@ -11,6 +11,15 @@ import processing.event.KeyEvent;
 import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * LifeMapper erweitert Mapper.
+ * Erzeugt ein Mapper-Objekt das nur den aktuellen Marker anzeigt.
+ * Dadurch lassen sich Bewegungsmuster besser erkennen.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class LifeMapper extends Mapper {
     /**
     * Geschwindigkeit mit der gezeichnet wird
@@ -24,17 +33,33 @@ public class LifeMapper extends Mapper {
      * Der aktuelle Zeitpunkt, der gezeichnet wird
      */
     DateTime time;
+	/**
+     * Der aktuelle Ort, der gezeichnet wird
+     */
     Location location;
-
+	/**
+	 * Der Marker, der gezeichnet wird
+	 */
     SimplePointMarker marker;
-
+	/**
+     * Der aktuelle Trackpoint
+     */
     Trackpoint currTrackpoint;
+	/**
+     * Der naechste Trackpoint
+     */
     Trackpoint nextTrackpoint;
-
+	/**
+     * Speichert horizontale und vertikale Geschwindigkeit 
+     */
     float[] currSpeeds = new float[2];
-
+	/**
+     * TrackpointList fuer die Marker gezeichnet wird
+     */
     TrackpointList trackpointList;
-
+	/**
+     * Iterator ueber die Liste
+     */
     Iterator<Trackpoint> iter;
 
 
@@ -58,6 +83,7 @@ public class LifeMapper extends Mapper {
 
     /**
     * Initmethode
+	* @param trackpointList TrackpointList die initialisiert wird
     */
     public void load(TrackpointList trackpointList){
         // Play Button erstellen
@@ -116,7 +142,10 @@ public class LifeMapper extends Mapper {
                 // this.map.panTo(marker.getLocation());
         }
     }
-
+	
+	/**
+     * Aktualisiert die horizontale und vertikale Geschwindigkeit
+     */
     void updateSpeeds(){
         float lonDist = this.currTrackpoint.getLongitude() - this.nextTrackpoint.getLongitude();
         float latDist = this.currTrackpoint.getLatitude() - this.nextTrackpoint.getLatitude();
@@ -151,6 +180,11 @@ public class LifeMapper extends Mapper {
         }
     }
 
+	/**
+	 * Zeichnet ein Feld mit Informationen ueber Ort und Zeit
+	 * 
+	 * @param text zu setzender Informationstext
+	 */
     void drawInfoBox(String text){
         // Zeichne weisses Rechteck
         this.app.fill(this.backgroundColor);

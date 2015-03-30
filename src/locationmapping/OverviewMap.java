@@ -10,7 +10,7 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 /**
  * Übersichtskarte, welche in der oberen rechten Ecke angezeig wird.
  * Die Karte wird automatisch mit der Hauptkarte gescrollt und gezoomt.
- * Doe Karte ermöglicht es den Ausschnitt der Hauptkarte durch clicken auf eine Position an diese zu verschieben.
+ * Die Karte ermöglicht es den Ausschnitt der Hauptkarte durch clicken auf eine Position an diese zu verschieben.
  */
 public class OverviewMap extends UnfoldingMap {
     /**

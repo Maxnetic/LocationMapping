@@ -3,12 +3,19 @@ package locationmapping;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * MarkerInternet erweitert StandardMarker
+ * Kennzeichnet Marker, an denen das Internet benutzt wurde #NEULAND
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class MarkerInternet extends StandardMarker {
 	/**
 	* Konstruktor für MarkerInternet Objekte
 	*
 	* @param location Ort fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerInternet
 	*/
 	public MarkerInternet(Location location){
 		super(location);
@@ -17,7 +24,6 @@ public class MarkerInternet extends StandardMarker {
 	* Konstruktor für MarkerInternet Objekte
 	*
 	* @param trackpoint Trackpoint fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerInternet
 	*/
 	public MarkerInternet(Trackpoint trackpoint) {
 	    super(trackpoint.getLocation());

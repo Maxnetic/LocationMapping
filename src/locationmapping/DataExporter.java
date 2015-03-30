@@ -3,6 +3,14 @@ package locationmapping;
 import processing.core.PApplet;
 import processing.data.*;
 
+/**
+ * DataExporter exportiert TrackpointLists als .csv-Datei.
+ * Dies beinhaltet Location, Timestamp, Service.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class DataExporter {
     /**
     * laufende Processing Applet Instanz
@@ -31,6 +39,14 @@ public class DataExporter {
         this.maxExportSize = maxExportSize;
     }
 
+ 	/**
+	 * Schreibt die csv-Datei.
+	 * 
+	 * @param trackpointlist zu exportierende trackpointlist
+	 * @param filename Name der csv-Datei
+	 * @return Wahrheitswert, ob export erfolgreich
+	 * @throws Exception falls export fehlgeschlagen
+	 */
     public boolean write(TrackpointList trackpointlist, String filename){
         try {
             //Anlegen der Tabelle

@@ -8,6 +8,9 @@ import de.fhpotsdam.unfolding.providers.*;
 
 /**
  * Klasse mit Ausgewaelten Karten Providern
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
  */
 public class MapProvider {
     /**

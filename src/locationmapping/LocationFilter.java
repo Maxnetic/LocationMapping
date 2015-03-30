@@ -4,7 +4,13 @@ import java.util.*;
 
 import de.fhpotsdam.unfolding.geo.*;
 
-
+/**
+ * LocationFilter erweitert Filter.
+ * Filtert eine TrackpointList nach Ortsvariablen.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
 
 public class LocationFilter extends Filter {
     /**
@@ -60,11 +66,18 @@ public class LocationFilter extends Filter {
         this.service = service;
     }
 
-    // zeichne Trackpoint nur, wenn beide innerhalb des Radius waren
-    public TrackpointList compareLocation(TrackpointList eingabetpl1, TrackpointList eingabetpl2, int radius){
+    /**
+ 	 * Vergleicht zwei TrackpointLists auf aehnliche Orte
+	 *
+	 * @param tpl1 erste TrackpointList zum Vergleichen
+	 * @param tpl2 zweite TrackpointList zum Vergleichen
+	 * @param radius Radius, um Ueberschneidungen in beiden TrackpointLists zu finden
+	 * @return Liste mit Trackpoints, die innerhalb des Radius waren 
+	 */
+    public TrackpointList compareLocation(TrackpointList tpl1, TrackpointList tpl2, int radius){
         TrackpointList newtpl = new TrackpointList();
-        for ( Trackpoint tp1 : eingabetpl1 ){
-           for ( Trackpoint tp2 : eingabetpl2 ){
+        for ( Trackpoint tp1 : tpl1 ){
+           for ( Trackpoint tp2 : tpl2 ){
                 if ( tp1.locationDistanceTo(tp2.getLocation()) <= radius ){
                     newtpl.add(tp1);
                     break;
@@ -74,11 +87,19 @@ public class LocationFilter extends Filter {
         return newtpl;
     }
 
-    //zeichne Trackpoint nur, wenn Ort und Zeit übereinstimmen
-    public TrackpointList compareLocationAndTime(TrackpointList eingabetpl1, TrackpointList eingabetpl2, int radius, int minutes){
+   	/**
+ 	 * Vergleicht zwei TrackpointLists auf aehnliche Orte zu aehnlichen Zeiten
+	 *
+	 * @param tpl1 erste TrackpointList zum Vergleichen
+	 * @param tpl2 zweite TrackpointList zum Vergleichen
+	 * @param radius Radius, um Ueberschneidungen in beiden TrackpointLists zu finden
+	 * @param minutes Minuten, die eine Ueberschneidung auseinander liegen darf
+	 * @return Liste mit Trackpoints, die innerhalb des Radius waren 
+	 */
+    public TrackpointList compareLocationAndTime(TrackpointList tpl1, TrackpointList tpl2, int radius, int minutes){
         TrackpointList newtpl = new TrackpointList();
-        for (Trackpoint tp1 : eingabetpl1){
-            for (Trackpoint tp2 : eingabetpl2){
+        for (Trackpoint tp1 : tpl1){
+            for (Trackpoint tp2 : tpl2){
                 if (  (tp1.locationDistanceTo(tp2.getLocation()) <= radius) && (tp1.locationDistanceTo(tp2) < minutes * 60) ){
                     newtpl.add(tp1);
                  break;

@@ -4,12 +4,19 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
+/**
+ * MarkerRectangle erweitert StandardMarker
+ * Konstruiert quadratische Marker.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class MarkerRectangle extends StandardMarker {
 	/**
 	* Konstruktor für MarkerRectangle Objekte
 	*
 	* @param location Ort fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerRectangle
 	*/
 	public MarkerRectangle(Location location){
 		super(location);
@@ -18,7 +25,6 @@ public class MarkerRectangle extends StandardMarker {
 	* Konstruktor für MarkerRectangle Objekte
 	*
 	* @param trackpoint Trackpoint fuer den Marker erstellt werden soll
-	* @return neues Objekt vom Typ MarkerRectangle
 	*/
 	public MarkerRectangle(Trackpoint trackpoint) {
 	    super(trackpoint.getLocation());

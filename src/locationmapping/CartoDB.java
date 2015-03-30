@@ -6,6 +6,13 @@ import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
 import de.fhpotsdam.unfolding.providers.*;
 
+/**
+ * 
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class CartoDB {
 	public static abstract class GenericCartoDBProvider extends AbstractMapTileUrlProvider {
 		public GenericCartoDBProvider() {
