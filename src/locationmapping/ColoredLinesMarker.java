@@ -8,7 +8,13 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-
+/**
+ * ColoredLinesMarker erweitert SimpleLinesMarker.
+ * Sie zeichnet farbige Marker und verbindet sie mit Linien.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
 
 public class ColoredLinesMarker extends SimpleLinesMarker {
     /**
@@ -116,6 +122,9 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 
     /**
      * Zeichenmethode
+	 * 
+	 * @param pg Objekt das gezeichnet wird
+	 * @param mapPositions Liste der Punkte, die die Linie enthaelt.
      */
     public void draw(PGraphics pg, List<MapPosition> mapPositions){
         if (!this.isHidden()){

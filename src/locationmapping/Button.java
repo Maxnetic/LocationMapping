@@ -3,6 +3,13 @@ package locationmapping;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.*;
 
+/**
+ * Button ist für die Konstruktion von Buttons auf einer unfolding map verantwortlich.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 class Button {
     /**
      * Mapperobjekt zum Verwalten des Buttons

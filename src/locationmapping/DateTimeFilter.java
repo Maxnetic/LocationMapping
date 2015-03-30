@@ -5,6 +5,14 @@ import java.util.*;
 
 import org.joda.time.*;
 
+/**
+ * DateTimeFilter erweitert Filter.
+ * Filtert eine TrackpointList nach Zeitvariablen.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class DateTimeFilter extends Filter {
     /**
      * Startdatum fuer Filter
@@ -341,13 +349,10 @@ public class DateTimeFilter extends Filter {
      *
      * @param daysString Datumsstring als kommagetrennter Werte im Format YYYY/MM/DD und D.M.YY
      * @return DateTimeFilter-Objekt fuer Method-Chaining
-     * @throws RuntimeException falls String nicht geparsed werden kann
      */
     public DateTimeFilter forDays(String daysString){
         return this.setDays(daysString);
     }
-
-
 
 
 
@@ -462,6 +467,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param weekDayString Eingabestring mit Wochentagen, der Form "mo - dienstag, friday" (erkennt alles)
      * @return DateTimeFilter-Objekt fuer Method-Chaining
+	 * @throws RuntimeException falls String nicht geparsed werden kann
      */
     public DateTimeFilter setWeekDays(String weekDayString){
         weekDayString.toLowerCase();
@@ -518,6 +524,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param d Zahl zwischen 0 und 6 fuer Wochentag
      * @return Zahl zwischen 0 und 6 fuer folgenden Wochentag
+	 * @throws RuntimeException falls Wochentagsnummer nicht zwischen 1 und 7
      */
     private int dateInc(int d) {
         if ( d > 0 && d < 7 )
@@ -533,6 +540,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param weekDayString Wochentagname der Zeitvariable in deutsch ("montag") oder englisch ("monday"), ausgeschrieben oder mit zwei Buchstaben Abkuerzung ("mo")
      * @return Wochentag als Zahl mo=1 bis so=7
+	 * @throws RuntimeException falls String nicht geparsed werden kann
      */
     public int parseWeekDay(String weekDayString){
         weekDayString.toLowerCase();

@@ -10,6 +10,14 @@ import processing.event.KeyEvent;
 
 import de.fhpotsdam.unfolding.marker.*;
 
+/**
+ * DynamicMapper erweitert Mapper.
+ * Erzeugt ein Mapper-Objekt, das Marker dynamisch nacheinander zeichnet.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class DynamicMapper extends Mapper {
     ArrayList<Marker> markerList = new ArrayList<Marker>();
     Iterator<Marker> iter;
@@ -71,6 +79,11 @@ public class DynamicMapper extends Mapper {
         }
     }
 
+	/**
+	 * Zeichnet ein Feld mit Informationen ueber Ort und Zeit
+	 * 
+	 * @param text zu setzender Informationstext
+	 */
     void drawInfoBox(String text){
         // Zeichne weisses Rechteck
         this.app.fill(this.backgroundColor);

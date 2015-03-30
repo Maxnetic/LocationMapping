@@ -8,7 +8,10 @@ import de.fhpotsdam.unfolding.geo.Location;
 
 
 /**
+ * TrackpointList implementiert Iterable und enthaelt Trackpoints.
  *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
  */
 public class TrackpointList implements Iterable<Trackpoint> {
     /**

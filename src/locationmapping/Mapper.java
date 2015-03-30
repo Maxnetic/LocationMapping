@@ -11,6 +11,16 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
+
+/**
+ * Mapper-Oberklasse
+ * Beinhaltet verschiedene Methoden um die Funktionsfaehigkeit 
+ * von unfolding maps zu erweitern.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public abstract class Mapper {
     /**
      * Zeitformate fuer Importer
@@ -33,20 +43,20 @@ public abstract class Mapper {
 
 
     /**
-    * some special Map colors
+    * Spezielle Kartenfarbe
     */
     public final int POSITRON_RED = -2714732;
 
 
     /**
-    * Farben fuer Buttons und aehnliches
+    * Farben fuer Buttons, Text und Hintergrund
     */
     public int textColor;
     public int highlightColor;
     public int backgroundColor;
 
     /**
-     * Das Processing Applet in dem der Mapper läuft
+     * Das Processing Applet in dem der Mapper laeuft
      */
     public PApplet app;
     /**
@@ -82,7 +92,7 @@ public abstract class Mapper {
      */
     int width = 800;
     /**
-     * Die Start Höhe des Fensters
+     * Die Start Hoehe des Fensters
      */
     int height = 600;
     /**
@@ -126,7 +136,7 @@ public abstract class Mapper {
     /**
      * Setzt Fensterbreite
      *
-     * @param width Fensterbreite
+     * @param height Fensterbreite
      */
     public void setHeight(int height){
         this.height = height;
@@ -302,7 +312,7 @@ public abstract class Mapper {
      * Initialisiert Fenster, Karte und Buttons, sollte als erstes in setup Methode des Processing Sketches aufgerufen werden
      *
      * @param w Fensterbreite
-     * @param h Fensterhöhe
+     * @param h Fensterhoehe
      */
     public void init(int w, int h){
         this.width = w;
@@ -406,7 +416,7 @@ public abstract class Mapper {
      * Importiert Daten aus angegbener Datei in eine Trackpointliste
      *
      * @param filename Name der zu importierenden Datei aus dem data Ordner
-     * @return TrackpointList mit Datenpunkten aus Datei
+	 * @throws RuntimeException falls der Export fehlgeschlagen ist
      */
     public void exportData(TrackpointList trackpointList, String filename, int maxExportSize) {
         DataExporter exporter = new DataExporter(this.app);
@@ -420,8 +430,8 @@ public abstract class Mapper {
      * Importiert Daten aus angegbener Datei in eine Trackpointliste
      *
      * @param filename Name der zu importierenden Datei aus dem data Ordner
-     * @return TrackpointList mit Datenpunkten aus Datei
-     */
+     * @throws RuntimeException falls der Export fehlgeschlagen ist
+	 */
     public void exportData(TrackpointList trackpointList, String filename) {
         DataExporter exporter = new DataExporter(this.app);
         if ( exporter.write(trackpointList, filename) )

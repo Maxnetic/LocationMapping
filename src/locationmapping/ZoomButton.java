@@ -1,5 +1,13 @@
 package locationmapping;
 
+/**
+ * ZoomButton erweitert Button.
+ * Erstellt zwei Buttons zum Herein- bzw. Herauszoomen aus der Karte.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class ZoomButton extends Button {
     /**
      * Information ob angezeigtes Symbol plus ist (default = false)

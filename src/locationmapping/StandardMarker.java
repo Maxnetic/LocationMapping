@@ -7,28 +7,34 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.geo.*;
 
-
-
+/**
+ * StandardMarker erweitert SimpleLinesMarker.
+ * Zeichnet einen Standard-Marker, dessen Groesse,
+ * Farbe, Beschriftung und Form angepasst werden kann.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
 
 public class StandardMarker extends SimplePointMarker {
  /**
- * Größe des Markers
+ * Groesse des Markers (default = 30)
  */
     int size = 30;
     /**
-    * Farbwert der HSB Farbe
+    * Farbwert der HSB Farbe (default = 359)
     */
     int hsb_h = 359;
     /**
-    * Sättigungswert der HSB Farbe
+    * Saettigungswert der HSB Farbe (default = 31)
     */
     int hsb_s = 31;
     /**
-    * Helligkeitswert der HSB Farbe
+    * Helligkeitswert der HSB Farbe (default = 84)
     */
     int hsb_b = 84;
     /**
-    * Transparenz der Farbe des Markers
+    * Transparenz der Farbe des Markers (default = 50)
     */
     int transparency = 50;
     /**
@@ -36,18 +42,17 @@ public class StandardMarker extends SimplePointMarker {
     */
     String label = null;
     /**
-    * Textgröße der Beschriftung
+    * Textgroesse der Beschriftung (default = 12)
     */
     int textsize = 12;
     /**
-    * Zeitpunkt des zugehörigen Trackpoint
+    * Zeitpunkt des zugehoerigen Trackpoint
     */
     DateTime timestamp = new DateTime(0);
 
     /**
     * Konstruktor fuer StandardMarker Objekte
     * @param location Ortsangabe des Markers
-    * @return neues Objekt vom Typ Marker
     */
     public StandardMarker(Location location) {
         super(location);
@@ -56,20 +61,23 @@ public class StandardMarker extends SimplePointMarker {
     /**
      * Konstruktor fuer StandardMarker Objekte
      * @param trackpoint Trackpoint aus dem Marker gezeichnet werden soll
-     * @return neues Objekt von Typ Marker
      */
     public StandardMarker(Trackpoint trackpoint) {
         super(trackpoint.getLocation());
         this.timestamp = trackpoint.getTime();
     }
 
+	/**
+	 * Gibt die Zeit zurueck
+	 * @return Timestamp des Markers
+	 */
     public DateTime getTime(){
         return this.timestamp;
     }
 
     /**
-    * Setzt die Größe des Markers
-    * @param size neue Größe des Markers
+    * Setzt die Groesse des Markers
+    * @param size neue Groesse des Markers
     */
     public void setSize(int size){
         this.size = size;
@@ -174,7 +182,7 @@ public class StandardMarker extends SimplePointMarker {
 
     /**
      * Setzt Textgroesse
-     * @param size Größe
+     * @param size Groesse
      */
     public void setTextSize(int size){
         this.textsize = size;
@@ -182,7 +190,7 @@ public class StandardMarker extends SimplePointMarker {
 
     /**
      * Textgroesse auslesen
-     * @return Textgröße
+     * @return Textgroesse
      */
     public int getTextSize(){
         return this.textsize;
@@ -199,7 +207,7 @@ public class StandardMarker extends SimplePointMarker {
         if (!this.isHidden()){
             pg.pushStyle();
                 pg.stroke(hsb_h, hsb_s, hsb_b);  // kein Rand
-                pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie sichtbarkeit
+                pg.fill(hsb_h, hsb_s, hsb_b, transparency);  // Farbe sowie Sichtbarkeit
                 pg.ellipse(x, y, size, size);  // Form
                 pg.popStyle();
         }

@@ -5,8 +5,13 @@ import org.joda.time.*;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
-*
-*/
+ * Trackpoint enthaelt Orts-, Service- und Zeitinformationen.
+ * Ausserdem kann jedem Trackpoint eine ID zugeordnet werden.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class Trackpoint {
     // Attribute
     /**
