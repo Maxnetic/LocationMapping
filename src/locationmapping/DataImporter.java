@@ -20,7 +20,7 @@ public class DataImporter {
     /**
     * Mindestabstand zwischen zwei einzulesenden Zeitpunkten in Sekunden (default = "60")
     */
-    private int minTimeDistance = 60;
+    private int minTimeDistance = 0;
     /**
     * Maximale Anzahl einzulesender Datenpunkte, -1 = alle (default = -1)
     */
@@ -132,7 +132,7 @@ public class DataImporter {
             long timestamp = Long.parseLong(row.getString("timestampMs"));
 
             // ignoriere Zeile, falls Zeitunterschied kleiner als minTimeDistance
-            if ( Math.abs(lastTimestamp - timestamp) > this.minTimeDistance*1000 ){
+            if ( Math.abs(lastTimestamp - timestamp) >= this.minTimeDistance*1000 ){
                 lastTimestamp = timestamp;
                 counter++;
 
@@ -197,7 +197,7 @@ public class DataImporter {
 
 
             // ignoriere Zeile, falls Zeitunterschied kleiner als minTimeDistance
-            if ( Seconds.secondsBetween(lastTimestamp, timestamp).getSeconds() > this.minTimeDistance ){
+            if ( Seconds.secondsBetween(lastTimestamp, timestamp).getSeconds() >= this.minTimeDistance ){
                 lastTimestamp = timestamp;
                 counter++;
 
