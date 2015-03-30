@@ -10,31 +10,15 @@ import de.fhpotsdam.unfolding.providers.*;
 void setup() {
   StaticMapper mapper = new StaticMapper(this);
   hint(ENABLE_RETINA_PIXELS);
+  colorMode(HSB,360,100,100);
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
   TrackpointList all;
   all = mapper.importData("personX.csv");
     
-  DateTimeFilter wohnortfilter = new DateTimeFilter();
-  LocationFilter frequencyfilter = new LocationFilter();
-  wohnortfilter.setStartTime("02:00");
-  wohnortfilter.setEndTime("05:00");
-  frequencyfilter.setMinFrequency(2000);
-  TrackpointList moeglichewohnorte;
-  moeglichewohnorte = wohnortfilter.apply(all);
-  moeglichewohnorte = frequencyfilter.apply(moeglichewohnorte);
   
   
-    
-  for ( Trackpoint tp : moeglichewohnorte ) {
-    MarkerLabeled wohnort = new MarkerLabeled(tp);
-    wohnort.setLabel("wohnort");
-    wohnort.setColor(200, 0, 200);
-    wohnort.setTransparency(50);
-    mapper.addMarker(wohnort);
-  }
-    
     
       
 }
