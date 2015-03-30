@@ -5,11 +5,14 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 
+/**
+ * In diesem Beispiel werden sowohl der Wohnort, als auch
+ * mögliche Arbeitsplätze der getrackten Person angezeigt.
+ */
 
-StaticMapper mapper = new StaticMapper(this);
 
 void setup(){
- 
+  StaticMapper mapper = new StaticMapper(this);
   colorMode(HSB, 360, 100, 100);
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
