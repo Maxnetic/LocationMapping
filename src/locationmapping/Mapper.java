@@ -104,14 +104,32 @@ public abstract class Mapper {
     /**
     * Fenster groessenanpassbar
     */
-    boolean resizable = true;
+    boolean resizable = false;
+
+    /**
+     * Setzt Fensterbreite
+     *
+     * @param width Fensterbreite
+     */
+    public void setWidth(int width){
+        this.width = width;
+    }
+
+    /**
+     * Setzt Fensterbreite
+     *
+     * @param width Fensterbreite
+     */
+    public void setHeight(int height){
+        this.height = height;
+    }
 
     /**
      * Setzt Groessenanpassbarkeit des Fensters
      *
      * @param resizable Gibt an ob Fenster groessenanpassbar sein soll oder nicht
      */
-    public void setResizable(boolean resizable){
+    public void setResizableAndDisableOverview(boolean resizable){
         this.resizable = resizable;
     }
 
@@ -215,7 +233,7 @@ public abstract class Mapper {
     * @param provider Map Style als String
     * @throws RuntimeException falls provider String nicht geparsed werden kann
     */
-    public void setMapStyle(String provider){
+    public void setStyle(String provider){
         this.setMapProvider(provider);
     }
 
@@ -230,14 +248,28 @@ public abstract class Mapper {
     }
 
     /**
+     * Initialisiert Fenster, Karte und Buttons, sollte als erstes in setup Methode des Processing Sketches aufgerufen werden
+     *
+     * @param w Fensterbreite
+     * @param h Fensterhöhe
+     */
+    public void init(int w, int h){
+        this.width = w;
+        this.height = h;
+        this.init();
+    }
+    /**
      * Initialisiert Fenster, Karte und Buttons, sollte als erstes in setup
      * Methode des Processing Sketches aufgerufen werden
      */
     public void init(){
         // Fenstergröße Setzen und Anpassbar machen
-        this.app.size(this.width, this.height, this.app.OPENGL);
-        if ( resizable )
+        if ( resizable ){
+            this.app.size(this.width, this.height);
             this.app.frame.setResizable(true);
+        } else {
+            this.app.size(this.width, this.height, this.app.OPENGL);
+        }
 
         // Setze Farbmodus auf HSB
         this.app.colorMode(app.HSB, 360, 100, 100, 100);
@@ -261,7 +293,7 @@ public abstract class Mapper {
 
         // Smoothes Scrollen und Zoomen auf Karte
         this.app.smooth();
-        this.map.setTweening(true);
+        // this.map.setTweening(true);
 
         // Zoom Buttons und Slider erstellen
         this.slider = new SliderButton(this, 32, 23, 188, 3, 12, 5);
@@ -279,10 +311,14 @@ public abstract class Mapper {
      */
     public void draw(){
         // Zeichne Karte
-        this.map.mapDisplay.resize(this.app.width, this.app.height);
-        this.map.draw();
+        if ( resizable ){
+            this.map.mapDisplay.resize(this.app.width, this.app.height);
+            this.map.draw();
+        } else {
+            this.map.draw();
+            this.overviewMap.draw();
+        }
 
-        this.overviewMap.draw();
 
         // Zeichne Zoom Slider, ZoomIn-Knopf und ZoomOut-Knopf
         this.slider.draw();

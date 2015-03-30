@@ -15,7 +15,7 @@ public class LifeMapper extends Mapper {
     /**
     * Geschwindigkeit mit der gezeichnet wird
     */
-    int secondsPerFrame = 10;
+    int secondsPerFrame = 60;
     /**
      * Der Start/Pause-Knopf
      */
@@ -98,19 +98,22 @@ public class LifeMapper extends Mapper {
         if ( !this.paused && this.iter.hasNext() ){
             this.time = this.time.plusSeconds(this.secondsPerFrame);
 
-            // Update Ortsvariable des Trackpoint
-            float newLon = this.location.getLon() +  this.secondsPerFrame * this.currSpeeds[0];
-            float newLat = this.location.getLat() +  this.secondsPerFrame * this.currSpeeds[1];
-            this.marker.setLocation(newLat, newLon);
-
-            if ( this.nextTrackpoint.compareTimeTo(this.time) >= 0 ){
+            if ( this.nextTrackpoint.compareTimeTo(this.time) < 0 ){
                 this.currTrackpoint = this.nextTrackpoint;
                 this.nextTrackpoint = this.iter.next();
                 this.updateSpeeds();
+                int timeExtra = (int)(this.currTrackpoint.getSeconds() - this.time.getMillis()/1000L);
+                this.location.setLon(this.currTrackpoint.getLongitude() +  timeExtra * this.currSpeeds[0]);
+                this.location.setLat(this.currTrackpoint.getLatitude() +  timeExtra * this.currSpeeds[1]);
+            } else {
+                this.location.setLon(this.location.getLon() +  this.secondsPerFrame * this.currSpeeds[0]);
+                this.location.setLat(this.location.getLat() +  this.secondsPerFrame * this.currSpeeds[1]);
             }
 
-            if ( marker.getDistanceTo(this.map.getCenter()) > 4f/this.map.getZoomLevel()*10 )
-                this.map.panTo(marker.getLocation());
+            this.marker.setLocation(location);
+
+            // if ( marker.getDistanceTo(this.map.getCenter()) > 4f/(Math.pow(this.map.getZoomLevel(),2))*100 )
+                // this.map.panTo(marker.getLocation());
         }
     }
 
@@ -160,7 +163,6 @@ public class LifeMapper extends Mapper {
         // Schreibe Urzeit in Rechteck
         this.app.fill(this.textColor);
         this.app.textFont(font, 16);
-        // this.app.textSize(16);
         this.app.text(text , 32, this.app.height-20);
     }
 }
