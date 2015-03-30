@@ -162,7 +162,7 @@ public class LifeMapper extends Mapper {
         this.app.line(0, this.app.height-54, this.app.width, this.app.height-54);
         // Schreibe Urzeit in Rechteck
         this.app.fill(this.textColor);
-        this.app.textFont(font, 16);
+        this.app.textFont(this.font, 16);
         this.app.text(text , 32, this.app.height-20);
     }
 }
