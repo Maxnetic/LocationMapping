@@ -147,13 +147,11 @@ public class DataImporter {
 
                 // berechne float mit Laengengrad der Zeile
                 String longitudeString = Long.toString(row.getLong("longitudeE7"));
-                longitudeString = longitudeString.substring(0, 2) + "." + longitudeString.substring(2);
-                float longitude = Float.parseFloat(longitudeString);
+                float longitude = Float.parseFloat(longitudeString) / 10000000;
 
                 // berechne float mit Breitengrad der Zeile
                 String latitudeString = Long.toString(row.getLong("latitudeE7"));
-                latitudeString = latitudeString.substring(0, 2) + "." + latitudeString.substring(2);
-                float latitude = Float.parseFloat(latitudeString);
+                float latitude = Float.parseFloat(latitudeString) / 10000000;
 
                 // erstelle Trackpoint und füge ihn zu Liste hinzu
                 Location location = new Location(round(latitude, this.accuracy), round(longitude, this.accuracy));
