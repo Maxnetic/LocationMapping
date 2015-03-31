@@ -22,7 +22,7 @@ public class ZoomButton extends Button {
      * @param y Y-Koordinate des Buttons
      * @param w Breite des Buttons
      * @param h Hoehe des Buttons
-     * @param plusSymbol
+     * @param plusSymbol Wahrheitswert über Plussymbol auf Button
      */
     public ZoomButton(Mapper mapper, float x, float y, float w, float h, boolean plusSymbol) {
         super(mapper, x, y, w, h);
@@ -40,5 +40,4 @@ public class ZoomButton extends Button {
             mapper.app.line(x+w/2,y+4,x+w/2,y+h-4);
         }
     }
-
 }

@@ -14,46 +14,22 @@ import de.fhpotsdam.unfolding.providers.*;
 
 /**
  * Mapper-Oberklasse
- * Beinhaltet verschiedene Methoden um die Funktionsfaehigkeit 
+ * Beinhaltet verschiedene Methoden um die Funktionsfaehigkeit
  * von unfolding maps zu erweitern.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
  */
 
-public abstract class Mapper {
-    /**
-     * Zeitformate fuer Importer
-     */
-    public static final int UNIX = 0;
-    public static final int ISO8601 = 1;
-    public static final int EXPONENT_APPLE = 2;
-    public static final int MDY_DATETIME = 3;
-
-    /**
-     * Einige Locations
-     */
-    public final Location BERLIN = new Location(52.5f, 13.4f);
-    public final Location DEUTSCHLAND = new Location(51.16f, 10.45f);
-    public final Location HAMBURG = new Location(53.55f, 9.99f);
-    public final Location MUENCHEN = new Location(48.14f, 11.57f);
-    public final Location KOELN = new Location(50.94f, 6.95f);
-    public final Location FRANKFURT = new Location(50.12f, 8.68f);
-    public final Location STUTTGART = new Location(48.78f, 9.19f);
-
-
-    /**
-    * Spezielle Kartenfarbe
-    */
-    public final int POSITRON_RED = -2714732;
-
-
+public abstract class Mapper implements Const {
     /**
     * Farben fuer Buttons, Text und Hintergrund
     */
     public int textColor;
+    public int buttonColor1;
+    public int buttonColor2;
     public int highlightColor;
-    public int backgroundColor;
+    public int red;
 
     /**
      * Das Processing Applet in dem der Mapper laeuft
@@ -82,7 +58,7 @@ public abstract class Mapper {
     /**
      * Die Farbe fuer Markierungen auf der Karte
      */
-    int mapColor = POSITRON_RED;
+    int mapColor = Const.LIGHT_RED;
     /**
      * Die Schriftart fuer Texte auf der Karte
      */
@@ -201,7 +177,9 @@ public abstract class Mapper {
     * @param provider MapProvider
     */
     public void setMapProvider(AbstractMapProvider provider){
-        mapProvider = provider;
+        this.mapProvider = provider;
+        this.map.mapDisplay.setProvider(this.mapProvider);
+        this.overviewMap.mapDisplay.setProvider(this.mapProvider);
     }
     /**
     * Setzt MapProvider
@@ -294,8 +272,32 @@ public abstract class Mapper {
     * @param provider Map Style als String
     * @throws RuntimeException falls provider String nicht geparsed werden kann
     */
-    public void setStyle(String provider){
-        this.setMapProvider(provider);
+    public void setStyle(String style){
+        switch(style){
+            case "light":
+                this.setMapProvider(new MapProvider.Light());
+                this.textColor = Const.LIGHT_TEXT_COLOR;
+                this.buttonColor1 = Const.LIGHT_BUTTON_COLOR1;
+                this.buttonColor2 = Const.LIGHT_BUTTON_COLOR2;
+                this.highlightColor = Const.LIGHT_RED;
+                this.red = Const.LIGHT_RED;
+                break;
+            case "dark":
+                this.setMapProvider(new MapProvider.Dark());
+                this.textColor = Const.DARK_TEXT_COLOR;
+                this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
+                this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
+                this.highlightColor = Const.DARK_YELLOW;
+                this.red = Const.DARK_RED;
+                break;
+            default:
+                this.setMapProvider(new MapProvider.GoogleTerrain());
+                this.textColor = Const.DARK_TEXT_COLOR;
+                this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
+                this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
+                this.red = Const.DARK_RED;
+                break;
+        }
     }
 
     /**
@@ -335,20 +337,18 @@ public abstract class Mapper {
         // Setze Farbmodus auf HSB
         this.app.colorMode(app.HSB, 360, 100, 100, 100);
 
-        // Setze Farben fuer Interface
-        this.textColor       = this.app.color(0, 0, 50, 100);
-        this.highlightColor  = this.app.color(0, 0, 90, 100);
-        this.backgroundColor = this.app.color(0, 0, 95, 100);
-
         // Karte erstellen
         this.map = new UnfoldingMap(this.app, this.mapProvider);
-        this.overviewMap = new OverviewMap(this, 270, 180, this.mapProvider, this.mapColor);
+        this.overviewMap = new OverviewMap(this, 270, 180, this.mapProvider);
+
+        // Setze Farben fuer Interface
+        this.setStyle("light");
 
         // Ermoeglicht Zoom und Pan auf Karte
         MapUtils.createDefaultEventDispatcher(this.app, this.map);
 
         // Setze Startort uns Zoomlevel der Karte
-        this.map.setZoomRange(5, 16);
+        this.map.setZoomRange(5, 17);
         this.map.zoomAndPanTo(this.startZoomLevel, this.startLocation);
         this.overviewMap.zoomAndPanTo(this.startZoomLevel-5, this.startLocation);
 
@@ -357,8 +357,8 @@ public abstract class Mapper {
         this.map.setTweening(true);
 
         // Zoom Buttons und Slider erstellen
-        this.slider = new SliderButton(this, 32, 23, 188, 3, 12, 5);
-        this.zoomIn = new ZoomButton(this, 217, 16, 16, 16, true);
+        this.slider = new SliderButton(this, 32, 23, 188, 3, 13, 5);
+        this.zoomIn = new ZoomButton(this, 219, 16, 16, 16, true);
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         //
@@ -389,6 +389,26 @@ public abstract class Mapper {
         this.zoomIn.draw();
         this.zoomOut.draw();
         this.mapSwitchButton.draw();
+    }
+
+    /**
+     * Zeichnet ein Feld mit Informationen ueber Ort und Zeit
+     *
+     * @param text zu setzender Informationstext
+     */
+    void drawInfoBox(String text){
+        // Zeichne weisses Rechteck
+        this.app.fill(this.buttonColor1);
+        this.app.noStroke();
+        this.app.rect(0, this.app.height-54, this.app.width, 54);
+        // Zeichne Linie ueber Rechteck
+        this.app.stroke(this.textColor);
+        this.app.strokeWeight(1.5f);
+        this.app.line(0, this.app.height-54, this.app.width, this.app.height-54);
+        // Schreibe Urzeit in Rechteck
+        this.app.fill(this.textColor);
+        this.app.textFont(this.font, 16);
+        this.app.text(text , 32, this.app.height-20);
     }
 
     /**

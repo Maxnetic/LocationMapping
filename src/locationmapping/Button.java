@@ -4,7 +4,10 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.*;
 
 /**
- * Button ist für die Konstruktion von Buttons auf einer unfolding map verantwortlich.
+ * Die Klasse Button ist dafür zustaendig alle Schaltflaechen die
+ * interaktiv ueber die Maus genutzt werden wollen auf die genutzte Karte zu zeichnen.
+ * Dabei handelt es sich beispielweise um Start- und Stopbuttons oder Schaltflaechen zum
+ * herein- und herauszoomen aus der Karte.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -67,7 +70,7 @@ class Button {
     void draw() {
         mapper.app.strokeWeight(1.5f);
         mapper.app.stroke(mapper.textColor);
-        mapper.app.fill(mouseOver(mapper.app.mouseX, mapper.app.mouseY) ? mapper.highlightColor : mapper.backgroundColor);
+        mapper.app.fill(mouseOver(mapper.app.mouseX, mapper.app.mouseY) ? mapper.buttonColor2 : mapper.buttonColor1);
         mapper.app.rect(x, y, w, h);
     }
 
