@@ -4,8 +4,9 @@ import processing.core.PApplet;
 import processing.data.*;
 
 /**
- * DataExporter exportiert TrackpointLists als .csv-Datei.
- * Dies beinhaltet Location, Timestamp, Service.
+ * Die Klasse DataExporter ist dafuer zustaendig Daten aus
+ * TrackpointLists in .csv-Dateien zu exportieren.
+ * Die .csv-Datei beinhaltet dann die Informationen: Location, Timestamp, Service.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -44,8 +45,8 @@ public class DataExporter {
 	 * 
 	 * @param trackpointlist zu exportierende trackpointlist
 	 * @param filename Name der csv-Datei
-	 * @return Wahrheitswert, ob export erfolgreich
-	 * @throws Exception falls export fehlgeschlagen
+	 * @return Wahrheitswert, ob Export erfolgreich
+	 * @throws Exception falls Export fehlgeschlagen
 	 */
     public boolean write(TrackpointList trackpointlist, String filename){
         try {
