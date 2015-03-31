@@ -6,8 +6,8 @@ void setup() {
     FireflyMapper mapper = new FireflyMapper(this);
     mapper.init(825, 985);
     
-    // TrackpointList data = mapper.importData("cellloc_germany.csv");
-    TrackpointList data = mapper.importData("fireflies.csv");
+    TrackpointList data = mapper.importData("../../data/CellLocation_germany.tsv", Const.EXPONENT_APPLE);
+    // TrackpointList data = mapper.importData("../../data/fireflies.csv");
     // mapper.exportData(data, "fireflies");
     
     

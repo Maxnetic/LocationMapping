@@ -4,8 +4,10 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * MarkerAnruf erweitert StandardMarker
- * Kennzeichnet Marker, an denen telefoniert wurde
+ * Die Klasse MarkerAnruf stellt einen Marker zur Verfuegung,
+ * der durch ein Label kennzeichnet, dass der genutzte Service "Telefonie" war.
+ * Gekennzeichnet wird dies durch das Symbol eines Telefons.
+ * MarkerAnruf erweitert StandardMarker.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -31,8 +33,8 @@ public class MarkerAnruf extends StandardMarker {
 	/**
 	* Zeichnet Marker
 	* @param pg Objekt das gezeichnet werden soll
-	* @param x X-Koordinate
-	* @param y Y-Koordinate
+	* @param x X-Koordinate des Markers
+	* @param y Y-Koordinate des Marker
 	*/	
 	public void draw(PGraphics pg, float x, float y){
 		if (!this.isHidden()){

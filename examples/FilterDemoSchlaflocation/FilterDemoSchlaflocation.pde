@@ -1,12 +1,16 @@
 import de.fhpotsdam.unfolding.*;
 import locationmapping.*;
 
+/**
+ * In diesem Beispiel werden alle Orte eingezeichnet, an den die getrackte Person übernachtet hat.
+ */
+
 void setup() {
     
-    Mapper mapper = new StaticMapper(this);
+    StaticMapper mapper = new StaticMapper(this);
     mapper.init();
     
-    TrackpointList data = mapper.importData("malte_spitz.csv");
+    TrackpointList data = mapper.importData("../../data/personX.csv");
     
     DateTimeFilter timeFilter = new DateTimeFilter();
     timeFilter.fromTime("2").toTime("5");

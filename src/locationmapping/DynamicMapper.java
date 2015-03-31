@@ -11,8 +11,8 @@ import processing.event.KeyEvent;
 import de.fhpotsdam.unfolding.marker.*;
 
 /**
+ * Die Klasse DynamicMapper erzeugt ein Mapper-Objekt, das Marker dynamisch nacheinander auf die Karte zeichnet.
  * DynamicMapper erweitert Mapper.
- * Erzeugt ein Mapper-Objekt, das Marker dynamisch nacheinander zeichnet.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0

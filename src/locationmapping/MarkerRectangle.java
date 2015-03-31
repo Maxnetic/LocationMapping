@@ -5,8 +5,9 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
 /**
- * MarkerRectangle erweitert StandardMarker
- * Konstruiert quadratische Marker.
+ * Die Klasse MarkerRectangle stellt einen Marker zur Verfuegung,
+ * dessen Form quadratisch ist.
+ * MarkerRectangle erweitert StandardMarker.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -32,8 +33,8 @@ public class MarkerRectangle extends StandardMarker {
 	/**
 	* Zeichnet Marker
 	* @param pg Objekt das gezeichnet werden soll
-	* @param x X-Koordinate
-	* @param y Y-Koordinate
+	* @param x X-Koordinate des Markers
+	* @param y Y-Koordinate des Markers
 	*/
 	public void draw(PGraphics pg, float x, float y){
 		if (!this.isHidden()){

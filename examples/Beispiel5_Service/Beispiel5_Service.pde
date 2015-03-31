@@ -20,7 +20,7 @@ void setup(){
   mapper.init();
     
   TrackpointList maltetpl;
-  maltetpl = mapper.importData("malte_spitz.csv");
+  maltetpl = mapper.importData("../../data/personX.csv");
   LocationFilter serviceFilterSMS = new LocationFilter();
   serviceFilterSMS.setService("SMS");
   TrackpointList serviceSMS;

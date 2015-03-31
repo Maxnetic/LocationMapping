@@ -1,5 +1,11 @@
 package locationmapping;
 
+/**
+ * Die Klasse AltMapButton erstellt einen Button zum Wechseln zwischen verschiedenen Kartenansichten.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
 public class AltMapButton extends Button {
     /**
      * Information ob angezeigtes Symbol plus ist (default = false)
@@ -18,7 +24,7 @@ public class AltMapButton extends Button {
      * @param y Y-Koordinate des Buttons
      * @param w Breite des Buttons
      * @param h Hoehe des Buttons
-     * @param label Text für Button
+     * @param label Text fuer Button
      */
     public AltMapButton(Mapper mapper, float x, float y, float w, float h, String label) {
         super(mapper, x, y, w, h);

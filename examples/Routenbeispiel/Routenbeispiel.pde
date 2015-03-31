@@ -6,12 +6,16 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.providers.*;
 import java.util.*;
 
-StaticMapper mapper = new StaticMapper(this); //DynamicMapper funktioniert nicht
+/**
+ * In diesem Beispiel wird gezeigt, wie man nur zusammenhängende Routen
+ * anzeigen lassen kann.
+ */
+
 Trackpoint start = null;  
 int i = 0;
 
-
 void setup() {
+  StaticMapper mapper = new StaticMapper(this); //DynamicMapper funktioniert nicht
   hint(ENABLE_RETINA_PIXELS);
   mapper.init();
     

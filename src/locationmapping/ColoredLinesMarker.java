@@ -9,8 +9,10 @@ import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
 /**
+ * Die Klasse ColoredLinesMarker stellt Marker zur Verfuegung,
+ * in Form von Linien zwischen Trackpoints.
+ * Möglich ist dies zwischen zweien oder mit mehreren Trackpoints.
  * ColoredLinesMarker erweitert SimpleLinesMarker.
- * Sie zeichnet farbige Marker und verbindet sie mit Linien.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -75,7 +77,7 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
       }
 
       /**
-      * Setzt Farbe des Markers
+      * Setzt Farbe des Markers durch HSB-Kodierung
       *
       * @param hsb_h Farbwert
       * @param hsb_s Saettigungswert
