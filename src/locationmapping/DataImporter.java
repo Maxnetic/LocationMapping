@@ -8,9 +8,12 @@ import processing.data.*;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * DataImporter importiert Dateien des Typs: .csv, .tsv, .json
- * und speichert diese in einer TrackpointList.
- *
+ * Die Klasse DataImporter importiert Daten aus .csv, .tsv oder .json Dateien.
+ * Jeder in diesen Dateien gespeicherte Zeit-/Ortspunkt wird in einen Trackpoint umgewandelt.
+ * Die Trackpoints werden dann in TrackpointLists zusammengefasst.
+ * Dabei wird ein kompletter Datensatz in einer TrackpointList 
+ * und nach Zeit sortiert gespeichert.
+ * 
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
  */
