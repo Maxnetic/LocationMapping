@@ -1,5 +1,11 @@
 package locationmapping;
 
+import java.lang.Class;
+import java.lang.ClassLoader;
+import java.net.URL;
+import java.io.InputStream;
+import java.io.IOException;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.event.MouseEvent;
@@ -60,9 +66,10 @@ public abstract class Mapper implements Const {
      */
     int mapColor = Const.LIGHT_RED;
     /**
-     * Die Schriftart fuer Texte auf der Karte
+     * Die Schriftart fuer Texte auf der Karte und für Icons auf der Karte
      */
     PFont font;
+    PFont iconFont;
     /**
      * die Start Breite des Fensters
      */
@@ -307,7 +314,14 @@ public abstract class Mapper implements Const {
      */
     public Mapper(PApplet app){
         this.app = app;
-        this.font = this.app.loadFont("../../data/Courier.vlw");
+        // ClassLoader cl = this.getClassLoader();
+        try {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            this.font = new PFont(classLoader.getResourceAsStream("Courier.vlw"));
+            this.iconFont = new PFont(classLoader.getResourceAsStream("FontAwesome.vlw"));
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     /**
