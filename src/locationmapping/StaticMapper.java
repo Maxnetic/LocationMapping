@@ -5,8 +5,8 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.marker.*;
 
 /**
+ * Die Klasse StaticMapper erzeugt ein Mapper-Objekt, das Marker statisch auf die Karte zeichnet.
  * StaticMapper erweitert Mapper.
- * Erzeugt ein Mapper-Objekt, das Marker statisch zeichnet.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -24,6 +24,7 @@ public class StaticMapper extends Mapper {
 
     /**
     * Fuegt Marker hinzu
+	*
     * @param marker Marker der hinzugefuegt werden soll
     */
     public void addMarker(Marker marker) {

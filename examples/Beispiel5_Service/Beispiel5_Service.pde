@@ -20,22 +20,22 @@ void setup(){
   mapper.init();
     
   TrackpointList maltetpl;
-  maltetpl = mapper.importData("../../data/personX.csv");
+  xtpl = mapper.importData("../../data/personX.csv");
   LocationFilter serviceFilterSMS = new LocationFilter();
   serviceFilterSMS.setService("SMS");
   TrackpointList serviceSMS;
-  serviceSMS = serviceFilterSMS.apply(maltetpl);
+  serviceSMS = serviceFilterSMS.apply(xtpl);
   
-  maltetpl = mapper.importData("malte_spitz.csv");
+  xtpl = mapper.importData("malte_spitz.csv");
   LocationFilter serviceFilterTelefonie = new LocationFilter();
   serviceFilterTelefonie.setService("Telefonie");
   TrackpointList serviceTelefonie;
-  serviceTelefonie = serviceFilterTelefonie.apply(maltetpl);
+  serviceTelefonie = serviceFilterTelefonie.apply(xtpl);
   
   LocationFilter serviceFilterInternet = new LocationFilter();
   serviceFilterInternet.setService("Internet");
   TrackpointList serviceInternet;
-  serviceInternet = serviceFilterInternet.apply(maltetpl);
+  serviceInternet = serviceFilterInternet.apply(xtpl);
   
   DateTimeFilter wohnortfilter = new DateTimeFilter();
   wohnortfilter.setStartTime("02:00");
@@ -43,7 +43,7 @@ void setup(){
   LocationFilter frequencyfilter = new LocationFilter();
   frequencyfilter.setMinFrequency(100);
   TrackpointList moeglichewohnorte;
-  moeglichewohnorte = wohnortfilter.apply(maltetpl);
+  moeglichewohnorte = wohnortfilter.apply(xtpl);
   moeglichewohnorte = frequencyfilter.apply(moeglichewohnorte);
   
   

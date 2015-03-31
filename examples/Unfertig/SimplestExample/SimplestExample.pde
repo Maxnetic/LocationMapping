@@ -10,6 +10,7 @@ void setup() {
     
     Mapper mapper = new DynamicMapper(this);
     mapper.init();
+    mapper.map.setTweening(false);
     
     TrackpointList data = mapper.importData("../../data/celllocation_mittel.tsv");
     

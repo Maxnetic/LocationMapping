@@ -5,8 +5,12 @@ import java.util.*;
 import de.fhpotsdam.unfolding.geo.*;
 
 /**
+ * Die Klasse LocationFilter stellt Filterattribute zur Verfuegung, 
+ * die zum Filtern nach oertlichen Angaben benoetigt werden.
+ * Es kann nach Ortsangaben, Radien und Ortshaeufigkeiten gefiltert werden.
+ * Die einzelnen Attribute koennen durch Methoden gesetzt 
+ * und dann mit der apply-Methode auf eine TrackpointList angewandt werden.
  * LocationFilter erweitert Filter.
- * Filtert eine TrackpointList nach Ortsvariablen.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -14,15 +18,15 @@ import de.fhpotsdam.unfolding.geo.*;
 
 public class LocationFilter extends Filter {
     /**
-     * Mindestfrequenz für den Frequenzfilter
+     * Mindesthaeufigkeit für den Haeufigkeitsfilter
      */
     int minfrequency = 0;
     /**
-    * Location, nach der gefiltert wird
+    * Ort, nach dem gefiltert wird
     */
     Location location;
     /**
-    * Radius um Location, die im Radiusfilter genutzt werden
+    * Radius um Ort, der im Radiusfilter genutzt werden
     */
     int radius = 0;
     /**
@@ -33,6 +37,7 @@ public class LocationFilter extends Filter {
 
     /**
     * Setzt die Mindesthaeufigkeit
+	*
     * @param minf Mindesthaeufigkeit
     */
     public void setMinFrequency(int minf){
@@ -49,7 +54,7 @@ public class LocationFilter extends Filter {
     }
 
     /**
-    * Setzt die Location
+    * Setzt den Ort
     *
     * @param location Ort, um den gefiltert wird
     */
@@ -112,6 +117,7 @@ public class LocationFilter extends Filter {
 
     /**
     * Filtert nach Frequenz
+	*
     * @param trackpointlist Liste, die gefiltert werden soll
     */
     private void frequencyFilter(TrackpointList trackpointlist){
@@ -123,6 +129,7 @@ public class LocationFilter extends Filter {
 
     /**
     * Filtert nach Location und Radius
+	*
     * @param trackpointlist Liste, die gefiltert werden soll
     */
     private void locationFilter(TrackpointList trackpointlist){
@@ -134,6 +141,7 @@ public class LocationFilter extends Filter {
 
     /**
     * Filtert nach Service
+	*
     * @param trackpointlist Liste, die gefiltert werden soll
     */
     private void serviceFilter(TrackpointList trackpointlist){
@@ -146,11 +154,10 @@ public class LocationFilter extends Filter {
 
 
     /**
-     * apply Methode, die je nachdem, wie die Attribute gesetzt wurden filtert
-     * Es wird ueberprueft, ob und welche Attribute gesetzt wurden, so dass bestimmte Filter aufgerufen werden
+     * Filtert uebergebene TrackpointList je nachdem welche Attribute zuvor gesetzt wurden
      *
-     * @param trackpointlist Die TrackpointList, die gefiltert wird
-     * @return gibt eine TrackpointList zurueck, in der die visible Eigenschaft veraendert wurde
+     * @param trackpointlist zu filternde Trackpointliste, wird nicht veraendert
+     * @return gefilterte TrackpointList
     */
     public TrackpointList apply(TrackpointList trackpointlist) {
 
