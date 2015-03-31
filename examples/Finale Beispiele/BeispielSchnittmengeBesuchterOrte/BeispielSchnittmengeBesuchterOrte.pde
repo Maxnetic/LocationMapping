@@ -17,9 +17,9 @@ void setup() {
   mapper.init();
     
   TrackpointList list1;
-  list1 = mapper.importData("malte_spitz.csv");
+  list1 = mapper.importData("../../data/personX.csv");
   TrackpointList list2;
-  list2 = mapper.importData("max_mittel.csv");
+  list2 = mapper.importData("../../data/personY.csv");
     
   // Der erste Datensatz wird gefiltert, um weniger Vergleiche tätigen zu müssen
   // Aufgrund des Zeitersparnisses wird dieses Vorgehen stark empfohlen.

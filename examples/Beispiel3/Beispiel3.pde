@@ -21,8 +21,8 @@ void setup(){
   TrackpointList maltetpl;
   TrackpointList maxtpl;
   //Import
-  maltetpl = mapper.importData("malte_spitz.csv");
-  maxtpl = mapper.importData("max_mittel.json");
+  maltetpl = mapper.importData("../../data/personX.csv");
+  maxtpl = mapper.importData("../../data/personY.csv");
   
   //setzen des Arbeitsfilters
   DateTimeFilter arbeitsfilter = new DateTimeFilter();

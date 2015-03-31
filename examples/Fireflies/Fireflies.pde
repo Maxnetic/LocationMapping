@@ -7,7 +7,7 @@ void setup() {
     mapper.init(825, 985);
     
     // TrackpointList data = mapper.importData("cellloc_germany.csv");
-    TrackpointList data = mapper.importData("fireflies.csv");
+    TrackpointList data = mapper.importData("../../data/fireflies.csv");
     // mapper.exportData(data, "fireflies");
     
     mapper.load(data);
