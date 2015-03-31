@@ -4,8 +4,10 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
+ * Die Klasse MarkerSMS stellt einen Marker zur Verfuegung,
+ * der durch ein Label kennzeichnet, dass der genutzte Service "SMS" war.
+ * Gekennzeichnet wird dies durch das Symbol eines Briefumschlags.
  * MarkerSMS erweitert StandardMarker
- * Kennzeichnet Marker, an denen eine SMS geschickt oder empfangen wurde
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -34,8 +36,8 @@ public class MarkerSMS extends StandardMarker {
 	/**
 	* Zeichnet Marker
 	* @param pg Objekt das gezeichnet werden soll
-	* @param x X-Koordinate
-	* @param y Y-Koordinate
+	* @param x X-Koordinate des Markers
+	* @param y Y-Koordinate des Markers
 	*/
 	public void draw(PGraphics pg, float x, float y){
 		if (!this.isHidden()){

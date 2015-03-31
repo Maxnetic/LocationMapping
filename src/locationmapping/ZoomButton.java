@@ -1,8 +1,8 @@
 package locationmapping;
 
 /**
+ * Die Klasse ZoomButton erstellt zwei Buttons zum Herein- bzw. Herauszoomen aus der Karte.
  * ZoomButton erweitert Button.
- * Erstellt zwei Buttons zum Herein- bzw. Herauszoomen aus der Karte.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -22,7 +22,7 @@ public class ZoomButton extends Button {
      * @param y Y-Koordinate des Buttons
      * @param w Breite des Buttons
      * @param h Hoehe des Buttons
-     * @param plusSymbol Wahrheitswert über Plussymbol auf Button
+     * @param plusSymbol Wahrheitswert ob Symbol auf dem Button ein Plus ist
      */
     public ZoomButton(Mapper mapper, float x, float y, float w, float h, boolean plusSymbol) {
         super(mapper, x, y, w, h);

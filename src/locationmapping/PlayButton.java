@@ -1,8 +1,8 @@
 package locationmapping;
 
 /**
+ * Die Klasse PlayButton erstellt einen Button zum Starten und Anhalten der Animation.
  * PlayButton erweitert Button.
- * Erstellt einen Button zum Starten und Anhalten der Animation.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0

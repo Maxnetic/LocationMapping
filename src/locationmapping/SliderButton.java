@@ -1,8 +1,8 @@
 package locationmapping;
 
 /**
+ * Die Klasse SliderButton erstellt einen Balken zum Herein- und Herauszoomen aus der Karte.
  * SliderButton erweitert Button.
- * Erstellt einen Balken zum Herein- und Herauszoomen aus der Karte.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0

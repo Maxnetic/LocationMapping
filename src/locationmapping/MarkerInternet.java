@@ -4,8 +4,10 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
+ *  Die Klasse MarkerInternet stellt einen Marker zur Verfuegung,
+ * der durch ein Label kennzeichnet, dass der genutzte Service "Internet" war.
+ * Gekennzeichnet wird dies durch ein @-Zeichen.
  * MarkerInternet erweitert StandardMarker
- * Kennzeichnet Marker, an denen das Internet benutzt wurde #NEULAND
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -31,8 +33,8 @@ public class MarkerInternet extends StandardMarker {
 	/**
 	* Zeichnet Marker
 	* @param pg Objekt das gezeichnet werden soll
-	* @param x X-Koordinate
-	* @param y Y-Koordinate
+	* @param x X-Koordinate des Markers
+	* @param y Y-Koordinate des Markers
 	*/
 	public void draw(PGraphics pg, float x, float y){
 		if (!this.isHidden()){
