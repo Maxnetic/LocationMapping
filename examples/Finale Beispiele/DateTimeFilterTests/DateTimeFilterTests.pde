@@ -11,7 +11,7 @@ void setup() {
   mapper.setStartZoomLevel(6);
   mapper.init();
   
-  TrackpointList data = mapper.importData("../../data/malte_spitz.csv");
+  TrackpointList data = mapper.importData("../../data/personX.csv");
   
   DateTimeFilter januaryFilter = new DateTimeFilter().fromDate("1.1.2010").toDate("31.1.2010");
   DateTimeFilter christmasFilter = new DateTimeFilter().onDate("2009/12/24");

@@ -13,9 +13,10 @@ import de.fhpotsdam.unfolding.providers.*;
 
 
 /**
- * Mapper-Oberklasse
+ * Mapper-Oberklasse, zur Organisation der Objekte auf der Map
  * Beinhaltet verschiedene Methoden um die Funktionsfaehigkeit
  * von unfolding maps zu erweitern.
+ * Mapper implementiert Const
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -23,12 +24,24 @@ import de.fhpotsdam.unfolding.providers.*;
 
 public abstract class Mapper implements Const {
   /**
-  * Farben fuer Buttons, Text und Hintergrund
+    * Farben fuer Text
   */
   public int textColor;
+	/**
+    * Farben fuer Button
+    */
   public int buttonColor1;
+	/**
+    * Farben fuer Button
+    */
   public int buttonColor2;
+	/**
+    * Farben fuer Text
+    */
   public int highlightColor;
+	/**
+    * Farben fuer Text
+    */
   public int red;
   
   /**
@@ -129,6 +142,8 @@ public abstract class Mapper implements Const {
   
   /**
   * gibt Startzoomstufe zurück
+	 *
+	 * @return Startzommstufe
   */
   public int getZoomLevel(){
     return startZoomLevel;
@@ -136,6 +151,8 @@ public abstract class Mapper implements Const {
   
   /**
   * legt die Zoomstufe zum Programmstart fest
+	 *
+	 * @param newZoom neue Zoomstufe
   */
   public void setZoomLevel(int newZoom){
     startZoomLevel = newZoom;
@@ -143,6 +160,8 @@ public abstract class Mapper implements Const {
   
   /**
   * gibt den beim Start gezeigten Ort an
+	 *
+	 * @return Startpunkt
   */
   public Location getStartLocation(){
     return startLocation;
@@ -150,6 +169,9 @@ public abstract class Mapper implements Const {
   
   /**
   * legt den beim Start gezeigten Ort fest
+	 *
+	 * @param location Ort der beim Start gezeigt werden soll
+	 * @return Mapper-Objekt
   */
   public Mapper setStartLocation(Location location){
     this.startLocation = location;
@@ -157,6 +179,10 @@ public abstract class Mapper implements Const {
   }
   /**
   * legt den beim Start gezeigten Ort fest
+	 *
+	 * @param latitude Laengengrad des Ortes
+	 * @param logitude Breitengrad des Ortes
+	 * @return Mapper-Objekt
   */
   public Mapper setStartLocation(double latitude, double longitude){
     return this.setStartLocation(new Location(latitude, longitude));
@@ -165,6 +191,7 @@ public abstract class Mapper implements Const {
   * Setzt Startzoomstufe
   *
   * @param zoomLevel Startzoomstufe
+	* @return Mapper-Objekt
   */
   public Mapper setStartZoomLevel(int zoomLevel){
     this.startZoomLevel = zoomLevel;
@@ -213,7 +240,7 @@ public abstract class Mapper implements Const {
   /**
   * Setzt Alternative Karten Provider
   *
-  * @param altProvider alternativer Provider für Karte als Stringals String
+     * @param altProvider alternativer Provider für Karte als String
   */
   public void setAltMapProvider(String altProvider){
     this.altMapProviders[0] = getMapProvider(altProvider);
@@ -322,7 +349,7 @@ public abstract class Mapper implements Const {
     this.init();
   }
   /**
-  * Initialisiert Fenster, Karte und Buttons, sollte als erstes in setup
+     * Initialisiert Fenster, Karte und Buttons, sollte als erstes in setup 
   * Methode des Processing Sketches aufgerufen werden
   */
   public void init(){
@@ -412,7 +439,7 @@ public abstract class Mapper implements Const {
   }
   
   /**
-  * Importiert Daten aus angegbener Datei in eine Trackpointliste
+     * Importiert Daten aus angegebener Datei in eine TrackpointList
   *
   * @param filename Name der zu importierenden Datei aus dem data Ordner
   * @return TrackpointList mit Datenpunkten aus Datei
@@ -425,6 +452,7 @@ public abstract class Mapper implements Const {
   * Importiert Daten aus angegbener Datei in eine Trackpointliste
   *
   * @param filename Name der zu importierenden Datei aus dem data Ordner
+	 * @param timeFormat
   * @return TrackpointList mit Datenpunkten aus Datei
   */
   public TrackpointList importData(String filename, int timeFormat) {
@@ -433,9 +461,11 @@ public abstract class Mapper implements Const {
   }
   
   /**
-  * Importiert Daten aus angegbener Datei in eine Trackpointliste
+     * Exportiert Daten aus TrackpointList in Datei
   *
-  * @param filename Name der zu importierenden Datei aus dem data Ordner
+	 * @param trackpointList zu exportierende TrackpointList
+     * @param filename Name der Datei in die exportiert werden soll
+	 * @param maxExportSize maximale Anzahl der zu exportierenden Datensätze
   * @throws RuntimeException falls der Export fehlgeschlagen ist
   */
   public void exportData(TrackpointList trackpointList, String filename, int maxExportSize) {
@@ -447,9 +477,10 @@ public abstract class Mapper implements Const {
     throw new RuntimeException("export failed");
   }
   /**
-  * Importiert Daten aus angegbener Datei in eine Trackpointliste
+     * Exportiert Daten aus TrackpointList in Datei
   *
-  * @param filename Name der zu importierenden Datei aus dem data Ordner
+	 * @param trackpointList zu exportierende TrackpointList 
+     * @param filename Name der Datei in die exportiert werden soll
   * @throws RuntimeException falls der Export fehlgeschlagen ist
   */
   public void exportData(TrackpointList trackpointList, String filename) {

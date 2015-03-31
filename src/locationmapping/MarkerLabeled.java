@@ -4,8 +4,9 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
+ * Die Klasse MarkerLabeled stellt einen Marker zur Verfuegung,
+ * der ein Label besitzt, welches mit selbst gewähltem Text beschriftet werden kann.
  * MarkerLabeled erweitert StandardMarker
- * Konstruiert Marker mit Info-Text.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -31,8 +32,8 @@ public class MarkerLabeled extends StandardMarker {
 	/**
 	* Zeichnet Marker
 	* @param pg Objekt das gezeichnet werden soll
-	* @param x X-Koordinate
-	* @param y Y-Koordinate
+	* @param x X-Koordinate des Markers
+	* @param y Y-Koordinate des Markers
 	*/
 	public void draw(PGraphics pg, float x, float y){
 		if (!this.isHidden()){
