@@ -53,7 +53,6 @@ void setup() {
       }
     }
     start = end;
-    System.out.print(end.getId() + ", ");
   }
 }    
   

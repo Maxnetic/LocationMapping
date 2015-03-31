@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.providers.*;
 /**
 * In dem Beispiel werden zwei Datensätze nach Aufenthalt von 10 bis 16 Uhr und Monatg bis Freitag gefiltert,
 * um den höchstwahrscheinlichen Arbeitsplatz zu bestimmen.
-*
+* Eine Filterung nach der Häufigkeit wäre hier ergänzend nötig um die Ergebnisse gut bewerten zu können.
 */
 
 void setup(){
@@ -18,11 +18,11 @@ void setup(){
   //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
-  TrackpointList maltetpl;
-  TrackpointList maxtpl;
+  TrackpointList xtpl;
+  TrackpointList ytpl;
   //Import
-  maltetpl = mapper.importData("../../data/personX.csv");
-  maxtpl = mapper.importData("../../data/personY.csv");
+  xtpl = mapper.importData("../../data/personX.csv");
+  ytpl = mapper.importData("../../data/personY.csv");
   
   //setzen des Arbeitsfilters
   DateTimeFilter arbeitsfilter = new DateTimeFilter();
@@ -39,17 +39,17 @@ void setup(){
   arbeitsfilter2.setWeekDays("montag-freitag");
   
   //Anwenden des Arbeitsfilters
-  maltetpl = arbeitsfilter.apply(maltetpl);
-  maxtpl = arbeitsfilter2.apply(maxtpl);
+  xtpl = arbeitsfilter.apply(xtpl);
+  ytpl = arbeitsfilter2.apply(ytpl);
   
-  for(Trackpoint tp: maltetpl){
+  for(Trackpoint tp: xtpl){
       MarkerRectangle marker = new MarkerRectangle(tp);
       marker.setSize(10);
       marker.setColor("rot");
       mapper.addMarker(marker);
   }
   
-  for ( Trackpoint tp : maxtpl) {
+  for ( Trackpoint tp : ytpl) {
       StandardMarker marker = new StandardMarker(tp);
       marker.setSize(10);
       marker.setColor("gelb");

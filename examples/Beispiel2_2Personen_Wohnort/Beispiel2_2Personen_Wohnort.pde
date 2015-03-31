@@ -36,37 +36,37 @@ void setup() {
   wohnortfilter.setEndTime("05:00");
   LocationFilter frequencyfilter = new LocationFilter();
   frequencyfilter.setMinFrequency(2000);
-  TrackpointList moeglicheWohnorteMalte;
+  TrackpointList moeglicheWohnorteX;
   
   // Wohnort von Malte ermitteln
-  moeglicheWohnorteMalte = wohnortfilter.apply(list1);
-  moeglicheWohnorteMalte = frequencyfilter.apply(moeglicheWohnorteMalte);
+  moeglicheWohnorteX = wohnortfilter.apply(list1);
+  moeglicheWohnorteX = frequencyfilter.apply(moeglicheWohnorteX);
   
   DateTimeFilter jsonwohnortfilter = new DateTimeFilter();
   jsonwohnortfilter.setStartTime("02:00");
   jsonwohnortfilter.setEndTime("05:00");
-  TrackpointList moeglicheWohnorteMax;
+  TrackpointList moeglicheWohnorteY;
   
   // Wohnort von Max ermiiteln
-  moeglicheWohnorteMax = jsonwohnortfilter.apply(list2);
-  moeglicheWohnorteMax = frequencyfilter.apply(moeglicheWohnorteMax);
+  moeglicheWohnorteY = jsonwohnortfilter.apply(list2);
+  moeglicheWohnorteY = frequencyfilter.apply(moeglicheWohnorteY);
   
   // Trackpoints von Malte zum zu zeichnenden Mapper-Objekt hinzufügen.  
-  for ( Trackpoint tp : moeglicheWohnorteMalte ) {
-    MarkerLabeled wohnortMalte = new MarkerLabeled(tp);
-    wohnortMalte.setLabel("  möglicher Wohnort von Malte");
-    wohnortMalte.setColor(200,0,200);
-    wohnortMalte.setTransparency(50);
-    mapper.addMarker(wohnortMalte);
+  for ( Trackpoint tp : moeglicheWohnorteX ) {
+    MarkerLabeled wohnortX = new MarkerLabeled(tp);
+    wohnortX.setLabel("  möglicher Wohnort von PersonX");
+    wohnortX.setColor(200,0,200);
+    wohnortX.setTransparency(50);
+    mapper.addMarker(wohnortX);
   }
   
   // Trackpoints von Max zum zu zeichnenden Mapper-Objekt hinzufügen.
-  for (Trackpoint tp : moeglicheWohnorteMax){
-    MarkerLabeled wohnortMax = new MarkerLabeled(tp);
-    wohnortMax.setColor(0,200,200);
-    wohnortMax.setTransparency(50);
-    wohnortMax.setLabel("  möglicher Wohnort von Max");
-    mapper.addMarker(wohnortMax);
+  for (Trackpoint tp : moeglicheWohnorteY){
+    MarkerLabeled wohnortY = new MarkerLabeled(tp);
+    wohnortY.setColor(0,200,200);
+    wohnortY.setTransparency(50);
+    wohnortY.setLabel("  möglicher Wohnort von PersonY");
+    mapper.addMarker(wohnortY);
   }
     
     
