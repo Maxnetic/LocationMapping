@@ -40,7 +40,6 @@ public class OverviewMap extends UnfoldingMap {
      * @param w die Breite der Übersichtskarte
      * @param h die Höhe der Übersichtskarte
      * @param mapProvider der Kartenprovider der Übersichtskarte
-     * @param color die Farbe für die Markierung auf der Übersichtskarte
      */
     public OverviewMap(Mapper mapper, int w, int h, AbstractMapProvider mapProvider) {
         super(mapper.app, mapper.width-w-16, 16, w, h, mapProvider);
