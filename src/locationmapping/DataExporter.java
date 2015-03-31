@@ -42,11 +42,10 @@ public class DataExporter {
 
  	/**
 	 * Schreibt die csv-Datei.
-	 * 
+	 *
 	 * @param trackpointlist zu exportierende trackpointlist
 	 * @param filename Name der csv-Datei
 	 * @return Wahrheitswert, ob Export erfolgreich
-	 * @throws Exception falls Export fehlgeschlagen
 	 */
     public boolean write(TrackpointList trackpointlist, String filename){
         try {

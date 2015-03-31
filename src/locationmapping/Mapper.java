@@ -102,7 +102,7 @@ public abstract class Mapper implements Const {
     /**
     * Map Switch Button
     */
-    AltMapButton mapSwitchButton;
+    MapSwitchButton mapSwitchButton;
     /**
     * Fenster groessenanpassbar
     */
@@ -158,28 +158,10 @@ public abstract class Mapper implements Const {
     }
 
     /**
-    * gibt Startzoomstufe zurück
-    */
-    public int getZoomLevel(){
-        return startZoomLevel;
-    }
-
-    /**
-    * legt die Zoomstufe zum Programmstart fest
-    */
-    public void setZoomLevel(int newZoom){
-        startZoomLevel = newZoom;
-    }
-
-    /**
-    * gibt den beim Start gezeigten Ort an
-    */
-    public Location getStartLocation(){
-        return startLocation;
-    }
-
-    /**
     * legt den beim Start gezeigten Ort fest
+    *
+    * @param location Ortsobjekt, welches als Startort der Karte gesetzt wird
+    * @return Mapper Objekt für Method-Chaning
     */
     public Mapper setStartLocation(Location location){
         this.startLocation = location;
@@ -187,6 +169,10 @@ public abstract class Mapper implements Const {
     }
     /**
     * legt den beim Start gezeigten Ort fest
+    *
+    * @param latitude Breitengrad des Startorts
+    * @param longitude Längengrad des Startorts
+    * @return Mapper Objekt für Method-Chaning
     */
     public Mapper setStartLocation(double latitude, double longitude){
         return this.setStartLocation(new Location(latitude, longitude));
@@ -195,6 +181,7 @@ public abstract class Mapper implements Const {
     * Setzt Startzoomstufe
     *
     * @param zoomLevel Startzoomstufe
+    * @return Mapper Objekt für Method-Chaning
     */
     public Mapper setStartZoomLevel(int zoomLevel){
         this.startZoomLevel = zoomLevel;
@@ -205,19 +192,22 @@ public abstract class Mapper implements Const {
     * Setzt MapProvider
     *
     * @param provider MapProvider
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setMapProvider(AbstractMapProvider provider){
+    public Mapper setMapProvider(AbstractMapProvider provider){
         this.mapProvider = provider;
         this.map.mapDisplay.setProvider(this.mapProvider);
         this.overviewMap.mapDisplay.setProvider(this.mapProvider);
+        return this;
     }
     /**
     * Setzt MapProvider
     *
     * @param provider MapProvider als String
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setMapProvider(String provider){
-        mapProvider = getMapProvider(provider);
+    public Mapper setMapProvider(String provider){
+        return this.setMapProvider(getMapProvider(provider));
     }
 
     /**
@@ -225,29 +215,32 @@ public abstract class Mapper implements Const {
     *
     * @param altProvider alternativer Provider für Karte
     * @param altOverviewProvider alternativer Provider für Übersichtskarte
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setAltMapProvider(AbstractMapProvider altProvider, AbstractMapProvider altOverviewProvider){
+    public Mapper setAltMapProvider(AbstractMapProvider altProvider, AbstractMapProvider altOverviewProvider){
         this.altMapProviders[0] = altProvider;
         this.altMapProviders[1] = altOverviewProvider;
+        return this;
     }
     /**
     * Setzt Alternative Karten Provider
     *
     * @param altProvider alternativer Provider für Karte als String
     * @param altOverviewProvider alternativer Provider für Übersichtskarte als String
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setAltMapProvider(String altProvider, String altOverviewProvider){
-        this.altMapProviders[0] = getMapProvider(altProvider);
-        this.altMapProviders[1] = getMapProvider(altOverviewProvider);
+    public Mapper setAltMapProvider(String altProvider, String altOverviewProvider){
+        return this.setAltMapProvider(getMapProvider(altProvider), getMapProvider(altOverviewProvider));
     }
     /**
     * Setzt Alternative Karten Provider
     *
     * @param altProvider alternativer Provider für Karte als Stringals String
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setAltMapProvider(String altProvider){
-        this.altMapProviders[0] = getMapProvider(altProvider);
-        this.altMapProviders[1] = getMapProvider(altProvider);
+    public Mapper setAltMapProvider(String altProvider){
+        AbstractMapProvider provider = getMapProvider(altProvider);
+        return this.setAltMapProvider(provider, provider);
     }
 
     /**
@@ -299,10 +292,10 @@ public abstract class Mapper implements Const {
     /**
     * Setzt MapProvider
     *
-    * @param provider Map Style als String
-    * @throws RuntimeException falls provider String nicht geparsed werden kann
+    * @param style Map Style als String
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setStyle(String style){
+    public Mapper setStyle(String style){
         switch(style){
             case "light":
             this.setMapProvider(new MapProvider.Light());
@@ -328,6 +321,7 @@ public abstract class Mapper implements Const {
             this.red = Const.DARK_RED;
             break;
         }
+        return this;
     }
 
     /**
@@ -382,7 +376,7 @@ public abstract class Mapper implements Const {
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         //
-        this.mapSwitchButton = new AltMapButton(this, 16, 64, 92, 20, "SWITCH MAP");
+        this.mapSwitchButton = new MapSwitchButton(this, 16, 64, 92, 20, "SWITCH MAP");
 
         // Listener Einsetzen
         this.app.registerMethod("mouseEvent", this);
@@ -448,6 +442,7 @@ public abstract class Mapper implements Const {
     * Importiert Daten aus angegbener Datei in eine Trackpointliste
     *
     * @param filename Name der zu importierenden Datei aus dem data Ordner
+    * @param timeFormat spezifizierung des Datumsformats, wähle eine Constante: UNIX, ISO8601, EXPONENT_APPLE oder MDY_DATETIME
     * @return TrackpointList mit Datenpunkten aus Datei
     */
     public TrackpointList importData(String filename, int timeFormat) {
@@ -456,31 +451,34 @@ public abstract class Mapper implements Const {
     }
 
     /**
-    * Importiert Daten aus angegbener Datei in eine Trackpointliste
+    * Exportiert Daten aus angegbener Trackpointliste in eine CSV Datei
     *
-    * @param filename Name der zu importierenden Datei aus dem data Ordner
+    * @param trackpointList Liste mit zu exportierenden Trackpoint
+    * @param filename Name der zu exportierenden Datei, .csv wird automatisch hinzugefügt
+    * @param maxExportSize maximale Anzahl von Zeilen der Export Datei
     * @throws RuntimeException falls der Export fehlgeschlagen ist
     */
     public void exportData(TrackpointList trackpointList, String filename, int maxExportSize) {
         DataExporter exporter = new DataExporter(this.app);
         exporter.setMaxExportSize(maxExportSize);
-        if ( exporter.write(trackpointList, filename) )
+            if ( exporter.write(trackpointList, filename) )
         System.out.println("Written CSV to " + filename);
         else
-        throw new RuntimeException("export failed");
+            throw new RuntimeException("export failed");
     }
     /**
-    * Importiert Daten aus angegbener Datei in eine Trackpointliste
+    * Exportiert Daten aus angegbener Trackpointliste in eine CSV Datei
     *
-    * @param filename Name der zu importierenden Datei aus dem data Ordner
+    * @param trackpointList Liste mit zu exportierenden Trackpoint
+    * @param filename Name der zu exportierenden Datei, .csv wird automatisch hinzugefügt
     * @throws RuntimeException falls der Export fehlgeschlagen ist
     */
     public void exportData(TrackpointList trackpointList, String filename) {
         DataExporter exporter = new DataExporter(this.app);
         if ( exporter.write(trackpointList, filename) )
-        System.out.println("Written CSV to " + filename);
+            System.out.println("Written CSV to " + filename);
         else
-        throw new RuntimeException("export failed");
+            throw new RuntimeException("export failed");
     }
 
     public abstract void addMarker(Marker marker);
