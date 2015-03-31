@@ -8,17 +8,20 @@ import de.fhpotsdam.unfolding.geo.Location;
 
 
 /**
- * TrackpointList implementiert Iterable und enthaelt Trackpoints.
+ * Eine TrackpointList fasst mehrere Trackpoints zusammen, 
+ * die aus einem Datensatz eingelesen oder aus einem Filter gefiltert wurden. 
+ * TrackpointList implementiert Iterable.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
  */
 public class TrackpointList implements Iterable<Trackpoint> {
     /**
-    * Trackpoint-Liste, die Trackpoints zu einer Person enthaelt
+    * Trackpoint-Liste, die Trackpoints aus einem Datensatz enthaelt
     */
     private ArrayList<Trackpoint> trackpointList;
     /**
+	* Hashtable, der Trackpoints und ihre Haeufigkeiten in der TrackpointList enthaelt
     */
     private LinkedHashMap<Location, Integer> locationFrequencies;
     /**
@@ -109,8 +112,8 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Binaersuche nach Position eines Trackpoint mit bestimmter Zeit in der Liste
      *
-     * @param timestamp Zeitvariable des zu findenden Trackpoint
-     * @return Position des Trackpoints in der Liste
+     * @param timestamp Zeitvariable des zu findenden Trackpoint als DateTime-Objekt
+     * @return Position des Trackpoints in der Liste 
      * @throws NoSuchElementException falls Element nicht in Liste existiert
      */
     private int binarySearch(DateTime timestamp) throws NoSuchElementException {
@@ -137,7 +140,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Ueberprueft, ob Trackpoint in Trackpointliste vorhanden
      *
-     * @param timestamp Zeit zu dem entsprechender Trackpoint gefunden werden soll
+     * @param timestamp Zeit zu dem entsprechender Trackpoint gefunden werden soll als DateTime-Objekt
      * @return Wahrheitswert, ob Trackpoint in Trackpointliste vorhanden
      */
     public boolean contains(DateTime timestamp){
@@ -165,7 +168,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Findet Trackpoint in Trackpointliste und gibt ihn zurueck
      *
-     * @param timestamp Zeit zu dem entsprechender Trackpoint gefunden werden soll
+     * @param timestamp Zeit zu dem entsprechender Trackpoint gefunden werden soll als DateTime-Objekt
      * @return gesuchter Trackpoint
      * @throws RuntimeException falls Trackpoint nicht enthalten ist
      */
@@ -225,7 +228,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     }
 
     /**
-     * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurueck
+     * Findet die Position eines Trackpoints in der Trackpointliste und gibt sie zurueck
      *
      * @param trackpoint Trackpoint, dessen Position gefunden werden soll
      * @return Position des gesuchten Trackpoint
@@ -237,7 +240,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Findet die Position eines Trackpoint in der Trackpointliste und gibt sie zurueck
      *
-     * @param timestamp Zeit zu dem entsprechende Trackpoint Position gefunden werden soll
+     * @param timestamp Zeit zu dem entsprechende Trackpoint Position gefunden werden soll als DateTime-Objekt
      * @return Position des gesuchten Trackpoint
      * @throws RuntimeException falls Trackpoint nicht gefunden wurde
      */
@@ -326,7 +329,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
     /**
      * Gibt Iterator ueber Trackpointliste zurueck, stellt Sortierung nach Zeit sicher
      *
-     * @param timestamp Zeitvariable, an deren Position bzw nach deren Position der Iterator gestartet werden soll
+     * @param timestamp Zeitvariable, an deren Position der Interator startet, wenn Zeitpunkt vorhanden, sonst wird am ersten vorhandenen Zeitpunkt danach gestartet
      * @return Iterator ueber Trackpointliste
      */
     public ListIterator<Trackpoint> iterator(DateTime timestamp){
