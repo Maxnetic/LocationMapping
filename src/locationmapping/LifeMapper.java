@@ -12,9 +12,8 @@ import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
+ * Die Klasse LiveMapper zeichnet immer nur den aktuellen Marker auf die Karte.
  * LifeMapper erweitert Mapper.
- * Erzeugt ein Mapper-Objekt das nur den aktuellen Marker anzeigt.
- * Dadurch lassen sich Bewegungsmuster besser erkennen.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -65,6 +64,7 @@ public class LifeMapper extends Mapper {
 
     /**
     * Fuegt Marker hinzu
+	*
     * @param marker Marker der hinzugefuegt werden soll
     */
     public void addMarker(Marker marker) {
@@ -73,7 +73,7 @@ public class LifeMapper extends Mapper {
 
 
     /**
-     * Konstruktor für DynamicMapper Objekte
+     * Konstruktor für LifeMapper Objekte
      *
      * @param app Processing Applet, in dem Mapper läuft
      */
@@ -94,7 +94,7 @@ public class LifeMapper extends Mapper {
     }
 
     /**
-    * Lädt Liste ein und erstellt Marker
+    * Laedt Liste ein und erstellt Marker
     * Methode muss in setup des Processing Sketches aufgerufen werden
     *
     * @param trackpointList TrackpointList die dargestellt werden soll
