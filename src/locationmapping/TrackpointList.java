@@ -189,7 +189,7 @@ public class TrackpointList implements Iterable<Trackpoint> {
      */
     public Trackpoint get(Location location){
         for ( Trackpoint trackpoint : this.trackpointList ){
-            if ( trackpoint.equals(location) )
+            if ( trackpoint.equalLocation(location) )
                 return trackpoint;
         }
         throw new RuntimeException("No trackpoint at " + location + " found");

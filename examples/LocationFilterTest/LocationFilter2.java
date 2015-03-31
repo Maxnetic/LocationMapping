@@ -1,4 +1,4 @@
-package locationmapping;
+import locationmapping.*;
 
 import java.util.*;
 
@@ -16,7 +16,7 @@ import de.fhpotsdam.unfolding.geo.*;
  * @version 1.0
  */
 
-public class LocationFilter extends Filter {
+public class LocationFilter2 extends Filter {
     /**
      * Mindesthaeufigkeit für den Haeufigkeitsfilter
      */
@@ -36,7 +36,7 @@ public class LocationFilter extends Filter {
 	/**
 	* Anzahl der am haeufigsten besuchten Orte
 	*/
-	//int mostVisited = 0;
+	int mostVisited = 0;
 
 
     /**
@@ -53,9 +53,9 @@ public class LocationFilter extends Filter {
 	*
 	* @param mostVisited Anzahl
 	*/
-	/*public void setMostVisited(int mostVisited){
+	public void setMostVisited(int mostVisited){
 		this.mostVisited = mostVisited;
-	}*/
+	}
 
     /**
     * Setzt den Radius
@@ -147,22 +147,33 @@ public class LocationFilter extends Filter {
 	*/
 	/*private void mostVisitedFilter(TrackpointList trackpointlist){
 		if (mostVisited > 0) {
-			Array[] mostVisitedTp = new Array[mostVisited];
-			Set<Location> set = locationFrequencies.keySet();
+			Trackpoint[] mostVisitedTp = new Trackpoint[mostVisited];
+			Set<Location> set = trackpointlist.getLocationFrequencies().keySet();
 			Iterator<Location> itr = set.iterator();
-			for(int i = 0;i<mostVisited,i++){
-				if(itr.hastNext()){
-					mostVisitedTp[i] = itr.next();
+			for(int i = 0;i<mostVisited;i++){
+				if(itr.hasNext()){
+					mostVisitedTp[i] = trackpointlist.get(itr.next());
 				} else {
 					break;
 				}
 			}
 			while(itr.hasNext()){
-				Trackpoint curr = itr.next();
-				if(findMin(mostVisitedTp).getFrequency() < curr.getFrequency()){
-					mostVisitedTp[findIndex(mostVisitedTp)] = curr;
+				Trackpoint curr = trackpointlist.get(itr.next());
+				if(trackpointlist.getFrequency(findMin(mostVisitedTp,trackpointlist)) < trackpointlist.getFrequency(curr)){
+					mostVisitedTp[findIndex(mostVisitedTp,trackpointlist)] = curr;
 				}
-			}	
+			}
+                      for (int i = 0; i<mostVisitedTp.length;i++){
+                          System.out.println(mostVisitedTp[i].toString());
+                      }
+                      for (Trackpoint tp : trackpointlist){
+                        for(int i = 0; i<mostVisitedTp.length;i++){
+                          if(!(mostVisitedTp[i].equalLocation(tp,0))){
+                            System.out.println("BLUB");
+                             tp.setVisible(false);
+                          }
+                        }
+                      }	
 		}
 	}*/
 	
@@ -172,11 +183,10 @@ public class LocationFilter extends Filter {
 	* @param tp Array in dem Trackpoint gefunden werden soll
 	* @return Trackpoint mit der kleinsten Haeufigkeit
 	*/
-	/*private Trackpoint findMin(Array[] tp){
-		Trackpoint min = new Trackpoint();
-		min = tp[0];
-		for (int i = 1; i < tp.length(); i++){
-			if (tp[i].getFrequency() < min.getFrequency()){
+	/*private Trackpoint findMin(Trackpoint[] tp,TrackpointList tpl){
+		Trackpoint min = tp[0]; 
+		for (int i = 1; i < tp.length; i++){
+			if (tpl.getFrequency(tp[i]) < tpl.getFrequency(min)){
 				min = tp[i];
 			}
 		}
@@ -189,17 +199,19 @@ public class LocationFilter extends Filter {
 	* @param tp Array in dem Index gefunden werden soll
 	* @return Index
 	*/
-	/*private int findIndex(Array[] tp){
+	/*private int findIndex(Trackpoint[] tp,TrackpointList tpl){
 		int index = 0;
-		Trackpoint min = new Trackpoint();
-		min = tp[0];
-		for (int i = 0; i < tp.length(); i++){
-			if (tp[i].getFrequency() < min.getFrequency()){
+		Trackpoint min = tp[0];
+		for (int i = 0; i < tp.length; i++){
+			if (tpl.getFrequency(tp[i]) < tpl.getFrequency(min)){
 				index = i;
 			}
 		}
 		return index;
 	}*/
+  
+
+    
 
     /**
     * Filtert nach Location und Radius
@@ -212,19 +224,20 @@ public class LocationFilter extends Filter {
                 tp.setVisible(false);
         }
     }
-
-    /**
+    
+  /**
     * Filtert nach Service
 	*
     * @param trackpointlist Liste, die gefiltert werden soll
     */
+    /*
     private void serviceFilter(TrackpointList trackpointlist){
         for(Trackpoint tp : trackpointlist){
             if(!(tp.getService().equals(service))){
                 tp.setVisible(false);
             }
         }
-    }
+    }*/
 
 
     /**
@@ -244,10 +257,14 @@ public class LocationFilter extends Filter {
      if (radius != 0 && location != null) {
         locationFilter(trackpointlist);
      }
-
+/*
      //Servicefilter
      if (service != null) {
         serviceFilter(trackpointlist);
+     }*/
+     
+     if (mostVisited > 0){
+       mostVisitedFilter(trackpointlist);
      }
 
      //ueberschreiben der Rauszufilternden Punkte
