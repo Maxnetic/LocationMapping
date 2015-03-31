@@ -6,12 +6,12 @@
 
 Place the folder in `~/Documents/Processing/libraries`.
 
-Compile and jar all Java Classes from `library/` (it isimportant to be in the correct directory to jar successfully) with the following commands:
+Compile and jar all Java Classes and the Font Files from `library/` (it isimportant to be in the correct directory to jar successfully) with the following commands:
 
 ```
 $ javac ../src/locationmapping/*.java -d library/ -cp ../src/libs/core.jar:../src/libs/unfolding.jar:../src/libs/jodatime.jar
 
-$ jar -cf locationmapping.jar locationmapping/
+$ jar -cf locationmapping.jar locationmapping/ Courier.vlw FontAwesome.vlw
 ```
 
 ### Create JavaDocs
