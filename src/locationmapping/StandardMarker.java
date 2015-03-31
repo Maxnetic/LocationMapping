@@ -8,9 +8,10 @@ import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.geo.*;
 
 /**
+ * Die Klasse StandardMarker stellt die Visualisierung von Trackpoints zur Verfuegung.
+ * Fuer einen bestimmten Trackpoint kann ein Marker auf die Karte gezeichnet werden,
+ * der in Groesse, Form, Farbe und Beschriftung variiert werden kann. 
  * StandardMarker erweitert SimpleLinesMarker.
- * Zeichnet einen Standard-Marker, dessen Groesse,
- * Farbe, Beschriftung und Form angepasst werden kann.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -69,7 +70,7 @@ public class StandardMarker extends SimplePointMarker {
 
 	/**
 	 * Gibt die Zeit zurueck
-	 * @return Timestamp des Markers
+	 * @return Zeitpunkt des Trackpoints des Markers
 	 */
     public DateTime getTime(){
         return this.timestamp;
@@ -86,14 +87,14 @@ public class StandardMarker extends SimplePointMarker {
 
     /**
     * Setzt die Transparenz des Markers
-    * @param trans Transparenzwert
+    * @param trans neuer Transparenzwert des Markers
     */
     public void setTransparency(int trans){
         transparency = trans;
     }
 
     /**
-    * Setzt die Farbe des Markers
+    * Setzt die Farbe des Markers durch HSB Kodierung
     * @param hsb_h Farbwert
     * @param hsb_s Sättigungswert
     * @param hsb_b Helligkeitswert
@@ -166,7 +167,7 @@ public class StandardMarker extends SimplePointMarker {
 
     /**
      * Gibt Label aus
-     * @return Label
+     * @return Beschriftung des Markers
      */
     public String getLabel() {
         return this.label;
@@ -174,7 +175,7 @@ public class StandardMarker extends SimplePointMarker {
 
     /**
      * Setzt Label
-     * @param label
+     * @param neues Label des Markers
      */
     public void setLabel(String label) {
         this.label = label;
@@ -199,7 +200,7 @@ public class StandardMarker extends SimplePointMarker {
     /**
     * Zeichnet Marker
     * @param pg Objekt das gezeichnet werden soll
-    * @param x X-Koordinate
+    * @param x X-Koordinate des Markers
     * @param y Y-Koordinate
     */
     public void draw(PGraphics pg, float x, float y){
