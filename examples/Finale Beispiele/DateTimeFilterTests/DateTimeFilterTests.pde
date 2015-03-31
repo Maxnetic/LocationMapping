@@ -1,6 +1,10 @@
 import de.fhpotsdam.unfolding.*;
 import locationmapping.*;
 
+  /**
+   * In diesem Beispiel wird eine große Anzahl von möglichen Zeitfiltern und Arten, Zeiträume anzugeben, beschrieben.
+   */
+
 void setup() {
   
   Mapper mapper = new StaticMapper(this);
@@ -15,7 +19,6 @@ void setup() {
   DateTimeFilter holidaysFilter = new DateTimeFilter().betweenDates("24.12.2009 - 26.12.2009").setDay("31.12.2009");
   DateTimeFilter sunDateTimeFilter = new DateTimeFilter().forWeekdays("su");
   DateTimeFilter randomWeekdaysFilter = new DateTimeFilter().forWeekdays("sa-su, mo");
-  
   DateTimeFilter earlybirdFilter = new DateTimeFilter().fromTime("6:00").toTime("7:30");
   DateTimeFilter nightFilter = new DateTimeFilter().betweenTimes("3 - 5");
   

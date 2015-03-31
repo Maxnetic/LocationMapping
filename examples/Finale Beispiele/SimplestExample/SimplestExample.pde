@@ -1,6 +1,11 @@
 import de.fhpotsdam.unfolding.*;
 import locationmapping.*;
 
+/**
+ * In diesem Beispiel werden nur die Daten eingelesen und nacheinander
+ * eingezeichnet.
+ */
+
 void setup() {
     
     Mapper mapper = new DynamicMapper(this);
