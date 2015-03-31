@@ -24,9 +24,9 @@ void setup() {
   mapper.init();
     
   TrackpointList list1;
-  list1 = mapper.importData("malte_spitz.csv");
+  list1 = mapper.importData("../../data/personX.csv");
   TrackpointList list2;
-  list2 = mapper.importData("max_mittel.csv");
+  list2 = mapper.importData("../../data/personY.csv");
    
   // Initialisierung Ende
 

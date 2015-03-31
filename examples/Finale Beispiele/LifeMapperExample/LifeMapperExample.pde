@@ -12,7 +12,7 @@ void setup() {
 //  mapper.setMapProvider("Hybrid");
 //  mapper.setResizableAndDisableOverview(true);
   mapper.init(825, 985);
-  TrackpointList data = mapper.importData("../../data/malte_spitz.csv");
+  TrackpointList data = mapper.importData("../../data/personX.csv");
   mapper.load(data);
 }
 

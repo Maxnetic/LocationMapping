@@ -20,7 +20,7 @@ void setup(){
   TrackpointList maltetpl;
   TrackpointList maxtpl;
   //Import
-  maltetpl = mapper.importData("malte_spitz.csv");
+  maltetpl = mapper.importData("../../data/personX.csv");
   int coveredDistance = 0;
   Trackpoint lastTp = null;
   

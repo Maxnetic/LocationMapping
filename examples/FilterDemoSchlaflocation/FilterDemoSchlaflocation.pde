@@ -10,7 +10,7 @@ void setup() {
     StaticMapper mapper = new StaticMapper(this);
     mapper.init();
     
-    TrackpointList data = mapper.importData("malte_spitz.csv");
+    TrackpointList data = mapper.importData("../../data/personX.csv");
     
     DateTimeFilter timeFilter = new DateTimeFilter();
     timeFilter.fromTime("2").toTime("5");

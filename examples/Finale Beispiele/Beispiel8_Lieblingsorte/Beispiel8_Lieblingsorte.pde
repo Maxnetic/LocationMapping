@@ -16,7 +16,7 @@ void setup() {
   mapper.init();
     
   TrackpointList all;
-  all = mapper.importData("malte_spitz.csv");
+  all = mapper.importData("../../data/personX.csv");
     
   LocationFilter lieblingsortfilter = new LocationFilter();
   //Mindesthäufigkeit der Besuche wird festgelegt

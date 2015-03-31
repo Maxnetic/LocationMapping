@@ -29,7 +29,7 @@ void setup() {
   mapper.init();
   
   TrackpointList all;
-  all = mapper.importData("malte_spitz.csv");
+  all = mapper.importData("../../data/personX.csv");
   
   Iterator<Trackpoint> iter;
   iter =   all.iterator();
