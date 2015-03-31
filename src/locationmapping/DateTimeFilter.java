@@ -6,8 +6,12 @@ import java.util.*;
 import org.joda.time.*;
 
 /**
+ * Die Klasse DateTimeFilter stellt Filterattribute zur Verfuegung, 
+ * die zum Filtern nach zeitlichen Angaben benoetigt werden.
+ * Es kann nach Daten,Zeiten und Wochentagen gefiltert werden.
+ * Die einzelnen Attribute koennen durch Methoden gesetzt 
+ * und dann mit der apply-Methode auf eine TrackpointList angewandt werden.
  * DateTimeFilter erweitert Filter.
- * Filtert eine TrackpointList nach Zeitvariablen.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -47,7 +51,7 @@ public class DateTimeFilter extends Filter {
 
     /**
      * Konstruktor fuer DateTimeFilter Objekte
-     *
+
      */
     public DateTimeFilter(){
         super();
@@ -520,7 +524,7 @@ public class DateTimeFilter extends Filter {
     }
 
     /**
-     * Incrementiert Wochentagszahl, beachtet So nach Sa
+     * Inkrementiert Wochentagszahl, beachtet So nach Sa
      *
      * @param d Zahl zwischen 0 und 6 fuer Wochentag
      * @return Zahl zwischen 0 und 6 fuer folgenden Wochentag
@@ -600,7 +604,7 @@ public class DateTimeFilter extends Filter {
      * Hilfsmethode um zu ueberpruefen, ob Trackpoint in einem der spezifizierten Zeitintervalle liegt
      *
      * @param trackpoint Trackpoint, der ueberprueft werden soll
-     * @return Wahrheitswert darueber, ob Trackpoint in einem der Filter Zeitintervalle liegt, falls keines spezifiziert ist immer whar
+     * @return Wahrheitswert darueber, ob Trackpoint in einem der Filter Zeitintervalle liegt, falls keines spezifiziert ist immer wahr
      */
     boolean containedInTimeIntervals(Trackpoint trackpoint){
         boolean contained = false;
@@ -687,7 +691,7 @@ public class DateTimeFilter extends Filter {
     }
 
      /**
-     * Filtert angegebene Trackpointliste und gibt neue gefilterte Liste zurueck
+     * Filtert uebergebene TrackpointList je nachdem welche Attribute zuvor gesetzt wurden
      *
      * @param list zu filternde Trackpointliste, wird nicht veraendert
      * @return neue gefilterte Trackpointliste
