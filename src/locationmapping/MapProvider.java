@@ -7,7 +7,7 @@ import de.fhpotsdam.unfolding.geo.Transformation;
 import de.fhpotsdam.unfolding.providers.*;
 
 /**
- * Klasse mit Ausgewaelten Karten Providern
+ * Die Klasse MapProvider stellt ausgewaelte Karten Provider zur Verfuegung.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -27,7 +27,7 @@ public class MapProvider {
         }
 
         /**
-         * Konstruiert Parameter fuer
+         * Gibt ZoomString zurueck
          *
          * @param zoom Zoom Koordinate des Map Tiles
          * @param a zweite Koordinate des Map Tiles, je nach Provider entweder row oder column

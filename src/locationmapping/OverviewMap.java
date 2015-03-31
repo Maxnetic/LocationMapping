@@ -8,9 +8,14 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 /**
- * Übersichtskarte, welche in der oberen rechten Ecke angezeig wird.
+ * Die Klasse OverviewMap stellt eine Uebersichtskarte zur Verfuegung
+ * welche in der oberen rechten Ecke angezeig wird.
  * Die Karte wird automatisch mit der Hauptkarte gescrollt und gezoomt.
- * Die Karte ermöglicht es den Ausschnitt der Hauptkarte durch clicken auf eine Position an diese zu verschieben.
+ * Die Karte ermoeglicht es den Ausschnitt der Hauptkarte durch klicken auf eine Position an diese zu verschieben.
+ * OverviewMap erweitert UnfoldingMap
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
  */
 public class OverviewMap extends UnfoldingMap {
     /**
@@ -30,16 +35,17 @@ public class OverviewMap extends UnfoldingMap {
      */
     int w;
     /**
-     * Höhe der Karte
+     * Hoehe der Karte
      */
     int h;
 
     /**
-     * Konstruktor für neue Übersichtskarten-Objekte
+     * Konstruktor für neue Uebersichtskarten-Objekte
+	 *
      * @param mapper das erzeugende Mapper-Objekt
-     * @param w die Breite der Übersichtskarte
-     * @param h die Höhe der Übersichtskarte
-     * @param mapProvider der Kartenprovider der Übersichtskarte
+     * @param w die Breite der Uebersichtskarte
+     * @param h die Höhe der Uebersichtskarte
+     * @param mapProvider der Kartenprovider der Uebersichtskarte
      */
     public OverviewMap(Mapper mapper, int w, int h, AbstractMapProvider mapProvider) {
         super(mapper.app, mapper.width-w-16, 16, w, h, mapProvider);
@@ -81,7 +87,7 @@ public class OverviewMap extends UnfoldingMap {
     }
 
     /**
-     * Überprüft ob Maus sich über dem Übersichtskartenobjekt befindet
+     * Ueberprueft ob Maus sich ueber dem Uebersichtskartenobjekt befindet
      *
      * @param xM X-Position der Maus
      * @param yM Y-Position der Maus
@@ -92,10 +98,10 @@ public class OverviewMap extends UnfoldingMap {
     }
 
     /**
-     * Verschiebt die Hauptkarte zur gecklickten Position auf der Übersichtskarte
+     * Verschiebt die Hauptkarte zur geklickten Position auf der Uebersichtskarte
      *
-     * @param x X-Position des Mausclicks
-     * @param y Y-Position der Mausclicks
+     * @param x X-Position des Mausklicks
+     * @param y Y-Position der Mausklicks
      */
     void panToHandler(float x, float y){
         this.mapper.map.panTo(this.getLocation(x, y));
