@@ -12,7 +12,7 @@ import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * Die Klasse LiveMapper zeichnet immer nur den aktuellen Marker auf die Karte.
+ * Die Klasse LiveMapper erzeugt ein Mapper-Objekt, das immer nur den aktuellen Marker auf die Karte zeichnet.
  * LifeMapper erweitert Mapper.
  *
  * @author FU-Berlin Softwarepraktikum 2015
