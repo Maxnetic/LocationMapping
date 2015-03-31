@@ -471,7 +471,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param weekDayString Eingabestring mit Wochentagen, der Form "mo - dienstag, friday" (erkennt alles)
      * @return DateTimeFilter-Objekt fuer Method-Chaining
-	 * @throws RuntimeException falls String nicht geparsed werden kann
+   * @throws RuntimeException falls String nicht geparsed werden kann
      */
     public DateTimeFilter setWeekDays(String weekDayString){
         weekDayString.toLowerCase();
@@ -528,7 +528,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param d Zahl zwischen 0 und 6 fuer Wochentag
      * @return Zahl zwischen 0 und 6 fuer folgenden Wochentag
-	 * @throws RuntimeException falls Wochentagsnummer nicht zwischen 1 und 7
+   * @throws RuntimeException falls Wochentagsnummer nicht zwischen 1 und 7
      */
     private int dateInc(int d) {
         if ( d > 0 && d < 7 )
@@ -544,7 +544,7 @@ public class DateTimeFilter extends Filter {
      *
      * @param weekDayString Wochentagname der Zeitvariable in deutsch ("montag") oder englisch ("monday"), ausgeschrieben oder mit zwei Buchstaben Abkuerzung ("mo")
      * @return Wochentag als Zahl mo=1 bis so=7
-	 * @throws RuntimeException falls String nicht geparsed werden kann
+   * @throws RuntimeException falls String nicht geparsed werden kann
      */
     public int parseWeekDay(String weekDayString){
         weekDayString.toLowerCase();
@@ -618,7 +618,12 @@ public class DateTimeFilter extends Filter {
             }
         } else if ( this.startTime != null && this.endTime != null ){
             // Start- und Endzeit gesetzte
-            contained = tpTime.compareTo(this.startTime) > 0 && tpTime.compareTo(this.endTime) < 0;
+            if (startTime.compareTo(endTime) < 0) {
+              contained = tpTime.compareTo(this.startTime) > 0 && tpTime.compareTo(this.endTime) < 0;
+            } else{
+              // Zeitintervalle mit Startzeit nach Endzeit z.B: (22:00-06:00)
+              contained = tpTime.compareTo(this.startTime) < 0 && tpTime.compareTo(this.endTime) > 0;
+            }
         } else {
             // kein Zeitfilter gesetzt
             contained = true;
