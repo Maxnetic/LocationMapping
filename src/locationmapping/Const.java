@@ -61,7 +61,9 @@ public interface Const {
     /**
     * String mit Icon Unicodes
     */
+    public static final String INTERNET = "\uf0ac";
     public static final String PHONE = "\uf095";
     public static final String EMAIL = "\uf0e0";
     public static final String CHAT = "\uf075";
+
 }

@@ -124,7 +124,7 @@ public class ColoredLinesMarker extends SimpleLinesMarker {
 
     /**
      * Zeichenmethode
-	 * 
+	 *
 	 * @param pg Objekt das gezeichnet wird
 	 * @param mapPositions Liste der Punkte, die die Linie enthaelt.
      */

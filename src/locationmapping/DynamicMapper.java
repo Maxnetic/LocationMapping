@@ -1,6 +1,8 @@
 package locationmapping;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
@@ -19,7 +21,13 @@ import de.fhpotsdam.unfolding.marker.*;
  */
 
 public class DynamicMapper extends Mapper {
+    /**
+    * Liste mit zu zeichnenden Markern
+    */
     ArrayList<Marker> markerList = new ArrayList<Marker>();
+    /**
+    * Iterator für zu zeichnende Marker
+    */
     Iterator<Marker> iter;
     /**
     * Geschwindigkeit mit der gezeichnet wird
@@ -57,11 +65,14 @@ public class DynamicMapper extends Mapper {
     * @param marker Marker der hinzugefuegt werden soll
     */
     public void addMarker(Marker marker) {
+        // Schriftart für Marker setzen
         try {
             HashMap<String,Object> properties = marker.getProperties();
             properties.put("font", this.iconFont);
             marker.setProperties(properties);
         } catch(Exception e){;}
+
+        // Marker zur Liste hinzufügen
         this.markerList.add(marker);
         this.iter = this.markerList.iterator();
     }

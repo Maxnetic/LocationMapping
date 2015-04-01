@@ -45,7 +45,7 @@ public class PointMarker extends SimplePointMarker implements Const{
     /**
     * Textgroesse der Beschriftung
     */
-    int textsize = 12;
+    int fontsize = 12;
 
 
     /**
@@ -77,7 +77,7 @@ public class PointMarker extends SimplePointMarker implements Const{
     }
 
     /**
-     * Setzt Label
+     * Setzt Zeitkoordinate
      *
      * @param time neues Label für den Marker
      * @return das PointMarker-Objekt für Method-Chaining
@@ -156,8 +156,8 @@ public class PointMarker extends SimplePointMarker implements Const{
      * @param size Textgröße in Punkt
      * @return das PointMarker-Objekt für Method-Chaining
      */
-    public PointMarker setTextSize(int size){
-        this.textsize = size;
+    public PointMarker setFontsize(int size){
+        this.fontsize = size;
         return this;
     }
     /**
@@ -325,8 +325,8 @@ public class PointMarker extends SimplePointMarker implements Const{
 
         try {
             pg.fill(pg.color(this.hue, this.saturation, this.brightness, this.transparencyBorder));
-            pg.textFont(this.getFont(), this.textsize);
-            pg.text(this.getLabel(), x+this.radius, y+this.textsize/2-2);
+            pg.textFont(this.getFont(), this.fontsize);
+            pg.text(this.getLabel(), x+this.radius, y+this.fontsize/2-2);
         } catch(Exception e){;}
 
     }
