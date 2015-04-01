@@ -15,10 +15,12 @@ import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
 /**
- * Die Klasse ColoredLinesMarker stellt Marker zur Verfuegung,
- * in Form von Linien zwischen Trackpoints.
- * Möglich ist dies zwischen zweien oder mit mehreren Trackpoints.
- * ColoredLinesMarker erweitert SimpleLinesMarker.
+ * Die Klasse LineMarker stellt die Visualisierung von Verbindungslinien zwischen
+ * Trackpoints zur Verfügung. Für zwei Trackpoint kann eine Linie zwischen diesen
+ * Trackpoints auf die Karte gezeichnet werden, deren Dicke, Farbe und Beschriftung
+ * variiert werden kann. LineMarker erweitern SimpleLinesMarker um Label, Zeitstempel,
+ * Dauern, Entfernungen, Geschwindigkeiten, HSB Farbwerte, Häufigkeitswerte, Schriftarten
+ * und Textgrößen.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -50,7 +52,8 @@ public class LineMarker extends SimpleLinesMarker {
     /**
     * Konstruktor für LineMarker Objekte
     *
-    * @param location Ortskoordinaten des Markers
+    * @param startLocation erste Ortskoordinaten des Markers
+    * @param endLocation zweite Ortskoordinaten des Markers
     */
     public LineMarker(Location startLocation, Location endLocation) {
         super(startLocation, endLocation);
@@ -62,7 +65,8 @@ public class LineMarker extends SimpleLinesMarker {
     /**
      * Konstruktor für LineMarker Objekte
      *
-     * @param trackpoint Trackpoint aus dem Marker gezeichnet werden soll
+     * @param startTrackpoint erster Trackpoint aus dem Marker gezeichnet werden soll
+     * @param endTrackpoint zweiter Trackpoint aus dem Marker gezeichnet werden soll
      */
     public LineMarker(Trackpoint startTrackpoint, Trackpoint endTrackpoint) {
         this(startTrackpoint.getLocation(), endTrackpoint.getLocation());
