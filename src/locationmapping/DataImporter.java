@@ -41,7 +41,7 @@ public class DataImporter implements Const{
     *
     * @param app laufendes Processing Applet in das importiert werden soll
     */
-    public DataImporter(PApplet app) {
+    public DataImporter(PApplet app){
         this.app = app;
     }
 

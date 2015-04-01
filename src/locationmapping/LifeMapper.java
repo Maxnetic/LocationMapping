@@ -86,7 +86,7 @@ public class LifeMapper extends Mapper {
      * Methode muss in setup des Processing Sketches aufgerufen werden
      */
     public void init(){
-        this.setStartZoomLevel(5);
+        this.setStartZoomLevel(8);
         super.init();
 
         // Play Button erstellen
@@ -150,8 +150,8 @@ public class LifeMapper extends Mapper {
 
             this.marker.setLocation(location);
 
-            // if ( marker.getDistanceTo(this.map.getCenter()) > 4f/(Math.pow(this.map.getZoomLevel(),2))*100 )
-                // this.map.panTo(marker.getLocation());
+            if ( marker.getDistanceTo(this.map.getCenter()) > 1000000/(Math.pow((this.map.getZoomLevel()-4)*5,3)) )
+                this.map.panTo(marker.getLocation());
         }
     }
 

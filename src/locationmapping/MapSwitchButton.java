@@ -14,7 +14,7 @@ public class MapSwitchButton extends Button {
     /**
      * Wahrheitswert ob alternative Karte aktiviert ist
      */
-    boolean mapSwitchedState = false;
+    boolean[] mapSwitchedState = {false, false};
 
     /**
      * Konstruktor fuer MapSwitchButton Objekte
@@ -38,21 +38,29 @@ public class MapSwitchButton extends Button {
         super.draw();
         this.mapper.app.fill(this.mapper.textColor);
         this.mapper.app.textFont(this.mapper.font, 12);
-        this.mapper.app.text(this.label , x+8, y+14);
+        this.mapper.app.text(this.label , x+5, y+12);
     }
 
     /**
      * Switched zwischen beiden Karten Provider Varianten
      */
     void mapSwitchHandler(){
-        if ( !mapSwitchedState ){
-            this.mapper.map.mapDisplay.setProvider(this.mapper.altMapProviders[0]);
-            this.mapper.overviewMap.mapDisplay.setProvider(this.mapper.altMapProviders[1]);
+        if ( !mapSwitchedState[0] ){
+            if ( !mapSwitchedState[1] ){
+                this.mapper.setStyle("light");
+            } else {
+                this.mapper.setStyle("dark");
+                mapSwitchedState[0] = !mapSwitchedState[0];
+            }
+            mapSwitchedState[1] = !mapSwitchedState[1];
         } else {
-            this.mapper.map.mapDisplay.setProvider(this.mapper.mapProvider);
-            this.mapper.overviewMap.mapDisplay.setProvider(this.mapper.mapProvider);
+            if ( !mapSwitchedState[1] ){
+                this.mapper.setStyle("terrain");
+            } else {
+                this.mapper.setStyle("hybrid");
+                mapSwitchedState[0] = !mapSwitchedState[0];
+            }
+            mapSwitchedState[1] = !mapSwitchedState[1];
         }
-        mapSwitchedState = !mapSwitchedState;
     }
-
 }

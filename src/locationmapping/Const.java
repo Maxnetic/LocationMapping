@@ -40,4 +40,11 @@ public interface Const {
     public static final int DARK_YELLOW = -1712033;
     public static final int DARK_GREEN = -9602252;
     public static final int DARK_BLUE = -9794127;
+
+    /**
+    * String mit Icon Unicodes
+    */
+    public static final String PHONE = "\uf095";
+    public static final String MAIL = "\uf0e0";
+    public static final String SMS = "\uf075";
 }

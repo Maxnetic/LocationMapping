@@ -28,6 +28,6 @@ public class StaticMapper extends Mapper {
     * @param marker Marker der hinzugefuegt werden soll
     */
     public void addMarker(Marker marker) {
-        map.addMarker(marker);
+        this.map.addMarker(marker);
     }
 }
