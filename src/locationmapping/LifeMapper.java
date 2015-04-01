@@ -39,7 +39,7 @@ public class LifeMapper extends Mapper {
     /**
      * Der Marker, der gezeichnet wird
      */
-    SimplePointMarker marker;
+    ServiceMarker marker;
     /**
      * Der aktuelle Trackpoint
      */
@@ -88,6 +88,7 @@ public class LifeMapper extends Mapper {
     public void init(){
         this.setStartZoomLevel(8);
         super.init();
+        this.setStyle("terrain");
 
         // Play Button erstellen
         this.play = new PlayButton(this, 41);
@@ -113,15 +114,8 @@ public class LifeMapper extends Mapper {
         this.updateSpeeds();
 
         // Initialisiere Marker
-        this.marker = new SimplePointMarker(location);
-        // HashMap<String, Object> properties = new HashMap<String, Object>();
-        // properties.put("time", trackpoint.getTime());
-        // properties.put("service", trackpoint.getService());
-        // marker.setProperties(properties);
-        this.marker.setColor(this.app.color(359, 31, 84, 30));
-        this.marker.setStrokeColor(this.app.color(359, 31, 84, 100));
-        this.marker.setStrokeWeight(3);
-        this.marker.setRadius(30);
+        this.marker = new ServiceMarker(location);
+        this.marker.setLabel(this.currTrackpoint.getService());
         this.map.addMarker(marker);
     }
 

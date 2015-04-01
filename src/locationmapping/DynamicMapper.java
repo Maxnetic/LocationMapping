@@ -32,7 +32,7 @@ public class DynamicMapper extends Mapper {
     /**
      * Der aktuelle Zeitpunkt, der gezeichnet wird
      */
-    DateTime time = new DateTime(0);
+    String timeString = "";
 
     /**
      * Konstruktor für DynamicMapper Objekte
@@ -57,6 +57,11 @@ public class DynamicMapper extends Mapper {
     * @param marker Marker der hinzugefuegt werden soll
     */
     public void addMarker(Marker marker) {
+        try {
+            HashMap<String,Object> properties = marker.getProperties();
+            properties.put("font", this.iconFont);
+            marker.setProperties(properties);
+        } catch(Exception e){;}
         this.markerList.add(marker);
         this.iter = this.markerList.iterator();
     }
@@ -68,14 +73,19 @@ public class DynamicMapper extends Mapper {
         super.draw();
 
         this.play.draw();
-        this.drawInfoBox(this.time.toString("EE, HH:mm:ss, MMM d, YYYY"));
+        this.drawInfoBox(this.timeString);
 
-        if ( !this.paused && app.frameCount % this.speed == 0 && this.iter.hasNext()){
-            StandardMarker marker = (StandardMarker) this.iter.next();
+        if ( !this.paused && app.frameCount % this.speed == 0 && this.iter.hasNext() ){
+            Marker marker = this.iter.next();
             this.map.addMarker(marker);
-            this.time = marker.getTime();
-            if ( marker.getDistanceTo(this.map.getCenter()) > this.map.getZoomLevel()*5 )
-                this.map.panTo(marker.getLocation());
+
+            // Update timeString mit Zeit Property des Markers
+            try {
+                DateTime time = (DateTime) marker.getProperty("time");
+                this.timeString = time.toString("EE, HH:mm:ss, MMM d, YYYY");
+            } catch (Exception e){
+                this.timeString = "";
+            }
         }
     }
 

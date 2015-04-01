@@ -8,7 +8,8 @@ void setup() {
     TrackpointList data = mapper.importData("malte_spitz.csv");
     
     for ( Trackpoint trackpoint : data ){
-        Marker marker = new StandardMarker(trackpoint);
+        PointMarker marker = new PointMarker(trackpoint);
+        marker.setLabel(trackpoint.getService());
         mapper.addMarker(marker);
     }
 }

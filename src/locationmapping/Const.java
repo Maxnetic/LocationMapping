@@ -23,28 +23,45 @@ public interface Const {
     public static final Location STUTTGART = new Location(48.78f, 9.19f);
 
     /**
+    * Default Farben
+    */
+    public static final int DEFAULT_TEXT_COLOR = -9474195;      // #6f6f6d
+    public static final int DEFAULT_BUTTON_COLOR1 = -1;         // #ffffff
+    public static final int DEFAULT_BUTTON_COLOR2 = -1710619;   // #e5e5e5
+    public static final int DEFAULT_HIGHLIGHT_COLOR = -9474195; // #6f6f6d
+    public static final int DEFAULT_RED = -2992050;             // #d2584e
+    public static final int DEFAULT_YELLOW = -864700;           // #f2ce44
+    public static final int DEFAULT_GREEN = -12347057;          // #43994f
+    public static final int DEFAULT_BLUE = -12681790;           // #3e7dc2
+
+    /**
     * Helle Farben
     */
-    public static final int LIGHT_TEXT_COLOR = -8421505;
-    public static final int LIGHT_BUTTON_COLOR1 = -855310;
-    public static final int LIGHT_BUTTON_COLOR2 = -1710619;
-    public static final int LIGHT_RED = -2714732;
+    public static final int LIGHT_TEXT_COLOR = -8421505;        // #
+    public static final int LIGHT_BUTTON_COLOR1 = -855310;      // #
+    public static final int LIGHT_BUTTON_COLOR2 = -1710619;     // #
+    public static final int LIGHT_HIGHLIGHT_COLOR = -2714732;   // #
+    public static final int LIGHT_RED = -2714732;               // #
+    public static final int LIGHT_YELLOW = -864700;             // #f2ce44
+    public static final int LIGHT_GREEN = -12347057;            // #43994f
+    public static final int LIGHT_BLUE = -12681790;             // #3e7dc2
 
     /**
     * Dunkle Farben
     */
-    public static final int DARK_TEXT_COLOR = -8947849;
-    public static final int DARK_BUTTON_COLOR1 = -15856114;
-    public static final int DARK_BUTTON_COLOR2 = -14277082;
-    public static final int DARK_RED = -1210035;
-    public static final int DARK_YELLOW = -1712033;
-    public static final int DARK_GREEN = -9602252;
-    public static final int DARK_BLUE = -9794127;
+    public static final int DARK_TEXT_COLOR = -8947849;         // #777777
+    public static final int DARK_BUTTON_COLOR1 = -15856114;     // #0e0e0e
+    public static final int DARK_BUTTON_COLOR2 = -14277082;     // #262626
+    public static final int DARK_HIGHLIGHT_COLOR = -12368080;   // #434730
+    public static final int DARK_RED = -1210035;                // #ed894d
+    public static final int DARK_YELLOW = -1712033;             // #e5e05f
+    public static final int DARK_GREEN = -9602252;              // #6d7b34
+    public static final int DARK_BLUE = -9794127;               // #6a8db1
 
     /**
     * String mit Icon Unicodes
     */
     public static final String PHONE = "\uf095";
-    public static final String MAIL = "\uf0e0";
-    public static final String SMS = "\uf075";
+    public static final String EMAIL = "\uf0e0";
+    public static final String CHAT = "\uf075";
 }

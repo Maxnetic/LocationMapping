@@ -34,6 +34,9 @@ public abstract class Mapper implements Const {
     public int buttonColor2;
     public int highlightColor;
     public int red;
+    public int yellow;
+    public int green;
+    public int blue;
 
     /**
     * Das Processing Applet in dem der Mapper laeuft
@@ -130,6 +133,24 @@ public abstract class Mapper implements Const {
         }
     }
 
+    public static PFont getFont(){
+        try {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            return new PFont(classLoader.getResourceAsStream("Courier.vlw"));
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+    public static PFont getIconFont(){
+        try {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            return new PFont(classLoader.getResourceAsStream("FontAwesome.vlw"));
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
     * Setzt Fensterbreite
     *
@@ -214,7 +235,7 @@ public abstract class Mapper implements Const {
     * Setzt MapProvider vor Initmethode
     *
     * @param provider MapProvider für Hauptkarte als String
-    * @param overviewProvider MapProvider für Übersichtskarte als String
+    * @param providerOverview MapProvider für Übersichtskarte als String
     * @return Mapper Objekt für Method-Chaning
     */
     public Mapper setMapProvider(String provider, String providerOverview){
@@ -332,16 +353,18 @@ public abstract class Mapper implements Const {
                 this.textColor = Const.LIGHT_TEXT_COLOR;
                 this.buttonColor1 = Const.LIGHT_BUTTON_COLOR1;
                 this.buttonColor2 = Const.LIGHT_BUTTON_COLOR2;
-                this.highlightColor = Const.LIGHT_RED;
-                this.red = Const.LIGHT_RED;
+                this.highlightColor = Const.LIGHT_HIGHLIGHT_COLOR;
                 break;
             case "dark":
                 this.setMapProvider(new MapProvider.Dark());
                 this.textColor = Const.DARK_TEXT_COLOR;
                 this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
                 this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
-                this.highlightColor = Const.DARK_YELLOW;
+                this.highlightColor = Const.DARK_HIGHLIGHT_COLOR;
                 this.red = Const.DARK_RED;
+                this.yellow = Const.DARK_YELLOW;
+                this.green = Const.DARK_GREEN;
+                this.blue = Const.DARK_BLUE;
                 break;
             case "hybrid":
             case "satelite":
@@ -349,16 +372,20 @@ public abstract class Mapper implements Const {
                 this.textColor = Const.DARK_TEXT_COLOR;
                 this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
                 this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
+                this.highlightColor = Const.DARK_HIGHLIGHT_COLOR;
                 this.red = Const.DARK_RED;
                 break;
             case "terrain":
             default:
                 this.setMapProvider(new MapProvider.GoogleTerrain());
-                this.textColor = Const.LIGHT_TEXT_COLOR;
-                this.buttonColor1 = Const.LIGHT_BUTTON_COLOR1;
-                this.buttonColor2 = Const.LIGHT_BUTTON_COLOR2;
-                this.highlightColor = Const.LIGHT_RED;
-                this.red = Const.DARK_RED;
+                this.textColor = Const.DEFAULT_TEXT_COLOR;
+                this.buttonColor1 = Const.DEFAULT_BUTTON_COLOR1;
+                this.buttonColor2 = Const.DEFAULT_BUTTON_COLOR2;
+                this.highlightColor = Const.DEFAULT_HIGHLIGHT_COLOR;
+                this.red = Const.DEFAULT_RED;
+                this.yellow = Const.DEFAULT_YELLOW;
+                this.green = Const.DEFAULT_GREEN;
+                this.blue = Const.DEFAULT_BLUE;
                 break;
         }
         return this;
