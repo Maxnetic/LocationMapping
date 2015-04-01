@@ -28,7 +28,7 @@ public interface Const {
     public static final int DEFAULT_TEXT_COLOR = -9474195;      // #6f6f6d
     public static final int DEFAULT_BUTTON_COLOR1 = -1;         // #ffffff
     public static final int DEFAULT_BUTTON_COLOR2 = -1710619;   // #e5e5e5
-    public static final int DEFAULT_HIGHLIGHT_COLOR = -9474195; // #6f6f6d
+    public static final int DEFAULT_HIGHLIGHT_COLOR = -2992050; // #d2584e
     public static final int DEFAULT_RED = -2992050;             // #d2584e
     public static final int DEFAULT_YELLOW = -864700;           // #f2ce44
     public static final int DEFAULT_GREEN = -12347057;          // #43994f

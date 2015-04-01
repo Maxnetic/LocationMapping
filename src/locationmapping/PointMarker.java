@@ -7,8 +7,8 @@ import org.joda.time.DateTime;
 import processing.core.PGraphics;
 import processing.core.PFont;
 
-import de.fhpotsdam.unfolding.marker.*;
-import de.fhpotsdam.unfolding.geo.*;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
+import de.fhpotsdam.unfolding.geo.Location;
 
 /**
  * Die Klasse PointMarker stellt die Visualisierung von Trackpoints zur Verfügung.

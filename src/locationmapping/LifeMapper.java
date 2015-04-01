@@ -125,7 +125,8 @@ public class LifeMapper extends Mapper {
         // Initialisiere Marker
         this.marker = new ServiceMarker(this.currTrackpoint);
         this.marker.setFont(this.iconFont);
-        this.marker.setColor(this.red);
+        this.marker.setFontsize(24);
+        this.marker.setColor(this.highlightColor);
         this.map.addMarker(marker);
     }
 

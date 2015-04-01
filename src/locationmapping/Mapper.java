@@ -133,24 +133,6 @@ public abstract class Mapper implements Const {
         }
     }
 
-    public static PFont getFont(){
-        try {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            return new PFont(classLoader.getResourceAsStream("Courier.vlw"));
-        } catch (IOException e){
-            throw new RuntimeException(e);
-        }
-
-    }
-    public static PFont getIconFont(){
-        try {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            return new PFont(classLoader.getResourceAsStream("FontAwesome.vlw"));
-        } catch (IOException e){
-            throw new RuntimeException(e);
-        }
-    }
-
     /**
     * Setzt Fensterbreite
     *

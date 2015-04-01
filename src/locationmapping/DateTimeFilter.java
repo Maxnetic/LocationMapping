@@ -6,10 +6,10 @@ import java.util.*;
 import org.joda.time.*;
 
 /**
- * Die Klasse DateTimeFilter stellt Filterattribute zur Verfuegung, 
+ * Die Klasse DateTimeFilter stellt Filterattribute zur Verfuegung,
  * die zum Filtern nach zeitlichen Angaben benoetigt werden.
  * Es kann nach Daten,Zeiten und Wochentagen gefiltert werden.
- * Die einzelnen Attribute koennen durch Methoden gesetzt 
+ * Die einzelnen Attribute koennen durch Methoden gesetzt
  * und dann mit der apply-Methode auf eine TrackpointList angewandt werden.
  * DateTimeFilter erweitert Filter.
  *
@@ -51,7 +51,6 @@ public class DateTimeFilter extends Filter {
 
     /**
      * Konstruktor fuer DateTimeFilter Objekte
-
      */
     public DateTimeFilter(){
         super();
