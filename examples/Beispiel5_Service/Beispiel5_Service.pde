@@ -20,13 +20,13 @@ void setup(){
   mapper.init();
     
   TrackpointList maltetpl;
-  xtpl = mapper.importData("../../data/personX.csv");
+  TrackpointList xtpl = mapper.importData("../../data/personX.csv");
   LocationFilter serviceFilterSMS = new LocationFilter();
   serviceFilterSMS.setService("SMS");
   TrackpointList serviceSMS;
   serviceSMS = serviceFilterSMS.apply(xtpl);
   
-  xtpl = mapper.importData("malte_spitz.csv");
+  xtpl = mapper.importData("../../data/personX.csv");
   LocationFilter serviceFilterTelefonie = new LocationFilter();
   serviceFilterTelefonie.setService("Telefonie");
   TrackpointList serviceTelefonie;

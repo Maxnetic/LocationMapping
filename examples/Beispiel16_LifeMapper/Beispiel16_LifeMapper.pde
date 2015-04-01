@@ -11,7 +11,7 @@ void setup() {
   LifeMapper mapper = new LifeMapper(this);
 //  mapper.setMapProvider("Hybrid");
 //  mapper.setResizableAndDisableOverview(true);
-  mapper.init(825, 985);
+  mapper.init(825, 800);
   TrackpointList data = mapper.importData("../../data/personX.csv");
   mapper.load(data);
 }

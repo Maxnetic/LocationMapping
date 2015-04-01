@@ -12,9 +12,9 @@ import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * LifeMapper erweitert Mapper.
- * Erzeugt ein Mapper-Objekt das nur den aktuellen Marker anzeigt.
- * Dadurch lassen sich Bewegungsmuster besser erkennen.
+ * FireflyMapper erweitert Mapper.
+ * Erzeugt ein Mapper-Objekt das die Visualisierung aehnlich der
+ * Firefly-Animation ermoeglicht.
  *
  * @author FU-Berlin Softwarepraktikum 2015
  * @version 1.0
@@ -49,7 +49,7 @@ public class FireflyMapper extends Mapper{
     Iterator<Trackpoint> iter;
 
     /**
-     * Konstruktor für DynamicMapper Objekte
+     * Konstruktor für FireflyMapper Objekte
      *
      * @param app Processing Applet, in dem Mapper läuft
      */

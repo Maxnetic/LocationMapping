@@ -175,7 +175,7 @@ public class StandardMarker extends SimplePointMarker {
 
     /**
      * Setzt Label
-     * @param neues Label des Markers
+     * @param label neues Label des Markers
      */
     public void setLabel(String label) {
         this.label = label;

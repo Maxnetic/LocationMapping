@@ -2,6 +2,14 @@ package locationmapping;
 
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * Die Klasse Const beinhaltet alle gesetzten Konstanten von locationmapping.
+ * Dazu gehoeren zu importierende Formate, Locations und Farben.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public interface Const {
     /**
      * Zeitformate fuer Importer

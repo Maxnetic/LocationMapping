@@ -33,10 +33,7 @@ public class LocationFilter extends Filter {
     * Service, der im Servicefilter gefiltert wird (SMS, Internet, GPRS)
     */
     String service;
-	/**
-	* Anzahl der am haeufigsten besuchten Orte
-	*/
-	//int mostVisited = 0;
+
 
 
     /**
@@ -48,14 +45,6 @@ public class LocationFilter extends Filter {
         minfrequency = minf;
     }
 	
-	/**
-	* Setzt die Anzahl der am haeufigsten besuchten Orte
-	*
-	* @param mostVisited Anzahl
-	*/
-	/*public void setMostVisited(int mostVisited){
-		this.mostVisited = mostVisited;
-	}*/
 
     /**
     * Setzt den Radius
@@ -139,67 +128,6 @@ public class LocationFilter extends Filter {
                 tp.setVisible(false);
         }
     }
-	
-	/**
-	* Berechnet die n = mostVisited am haeufigsten besuchten Orte
-	*
-	* @param trackpointlist Trackpointliste in der die n haeufigsten Orte gefunden werden sollen
-	*/
-	/*private void mostVisitedFilter(TrackpointList trackpointlist){
-		if (mostVisited > 0) {
-			Array[] mostVisitedTp = new Array[mostVisited];
-			Set<Location> set = locationFrequencies.keySet();
-			Iterator<Location> itr = set.iterator();
-			for(int i = 0;i<mostVisited,i++){
-				if(itr.hastNext()){
-					mostVisitedTp[i] = itr.next();
-				} else {
-					break;
-				}
-			}
-			while(itr.hasNext()){
-				Trackpoint curr = itr.next();
-				if(findMin(mostVisitedTp).getFrequency() < curr.getFrequency()){
-					mostVisitedTp[findIndex(mostVisitedTp)] = curr;
-				}
-			}	
-		}
-	}*/
-	
-	/**
-	* Findet Trackpoint mit kleinster Haeufigkeit in einem Array
-	*
-	* @param tp Array in dem Trackpoint gefunden werden soll
-	* @return Trackpoint mit der kleinsten Haeufigkeit
-	*/
-	/*private Trackpoint findMin(Array[] tp){
-		Trackpoint min = new Trackpoint();
-		min = tp[0];
-		for (int i = 1; i < tp.length(); i++){
-			if (tp[i].getFrequency() < min.getFrequency()){
-				min = tp[i];
-			}
-		}
-		return min;
-	}*/
-	
-	/**
-	* Berechnet den Index des Trackpoints mit der kleinsten Haeufigkeit
-	*
-	* @param tp Array in dem Index gefunden werden soll
-	* @return Index
-	*/
-	/*private int findIndex(Array[] tp){
-		int index = 0;
-		Trackpoint min = new Trackpoint();
-		min = tp[0];
-		for (int i = 0; i < tp.length(); i++){
-			if (tp[i].getFrequency() < min.getFrequency()){
-				index = i;
-			}
-		}
-		return index;
-	}*/
 
     /**
     * Filtert nach Location und Radius

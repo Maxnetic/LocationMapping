@@ -3,6 +3,7 @@ package locationmapping;
 import java.lang.ClassLoader;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.*;
 
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -299,7 +300,7 @@ public abstract class Mapper implements Const {
     /**
     * Setzt MapProvider
     *
-    * @param provider Map Style als String
+    * @param style Map Style als String
     * @throws RuntimeException falls provider String nicht geparsed werden kann
     */
     public void setStyle(String style){
@@ -498,9 +499,11 @@ public abstract class Mapper implements Const {
             case MouseEvent.CLICK:
             this.clickEventHandler(x, y);
             break;
-            case MouseEvent.MOVE:
+            /*
+			case MouseEvent.MOVE:
             this.mouseMoved(x, y);
             break;
+			*/
         }
     }
     /**
@@ -525,13 +528,28 @@ public abstract class Mapper implements Const {
         }
 
     }
-
-    public void mouseMoved(int x, int y) {
-        Marker hitMarker = this.map.getFirstHitMarker(x,y);
-        if (hitMarker != null) {
-            this.infoString = hitMarker.getId();
-        }
+	
+	/**
+	 * liefert Informationen ueber Marker
+	 * NullPointerException noch nicht gehandlet
+	 * @param x x-Koordinate des Mauszeigers
+	 * @param y y-Koordinate des Mauszeigers
+	 * @throws NullpointerException 
+	 */
+    /*
+	public void mouseMoved(int x, int y) throws NullPointerException{
+		try{
+			Marker hitMarker = this.map.getFirstHitMarker(x,y);
+	        if (hitMarker != null) {
+	            this.infoString = hitMarker.getId();
+	        }
+		}
+		catch(NullPointerException e){
+			System.out.println("Marker not found.");
+		}
+        
     }
+	*/
 
     /**
     * Verwaltet Tastenaktionen

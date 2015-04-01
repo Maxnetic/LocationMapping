@@ -5,7 +5,8 @@ import de.fhpotsdam.unfolding.geo.*;
 import java.sql.Timestamp;
 
 /**
- * In diesem Beispiel werden alle Orte aufgelistet, die mindestens 500 Mal besucht wurden.
+ * In diesem Beispiel werden alle Orte aufgelistet, 
+ * die mindestens 500 Mal besucht wurden.
  */
 
 void setup() {
@@ -23,7 +24,7 @@ void setup() {
         MarkerLabeled marker = new MarkerLabeled(trackpoint);
         
         marker.setColor(100,200,0);
-        marker.setLabel("Wohnort");
+        marker.setLabel(">500");
         marker.setSize(10);
         mapper.addMarker(marker);
     }

@@ -7,6 +7,15 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
+/**
+ * Die Klasse FireflyLine erweitert ColoredLinesMarker.
+ * Sie verbindet Locations visuell.
+ * Allerdings ist sie noch nicht funktionsfaehig und noch nicht eingebunden.
+ *
+ * @author FU-Berlin Softwarepraktikum 2015
+ * @version 1.0
+ */
+
 public class FireflyLine extends ColoredLinesMarker {
     int lifetime = 50;
     
