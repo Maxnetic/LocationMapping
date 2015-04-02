@@ -6,9 +6,9 @@ void setup() {
 
     Mapper mapper = new StaticMapper(this);
     mapper.setResizableAndDisableOverview(true);
-    mapper.setStartLocation(Const.GERMANY);
-    mapper.setStartZoomLevel(7);
-    mapper.init(900, 1300);
+    mapper.setStartLocation(Const.Berlin);
+    mapper.setStartZoomLevel(12);
+    mapper.init(1700, 1300);
     mapper.setStyle("dark");
 
     TrackpointList data = mapper.importData("malte_spitz.csv");
