@@ -1,8 +1,5 @@
 import locationmapping.*;
 import de.fhpotsdam.unfolding.*;
-import de.fhpotsdam.unfolding.utils.*;
-import de.fhpotsdam.unfolding.geo.*;
-import java.sql.Timestamp;
 
 /**
  * In diesem Beispiel werden alle Orte aufgelistet, 
@@ -15,17 +12,14 @@ void setup() {
     
     // Import Data
     TrackpointList trackpointlist = mapper.importData("../../data/personX.csv");
-    LocationFilter mostcommon = new LocationFilter();
-    mostcommon.setMinFrequency(500);
+    LocationFilter mostcommon = new LocationFilter().setMinFrequency(500);
     TrackpointList filteredtpl = mostcommon.apply(trackpointlist);
     
     
     for ( Trackpoint trackpoint : filteredtpl ){
-        MarkerLabeled marker = new MarkerLabeled(trackpoint);
+        PointMarker marker = new PointMarker(trackpoint);
         
-        marker.setColor(100,200,0);
-        marker.setLabel(">500");
-        marker.setSize(10);
+        marker.setLabel(">500").setSize(10);
         mapper.addMarker(marker);
     }
 }

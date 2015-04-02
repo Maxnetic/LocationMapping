@@ -1,0 +1,44 @@
+import locationmapping.*;
+import de.fhpotsdam.unfolding.*;
+
+/** In diesem Beispiel werden aus zwei Datensätzen die Orte angezeigt, die von beiden
+ *  besucht wurden.
+ */
+ 
+ 
+void setup() {
+  StaticMapper mapper = new StaticMapper(this);
+  mapper.init();
+    
+  TrackpointList list1;
+  list1 = mapper.importData("../../data/personX.csv");
+  TrackpointList list2;
+  list2 = mapper.importData("../../data/personY.csv");
+    
+  // Der erste Datensatz wird gefiltert, um weniger Vergleiche tätigen zu müssen
+  // Aufgrund des Zeitersparnisses wird dieses Vorgehen stark empfohlen.
+  DateTimeFilter vorFilter = new DateTimeFilter();
+  vorFilter.setStartDate("2009/09/01").setStartTime("08:30");
+  vorFilter.setEndDate("2009/09/30").setEndTime("10:30");;
+  vorFilter.setWeekDays("mo-mi, fr");  
+  
+  LocationFilter schnittmengenFilter = new LocationFilter();
+  
+  // Hier findet der eigentliche Vergleich der Trackpoints statt.
+  TrackpointList vorgefiltert = vorFilter.apply(list1);
+  vorgefiltert = schnittmengenFilter.compareLocation(vorgefiltert, list2, 1);
+  
+  
+  //die gefundenen Orte werden eingezeichnet
+  for ( Trackpoint tp : vorgefiltert ) {
+    PointMarker schnittpunkt = new PointMarker(tp);
+    mapper.addMarker(schnittpunkt);
+  }
+    
+    
+      
+}
+
+void draw() {
+      
+}

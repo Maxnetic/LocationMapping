@@ -45,7 +45,7 @@ public class PointMarker extends SimplePointMarker implements Const{
     /**
     * Textgroesse der Beschriftung
     */
-    int fontsize = 12;
+    int fontsize = 20;
 
 
     /**

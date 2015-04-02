@@ -7,9 +7,9 @@ import locationmapping.*;
  */
 
 void setup() {
-    
     StaticMapper mapper = new StaticMapper(this);
     mapper.init();
+    mapper.setStyle("dark");
     
     TrackpointList data = mapper.importData("../../data/personX.csv");
     
@@ -18,7 +18,8 @@ void setup() {
     TrackpointList sleepLocations = timeFilter.apply(data); 
     
     for( Trackpoint tp : sleepLocations ){
-        StandardMarker marker = new StandardMarker(tp);
+        PointMarker marker = new PointMarker(tp);
+        marker.setColor(mapper.yellow);
         mapper.addMarker(marker);
     }
 }

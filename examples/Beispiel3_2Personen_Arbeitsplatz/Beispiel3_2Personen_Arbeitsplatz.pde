@@ -1,9 +1,5 @@
 import locationmapping.*;
 import de.fhpotsdam.unfolding.*;
-import de.fhpotsdam.unfolding.marker.*;
-import de.fhpotsdam.unfolding.utils.*;
-import de.fhpotsdam.unfolding.geo.*;
-import de.fhpotsdam.unfolding.providers.*;
 
 
 /**
@@ -14,49 +10,43 @@ import de.fhpotsdam.unfolding.providers.*;
 
 void setup(){
   StaticMapper mapper = new StaticMapper(this);
-  colorMode(HSB, 360,100,100);
-  //mapper.setResizable(false); //not possible in eclipse
-  mapper.init();
+  mapper.init(1024, 768);
     
-  TrackpointList xtpl;
-  TrackpointList ytpl;
-  //Import
-  xtpl = mapper.importData("../../data/personX.csv");
-  ytpl = mapper.importData("../../data/personY.csv");
+  // Import
+  TrackpointList xtpl = mapper.importData("../../data/personX.csv");
+  TrackpointList ytpl = mapper.importData("../../data/personY.csv");
   
   //setzen des Arbeitsfilters
   DateTimeFilter arbeitsfilter = new DateTimeFilter();
-  arbeitsfilter.setStartTime("10:00");
-  arbeitsfilter.setEndTime("16:00");
-  arbeitsfilter.setWeekDays("montag-freitag");
-  
+  arbeitsfilter.setStartTime("10:00").setEndTime("16:00");
+  arbeitsfilter.setWeekDays("mo-fr");
   
   LocationFilter frequencyfilter = new LocationFilter();
   frequencyfilter.setMinFrequency(200);
   
   DateTimeFilter arbeitsfilter2 = new DateTimeFilter();
-  arbeitsfilter2.setStartTime("10:00");
-  arbeitsfilter2.setEndTime("16:00");
-  arbeitsfilter2.setWeekDays("montag-freitag");
+  arbeitsfilter2.setStartTime("10:00").setEndTime("16:00");
+  arbeitsfilter2.setWeekDays("mo-fr");
   
   //Anwenden des Arbeitsfilters
   xtpl = arbeitsfilter.apply(xtpl);
   xtpl = frequencyfilter.apply(xtpl);
+  
   ytpl = arbeitsfilter2.apply(ytpl);
   ytpl = frequencyfilter.apply(ytpl);
 
   
   for(Trackpoint tp: xtpl){
-      MarkerRectangle marker = new MarkerRectangle(tp);
+      PointMarker marker = new PointMarker(tp);
       marker.setSize(10);
-      marker.setColor("rot");
+      marker.setColor(Const.YELLOW);
       mapper.addMarker(marker);
   }
   
   for ( Trackpoint tp : ytpl) {
-      StandardMarker marker = new StandardMarker(tp);
+      PointMarker marker = new PointMarker(tp);
       marker.setSize(10);
-      marker.setColor("gelb");
+      marker.setColor(Const.GREEN);
       mapper.addMarker(marker);
   } 
   

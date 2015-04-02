@@ -5,10 +5,10 @@ import java.util.*;
 import de.fhpotsdam.unfolding.geo.*;
 
 /**
- * Die Klasse LocationFilter stellt Filterattribute zur Verfuegung, 
+ * Die Klasse LocationFilter stellt Filterattribute zur Verfuegung,
  * die zum Filtern nach oertlichen Angaben benoetigt werden.
  * Es kann nach Ortsangaben, Radien und Ortshaeufigkeiten gefiltert werden.
- * Die einzelnen Attribute koennen durch Methoden gesetzt 
+ * Die einzelnen Attribute koennen durch Methoden gesetzt
  * und dann mit der apply-Methode auf eine TrackpointList angewandt werden.
  * LocationFilter erweitert Filter.
  *
@@ -40,37 +40,45 @@ public class LocationFilter extends Filter {
     * Setzt die Mindesthaeufigkeit
 	*
     * @param minf Mindesthaeufigkeit
+    * @return LocationFilter Objekt für Method-Chaining
     */
-    public void setMinFrequency(int minf){
+    public LocationFilter setMinFrequency(int minf){
         minfrequency = minf;
+        return this;
     }
-	
+
 
     /**
     * Setzt den Radius
     *
     * @param radius Radius, um den gefiltert wird
+    * @return LocationFilter Objekt für Method-Chaining
     */
-    public void setRadius(int radius){
+    public LocationFilter setRadius(int radius){
         this.radius = radius;
+        return this;
     }
 
     /**
     * Setzt den Ort
     *
     * @param location Ort, um den gefiltert wird
+    * @return LocationFilter Objekt für Method-Chaining
     */
-    public void setLocation(Location location){
+    public LocationFilter setLocation(Location location){
         this.location = location;
+        return this;
     }
 
     /**
     * Setzt den Service
     *
     * @param service Service, nach dem gefiltert werden soll
+    * @return LocationFilter Objekt für Method-Chaining
     */
-    public void setService(String service){
+    public LocationFilter setService(String service){
         this.service = service;
+        return this;
     }
 
     /**
@@ -79,7 +87,7 @@ public class LocationFilter extends Filter {
 	 * @param tpl1 erste TrackpointList zum Vergleichen
 	 * @param tpl2 zweite TrackpointList zum Vergleichen
 	 * @param radius Radius, um Ueberschneidungen in beiden TrackpointLists zu finden
-	 * @return Liste mit Trackpoints, die innerhalb des Radius waren 
+	 * @return Liste mit Trackpoints, die innerhalb des Radius waren
 	 */
     public TrackpointList compareLocation(TrackpointList tpl1, TrackpointList tpl2, int radius){
         TrackpointList newtpl = new TrackpointList();
@@ -101,7 +109,7 @@ public class LocationFilter extends Filter {
 	 * @param tpl2 zweite TrackpointList zum Vergleichen
 	 * @param radius Radius, um Ueberschneidungen in beiden TrackpointLists zu finden
 	 * @param minutes Minuten, die eine Ueberschneidung auseinander liegen darf
-	 * @return Liste mit Trackpoints, die innerhalb des Radius waren 
+	 * @return Liste mit Trackpoints, die innerhalb des Radius waren
 	 */
     public TrackpointList compareLocationAndTime(TrackpointList tpl1, TrackpointList tpl2, int radius, int minutes){
         TrackpointList newtpl = new TrackpointList();

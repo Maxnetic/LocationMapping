@@ -33,7 +33,7 @@ void setup() {
   data = nightFilter.apply(data);
   
   for ( Trackpoint tp : data ){
-    StandardMarker marker = new StandardMarker(tp);
+    PointMarker marker = new PointMarker(tp);
     marker.setSize(data.getFrequency(tp)/10);
     mapper.addMarker(marker);
   }

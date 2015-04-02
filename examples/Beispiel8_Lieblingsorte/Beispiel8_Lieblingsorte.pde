@@ -11,14 +11,13 @@ import de.fhpotsdam.unfolding.providers.*;
 
 void setup() {
   StaticMapper mapper = new StaticMapper(this);
-  hint(ENABLE_RETINA_PIXELS);
-  //mapper.setResizable(false); //not possible in eclipse
   mapper.init();
     
   TrackpointList all;
   all = mapper.importData("../../data/personX.csv");
     
   LocationFilter lieblingsortfilter = new LocationFilter();
+  
   //Mindesthäufigkeit der Besuche wird festgelegt
   lieblingsortfilter.setMinFrequency(500);
   TrackpointList lieblingsorte;
@@ -26,15 +25,10 @@ void setup() {
 
    // Trackpoints werden eingezeichnet
   for ( Trackpoint tp : lieblingsorte ) {
-    MarkerLabeled lieblingsort = new MarkerLabeled(tp);
-    lieblingsort.setLabel("      "+lieblingsorte.getFrequency(tp.getLocation()));
+    PointMarker lieblingsort = new PointMarker(tp);
+    lieblingsort.setLabel(String.format("%d",lieblingsorte.getFrequency(tp)));
     mapper.addMarker(lieblingsort);
-  }
-    
-    
-      
+  }     
 }
 
-void draw() {
-      
-}
+void draw() {}

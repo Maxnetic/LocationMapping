@@ -364,10 +364,10 @@ public abstract class Mapper implements Const {
                 this.buttonColor1 = Const.DEFAULT_BUTTON_COLOR1;
                 this.buttonColor2 = Const.DEFAULT_BUTTON_COLOR2;
                 this.highlightColor = Const.DEFAULT_HIGHLIGHT_COLOR;
-                this.red = Const.DEFAULT_RED;
-                this.yellow = Const.DEFAULT_YELLOW;
-                this.green = Const.DEFAULT_GREEN;
-                this.blue = Const.DEFAULT_BLUE;
+                this.red = Const.RED;
+                this.yellow = Const.YELLOW;
+                this.green = Const.GREEN;
+                this.blue = Const.BLUE;
                 break;
         }
         return this;
