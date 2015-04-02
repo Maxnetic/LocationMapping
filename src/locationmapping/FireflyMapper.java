@@ -1,6 +1,7 @@
 package locationmapping;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
@@ -63,6 +64,14 @@ public class FireflyMapper extends Mapper{
     * @param marker Marker der hinzugefuegt werden soll
     */
     public void addMarker(Marker marker) {
+        // Schriftart für Marker setzen
+        try {
+            HashMap<String,Object> properties = marker.getProperties();
+            properties.put("font", this.iconFont);
+            marker.setProperties(properties);
+        } catch(Exception e){;}
+
+        // Marker zur Liste hinzufügen
         map.addMarker(marker);
     }
 

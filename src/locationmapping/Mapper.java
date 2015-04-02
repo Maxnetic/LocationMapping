@@ -3,7 +3,6 @@ package locationmapping;
 import java.lang.ClassLoader;
 import java.io.InputStream;
 import java.io.IOException;
-import java.io.*;
 
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -35,6 +34,9 @@ public abstract class Mapper implements Const {
     public int buttonColor2;
     public int highlightColor;
     public int red;
+    public int yellow;
+    public int green;
+    public int blue;
 
     /**
     * Das Processing Applet in dem der Mapper laeuft
@@ -55,15 +57,11 @@ public abstract class Mapper implements Const {
     /**
     * der Provider für die Karte
     */
-    AbstractMapProvider mapProvider = new MapProvider.Light();
+    AbstractMapProvider[] mapProviders = {new MapProvider.Light(), new MapProvider.Light()};
     /**
     * Alternativer Karten Provider
     */
-    AbstractMapProvider[] altMapProviders = {new MapProvider.Hybrid(), new MapProvider.Hybrid()};
-    /**
-    * Die Farbe fuer Markierungen auf der Karte
-    */
-    int mapColor = Const.LIGHT_RED;
+    AbstractMapProvider[] altMapProviders = {new MapProvider.Hybrid(), new MapProvider.Dark()};
     /**
     * Die Schriftart fuer Texte auf der Karte
     */
@@ -87,7 +85,7 @@ public abstract class Mapper implements Const {
     /**
     * Zoomlevel, mit der Karte initalisiert wird
     */
-    int startZoomLevel = 10;
+    int startZoomLevel = 12;
     /**
     * Der ZoomIn-Knopf
     */
@@ -103,7 +101,7 @@ public abstract class Mapper implements Const {
     /**
     * Map Switch Button
     */
-    AltMapButton mapSwitchButton;
+    MapSwitchButton mapSwitchButton;
     /**
     * Fenster groessenanpassbar
     */
@@ -112,6 +110,10 @@ public abstract class Mapper implements Const {
     * in die Infobox zu schreibender String
     */
     String infoString = "";
+    /**
+    * Wahrheitswert, ob Kartenstyle geswitched werden muss
+    */
+    boolean styleSwitched = false;
 
     /**
     * Konstruktor für LocationMapper Objekte
@@ -159,28 +161,10 @@ public abstract class Mapper implements Const {
     }
 
     /**
-    * gibt Startzoomstufe zurück
-    */
-    public int getZoomLevel(){
-        return startZoomLevel;
-    }
-
-    /**
-    * legt die Zoomstufe zum Programmstart fest
-    */
-    public void setZoomLevel(int newZoom){
-        startZoomLevel = newZoom;
-    }
-
-    /**
-    * gibt den beim Start gezeigten Ort an
-    */
-    public Location getStartLocation(){
-        return startLocation;
-    }
-
-    /**
     * legt den beim Start gezeigten Ort fest
+    *
+    * @param location Ortsobjekt, welches als Startort der Karte gesetzt wird
+    * @return Mapper Objekt für Method-Chaning
     */
     public Mapper setStartLocation(Location location){
         this.startLocation = location;
@@ -188,6 +172,10 @@ public abstract class Mapper implements Const {
     }
     /**
     * legt den beim Start gezeigten Ort fest
+    *
+    * @param latitude Breitengrad des Startorts
+    * @param longitude Längengrad des Startorts
+    * @return Mapper Objekt für Method-Chaning
     */
     public Mapper setStartLocation(double latitude, double longitude){
         return this.setStartLocation(new Location(latitude, longitude));
@@ -196,59 +184,95 @@ public abstract class Mapper implements Const {
     * Setzt Startzoomstufe
     *
     * @param zoomLevel Startzoomstufe
+    * @return Mapper Objekt für Method-Chaning
     */
     public Mapper setStartZoomLevel(int zoomLevel){
         this.startZoomLevel = zoomLevel;
         return this;
     }
 
+
     /**
-    * Setzt MapProvider
+    * Setzt MapProvider vor Initmethode
     *
-    * @param provider MapProvider
+    * @param provider MapProvider für Hauptkarte
+    * @param overviewProvider MapProvider für Übersichtskarte
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setMapProvider(AbstractMapProvider provider){
-        this.mapProvider = provider;
-        this.map.mapDisplay.setProvider(this.mapProvider);
-        this.overviewMap.mapDisplay.setProvider(this.mapProvider);
+    public Mapper setMapProvider(AbstractMapProvider provider, AbstractMapProvider overviewProvider){
+        this.mapProviders[0] = provider;
+        this.mapProviders[1] = overviewProvider;
+        return this;
     }
     /**
-    * Setzt MapProvider
+    * Setzt MapProvider vor Initmethode
+    *
+    * @param provider MapProvider für Karten
+    * @return Mapper Objekt für Method-Chaning
+    */
+    public Mapper setMapProvider(AbstractMapProvider provider){
+        return this.setMapProvider(provider, provider);
+    }
+    /**
+    * Setzt MapProvider vor Initmethode
+    *
+    * @param provider MapProvider für Hauptkarte als String
+    * @param providerOverview MapProvider für Übersichtskarte als String
+    * @return Mapper Objekt für Method-Chaning
+    */
+    public Mapper setMapProvider(String provider, String providerOverview){
+        return this.setMapProvider(getMapProvider(provider), getMapProvider(providerOverview));
+    }
+    /**
+    * Setzt MapProvider vor Initmethode
     *
     * @param provider MapProvider als String
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setMapProvider(String provider){
-        mapProvider = getMapProvider(provider);
+    public Mapper setMapProvider(String provider){
+        return this.setMapProvider(provider, provider);
     }
+
 
     /**
     * Setzt Alternative Karten Provider
     *
     * @param altProvider alternativer Provider für Karte
     * @param altOverviewProvider alternativer Provider für Übersichtskarte
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setAltMapProvider(AbstractMapProvider altProvider, AbstractMapProvider altOverviewProvider){
+    public Mapper setAltMapProvider(AbstractMapProvider altProvider, AbstractMapProvider altOverviewProvider){
         this.altMapProviders[0] = altProvider;
         this.altMapProviders[1] = altOverviewProvider;
+        return this;
+    }
+    /**
+    * Setzt Alternative Karten Provider
+    *
+    * @param altProvider alternativer Provider für Karte
+    * @return Mapper Objekt für Method-Chaning
+    */
+    public Mapper setAltMapProvider(AbstractMapProvider altProvider){
+        return this.setAltMapProvider(altProvider, altProvider);
     }
     /**
     * Setzt Alternative Karten Provider
     *
     * @param altProvider alternativer Provider für Karte als String
     * @param altOverviewProvider alternativer Provider für Übersichtskarte als String
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setAltMapProvider(String altProvider, String altOverviewProvider){
-        this.altMapProviders[0] = getMapProvider(altProvider);
-        this.altMapProviders[1] = getMapProvider(altOverviewProvider);
+    public Mapper setAltMapProvider(String altProvider, String altOverviewProvider){
+        return this.setAltMapProvider(this.getMapProvider(altProvider), this.getMapProvider(altOverviewProvider));
     }
     /**
     * Setzt Alternative Karten Provider
     *
     * @param altProvider alternativer Provider für Karte als Stringals String
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setAltMapProvider(String altProvider){
-        this.altMapProviders[0] = getMapProvider(altProvider);
-        this.altMapProviders[1] = getMapProvider(altProvider);
+    public Mapper setAltMapProvider(String altProvider){
+        return this.setAltMapProvider(this.getMapProvider(altProvider));
     }
 
     /**
@@ -298,37 +322,55 @@ public abstract class Mapper implements Const {
         throw new RuntimeException("Map Provider not found, allowed values: 'light', 'dark', 'satelite', 'hybrid', 'google', 'osm', 'open street map' ");
     }
     /**
-    * Setzt MapProvider
+    * Setzt Map und UI Style
     *
     * @param style Map Style als String
-    * @throws RuntimeException falls provider String nicht geparsed werden kann
+    * @return Mapper Objekt für Method-Chaning
     */
-    public void setStyle(String style){
+    public Mapper setStyle(String style){
+        this.styleSwitched = true;
         switch(style){
             case "light":
-            this.setMapProvider(new MapProvider.Light());
-            this.textColor = Const.LIGHT_TEXT_COLOR;
-            this.buttonColor1 = Const.LIGHT_BUTTON_COLOR1;
-            this.buttonColor2 = Const.LIGHT_BUTTON_COLOR2;
-            this.highlightColor = Const.LIGHT_RED;
-            this.red = Const.LIGHT_RED;
-            break;
+                this.setMapProvider(new MapProvider.Light());
+                this.textColor = Const.LIGHT_TEXT_COLOR;
+                this.buttonColor1 = Const.LIGHT_BUTTON_COLOR1;
+                this.buttonColor2 = Const.LIGHT_BUTTON_COLOR2;
+                this.highlightColor = Const.LIGHT_HIGHLIGHT_COLOR;
+                break;
             case "dark":
-            this.setMapProvider(new MapProvider.Dark());
-            this.textColor = Const.DARK_TEXT_COLOR;
-            this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
-            this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
-            this.highlightColor = Const.DARK_YELLOW;
-            this.red = Const.DARK_RED;
-            break;
+                this.setMapProvider(new MapProvider.Dark());
+                this.textColor = Const.DARK_TEXT_COLOR;
+                this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
+                this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
+                this.highlightColor = Const.DARK_HIGHLIGHT_COLOR;
+                this.red = Const.DARK_RED;
+                this.yellow = Const.DARK_YELLOW;
+                this.green = Const.DARK_GREEN;
+                this.blue = Const.DARK_BLUE;
+                break;
+            case "hybrid":
+            case "satelite":
+                this.setMapProvider(new MapProvider.Hybrid(), new MapProvider.Dark());
+                this.textColor = Const.DARK_TEXT_COLOR;
+                this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
+                this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
+                this.highlightColor = Const.DARK_HIGHLIGHT_COLOR;
+                this.red = Const.DARK_RED;
+                break;
+            case "terrain":
             default:
-            this.setMapProvider(new MapProvider.GoogleTerrain());
-            this.textColor = Const.DARK_TEXT_COLOR;
-            this.buttonColor1 = Const.DARK_BUTTON_COLOR1;
-            this.buttonColor2 = Const.DARK_BUTTON_COLOR2;
-            this.red = Const.DARK_RED;
-            break;
+                this.setMapProvider(new MapProvider.GoogleTerrain());
+                this.textColor = Const.DEFAULT_TEXT_COLOR;
+                this.buttonColor1 = Const.DEFAULT_BUTTON_COLOR1;
+                this.buttonColor2 = Const.DEFAULT_BUTTON_COLOR2;
+                this.highlightColor = Const.DEFAULT_HIGHLIGHT_COLOR;
+                this.red = Const.DEFAULT_RED;
+                this.yellow = Const.DEFAULT_YELLOW;
+                this.green = Const.DEFAULT_GREEN;
+                this.blue = Const.DEFAULT_BLUE;
+                break;
         }
+        return this;
     }
 
     /**
@@ -359,8 +401,8 @@ public abstract class Mapper implements Const {
         this.app.colorMode(app.HSB, 360, 100, 100, 100);
 
         // Karte erstellen
-        this.map = new UnfoldingMap(this.app, this.mapProvider);
-        this.overviewMap = new OverviewMap(this, 270, 180, this.mapProvider);
+        this.map = new UnfoldingMap(this.app, this.mapProviders[0]);
+        this.overviewMap = new OverviewMap(this, 270, 180, this.mapProviders[1]);
 
         // Setze Farben fuer Interface
         this.setStyle("light");
@@ -383,26 +425,36 @@ public abstract class Mapper implements Const {
         this.zoomOut = new ZoomButton(this, 16, 16, 16, 16, false);
 
         //
-        this.mapSwitchButton = new AltMapButton(this, 16, 64, 92, 20, "SWITCH MAP");
+        this.mapSwitchButton = new MapSwitchButton(this, 251, 16, 84, 16, "SWITCH MAP");
 
         // Listener Einsetzen
         this.app.registerMethod("mouseEvent", this);
         this.app.registerMethod("keyEvent", this);
         this.app.registerMethod("draw", this);
+        this.app.registerMethod("pre", this);
     }
 
+    /**
+    * Methode, die automatisch vor Zeichenmethode aufgerufen wird
+    */
+    public void pre(){
+        if ( this.styleSwitched ){
+            this.map.mapDisplay.setProvider(this.mapProviders[0]);
+            this.overviewMap.mapDisplay.setProvider(this.mapProviders[1]);
+            this.styleSwitched = false;
+        }
+        if ( resizable ){
+            this.map.mapDisplay.resize(this.app.width, this.app.height);
+        }
+    }
     /**
     * Zeichenmethode
     */
     public void draw(){
         // Zeichne Karte
-        if ( resizable ){
-            this.map.mapDisplay.resize(this.app.width, this.app.height);
-            this.map.draw();
-        } else {
-            this.map.draw();
+        this.map.draw();
+        if ( !this.resizable )
             this.overviewMap.draw();
-        }
 
 
         // Zeichne Zoom Slider, ZoomIn-Knopf und ZoomOut-Knopf
@@ -410,9 +462,6 @@ public abstract class Mapper implements Const {
         this.zoomIn.draw();
         this.zoomOut.draw();
         this.mapSwitchButton.draw();
-
-        // Zeichne Infobox
-        this.drawInfoBox(this.infoString);
     }
 
     /**
@@ -449,6 +498,7 @@ public abstract class Mapper implements Const {
     * Importiert Daten aus angegbener Datei in eine Trackpointliste
     *
     * @param filename Name der zu importierenden Datei aus dem data Ordner
+    * @param timeFormat spezifizierung des Datumsformats, wähle eine Constante: UNIX, ISO8601, EXPONENT_APPLE oder MDY_DATETIME
     * @return TrackpointList mit Datenpunkten aus Datei
     */
     public TrackpointList importData(String filename, int timeFormat) {
@@ -457,31 +507,34 @@ public abstract class Mapper implements Const {
     }
 
     /**
-    * Importiert Daten aus angegbener Datei in eine Trackpointliste
+    * Exportiert Daten aus angegbener Trackpointliste in eine CSV Datei
     *
-    * @param filename Name der zu importierenden Datei aus dem data Ordner
+    * @param trackpointList Liste mit zu exportierenden Trackpoint
+    * @param filename Name der zu exportierenden Datei, .csv wird automatisch hinzugefügt
+    * @param maxExportSize maximale Anzahl von Zeilen der Export Datei
     * @throws RuntimeException falls der Export fehlgeschlagen ist
     */
     public void exportData(TrackpointList trackpointList, String filename, int maxExportSize) {
         DataExporter exporter = new DataExporter(this.app);
         exporter.setMaxExportSize(maxExportSize);
-        if ( exporter.write(trackpointList, filename) )
+            if ( exporter.write(trackpointList, filename) )
         System.out.println("Written CSV to " + filename);
         else
-        throw new RuntimeException("export failed");
+            throw new RuntimeException("export failed");
     }
     /**
-    * Importiert Daten aus angegbener Datei in eine Trackpointliste
+    * Exportiert Daten aus angegbener Trackpointliste in eine CSV Datei
     *
-    * @param filename Name der zu importierenden Datei aus dem data Ordner
+    * @param trackpointList Liste mit zu exportierenden Trackpoint
+    * @param filename Name der zu exportierenden Datei, .csv wird automatisch hinzugefügt
     * @throws RuntimeException falls der Export fehlgeschlagen ist
     */
     public void exportData(TrackpointList trackpointList, String filename) {
         DataExporter exporter = new DataExporter(this.app);
         if ( exporter.write(trackpointList, filename) )
-        System.out.println("Written CSV to " + filename);
+            System.out.println("Written CSV to " + filename);
         else
-        throw new RuntimeException("export failed");
+            throw new RuntimeException("export failed");
     }
 
     public abstract void addMarker(Marker marker);
@@ -497,26 +550,24 @@ public abstract class Mapper implements Const {
 
         switch ( e.getAction() ){
             case MouseEvent.CLICK:
-            this.clickEventHandler(x, y);
-            break;
-            /*
-			case MouseEvent.MOVE:
-            this.mouseMoved(x, y);
-            break;
-			*/
+                this.clickEventHandler(x, y);
+                break;
+            case MouseEvent.MOVE:
+                this.moveEventHandler(x, y);
+                break;
         }
     }
     /**
-    * Verwaltet Mausklicks
+    * Verwaltet Mausklickinteractionen
     *
     * @param x X-Koordinate der Maus
     * @param y Y-Koordinate der Maus
     */
     void clickEventHandler(int x, int y) {
         if ( this.zoomIn.mouseOver(x, y) )
-        this.map.zoomLevelIn();
+            this.map.zoomLevelIn();
         else if ( this.zoomOut.mouseOver(x, y) )
-        this.map.zoomLevelOut();
+            this.map.zoomLevelOut();
         else if ( this.slider.mouseOver(x, y) ) {
             this.slider.zoomHandler(x);
         }
@@ -528,37 +579,37 @@ public abstract class Mapper implements Const {
         }
 
     }
-	
-	/**
-	 * liefert Informationen ueber Marker
-	 * NullPointerException noch nicht gehandlet
-	 * @param x x-Koordinate des Mauszeigers
-	 * @param y y-Koordinate des Mauszeigers
-	 * @throws NullpointerException 
-	 */
-    /*
-	public void mouseMoved(int x, int y) throws NullPointerException{
-		try{
-			Marker hitMarker = this.map.getFirstHitMarker(x,y);
-	        if (hitMarker != null) {
-	            this.infoString = hitMarker.getId();
-	        }
-		}
-		catch(NullPointerException e){
-			System.out.println("Marker not found.");
-		}
-        
+    /**
+    * Verwaltet Mausbewegungsinteraktionen
+    *
+    * @param x X-Koordinate der Maus
+    * @param y Y-Koordinate der Maus
+    */
+    void moveEventHandler(int x, int y) {
+        // Marker hitMarker = this.map.getFirstHitMarker(x,y);
+        // if (hitMarker != null) {
+            // this.infoString = hitMarker.getId();
+        // }
     }
-	*/
-
     /**
     * Verwaltet Tastenaktionen
     *
     * @param e Tastenevent
     */
     public void keyEvent(KeyEvent e){
-        if ( e.getKey() == 's' ) {
-            this.mapSwitchButton.mapSwitchHandler();
+        switch( e.getKey() ){
+            case '1':
+                this.setStyle("light");
+                break;
+            case '2':
+                this.setStyle("dark");
+                break;
+            case '3':
+                this.setStyle("terrain");
+                break;
+            case '4':
+                this.setStyle("satelite");
+                break;
         }
     }
 }

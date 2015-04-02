@@ -1,5 +1,7 @@
 package locationmapping;
 
+import java.util.HashMap;
+
 import processing.core.PApplet;
 
 import de.fhpotsdam.unfolding.marker.*;
@@ -24,10 +26,18 @@ public class StaticMapper extends Mapper {
 
     /**
     * Fuegt Marker hinzu
-	*
+    *
     * @param marker Marker der hinzugefuegt werden soll
     */
     public void addMarker(Marker marker) {
-        map.addMarker(marker);
+        // Schriftart für Marker setzen
+        try {
+            HashMap<String,Object> properties = marker.getProperties();
+            properties.put("font", this.iconFont);
+            marker.setProperties(properties);
+        } catch(Exception e){;}
+
+        // Marker zur Liste hinzufügen
+        this.map.addMarker(marker);
     }
 }

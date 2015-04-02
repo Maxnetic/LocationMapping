@@ -1,6 +1,7 @@
 package locationmapping;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
@@ -8,7 +9,7 @@ import processing.core.PApplet;
 import processing.event.MouseEvent;
 import processing.event.KeyEvent;
 
-import de.fhpotsdam.unfolding.marker.*;
+import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
@@ -23,7 +24,7 @@ public class LifeMapper extends Mapper {
     /**
     * Geschwindigkeit mit der gezeichnet wird
     */
-    int secondsPerFrame = 60;
+    int secondsPerFrame = 10;
     /**
      * Der Start/Pause-Knopf
      */
@@ -39,7 +40,7 @@ public class LifeMapper extends Mapper {
     /**
      * Der Marker, der gezeichnet wird
      */
-    SimplePointMarker marker;
+    ServiceMarker marker;
     /**
      * Der aktuelle Trackpoint
      */
@@ -49,9 +50,9 @@ public class LifeMapper extends Mapper {
      */
     Trackpoint nextTrackpoint;
     /**
-     * Speichert horizontale und vertikale Geschwindigkeit
+     * Speichert horizontale, vertikale und absolute Geschwindigkeit
      */
-    float[] currSpeeds = new float[2];
+    float[] currSpeeds = new float[3];
     /**
      * TrackpointList fuer die Marker gezeichnet wird
      */
@@ -68,6 +69,14 @@ public class LifeMapper extends Mapper {
     * @param marker Marker der hinzugefuegt werden soll
     */
     public void addMarker(Marker marker) {
+        // Schriftart für Marker setzen
+        try {
+            HashMap<String,Object> properties = marker.getProperties();
+            properties.put("font", this.iconFont);
+            marker.setProperties(properties);
+        } catch(Exception e){;}
+
+        // Marker zur Liste hinzufügen
         map.addMarker(marker);
     }
 
@@ -86,8 +95,9 @@ public class LifeMapper extends Mapper {
      * Methode muss in setup des Processing Sketches aufgerufen werden
      */
     public void init(){
-        this.setStartZoomLevel(5);
+        this.setStartZoomLevel(8);
         super.init();
+        this.setStyle("terrain");
 
         // Play Button erstellen
         this.play = new PlayButton(this, 41);
@@ -113,15 +123,10 @@ public class LifeMapper extends Mapper {
         this.updateSpeeds();
 
         // Initialisiere Marker
-        this.marker = new SimplePointMarker(location);
-        // HashMap<String, Object> properties = new HashMap<String, Object>();
-        // properties.put("time", trackpoint.getTime());
-        // properties.put("service", trackpoint.getService());
-        // marker.setProperties(properties);
-        this.marker.setColor(this.app.color(359, 31, 84, 30));
-        this.marker.setStrokeColor(this.app.color(359, 31, 84, 100));
-        this.marker.setStrokeWeight(3);
-        this.marker.setRadius(30);
+        this.marker = new ServiceMarker(this.currTrackpoint);
+        this.marker.setFont(this.iconFont);
+        this.marker.setFontsize(24);
+        this.marker.setColor(this.highlightColor);
         this.map.addMarker(marker);
     }
 
@@ -131,7 +136,7 @@ public class LifeMapper extends Mapper {
     public void draw(){
         super.draw();
         this.play.draw();
-        this.drawInfoBox(this.time.toString("EE, HH:mm:ss, MMM d, YYYY"));
+        this.drawInfoBox(this.time.toString("EE, HH:mm:ss, MMM d, YYYY") + "  —  speed: " + (int)this.currSpeeds[2] + "km/h" + activityDescription(this.currTrackpoint));
 
         if ( !this.paused && this.iter.hasNext() ){
             this.time = this.time.plusSeconds(this.secondsPerFrame);
@@ -148,11 +153,28 @@ public class LifeMapper extends Mapper {
                 this.location.setLat(this.location.getLat() +  this.secondsPerFrame * this.currSpeeds[1]);
             }
 
-            this.marker.setLocation(location);
+            this.marker.setLocation(this.location);
+            this.marker.setService(this.currTrackpoint.getService());
+            this.marker.setSize((int) Math.pow(this.map.getZoomLevel(),2)/4);
+            this.marker.draw(this.map);
 
-            // if ( marker.getDistanceTo(this.map.getCenter()) > 4f/(Math.pow(this.map.getZoomLevel(),2))*100 )
-                // this.map.panTo(marker.getLocation());
+            if ( marker.getDistanceTo(this.map.getCenter()) > 1000000/(Math.pow((this.map.getZoomLevel()-4)*5,3)) )
+                this.map.panTo(marker.getLocation());
         }
+    }
+
+    public String activityDescription(Trackpoint trackpoint){
+        String service = trackpoint.getService().toLowerCase();
+        if ( service.contains("telephonie") || service.contains("telefonie") || service.contains("phone") || service.contains("call") )
+            return "  —  on the phone";
+        else if ( service.contains("sms") || service.contains("text") || service.contains("chat") )
+            return "  —  texting someone";
+        else if ( service.contains("email") || service.contains("mail") )
+            return "  —  writing an email";
+        else if ( service.contains("internet") || service.contains("browser") )
+            return "  —  surfing the web";
+        else
+            return "";
     }
 
     /**
@@ -165,6 +187,7 @@ public class LifeMapper extends Mapper {
 
         this.currSpeeds[0] = lonDist/timeDist;
         this.currSpeeds[1] = latDist/timeDist;
+        this.currSpeeds[2] = (float) Math.abs(this.currTrackpoint.locationDistanceTo(this.nextTrackpoint)/(timeDist/3600d));
     }
 
 
